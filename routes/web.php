@@ -33,6 +33,15 @@ Route::get('/phpinfo', function() { phpinfo(); });
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/about-us', function () {
+    return view('public.about_us');
+})->name('about.us');
+
+Route::get('/features', function () {
+    return view('public.features');
+})->name('features');
+
 Route::get('/subscription-expired', function () {
     return view('auth.subscription-expired');
 })->name('subscription.expired');
@@ -46,6 +55,7 @@ Route::get('/privacy-policy', function () {
 Route::get('/terms-of-service', function () {
     return view('public.terms-of-service');
 })->name('terms.of.service');
+
 Route::get('/desa-public', [PublicController::class, 'indexDesa'])->name('public.desas.index');
 Route::get('/fasum-public', [PublicController::class, 'indexPublic'])->name('public.fasum.index');
 Route::get('/fasilitas/{fasum}', [PublicController::class, 'showFasum'])->name('public.fasum.show');

@@ -124,15 +124,29 @@
             <div>
                 @if (Route::has('login'))
                     <div class="space-x-4 hidden md:flex"> {{-- Sembunyikan di mobile, tampilkan di desktop --}}
-                        <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">About Us</a>
-                        <a href="{{ route('public.desas.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Desa Cerdas</a>
-                        <a href="{{ route('public.fasum.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Fasum Cerdas</a>
-                        <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Fitur</a>
-                        <a href="{{ route('privacy.policy') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Kebijakan</a>
+                        <a href="{{ route('about.us') }}"
+                            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">About
+                            Us</a>
+                        <a href="{{ route('public.desas.index') }}"
+                            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Desa
+                            Cerdas</a>
+                        <a href="{{ route('public.fasum.index') }}"
+                            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Fasum
+                            Cerdas</a>
+                        <a href="{{ route('features') }}"
+                            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Fitur</a>
+                        <a href="{{ route('privacy.policy') }}"
+                            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Kebijakan</a>
+                        <a href="{{ route('terms.of.service') }}"
+                            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-300">Ketentuan
+                            Layanan</a>
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-600 transition-colors duration-300">Dashboard</a>
+                            <a href="{{ url('/dashboard') }}"
+                                class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-600 transition-colors duration-300">Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-600 transition-colors duration-300">Log in</a>
+                            <a href="{{ route('login') }}"
+                                class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-600 transition-colors duration-300">Log
+                                in</a>
                         @endauth
                     </div>
                     {{-- Burger menu for mobile --}}
@@ -144,19 +158,33 @@
         </nav>
 
         {{-- Mobile Menu (Hidden by default) --}}
-        <div class="fixed top-0 left-0 w-full h-full bg-white z-20 flex flex-col items-center justify-center space-y-6 md:hidden" id="mobile-menu" style="display: none;">
+        <div class="fixed top-0 left-0 w-full h-full bg-white z-20 flex flex-col items-center justify-center space-y-6 md:hidden"
+            id="mobile-menu" style="display: none;">
             <button class="absolute top-4 right-4 text-gray-700 focus:outline-none" id="close-mobile-menu">
                 <i class="fas fa-times text-3xl"></i>
             </button>
-            <a href="#" class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">About Us</a>
-            <a href="{{ route('public.desas.index') }}" class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Desa Cerdas</a>
-            <a href="{{ route('public.fasum.index') }}" class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Fasum Cerdas</a>
-            <a href="#" class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Fitur</a>
-            <a href="{{ route('privacy.policy') }}" class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Kebijakan</a>
+            <a href="{{ route('about.us') }}"
+                class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">About Us</a>
+            <a href="{{ route('public.desas.index') }}"
+                class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Desa
+                Cerdas</a>
+            <a href="{{ route('public.fasum.index') }}"
+                class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Fasum
+                Cerdas</a>
+            <a href="{{ route('features') }}"
+                class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Fitur</a>
+            <a href="{{ route('privacy.policy') }}"
+                class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Kebijakan</a>
+            <a href="{{ route('terms.of.service') }}"
+                class="text-xl font-medium text-gray-800 hover:text-primary transition-colors duration-300">Ketentuan
+                Layanan</a>
             @auth
-                <a href="{{ url('/dashboard') }}" class="px-6 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary-600 transition-colors duration-300">Dashboard</a>
+                <a href="{{ url('/dashboard') }}"
+                    class="px-6 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary-600 transition-colors duration-300">Dashboard</a>
             @else
-                <a href="{{ route('login') }}" class="px-6 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary-600 transition-colors duration-300">Log in</a>
+                <a href="{{ route('login') }}"
+                    class="px-6 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary-600 transition-colors duration-300">Log
+                    in</a>
             @endauth
         </div>
         <main>
