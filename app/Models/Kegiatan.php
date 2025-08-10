@@ -10,10 +10,13 @@ class Kegiatan extends Model
 {
     use HasFactory, BelongsToDesa;
 
-    protected $fillable = [
+    /**
+     * The attributes that are mass assignable.
+     */
+     protected $fillable = [
         'desa_id',
-        'lembaga_id',
         'nama_kegiatan',
+        'tipe_kegiatan',
         'tanggal_kegiatan',
         'latar_belakang',
         'tujuan_kegiatan',
@@ -23,6 +26,9 @@ class Kegiatan extends Model
         'laporan_dana',
         'sumber_dana',
         'penutup',
+        'status',
+        // Kolom polymorphic ('kegiatanable_id', 'kegiatanable_type')
+        // diisi otomatis oleh relasi, jadi tidak perlu ada di sini.
     ];
 
     protected $casts = [
@@ -30,15 +36,31 @@ class Kegiatan extends Model
         'anggaran_biaya' => 'decimal:2',
     ];
 
-    /**
-     * Relasi ke lembaga yang menyelenggarakan.
-     */
-    public function lembaga()
+    public function desa()
     {
-        return $this->belongsTo(Lembaga::class);
+        return $this->belongsTo(Desa::class);
     }
 
-    public function photos() {
+    /**
+     * Relasi polymorphic ke Lembaga atau Kelompok.
+     */
+    public function kegiatanable()
+    {
+        return $this->morphTo();
+    }
+
+    public function photos()
+    {
         return $this->hasMany(KegiatanPhoto::class);
+    }
+
+    public function lpj()
+    {
+        return $this->hasOne(Lpj::class);
+    }
+
+    public function pengeluarans()
+    {
+        return $this->hasMany(Pengeluaran::class, 'kegiatan_id');
     }
 }

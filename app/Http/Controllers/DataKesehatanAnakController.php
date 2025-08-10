@@ -4,100 +4,156 @@ namespace App\Http\Controllers;
 
 use App\Models\DataKesehatanAnak;
 use App\Models\Warga;
+use App\Models\Posyandu;
+use App\Models\PemeriksaanAnak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class DataKesehatanAnakController extends Controller
 {
-    public function index(Request $request)
+
+
+    public function index(Request $request, string $subdomain)
     {
-        // Query dasar untuk semua warga balita (di bawah 60 bulan)
-        $baseWargaQuery = Warga::whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) < 60');
+        $user = Auth::user();
+        $selectedPosyandu = null;
 
-        // PERUBAHAN: Terapkan filter usia baru
-        if ($request->filled('usia')) {
-            switch ($request->usia) {
-                case '0-12':
-                    $baseWargaQuery->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) <= 12');
-                    break;
-                case '13-36':
-                    $baseWargaQuery->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) BETWEEN 13 AND 36');
-                    break;
-                case '37-60':
-                    $baseWargaQuery->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) BETWEEN 37 AND 60');
-                    break;
-            }
+        // --- 1. MEMBUAT QUERY DASAR YANG "SADAR" HAK AKSES ---
+        // Ini adalah "otak" baru kita. Query ini akan menjadi dasar untuk semua perhitungan.
+        $baseAnakTerpantauQuery = DataKesehatanAnak::query()->whereHas('warga'); // whereHas untuk memicu Trait/Scope
+
+        if ($user->user_type === 'kader_posyandu' && $user->posyandu_id) {
+            // Jika KADER, paksa query hanya untuk posyandunya
+            $selectedPosyandu = Posyandu::with('rws')->find($user->posyandu_id);
+            $baseAnakTerpantauQuery->where('posyandu_id', $selectedPosyandu->id);
+        } elseif ($user->user_type === 'admin_desa' && $request->filled('posyandu_id')) {
+            // Jika ADMIN dan MEMILIH filter
+            $selectedPosyandu = Posyandu::with('rws')->find($request->posyandu_id);
+            $baseAnakTerpantauQuery->where('posyandu_id', $selectedPosyandu->id);
         }
+        // Jika ADMIN dan TIDAK memilih filter, query akan mengambil semua data di desanya (berkat Trait/Scope)
 
-        // Ambil ID warga yang sudah ada di data kesehatan anak
-        $existingWargaIds = DataKesehatanAnak::pluck('warga_id');
+        // --- 2. STATISTIK PARTISIPASI (menggunakan Trait/Scope di Warga) ---
+        $semuaBalitaDiWilayah = Warga::whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) < 60')->get();
+        $idBalitaTerpantau = (clone $baseAnakTerpantauQuery)->pluck('warga_id');
+        $totalBalitaWilayah = $semuaBalitaDiWilayah->count();
+        $totalBalitaTerpantau = $idBalitaTerpantau->unique()->count();
+        $totalBalitaBelumTerpantau = $totalBalitaWilayah - $totalBalitaTerpantau;
+        $persenTerpantau = ($totalBalitaWilayah > 0) ? round(($totalBalitaTerpantau / $totalBalitaWilayah) * 100) : 0;
+        $persenBelumTerpantau = 100 - $persenTerpantau;
 
-        // Tabel 1: Anak yang belum dipantau
-        $anakBaru = (clone $baseWargaQuery)
-            ->whereNotIn('id', $existingWargaIds)
-            ->latest('tanggal_lahir')
-            ->get();
+        // --- 3. DATA UNTUK DASHBOARD VISUAL (menggunakan query dasar) ---
+        $stats = ['stunting' => 0, 'wasting' => 0, 'underweight' => 0, 'normal' => 0, 'dapat_vitamin_a' => 0, 'dapat_imunisasi_polio' => 0, 'persen_vit_a' => 0, 'persen_imunisasi' => 0];
+        $semuaAnakDiKonteks = (clone $baseAnakTerpantauQuery)->with('pemeriksaanTerakhir')->get();
+        $stats['total_balita_terpantau'] = $semuaAnakDiKonteks->count();
 
-        // Tabel 2: Anak yang sudah dipantau
-        $anakTerpantauQuery = DataKesehatanAnak::with(['warga.kartuKeluarga'])
-            ->whereHas('warga', function ($q) use ($request) {
-                $q->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) < 60');
-                if ($request->filled('usia')) {
-                    switch ($request->usia) {
-                        case '0-12': $q->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) <= 12'); break;
-                        case '13-36': $q->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) BETWEEN 13 AND 36'); break;
-                        case '37-60': $q->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) BETWEEN 37 AND 60'); break;
-                    }
+        if ($stats['total_balita_terpantau'] > 0) {
+            foreach ($semuaAnakDiKonteks as $anak) {
+                if ($p = $anak->pemeriksaanTerakhir) {
+                    if (str_contains($p->status_stunting, 'Pendek'))
+                        $stats['stunting']++;
+                    if (str_contains($p->status_wasting, 'Kurus'))
+                        $stats['wasting']++;
+                    if (str_contains($p->status_underweight, 'Kurang'))
+                        $stats['underweight']++;
+                    if ($p->dapat_vitamin_a)
+                        $stats['dapat_vitamin_a']++;
+                    if ($p->dapat_imunisasi_polio)
+                        $stats['dapat_imunisasi_polio']++;
                 }
-            });
-
-        // PERUBAHAN: Terapkan filter pencarian
-        if ($request->filled('search')) {
-            $searchTerm = $request->search;
-            $anakTerpantauQuery->where(function ($query) use ($searchTerm) {
-                $query->where('nama_ibu', 'like', "%{$searchTerm}%")
-                      ->orWhere('nama_ayah', 'like', "%{$searchTerm}%")
-                      ->orWhereHas('warga', function ($q) use ($searchTerm) {
-                          $q->where('nama_lengkap', 'like', "%{$searchTerm}%")
-                            ->orWhere('nik', 'like', "%{$searchTerm}%");
-                      });
-            });
+            }
+            $stats['normal'] = $stats['total_balita_terpantau'] - ($stats['stunting'] + $stats['wasting'] + $stats['underweight']);
+            $stats['normal'] = $stats['normal'] < 0 ? 0 : $stats['normal'];
+            $stats['persen_vit_a'] = round(($stats['dapat_vitamin_a'] / $stats['total_balita_terpantau']) * 100);
+            $stats['persen_imunisasi'] = round(($stats['dapat_imunisasi_polio'] / $stats['total_balita_terpantau']) * 100);
         }
 
-        $anakTerpantau = $anakTerpantauQuery->latest()->paginate(15)->withQueryString();
+        $anakStunting = $semuaAnakDiKonteks->filter(fn($a) => $a->pemeriksaanTerakhir && str_contains($a->pemeriksaanTerakhir->status_stunting, 'Pendek'));
+        $anakWasting = $semuaAnakDiKonteks->filter(fn($a) => $a->pemeriksaanTerakhir && str_contains($a->pemeriksaanTerakhir->status_wasting, 'Kurus'));
+        $anakUnderweight = $semuaAnakDiKonteks->filter(fn($a) => $a->pemeriksaanTerakhir && str_contains($a->pemeriksaanTerakhir->status_underweight, 'Kurang'));
 
-        $stats = [];
-        $stats['total_balita'] = DataKesehatanAnak::count();
-        $stats['usia_0_12'] = DataKesehatanAnak::whereHas('warga', function ($q) { $q->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) <= 12'); })->count();
-        $stats['usia_13_36'] = DataKesehatanAnak::whereHas('warga', function ($q) { $q->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) BETWEEN 13 AND 36'); })->count();
-        $stats['usia_37_60'] = DataKesehatanAnak::whereHas('warga', function ($q) { $q->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) BETWEEN 37 AND 60'); })->count();
+        // --- 4. DATA UNTUK GRAFIK TREN ---
+        $trendData = ['labels' => [], 'stunting' => [], 'wasting' => [], 'underweight' => [], 'normal' => []];
+        $tahunYangDipilih = $request->input('tahun', Carbon::now()->year);
+        for ($bulan = 1; $bulan <= 12; $bulan++) {
+            $trendData['labels'][] = Carbon::create()->month($bulan)->isoFormat('MMM');
 
-        // Statistik Gizi dari pemeriksaan terakhir setiap anak
-        $latestPemeriksaanIds = DB::table('pemeriksaan_anaks')->select(DB::raw('MAX(id) as id'))->groupBy('data_kesehatan_anak_id');
-        $statusGiziCounts = DB::table('pemeriksaan_anaks')->whereIn('id', $latestPemeriksaanIds)->select('status_gizi', DB::raw('count(*) as total'))->groupBy('status_gizi')->pluck('total', 'status_gizi');
+            // Buat query bulanan yang juga sadar hak akses
+            $queryBulanan = PemeriksaanAnak::query()
+                ->whereMonth('tanggal_pemeriksaan', $bulan)
+                ->whereYear('tanggal_pemeriksaan', $tahunYangDipilih);
 
-        $stats['gizi_baik'] = $statusGiziCounts->get('Naik') ?? 0;
-        $stats['gizi_cukup'] = $statusGiziCounts->get('Tetap') ?? 0;
-        $stats['gizi_kurang'] = $statusGiziCounts->get('Turun') ?? 0;
-        $stats['bgm'] = $statusGiziCounts->get('BGM') ?? 0;
+            // Jika ada posyandu dipilih, filter berdasarkan itu
+            if ($selectedPosyandu) {
+                $queryBulanan->where('posyandu_id', $selectedPosyandu->id);
+            } else {
+                // Jika TIDAK ada posyandu dipilih (tampilan global desa),
+                // pastikan query tetap di dalam lingkup desa user.
+                // Trait/Scope di model Warga akan menangani ini.
+                $queryBulanan->whereHas('warga');
+            }
 
-        return view('admin_desa.kesehatan_anak.index', compact('anakBaru', 'anakTerpantau', 'stats'));
+            $totalPemeriksaanBulanIni = (clone $queryBulanan)->count();
+            $stuntingCount = (clone $queryBulanan)->where('status_stunting', 'like', '%Pendek%')->count();
+            $wastingCount = (clone $queryBulanan)->where('status_wasting', 'like', '%Kurus%')->count();
+            $underweightCount = (clone $queryBulanan)->where('status_underweight', 'like', '%Kurang%')->count();
+            $normalCount = $totalPemeriksaanBulanIni - ($stuntingCount + $wastingCount + $underweightCount);
+
+            $trendData['stunting'][] = $stuntingCount;
+            $trendData['wasting'][] = $wastingCount;
+            $trendData['underweight'][] = $underweightCount;
+            $trendData['normal'][] = $normalCount < 0 ? 0 : $normalCount;
+        }
+
+        // --- 5. DATA UNTUK TABEL AKSI (menggunakan query dasar yang sudah ada) ---
+        $anakBaru = Warga::whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) < 60')->whereNotIn('id', $idBalitaTerpantau)->latest('tanggal_lahir')->get();
+        $anakTerpantau = (clone $baseAnakTerpantauQuery)->with(['warga.kartuKeluarga'])->withCount('riwayatPemeriksaan')->latest()->paginate(15)->withQueryString();
+        $anakTerpantau->getCollection()->transform(function ($anak) {
+            $anak->total_sesi = round($anak->created_at->diffInMonths(now()) + 1);
+            return $anak;
+        });
+
+        // --- 6. KIRIM SEMUA DATA KE VIEW ---
+        $posyandus = Posyandu::all();
+        return view('admin_desa.kesehatan_anak.index', compact(
+            'anakBaru',
+            'anakTerpantau',
+            'stats',
+            'posyandus',
+            'selectedPosyandu',
+            'totalBalitaWilayah',
+            'totalBalitaTerpantau',
+            'totalBalitaBelumTerpantau',
+            'persenTerpantau',
+            'persenBelumTerpantau',
+            'trendData',
+            'tahunYangDipilih',
+            'anakStunting',
+            'anakWasting',
+            'anakUnderweight'
+        ));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, string $subdomain, )
     {
         $validated = $request->validate([
             'warga_ids' => 'required|array',
             'warga_ids.*' => 'exists:wargas,id',
+            'posyandu_id' => 'required|exists:posyandu,id'
         ]);
 
         foreach ($validated['warga_ids'] as $wargaId) {
             $warga = Warga::find($wargaId);
 
-            // Gunakan firstOrCreate untuk mencegah duplikasi jika ada pengiriman ganda
+            // mencegah duplikasi jika ada pengiriman ganda
             DataKesehatanAnak::firstOrCreate(
-                ['warga_id' => $wargaId],
+                [
+                    'warga_id' => $wargaId,
+                    'posyandu_id' => $validated['posyandu_id'],
+                ],
                 [
                     'tanggal_lahir' => $warga->tanggal_lahir,
                     'nama_ibu' => $warga->nama_ibu_kandung,
@@ -109,20 +165,41 @@ class DataKesehatanAnakController extends Controller
         return redirect()->back()->with('success', count($validated['warga_ids']) . ' anak berhasil ditambahkan ke daftar pemantauan.');
     }
 
-    public function show(DataKesehatanAnak $kesehatanAnak)
+    // Di dalam PemeriksaanAnakController.php
+
+    public function show(string $subdomain, DataKesehatanAnak $kesehatanAnak)
     {
-        // Halaman detail untuk melihat riwayat pemeriksaan (akan kita buat nanti)
-        $kesehatanAnak->load('warga', 'riwayatPemeriksaan');
-        return view('admin_desa.kesehatan_anak.show', compact('kesehatanAnak'));
+        // Ambil semua riwayat pemeriksaan, urutkan dari yang paling lama ke yang baru
+        $riwayatPemeriksaan = $kesehatanAnak->riwayatPemeriksaan()
+            ->orderBy('tanggal_pemeriksaan', 'asc')
+            ->get();
+
+        // Siapkan "cat warna" untuk grafik
+        $chartLabels = $riwayatPemeriksaan->pluck('tanggal_pemeriksaan')->map(function ($date) {
+            return $date->format('d M Y');
+        });
+
+        $chartDataBeratBadan = $riwayatPemeriksaan->pluck('berat_badan');
+        $chartDataTinggiBadan = $riwayatPemeriksaan->pluck('tinggi_badan');
+        $chartDataHaz = $riwayatPemeriksaan->pluck('zscore_tb_u'); // Z-score Stunting
+
+        return view('admin_desa.kesehatan_anak.show', [
+            'kesehatanAnak' => $kesehatanAnak,
+            'riwayatPemeriksaan' => $riwayatPemeriksaan, // Untuk tabel riwayat
+            'chartLabels' => $chartLabels,
+            'chartDataBeratBadan' => $chartDataBeratBadan,
+            'chartDataTinggiBadan' => $chartDataTinggiBadan,
+            'chartDataHaz' => $chartDataHaz,
+        ]);
     }
 
-    public function edit(DataKesehatanAnak $kesehatanAnak)
+    public function edit(string $subdomain, DataKesehatanAnak $kesehatanAnak)
     {
         $kesehatanAnak->load('warga');
         return view('admin_desa.kesehatan_anak.edit', compact('kesehatanAnak'));
     }
 
-    public function update(Request $request, DataKesehatanAnak $kesehatanAnak)
+    public function update(Request $request, string $subdomain, DataKesehatanAnak $kesehatanAnak)
     {
         $validated = $request->validate([
             'bb_lahir' => 'nullable|numeric',
@@ -136,7 +213,7 @@ class DataKesehatanAnakController extends Controller
         return redirect()->route('kesehatan-anak.index')->with('success', 'Data kesehatan anak berhasil diperbarui.');
     }
 
-    public function destroy(DataKesehatanAnak $kesehatanAnak)
+    public function destroy(string $subdomain, DataKesehatanAnak $kesehatanAnak)
     {
         $kesehatanAnak->delete();
         return redirect()->route('kesehatan-anak.index')->with('success', 'Data kesehatan anak berhasil dihapus.');

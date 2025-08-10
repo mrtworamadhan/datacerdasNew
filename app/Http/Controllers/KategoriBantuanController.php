@@ -14,7 +14,7 @@ class KategoriBantuanController extends Controller
      * Display a listing of the resource.
      * Accessible by Admin Desa, Super Admin, Admin RW, Admin RT.
      */
-    public function index()
+    public function index(string $subdomain)
     {
         $user = Auth::user();
         // Cek hak akses: Admin Desa, Super Admin, Admin RW, Admin RT bisa melihat index
@@ -31,7 +31,7 @@ class KategoriBantuanController extends Controller
      * Show the form for creating a new resource.
      * Accessible only by Admin Desa and Super Admin.
      */
-    public function create()
+    public function create(string $subdomain)
     {
         $user = Auth::user();
         // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa membuat kategori
@@ -54,7 +54,7 @@ class KategoriBantuanController extends Controller
      * Store a newly created resource in storage.
      * Accessible only by Admin Desa and Super Admin.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $subdomain)
     {
         $user = Auth::user();
         // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa menyimpan kategori
@@ -144,7 +144,7 @@ class KategoriBantuanController extends Controller
      * Show the form for editing the specified resource.
      * Accessible only by Admin Desa and Super Admin.
      */
-    public function edit(KategoriBantuan $kategoriBantuan)
+    public function edit(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa mengedit kategori
@@ -171,7 +171,7 @@ class KategoriBantuanController extends Controller
      * Update the specified resource in storage.
      * Accessible only by Admin Desa and Super Admin.
      */
-    public function update(Request $request, KategoriBantuan $kategoriBantuan)
+    public function update(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa memperbarui kategori
@@ -263,7 +263,7 @@ class KategoriBantuanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KategoriBantuan $kategoriBantuan)
+    public function destroy(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa menghapus kategori

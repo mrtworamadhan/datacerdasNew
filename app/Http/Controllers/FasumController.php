@@ -16,6 +16,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver; // Jika menggunakan Imagick
 // use Intervention\Image\Drivers\Gd\Driver as GdDriver; // Jika menggunakan GD
 use Illuminate\Support\Facades\Log; // Pastikan ini di-import
+use Intervention\Image\Drivers\Gd\Driver;
 
 class FasumController extends Controller
 {
@@ -50,7 +51,7 @@ class FasumController extends Controller
      * Display a listing of Fasum for admin users (Admin Desa, RW, RT).
      * This will be filtered by Global Scope.
      */
-    public function index(Request $request)
+    public function index(Request $request,string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -147,7 +148,7 @@ class FasumController extends Controller
         ));
     }
 
-    public function create()
+    public function create(string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -166,7 +167,7 @@ class FasumController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -238,18 +239,13 @@ class FasumController extends Controller
                 foreach ($request->file('photos') as $photo) {
                     Log::info('Fasum store: Processing photo ' . $photo->getClientOriginalName()); // Log nama foto
                     $image = $manager->read($photo->getRealPath());
-
-                    $originalWidth = $image->width();
-
-                    if ($image->width() > 800) {
-                        $image->scale(height: 300);
-                        
-                    }
-
+                    
                     $fileName = uniqid('fasum_') . '.jpg'; // Simpan semua sebagai jpg
+                    $manager = new ImageManager(new Driver());
+                    $resizedImage = $manager->read($image)->scale(width: 800);
                     $path = 'fasum_photos/' . $fileName;
 
-                    Storage::disk('public')->put($path, (string) $image); // Cast ke string sebelum simpan // Encode dengan kualitas
+                    Storage::disk('public')->put($path, (string) $resizedImage->toJpeg(80)); // Cast ke string sebelum simpan // Encode dengan kualitas
                     Log::info('Fasum store: Photo saved to storage: ' . $path); // Log path penyimpanan
 
                     $fasum->photos()->create(['path' => $path]);
@@ -269,7 +265,7 @@ class FasumController extends Controller
         }
     }
 
-    public function show(Fasum $fasum)
+    public function show(string $subdomain,Fasum $fasum)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -281,7 +277,7 @@ class FasumController extends Controller
         return view('admin_desa.fasum.show', compact('fasum'));
     }
 
-    public function edit(Fasum $fasum)
+    public function edit(string $subdomain,Fasum $fasum)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -301,7 +297,7 @@ class FasumController extends Controller
         ]);
     }
 
-    public function update(Request $request, Fasum $fasum)
+    public function update(Request $request, string $subdomain, Fasum $fasum)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -406,7 +402,7 @@ class FasumController extends Controller
         }
     }
 
-    public function destroy(Fasum $fasum)
+    public function destroy(string $subdomain,Fasum $fasum)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -427,7 +423,7 @@ class FasumController extends Controller
         }
     }
 
-    public function destroyPhoto(FasumPhoto $photo)
+    public function destroyPhoto(string $subdomain,FasumPhoto $photo)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -451,7 +447,7 @@ class FasumController extends Controller
         }
     }
 
-    public function getRtsByRw(Request $request)
+    public function getRtsByRw(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -471,7 +467,7 @@ class FasumController extends Controller
         return response()->json($rts);
     }
 
-    public function indexPublic(Request $request)
+    public function indexPublic(Request $request, string $subdomain)
     {
         $fasumsQuery = Fasum::with('desa', 'rw', 'rt', 'photos');
 

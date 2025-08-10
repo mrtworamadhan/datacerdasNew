@@ -46,7 +46,7 @@
                             </td>
                             <td>{{ $lembaga->pengurus->count() }}</td>
                             <td>    
-                                <a href="{{ route('lembaga.kegiatan.index', $lembaga) }}" class="btn btn-xs btn-info" title="Kelola Kegiatan">
+                                <a href="{{ route('kegiatans.index', ['lembaga_id' => $lembaga->id]) }}" class="btn btn-xs btn-info" title="Kelola Kegiatan">
                                     <i class="fas fa-calendar-alt"></i> Kegiatan
                                 </a>
                                 <a href="{{ route('lembaga.edit', $lembaga) }}" class="btn btn-warning btn-xs">Edit</a>

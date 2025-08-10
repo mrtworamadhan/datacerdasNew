@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('desas', function (Blueprint $table) {
             $table->id();
             $table->string('nama_desa');
+            $table->string('subdomain');
             $table->string('kecamatan')->nullable();
             $table->string('kota')->nullable();
             $table->string('provinsi')->nullable();
             $table->string('kode_pos')->nullable();
             $table->string('alamat_desa')->nullable();
             $table->string('nama_kades')->nullable();
+            $table->string('path_logo')->nullable();
             $table->timestamps(); 
         });
     }

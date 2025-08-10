@@ -25,7 +25,7 @@ class PenerimaBantuanController extends Controller
     /**
      * Display a listing of the recipients for a specific Kategori Bantuan.
      */
-    public function index(KategoriBantuan $kategoriBantuan)
+    public function index(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         // Cek hak akses umum untuk modul ini
@@ -45,15 +45,15 @@ class PenerimaBantuanController extends Controller
 
         // Query dasar untuk penerima bantuan kategori ini (Global scope akan memfilter)
         $queryPenerima = PenerimaBantuan::where('kategori_bantuan_id', $kategoriBantuan->id)
-                                          ->with('warga.kartuKeluarga.kepalaKeluarga', 'kartuKeluarga.kepalaKeluarga', 'diajukanOleh', 'disetujuiOleh');
+            ->with('warga.kartuKeluarga.kepalaKeluarga', 'kartuKeluarga.kepalaKeluarga', 'diajukanOleh', 'disetujuiOleh');
 
         // Filter berdasarkan peran pengguna (untuk daftar yang ditampilkan)
         if ($user->isAdminRw()) {
-            $queryPenerima->where(function($q) use ($user) {
+            $queryPenerima->where(function ($q) use ($user) {
                 $q->where('diajukan_oleh_user_id', $user->id)
-                  ->orWhereHas('diajukanOleh', function($q2) use ($user) {
-                      $q2->where('user_type', 'admin_rt')->where('rw_id', $user->rw_id);
-                  });
+                    ->orWhereHas('diajukanOleh', function ($q2) use ($user) {
+                        $q2->where('user_type', 'admin_rt')->where('rw_id', $user->rw_id);
+                    });
             });
         } elseif ($user->isAdminRt()) {
             $queryPenerima->where('diajukan_oleh_user_id', $user->id);
@@ -68,7 +68,7 @@ class PenerimaBantuanController extends Controller
      * Show the form for assigning new recipients to a specific Kategori Bantuan.
      * Accessible by Admin Desa, Admin RW, Admin RT.
      */
-    public function create(KategoriBantuan $kategoriBantuan)
+    public function create(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         // Cek hak akses: Admin Desa, Admin RW, Admin RT bisa mengajukan
@@ -105,7 +105,7 @@ class PenerimaBantuanController extends Controller
      * Store newly assigned recipients.
      * Accessible by Admin Desa, Admin RW, Admin RT.
      */
-    public function store(Request $request, KategoriBantuan $kategoriBantuan)
+    public function store(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         // Cek hak akses untuk menyimpan pengajuan penerima bantuan
@@ -137,10 +137,10 @@ class PenerimaBantuanController extends Controller
             return redirect()->back()->with('error', 'Anda harus memilih setidaknya satu Kartu Keluarga sebagai penerima.')->withInput();
         }
         if ($request->recipient_type === 'warga' && !empty($request->kartu_keluarga_ids)) {
-             return redirect()->back()->with('error', 'Anda memilih tipe "Individu Warga" tetapi juga memilih Kartu Keluarga.')->withInput();
+            return redirect()->back()->with('error', 'Anda memilih tipe "Individu Warga" tetapi juga memilih Kartu Keluarga.')->withInput();
         }
         if ($request->recipient_type === 'kk' && !empty($request->warga_ids)) {
-             return redirect()->back()->with('error', 'Anda memilih tipe "Kartu Keluarga" tetapi juga memilih Individu Warga.')->withInput();
+            return redirect()->back()->with('error', 'Anda memilih tipe "Kartu Keluarga" tetapi juga memilih Individu Warga.')->withInput();
         }
 
         // Validasi field tambahan berdasarkan konfigurasi kategori
@@ -187,14 +187,14 @@ class PenerimaBantuanController extends Controller
 
             if (!$kategoriBantuan->allow_multiple_recipients_per_kk) {
                 $existingWargaRecipients = PenerimaBantuan::where('kategori_bantuan_id', $kategoriBantuan->id)
-                                                          ->whereIn('warga_id', $selectedWargaIds)
-                                                          ->exists();
+                    ->whereIn('warga_id', $selectedWargaIds)
+                    ->exists();
                 if ($existingWargaRecipients) {
                     throw new \Exception('Beberapa warga yang dipilih sudah terdaftar sebagai penerima bantuan ini dan kategori tidak mengizinkan penerima ganda per KK.');
                 }
                 $existingKKRecipients = PenerimaBantuan::where('kategori_bantuan_id', $kategoriBantuan->id)
-                                                        ->whereIn('kartu_keluarga_id', $selectedKKIds)
-                                                        ->exists();
+                    ->whereIn('kartu_keluarga_id', $selectedKKIds)
+                    ->exists();
                 if ($existingKKRecipients) {
                     throw new \Exception('Beberapa Kartu Keluarga yang dipilih sudah terdaftar sebagai penerima bantuan ini dan kategori tidak mengizinkan penerima ganda per KK.');
                 }
@@ -251,7 +251,7 @@ class PenerimaBantuanController extends Controller
      * Show the form for editing the specified recipient.
      * Accessible by Admin Desa, Admin RW, Admin RT.
      */
-    public function edit(KategoriBantuan $kategoriBantuan, PenerimaBantuan $penerimaBantuan)
+    public function edit(string $subdomain, KategoriBantuan $kategoriBantuan, PenerimaBantuan $penerimaBantuan)
     {
         $user = Auth::user();
         // Cek hak akses: Admin Desa, Super Admin, Admin RW, Admin RT bisa mengedit detail
@@ -284,7 +284,7 @@ class PenerimaBantuanController extends Controller
         if (!is_array($requiredAdditionalFields)) {
             $requiredAdditionalFields = [];
         }
-        
+
         $existingAdditionalData = $penerimaBantuan->detail_tambahan ?? [];
         if (is_string($existingAdditionalData)) {
             $existingAdditionalData = json_decode($existingAdditionalData, true) ?? [];
@@ -300,7 +300,7 @@ class PenerimaBantuanController extends Controller
      * Update the specified recipient in storage.
      * Accessible by Admin Desa, Admin RW, Admin RT.
      */
-    public function update(Request $request, KategoriBantuan $kategoriBantuan, PenerimaBantuan $penerimaBantuan)
+    public function update(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan, PenerimaBantuan $penerimaBantuan)
     {
         $user = Auth::user();
         // Cek hak akses: Admin Desa, Super Admin, Admin RW, Admin RT bisa mengupdate
@@ -391,7 +391,7 @@ class PenerimaBantuanController extends Controller
      * Show the detail of a specific recipient (for Admin Desa to approve/reject).
      * This method will be used for approval/rejection UI.
      */
-    public function show(KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
+    public function show(string $subdomain, KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
     {
         $user = Auth::user();
         // Cek hak akses: Admin Desa, Super Admin, Admin RW, Admin RT bisa melihat detail
@@ -426,7 +426,7 @@ class PenerimaBantuanController extends Controller
      * Update the status of a recipient (Approve/Reject).
      * Accessible by Admin Desa, Admin RW, Admin RT.
      */
-    public function updateStatus(Request $request, KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
+    public function updateStatus(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
     {
         $user = Auth::user();
         // Cek hak akses: Admin Desa (approve/reject), Admin RW (verifikasi RW), Admin RT (verifikasi RT)
@@ -492,7 +492,7 @@ class PenerimaBantuanController extends Controller
      * Remove the specified recipient from storage.
      * Accessible only by Admin Desa (for cleanup).
      */
-    public function destroy(KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
+    public function destroy(string $subdomain, KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
@@ -536,7 +536,7 @@ class PenerimaBantuanController extends Controller
      * Export recipients to PDF.
      * Accessible by Admin Desa, Super Admin.
      */
-    public function exportPdf(KategoriBantuan $kategoriBantuan)
+    public function exportPdf(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
@@ -573,7 +573,7 @@ class PenerimaBantuanController extends Controller
      * Export recipients to Excel.
      * Accessible by Admin Desa, Super Admin.
      */
-    public function exportExcel(KategoriBantuan $kategoriBantuan)
+    public function exportExcel(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
@@ -586,9 +586,10 @@ class PenerimaBantuanController extends Controller
         return Excel::download(new PenerimaBantuanExport($kategoriBantuan->id), $fileName);
     }
 
-    public function searchWarga(Request $request)
+    public function searchWarga(Request $request, string $subdomain)
     {
         $user = Auth::user();
+
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
             return response()->json(['results' => []], 403);
         }
@@ -600,78 +601,76 @@ class PenerimaBantuanController extends Controller
             return response()->json(['results' => []]);
         }
 
-        $kategoriBantuan = KategoriBantuan::where('id', $kategoriBantuanId)->first();
+        $kategoriBantuan = KategoriBantuan::find($kategoriBantuanId);
         if (!$kategoriBantuan) {
             return response()->json(['results' => []]);
         }
 
+        // Pastikan bentuknya array
         $kriteria = $kategoriBantuan->kriteria_json;
         $kriteria = is_string($kriteria) ? json_decode($kriteria, true) : ($kriteria ?? []);
 
         $queryWarga = Warga::with(['kartuKeluarga', 'rt', 'rw']);
 
-        $isAnyCriteriaApplied = false;
-
-        if (!empty($kriteria['status_keluarga'])) {
-            $queryWarga->whereHas('kartuKeluarga', function ($q) use ($kriteria) {
-                $q->whereIn('klasifikasi', $kriteria['status_keluarga']);
-            });
-            $isAnyCriteriaApplied = true;
-        }
-
-        if (!empty($kriteria['hubungan_keluarga'])) {
-            $queryWarga->whereIn('hubungan_keluarga', $kriteria['hubungan_keluarga']);
-            $isAnyCriteriaApplied = true;
-        }
-
-        if (isset($kriteria['memiliki_balita']) && $kriteria['memiliki_balita'] === true) {
-            $queryWarga->whereJsonContains('status_khusus', 'Balita');
-            $isAnyCriteriaApplied = true;
-        }
-
-        if (isset($kriteria['min_usia']) && is_numeric($kriteria['min_usia']) && isset($kriteria['max_usia']) && is_numeric($kriteria['max_usia'])) {
-            $maxBirthDate = Carbon::now()->subYears($kriteria['min_usia'])->endOfDay();
-            $minBirthDate = Carbon::now()->subYears($kriteria['max_usia'] + 1)->startOfDay();
-            $queryWarga->whereBetween('tanggal_lahir', [$minBirthDate, $maxBirthDate]);
-            $isAnyCriteriaApplied = true;
-        } elseif (isset($kriteria['min_usia']) && is_numeric($kriteria['min_usia'])) {
-            $maxBirthDate = Carbon::now()->subYears($kriteria['min_usia'])->endOfDay();
-            $queryWarga->where('tanggal_lahir', '<=', $maxBirthDate);
-            $isAnyCriteriaApplied = true;
-        } elseif (isset($kriteria['max_usia']) && is_numeric($kriteria['max_usia'])) {
-            $minBirthDate = Carbon::now()->subYears($kriteria['max_usia'] + 1)->startOfDay();
-            $queryWarga->where('tanggal_lahir', '>=', $minBirthDate);
-            $isAnyCriteriaApplied = true;
-        }
-
-        if (!empty($kriteria['jenis_kelamin'])) {
-            $queryWarga->where('jenis_kelamin', $kriteria['jenis_kelamin']);
-            $isAnyCriteriaApplied = true;
-        }
-
-        if (!empty($kriteria['status_khusus'])) {
-            foreach ($kriteria['status_khusus'] as $status) {
-                $queryWarga->whereJsonContains('status_khusus', $status);
+        // Kalau ada kriteria → filter sesuai syarat
+        if (!empty($kriteria)) {
+            if (!empty($kriteria['status_keluarga'])) {
+                $queryWarga->whereHas('kartuKeluarga', function ($q) use ($kriteria) {
+                    $q->whereIn('klasifikasi', $kriteria['status_keluarga']);
+                });
             }
-            $isAnyCriteriaApplied = true;
+
+            if (!empty($kriteria['hubungan_keluarga'])) {
+                $queryWarga->whereIn('hubungan_keluarga', $kriteria['hubungan_keluarga']);
+            }
+
+            if (!empty($kriteria['memiliki_balita'])) {
+                $queryWarga->whereJsonContains('status_khusus', 'Balita');
+            }
+
+            if (!empty($kriteria['min_usia']) || !empty($kriteria['max_usia'])) {
+                $min = $kriteria['min_usia'] ?? null;
+                $max = $kriteria['max_usia'] ?? null;
+
+                if ($min && $max) {
+                    $maxBirthDate = Carbon::now()->subYears($min)->endOfDay();
+                    $minBirthDate = Carbon::now()->subYears($max + 1)->startOfDay();
+                    $queryWarga->whereBetween('tanggal_lahir', [$minBirthDate, $maxBirthDate]);
+                } elseif ($min) {
+                    $maxBirthDate = Carbon::now()->subYears($min)->endOfDay();
+                    $queryWarga->where('tanggal_lahir', '<=', $maxBirthDate);
+                } elseif ($max) {
+                    $minBirthDate = Carbon::now()->subYears($max + 1)->startOfDay();
+                    $queryWarga->where('tanggal_lahir', '>=', $minBirthDate);
+                }
+            }
+
+            if (!empty($kriteria['jenis_kelamin'])) {
+                $queryWarga->where('jenis_kelamin', $kriteria['jenis_kelamin']);
+            }
+
+            if (!empty($kriteria['status_khusus'])) {
+                foreach ($kriteria['status_khusus'] as $status) {
+                    $queryWarga->whereJsonContains('status_khusus', $status);
+                }
+            }
         }
 
-        if (!$isAnyCriteriaApplied && empty($kriteria['hubungan_keluarga'])) {
-             $queryWarga->where('hubungan_keluarga', 'Kepala Keluarga');
-        }
-
+        // Exclude warga yang sudah terdaftar
         $existingRecipientWargaIds = PenerimaBantuan::where('kategori_bantuan_id', $kategoriBantuanId)
-                                                    ->whereNotNull('warga_id')
-                                                    ->pluck('warga_id')
-                                                    ->toArray();
-        if (!$kategoriBantuan->allow_multiple_recipients_per_kk) {
+            ->whereNotNull('warga_id')
+            ->pluck('warga_id')
+            ->toArray();
+
+        if (!$kategoriBantuan->allow_multiple_recipients_per_kk && !empty($existingRecipientWargaIds)) {
             $queryWarga->whereNotIn('id', $existingRecipientWargaIds);
         }
 
+        // Search term
         if ($searchTerm) {
-            $queryWarga->where(function($q) use ($searchTerm) {
+            $queryWarga->where(function ($q) use ($searchTerm) {
                 $q->where('nama_lengkap', 'LIKE', "%{$searchTerm}%")
-                  ->orWhere('nik', 'LIKE', "%{$searchTerm}%");
+                    ->orWhere('nik', 'LIKE', "%{$searchTerm}%");
             });
         }
 
@@ -694,7 +693,7 @@ class PenerimaBantuanController extends Controller
         return response()->json(['results' => $formattedResults]);
     }
 
-    public function searchKK(Request $request)
+    public function searchKK(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -770,25 +769,25 @@ class PenerimaBantuanController extends Controller
         }
 
         if (!$isAnyCriteriaApplied && empty($kriteria['hubungan_keluarga'])) {
-             $queryKK->whereHas('wargas', function($q) {
-                 $q->where('hubungan_keluarga', 'Kepala Keluarga');
-             });
+            $queryKK->whereHas('wargas', function ($q) {
+                $q->where('hubungan_keluarga', 'Kepala Keluarga');
+            });
         }
 
         $existingRecipientKKIds = PenerimaBantuan::where('kategori_bantuan_id', $kategoriBantuanId)
-                                                 ->whereNotNull('kartu_keluarga_id')
-                                                 ->pluck('kartu_keluarga_id')
-                                                 ->toArray();
+            ->whereNotNull('kartu_keluarga_id')
+            ->pluck('kartu_keluarga_id')
+            ->toArray();
         if (!$kategoriBantuan->allow_multiple_recipients_per_kk) {
             $queryKK->whereNotIn('id', $existingRecipientKKIds);
         }
 
         if ($searchTerm) {
-            $queryKK->where(function($q) use ($searchTerm) {
+            $queryKK->where(function ($q) use ($searchTerm) {
                 $q->where('nomor_kk', 'like', '%' . $searchTerm . '%')
-                  ->orWhereHas('kepalaKeluarga', function($q2) use ($searchTerm) {
-                      $q2->where('nama_lengkap', 'like', '%' . $searchTerm . '%');
-                  });
+                    ->orWhereHas('kepalaKeluarga', function ($q2) use ($searchTerm) {
+                        $q2->where('nama_lengkap', 'like', '%' . $searchTerm . '%');
+                    });
             });
         }
 

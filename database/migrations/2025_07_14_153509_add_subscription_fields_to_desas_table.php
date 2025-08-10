@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('desas', function (Blueprint $table) {
             // Kolom untuk status langganan
-            $table->enum('subscription_status', ['active', 'trial', 'inactive'])->default('trial')->after('kode_pos');
+            $table->enum('subscription_status', ['aktif', 'trial', 'nonaktif'])->default('trial')->after('kode_pos');
             // Tanggal berakhirnya langganan
             $table->timestamp('subscription_ends_at')->nullable()->after('subscription_status');
             // Tanggal berakhirnya masa percobaan (jika ada)

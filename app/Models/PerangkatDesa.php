@@ -15,6 +15,7 @@ class PerangkatDesa extends Model
         'nama',
         'jabatan',
         'user_id', // WAJIB ada di fillable
+        'foto_path', 
     ];
 
     // Relasi ke Desa

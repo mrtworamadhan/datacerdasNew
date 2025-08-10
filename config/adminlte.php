@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'tataDESA',
+    'title' => 'dataCerdas',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -312,38 +312,56 @@ return [
 
         // Sidebar items:
         [
+            'header' => 'SUPER ADMIN', 
+            'role' => 'superadmin',
+            'can' => 'is_super_admin',
+        ],
+        [
             'text' => 'Dashboard',
             'url' => 'dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
+            'can' => 'is_super_admin',
+            'role' => 'superadmin',
         ],
-
-        // --- GRUP MENU SUPER ADMIN ---
-        ['header' => 'SUPER ADMIN', 'can' => 'is_super_admin'],
         [
             'text' => 'Manajemen Desa',
             'url' => 'desas',
             'icon' => 'fas fa-fw fa-building',
             'can' => 'is_super_admin',
+            'role' => 'superadmin',
         ],
         [
             'text' => 'Manajemen Pengguna',
             'url' => 'admin/users',
             'icon' => 'fas fa-fw fa-users-cog',
             'can' => 'is_super_admin',
+            'role' => 'superadmin',
         ],
         [
             'text' => 'Pengaturan Perusahaan', // Tambahkan menu ini
             'url' => 'company-settings',      // Rute baru
             'icon' => 'fas fa-fw fa-cogs',    // Icon yang sesuai
             'can' => 'is_super_admin',
+            'role' => 'superadmin',
         ],
+        
 
         // --- GRUP MENU ADMIN DESA ---
-        ['header' => 'CERDAS Administrasi', 'can' => 'admin_desa_access'],
+        [
+            'header' => 'MENU UTAMA',
+            'role' => 'tenant', // "Tanda Pengenal" untuk filter
+        ],
+        [
+            'text' => 'Dashboard',
+            'url' => 'dashboard',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
+            'role' => 'tenant',
+        ],
         [
             'text' => 'Profil & Kelembagaan',
             'icon' => 'fas fa-fw fa-university',
             'can' => 'admin_desa_access',
+            'role' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Profil Desa',
@@ -361,6 +379,7 @@ return [
             'text' => 'Administrasi Sistem',
             'icon' => 'fas fa-fw fa-cogs',
             'can' => 'admin_desa_access',
+            'role' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Manajemen Pengguna Desa',
@@ -374,43 +393,84 @@ return [
                 ],
             ],
         ],
-        ['header' => 'CERDAS tata Lembaga'],
+        [
+            'header' => 'CERDAS tata Lembaga',
+            'role' => 'tenant',
+        ],
         [
             'text' => 'Lembaga Desa',
             'url' => 'lembaga',
             'icon' => 'fas fa-fw fa-handshake',
-            'can' => 'admin_desa_access'
+            'can' => 'admin_desa_access',
+            'role' => 'tenant',
         ],
         [
             'text' => 'Kelompok Desa',
             'url' => 'kelompok',
             'icon' => 'fas fa-fw fa-people-group',
+            'can' => 'admin_desa_access',
+            'role' => 'tenant',
         ],
         [
             'text' => 'Kegiatan & LPJ',
-            'url' => 'kegiatan',
+            'url' => 'kegiatans',
             'icon' => 'fas fa-fw fa-file-pen',
-            'can' => 'admin_desa_access'
+            'can' => 'admin_desa_access',
+            'role' => 'tenant',
         ],
-        ['header' => 'CERDAS tata FASUM'],
+
+        [
+            'header' => 'Aset CERDAS',
+            'role' => 'tenant',
+        ],
+        [
+            'text' => 'Manajemen Aset',
+            'icon' => 'fas fa-fw fa-cubes',
+            'can' => 'admin_desa_access',
+            'role' => 'tenant',
+            'submenu' => [
+                [
+                    'text' => 'Daftar Aset',
+                    'route'  => 'asets.index',
+                    'can' => 'admin_desa_access',
+                    'icon' => 'fas fa-fw fa-list',
+                ],
+                [
+                    'text' => 'Tambah Aset Baru',
+                    'route'  => 'asets.create',
+                    'can' => 'admin_desa_access',
+                    'icon' => 'fas fa-fw fa-plus-circle',
+                ],
+            ],
+        ],
+        [
+            'header' => 'CERDAS tata FASUM',
+            'role' => 'tenant',
+        ],
         [
             'text' => 'Data Fasum',
             'url' => 'fasum',
             'icon' => 'fas fa-fw fa-hospital',
-            'can' => 'admin_rt_access'
+            'can' => 'admin_rt_access',
+            'role' => 'tenant',
         ],
 
-        ['header' => 'CERDAS tata Warga'],
+        [
+            'header' => 'CERDAS tata Warga',
+            'role' => 'tenant',
+        ],
         [
             'text' => 'Data Wilayah', // MENU BARU
             'url' => 'wilayah',
             'icon' => 'fas fa-fw fa-map-marker-alt',
             'can' => 'admin_rt_access',
+            'role' => 'tenant',
         ],
         [
             'text' => 'Data Kependudukan',
             'icon' => 'fas fa-fw fa-users',
             'can' => 'admin_rt_access',
+            'role' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Data Kartu Keluarga',
@@ -429,31 +489,39 @@ return [
             'url' => 'kategori-bantuan',
             'icon' => 'fas fa-fw fa-tags',
             'can' => 'admin_rt_access',
+            'role' => 'tenant',
         ],
         [
             'text' => 'Daftar Penerima',
             'url' => 'penerima-bantuan', // Arahkan ke halaman daftar penerima jika ada
             'icon' => 'fas fa-fw fa-stream',
             'can' => 'admin_rt_access',
+            'role' => 'tenant',
         ],
 
-        ['header' => 'CERDAS Pelayanan'],
+        [
+            'header' => 'CERDAS Pelayanan',
+            'role' => 'tenant',
+        ],
         [
             'text' => 'Buat Pengajuan Surat',
             'url' => 'pengajuan-surat/create',
             'icon' => 'fas fa-fw fa-pen-square',
-            'can' => 'admin_rt_access',
+            'can' => 'admin_desa_access',
+            'role' => 'tenant',
         ],
         [
             'text' => 'Daftar Pengajuan',
             'url' => 'pengajuan-surat',
             'icon' => 'fas fa-fw fa-inbox',
             'can' => 'admin_desa_access',
+            'role' => 'tenant',
         ],
         [
             'text' => 'Pengaturan Surat',
             'icon' => 'fas fa-fw fa-cogs',
             'can' => 'admin_desa_access',
+            'role' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Setting Kop & TTD',
@@ -467,12 +535,24 @@ return [
                 ],
             ],
         ],
-        ['header' => 'CERDAS tata POSYANDU', 'can' => 'kader_posyandu_access'], // Nanti kita buat Gate-nya
+        [
+            'header' => 'CERDAS tata POSYANDU', 
+            'can' => 'kader_posyandu_access',
+            'role' => 'tenant',
+        ], // Nanti kita buat Gate-nya
+        [
+            'text' => 'Data Posyandu',
+            'url' => 'posyandu',
+            'icon' => 'fas fa-fw fa-user-nurse',
+            'can' => 'kader_posyandu_access',
+            'role' => 'tenant',
+        ],
         [
             'text' => 'Data Kesehatan Anak',
             'url' => 'kesehatan-anak',
             'icon' => 'fas fa-fw fa-child',
             'can' => 'kader_posyandu_access',
+            'role' => 'tenant',
         ],
 
         // --- GRUP MENU PENGATURAN AKUN ---
@@ -497,6 +577,7 @@ return [
     */
 
     'filters' => [
+        \App\Filters\MenuFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
@@ -504,6 +585,7 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
+        
     ],
 
     /*

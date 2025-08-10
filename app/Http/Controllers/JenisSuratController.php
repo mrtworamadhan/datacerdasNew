@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 
 class JenisSuratController extends Controller
 {
-    public function index()
+    public function index(string $subdomain)
     {
         $jenisSurats = JenisSurat::with('klasifikasi')->latest()->paginate(10);
         return view('admin_desa.jenis_surat.index', compact('jenisSurats'));
     }
 
-    public function create()
+    public function create(string $subdomain)
     {
         $desa = Desa::findOrFail(auth()->user()->desa_id);
         $klasifikasiSurats = KlasifikasiSurat::orderBy('kode')->get();
@@ -24,7 +24,7 @@ class JenisSuratController extends Controller
         return view('admin_desa.jenis_surat.create', compact('klasifikasiSurats', 'suratSetting', 'desa'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, string $subdomain)
     {
         $validated = $request->validate([
             'nama_surat' => 'required|string|max:255',
@@ -42,18 +42,20 @@ class JenisSuratController extends Controller
             $validated['custom_fields'] = array_filter(array_map('trim', explode("\n", $validated['custom_fields_text'])));
         }
 
+        $validated['is_mandiri'] = $request->has('is_mandiri');
+
         JenisSurat::create($validated);
 
         return redirect()->route('jenis-surat.index')->with('success', 'Jenis surat berhasil ditambahkan.');
     }
 
-    public function show(JenisSurat $jenisSurat)
+    public function show(string $subdomain, JenisSurat $jenisSurat)
     {
         $suratSetting = SuratSetting::firstOrCreate(['desa_id' => auth()->user()->desa_id]);
         return view('admin_desa.jenis_surat.show', compact('jenisSurat', 'suratSetting'));
     }
 
-    public function edit(JenisSurat $jenisSurat)
+    public function edit(string $subdomain, JenisSurat $jenisSurat)
     {
         $desa = Desa::findOrFail(auth()->user()->desa_id);
         $klasifikasiSurats = KlasifikasiSurat::orderBy('kode')->get();
@@ -61,7 +63,7 @@ class JenisSuratController extends Controller
         return view('admin_desa.jenis_surat.edit', compact('jenisSurat', 'klasifikasiSurats', 'suratSetting', 'desa'));
     }
 
-    public function update(Request $request, JenisSurat $jenisSurat)
+    public function update(Request $request, string $subdomain, JenisSurat $jenisSurat)
     {
         $validated = $request->validate([
             'nama_surat' => 'required|string|max:255',
@@ -82,13 +84,15 @@ class JenisSuratController extends Controller
         } else {
             $validated['custom_fields'] = null;
         }
+        
+        $validated['is_mandiri'] = $request->has('is_mandiri');
 
         $jenisSurat->update($validated);
 
         return redirect()->route('jenis-surat.index')->with('success', 'Jenis surat berhasil diperbarui.');
     }
 
-    public function destroy(JenisSurat $jenisSurat)
+    public function destroy(string $subdomain, JenisSurat $jenisSurat)
     {
         $jenisSurat->delete();
         return redirect()->route('jenis-surat.index')->with('success', 'Jenis surat berhasil dihapus.');

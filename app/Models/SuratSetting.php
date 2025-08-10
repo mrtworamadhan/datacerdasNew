@@ -9,5 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class SuratSetting extends Model
 {
     use HasFactory, BelongsToDesa;
-    protected $fillable = ['desa_id', 'path_kop_surat','path_logo_pemerintah', 'penanda_tangan_nama', 'penanda_tangan_jabatan'];
+    protected $fillable = [
+        'desa_id', 
+        'path_kop_surat',
+        'path_logo_pemerintah',
+        'path_ttd', 
+        'penanda_tangan_nama', 
+        'penanda_tangan_jabatan'
+    ];
 }

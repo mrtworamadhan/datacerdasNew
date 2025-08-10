@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -21,10 +22,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_type', // Tambahkan ini
+        'user_type',
         'desa_id',
-        'rw_id', // Tambahkan ini
+        'rw_id',
         'rt_id',
+        'posyandu_id',
         
     ];
 
@@ -68,6 +70,10 @@ class User extends Authenticatable
         return $this->belongsTo(RT::class);
     }
 
+    public function posyandu()
+    {
+        return $this->belongsTo(Posyandu::class, 'posyandu_id');
+    }
     // Contoh method untuk cek role (nanti bisa kita kembangkan)
     public function isSuperAdmin()
     {
@@ -93,4 +99,5 @@ class User extends Authenticatable
     {
         return $this->user_type === 'kader_posyandu';
     }
+    
 }

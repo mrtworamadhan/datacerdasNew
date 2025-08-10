@@ -12,7 +12,7 @@ class WilayahController extends Controller
     /**
      * Menampilkan halaman utama manajemen wilayah yang berisi daftar RW.
      */
-    public function index()
+    public function index(string $subdomain)
     {
         // Ambil semua data RW untuk desa yang sedang aktif (Global Scope akan bekerja di sini).
         // Kita juga akan langsung menghitung jumlah RT, KK, dan Warga di setiap RW
@@ -24,7 +24,7 @@ class WilayahController extends Controller
         return view('admin_desa.wilayah.index', compact('rws'));
     }
 
-    public function showRw(Rw $rw)
+    public function showRw(string $subdomain, Rw $rw)
     {
         // Mengambil data RT yang berada di bawah RW yang dipilih.
         // Kita juga langsung hitung jumlah KK dan Warga di setiap RT.
@@ -36,7 +36,7 @@ class WilayahController extends Controller
         return view('admin_desa.wilayah.show_rw', compact('rw', 'rts'));
     }
 
-    public function showRt(Rt $rt)
+    public function showRt(string $subdomain, Rt $rt)
     {
         // Mengambil data warga yang berada di bawah RT yang dipilih.
         // Kita juga load relasi kartuKeluarga agar bisa ditampilkan di tabel.

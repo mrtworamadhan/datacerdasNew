@@ -14,7 +14,7 @@ class PublicController extends Controller
      * Display a listing of Fasum for public view.
      * Accessible by anyone (public).
      */
-     public function indexPublic(Request $request)
+     public function indexPublic(Request $request,)
     {
         // Untuk halaman publik, kita tidak menerapkan Global Scope BelongsToDesa secara otomatis
         // karena kita ingin menampilkan Fasum dari desa tertentu berdasarkan parameter atau semua desa.

@@ -6,6 +6,7 @@ use App\Models\Desa;
 use App\Models\RW;
 use App\Models\RT;
 use App\Models\User;
+use App\Models\Posyandu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class AdminDesaUserManagementController extends Controller
     /**
      * Display a listing of the users (Admin RW, RT, Kader Posyandu) for the current desa.
      */
-    public function index()
+    public function index(string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
@@ -37,7 +38,7 @@ class AdminDesaUserManagementController extends Controller
     /**
      * Show the consolidated form for generating RW/RT/Kader Posyandu accounts.
      */
-    public function showGenerationForm()
+    public function showGenerationForm(string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
@@ -68,6 +69,10 @@ class AdminDesaUserManagementController extends Controller
             ->get();
 
         $rws = Rw::where('desa_id', $user->desa_id)->get(); // Semua RW di desa
+        $posyandus = Posyandu::all();
+        $posyandusWithKader = User::where('user_type', 'kader_posyandu')
+            ->whereNotNull('posyandu_id')
+            ->pluck('posyandu_id');
 
         return view('admin_desa.user_management.generate', compact(
             'desa',
@@ -76,14 +81,16 @@ class AdminDesaUserManagementController extends Controller
             'currentKaderCount',
             'rwsWithoutKader',
             'rwsWithKader',
-            'rws' // Teruskan semua RW untuk dropdown RT
+            'rws',
+            'posyandus',
+            'posyandusWithKader'
         ));
     }
 
     /**
      * Generate or update RW accounts.
      */
-    public function generateRws(Request $request)
+    public function generateRws( Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
@@ -98,7 +105,7 @@ class AdminDesaUserManagementController extends Controller
 
         $jumlahRw = $request->jumlah_rw;
         $generatedAccounts = [];
-        $desaSlug = Str::slug($desa->nama_desa);
+        $desaSlug = str_replace('-', '', Str::slug($desa->nama_desa));
 
         for ($i = 1; $i <= $jumlahRw; $i++) {
             $nomorRw = str_pad($i, 2, '0', STR_PAD_LEFT); // Format 01, 02
@@ -110,7 +117,7 @@ class AdminDesaUserManagementController extends Controller
             );
 
             // Buat atau update akun Admin RW
-            $adminRwEmail = "rw{$nomorRw}_{$desaSlug}@tatadesa.id"; // Format email RW
+            $adminRwEmail = "rw{$nomorRw}.{$desaSlug}@datacerdas.com"; // Format email RW
             $adminRw = User::firstOrCreate(
                 ['email' => $adminRwEmail],
                 [
@@ -139,7 +146,7 @@ class AdminDesaUserManagementController extends Controller
     /**
      * Generate or update RT accounts for a specific RW.
      */
-    public function generateRts(Request $request)
+    public function generateRts(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
@@ -151,10 +158,11 @@ class AdminDesaUserManagementController extends Controller
             'jumlah_rt' => 'required|integer|min:0',
         ]);
 
+        $desa = Desa::findOrFail($user->desa_id);
         $rw = RW::where('desa_id', $user->desa_id)->findOrFail($request->rw_id_for_rt);
         $jumlahRt = $request->jumlah_rt;
         $generatedAccounts = [];
-        $desaSlug = Str::slug($rw->desa->nama_desa);
+        $desaSlug = str_replace('-', '', Str::slug($desa->nama_desa));
         $nomorRwPadded = str_pad($rw->nomor_rw, 2, '0', STR_PAD_LEFT); // Untuk email RT
 
         for ($i = 1; $i <= $jumlahRt; $i++) {
@@ -166,7 +174,7 @@ class AdminDesaUserManagementController extends Controller
             );
 
             // Format email RT: [nomor_rw_padded][nomor_rt_padded]_slugdesa@tatadesa.id
-            $adminRtEmail = "{$nomorRwPadded}{$nomorRt}_{$desaSlug}@tatadesa.id";
+            $adminRtEmail = "rt{$nomorRt}{$nomorRwPadded}.{$desaSlug}@datacerdas.com";
             $adminRt = User::firstOrCreate(
                 ['email' => $adminRtEmail],
                 [
@@ -195,7 +203,7 @@ class AdminDesaUserManagementController extends Controller
     /**
      * Generate or update Kader Posyandu accounts.
      */
-    public function generateKaders(Request $request)
+    public function generateKaders(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
@@ -204,39 +212,47 @@ class AdminDesaUserManagementController extends Controller
 
         $desa = Desa::findOrFail($user->desa_id);
 
+        // PENYESUAIAN 1: Validasi sekarang berdasarkan posyandu_id
         $request->validate([
-            'rw_id_for_kader' => [
+            'posyandu_id' => [ // Nama input di form harus 'posyandu_id'
                 'required',
-                'exists:rws,id',
-                Rule::unique('users', 'rw_id')->where(function ($query) use ($desa) {
+                'exists:posyandu,id',
+                Rule::unique('users', 'posyandu_id')->where(function ($query) use ($desa) {
                     return $query->where('user_type', 'kader_posyandu')
                         ->where('desa_id', $desa->id);
                 }),
             ],
         ], [
-            'rw_id.unique' => 'RW ini sudah memiliki akun Kader Posyandu. Satu RW hanya boleh memiliki satu akun Kader Posyandu.',
+            // Pesan error juga disesuaikan
+            'posyandu_id.unique' => 'Posyandu ini sudah memiliki akun Kader. Satu Posyandu hanya boleh memiliki satu akun Kader.',
         ]);
 
-        $rw = Rw::where('desa_id', $desa->id)->findOrFail($request->rw_id_for_kader);
-        $generatedAccounts = [];
-        $kaderEmail = "kader_rw{$rw->nomor_rw}_{$desa->slug}@tatadesa.id"; // Email lebih spesifik
+        // PENYESUAIAN 2: Kita cari data Posyandu, bukan lagi RW
+        $posyandu = Posyandu::with('rws')->where('desa_id', $desa->id)->findOrFail($request->posyandu_id);
 
+        // PENYESUAIAN 3: Membuat email dan nama user yang lebih deskriptif
+        $desaSlug = str_replace('-', '', Str::slug($desa->nama_desa));
+        $posyanduSlug = str_replace('-', '', Str::slug($posyandu->nama_posyandu));
+        $kaderEmail = "{$posyanduSlug}.{$desaSlug}@datacerdas.com";
         DB::beginTransaction();
         try {
             $kader = User::firstOrCreate(
                 ['email' => $kaderEmail],
                 [
-                    'name' => "Kader Posyandu RW {$rw->nomor_rw} {$desa->nama_desa}",
+                    'name' => "Kader {$posyandu->nama_posyandu}",
                     'password' => Hash::make('password123'),
                     'user_type' => 'kader_posyandu',
                     'desa_id' => $desa->id,
-                    'rw_id' => $rw->id, // Isi rw_id
-                    'rt_id' => null, // Kader tidak punya RT spesifik
+                    'posyandu_id' => $posyandu->id, // <- DATA UTAMA BARU
+                    'rw_id' => $posyandu->rw_id,   // <- Ini kita simpan sebagai data pendukung
+                    'rt_id' => null,
                 ]
             );
+
+            // PENYESUAIAN 4: Menampilkan info yang relevan di hasil generate
             $generatedAccounts[] = [
                 'tipe' => 'Kader Posyandu',
-                'nomor' => $rw->nomor_rw, // Nomor RW
+                'nomor' => "{$posyandu->nama_posyandu}-RW{$posyandu->rws->nomor_rw}",
                 'email' => $kader->email,
                 'password' => 'password123',
             ];
@@ -255,7 +271,7 @@ class AdminDesaUserManagementController extends Controller
     }
 
     // Metode edit, update, destroy tetap sama seperti sebelumnya
-    public function edit(User $user)
+    public function edit(string $subdomain,User $user)
     {
         $loggedInUser = Auth::user();
         if ($user->desa_id !== $loggedInUser->desa_id || $user->isSuperAdmin()) {
@@ -269,7 +285,7 @@ class AdminDesaUserManagementController extends Controller
         return view('admin_desa.user_management.edit', compact('user', 'userTypes', 'rws', 'rts'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, string $subdomain,User $user)
     {
         $loggedInUser = Auth::user();
         if ($user->desa_id !== $loggedInUser->desa_id || $user->isSuperAdmin()) {
@@ -302,7 +318,7 @@ class AdminDesaUserManagementController extends Controller
         return redirect()->route('admin_desa.user_management.index')->with('success', 'Data pengguna berhasil diperbarui!');
     }
 
-    public function destroy(User $user)
+    public function destroy(string $subdomain, User $user)
     {
         $loggedInUser = Auth::user();
         if ($user->desa_id !== $loggedInUser->desa_id || $user->isSuperAdmin()) {

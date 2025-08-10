@@ -52,7 +52,7 @@
 
         .tanda-tangan {
             margin-top: 50px;
-            width: 40%;
+            width: 50%;
             float: right;
             text-align: center;
         }
@@ -93,10 +93,11 @@
         <div class="watermark">ARSIP - DICETAK ULANG</div>
     @endif
     <header class="kop-surat">
-        @if($suratSetting->path_kop_surat)
-            <img src="{{ public_path('storage/' . $suratSetting->path_kop_surat) }}" alt="Kop Surat">
+        @if($kopSuratBase64)
+            <img src="{{ $kopSuratBase64 }}" alt="Kop Surat" style="max-width: 100%; height: auto;">
         @else
-            <p>[ KOP SURAT ]</p>
+            <p style="font-weight: bold; font-size: 16px;">KOP SURAT DESA</p>
+            <p>[ Silakan atur kop surat di menu Pengaturan Surat ]</p>
         @endif
     </header>
 
@@ -112,10 +113,45 @@
             <p>{{ $desa->nama_desa ?? 'Nama Desa' }}, {{ $pengajuanSurat->tanggal_selesai->translatedFormat('d F Y') }}
             </p>
             <p>{{ $suratSetting->penanda_tangan_jabatan ?? 'Kepala Desa' }} {{ $desa->nama_desa ?? 'Nama Desa' }}</p>
-            <br><br><br>
+            <br>
+            <img src="{{ $ttdBase64 }}" alt="ttd" style="max-width: 40%; height: auto;">
             <p class="nama">{{ $suratSetting->penanda_tangan_nama ?? 'Nama Kepala Desa' }}</p>
         </div>
     </main>
+    @if(isset($isAnjungan) && $isAnjungan)
+        <div class="container text-center no-print" style="margin-top: 30px;">
+            <style>
+                @media print { .no-print { display: none; } }
+            </style>
+            <p>Dokumen sedang disiapkan untuk dicetak...</p>
+            <p>Jika dialog cetak tidak muncul, silakan klik tombol di bawah ini.</p>
+            <button onclick="window.print()" class="btn btn-primary btn-lg">
+                <i class="fas fa-print"></i> CETAK ULANG
+            </button>
+        </div>
+
+        <!-- <script>
+            // Fungsi untuk menutup tab
+            function closeTab() {
+                // Memberi pesan bahwa proses selesai sebelum tab ditutup
+                document.body.innerHTML = '<div style="text-align: center; margin-top: 50px;"><h1>Proses Cetak Selesai.</h1><p>Anda bisa menutup jendela ini.</p></div>';
+                // Menutup jendela/tab
+                window.close();
+            }
+
+            // Memasang "pendengar" untuk event setelah mencetak
+            window.addEventListener('afterprint', (event) => {
+                closeTab();
+            });
+
+            // Jalankan fungsi print() setelah halaman selesai dimuat
+            window.onload = function() {
+                setTimeout(function() {
+                    window.print();
+                }, 500); // Beri jeda 0.5 detik agar semua elemen (kop surat) sempat termuat
+            }
+        </script> -->
+    @endif
 </body>
 
 </html>

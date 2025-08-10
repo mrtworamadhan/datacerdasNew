@@ -28,6 +28,16 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="path_ttd">Upload Logo Pemerintah (Garuda/Pemda)</label>
+                        <input type="file" name="path_ttd" class="form-control">
+                        @if($setting->path_ttd)
+                            <small class="form-text text-muted">Logo saat ini:</small><br>
+                            <img src="{{ asset('storage/' . $setting->path_ttd) }}" alt="Logo Pemerintah"
+                                class="img-fluid mt-2"
+                                style="max-height: 100px; border: 1px solid #ddd; background: #eee; padding: 5px;">
+                        @endif
+                    </div>
+                    <div class="form-group">
                         <label for="path_kop_surat">Upload Kop Surat (Kosongkan jika tidak ingin mengubah)</label>
                         <input type="file" name="path_kop_surat" class="form-control">
                         @if($setting->path_kop_surat)

@@ -1,0 +1,4667 @@
+﻿kode_golongan;kode_bidang;kode_kelompok;kode_sub_kelompok;kode_sub_sub_kelompok;nama_sub_sub_kelompok
+1;0;0;0;0;PERSEDIAAN
+1;1;0;0;0;BARANG PAKAI HABIS
+1;1;1;0;0;BAHAN
+1;1;1;1;0;BAHAN BANGUNAN DAN KONSTRUKSI
+1;1;1;1;1;Aspal
+1;1;1;1;2;Semen
+1;1;1;1;3;Kaca
+1;1;1;1;4;Pasir
+1;1;1;1;5;Batu
+1;1;1;1;6;Cat
+1;1;1;1;7;Seng
+1;1;1;1;8;Baja
+1;1;1;1;9;Electro Dalas
+1;1;1;1;10;Patok Beton
+1;1;1;1;11;Tiang Beton
+1;1;1;1;12;Besi Beton
+1;1;1;1;13;Tegel
+1;1;1;1;14;Genteng
+1;1;1;1;15;Bis Beton
+1;1;1;1;16;Plat
+1;1;1;1;17;Steel Sheet Pile
+1;1;1;1;18;Concrete Sheet Pile
+1;1;1;1;19;Kawat Bronjong
+1;1;1;1;20;Karung
+1;1;1;1;21;Minyak Cat/Thinner
+1;1;1;1;999;Bahan Bangunan Dan Konstruksi  Lainnya
+1;1;1;2;0;BAHAN KIMIA
+1;1;1;2;1;Bahan Kimia Padat
+1;1;1;2;2;Bahan Kimia Cair
+1;1;1;2;3;Bahan Kimia Gas
+1;1;1;2;999;Bahan Kimia Lainnya
+1;1;1;3;0;BAHAN PELEDAK
+1;1;1;3;1;Anfo
+1;1;1;3;2;Detonator
+1;1;1;3;3;Dinamit
+1;1;1;3;4;Gelatine
+1;1;1;3;5;Sumbu Ledak/Api
+1;1;1;3;999;Bahan Peledak Lainnya
+1;1;1;4;0;BAHAN BAKAR DAN PELUMAS
+1;1;1;4;1;Bahan Bakar Minyak
+1;1;1;4;2;Minyak Pelumas
+1;1;1;4;3;Minyak Hydrolis
+1;1;1;4;4;Bahan Bakar Gas
+1;1;1;4;5;Batubara
+1;1;1;4;999;Bahan Bakar Dan Pelumas Lainnya
+1;1;1;5;0;BAHAN BAKU
+1;1;1;5;1;Kawat
+1;1;1;5;2;Kayu
+1;1;1;5;3;Logam/Metalorgi
+1;1;1;5;4;Latex
+1;1;1;5;5;Biji Plastik
+1;1;1;5;6;Karet (Bahan Baku)
+1;1;1;5;999;Bahan Baku Lainnya
+1;1;1;6;0;BARANG DALAM PROSES
+1;1;1;6;1;Barang Dalam Proses
+1;1;1;6;999;Barang Dalam Proses Lainnya
+1;1;1;99;0;BAHAN LAINNYA
+1;1;1;99;999;Bahan Lainnya
+1;1;2;0;0;SUKU CADANG
+1;1;2;1;0;SUKU CADANG ALAT ANGKUTAN
+1;1;2;1;1;Suku Cadang Alat Angkutan Darat Bermotor
+1;1;2;1;2;Suku Cadang Alat Angkutan Darat Tak Bermotor
+1;1;2;1;3;Suku Cadang Alat Angkutan Apung Bermotor
+1;1;2;1;4;Suku Cadang Alat Angkutan Apung Tak Bermotor
+1;1;2;1;5;Suku Cadang Alat Angkutan Udara Bermotor
+1;1;2;1;999;Suku Cadang Alat Angkutan Lainnya
+1;1;2;2;0;SUKU CADANG ALAT BESAR
+1;1;2;2;1;Suku Cadang Alat Besar Darat
+1;1;2;2;2;Suku Cadang Alat Besar Apung
+1;1;2;2;3;Suku Cadang Alat Besar Bantu
+1;1;2;2;999;Suku Cadang Alat Besar Lainnya
+1;1;2;3;0;SUKU CADANG ALAT KEDOKTERAN
+1;1;2;3;1;Suku Cadang Alat Kedokteran Umum
+1;1;2;3;2;Suku Cadang Alat Kedokteran Gigi
+1;1;2;3;3;Suku Cadang Alat Kedokteran Keluarga Berencana
+1;1;2;3;4;Suku Cadang Alat Kedokteran Bedah
+1;1;2;3;5;Suku Cadang Alat Kedokteran Kebidanan Dan Penyakit Kandungan
+1;1;2;3;6;Suku Cadang Alat Kedokteran THT
+1;1;2;3;7;Suku Cadang Alat Kedokteran Mata
+1;1;2;3;8;Suku Cadang Alat Kedokteran Penyakit Dalam
+1;1;2;3;9;Suku Cadang Alat Kedokteran Alat Kesehatan Anak
+1;1;2;3;10;Suku Cadang Alat Kedokteran Poliklinik Set
+1;1;2;3;11;Suku Cadang Alat Kedokteran Untuk Penderita Cacat Tubuh
+1;1;2;3;12;Suku Cadang Alat Kedokteran Syaraf
+1;1;2;3;13;Suku Cadang Alat Kedokteran Jantung
+1;1;2;3;14;Suku Cadang Alat Kedokteran Nuklir
+1;1;2;3;15;Suku Cadang Alat Kedokteran Radiologi
+1;1;2;3;16;Suku Cadang Alat Kedokteran Kulit Dan Kelamin
+1;1;2;3;17;Suku Cadang Alat Kedokteran Ugd
+1;1;2;3;18;Suku Cadang Alat Kedokteran Hematologi
+1;1;2;3;19;Suku Cadang Alat Kedokteran Hewan
+1;1;2;3;999;Suku Cadang Alat Kedokteran Lainnya
+1;1;2;4;0;SUKU CADANG ALAT LABORATORIUM
+1;1;2;4;1;Suku Cadang Alat Laboratorium Kimia Air Taknik Penyehatan
+1;1;2;4;2;Suku Cadang Alat Laboratorium Micro Biologi Penyehatan
+1;1;2;4;3;Suku Cadang Alat Laboratorium Hidro Kimia
+1;1;2;4;4;Suku Cadang Alat Laboratorium Model Hidrolika
+1;1;2;4;5;Suku Cadang Alat Laboratorium Batuan/Geologi
+1;1;2;4;6;Suku Cadang Alat Laboratorium Bahan Bangunan Konstruksi
+1;1;2;4;7;Suku Cadang Alat Laboratorium  Aspal, Cat Dan Kimia
+1;1;2;4;8;Suku Cadang Alat Laboratorium  Mekanika Tanah Dan Batuan
+1;1;2;4;9;Suku Cadang Alat Laboratorium Cocok Tanam
+1;1;2;4;10;Suku Cadang Alat Laboratorium Logam, Mesin Dan Listrik
+1;1;2;4;11;Suku Cadang Alat Laboratorium Umum
+1;1;2;4;12;Suku Cadang Alat Laboratorium Microbiologi
+1;1;2;4;13;Suku Cadang Alat Laboratorium Kimia
+1;1;2;4;14;Suku Cadang Alat Laboratorium Patologi
+1;1;2;4;15;Suku Cadang Alat Laboratorium Immunologi
+1;1;2;4;16;Suku Cadang Alat Laboratorium Film
+1;1;2;4;17;Suku Cadang Alat Laboratorium Radio Isotop
+1;1;2;4;18;Suku Cadang Alat Laboratorium Makanan
+1;1;2;4;19;Suku Cadang Alat Laboratorium Aero Dinamika
+1;1;2;4;20;Suku Cadang Alat Laboratorium Standarisasi Kaliberasi Dan Instrumen Lainnya
+1;1;2;4;21;Suku Cadang Alat Laboratorium Farmasi
+1;1;2;4;22;Suku Cadang Alat Laboratorium Pemantauan Kualitas Udara
+1;1;2;4;23;Suku Cadang Alat Laboratorium Fisika
+1;1;2;4;24;Suku Cadang Alat Laboratorium Hidrodinamika
+1;1;2;4;25;Suku Cadang Alat Laboratorium Pengkajian Teknik Pantai
+1;1;2;4;26;Suku Cadang Alat Laboratorium Kematologi
+1;1;2;4;27;Suku Cadang Alat Laboratorium Proses Peleburan
+1;1;2;4;28;Suku Cadang Alat Laboratorium Pasir
+1;1;2;4;29;Suku Cadang Alat Laboratorium Proses Pembuatan Cetakan
+1;1;2;4;30;Suku Cadang Alat Laboratorium Proses Pembuatan Pola
+1;1;2;4;31;Suku Cadang Alat Laboratorium Metalography
+1;1;2;4;32;Suku Cadang Alat Laboratorium Proses Pengelasan
+1;1;2;4;33;Suku Cadang Alat Laboratorium Uji Proses Pengelasan
+1;1;2;4;34;Suku Cadang Alat Laboratorium Proses Pembuatan Logam
+1;1;2;4;35;Suku Cadang Alat Laboratorium Metrologie
+1;1;2;4;36;Suku Cadang Alat Laboratorium Proses Pelapisan Logam
+1;1;2;4;37;Suku Cadang Alat Laboratorium Proses Pengolahan Panas
+1;1;2;4;38;Suku Cadang Alat Laboratorium Proses Teknologi Tekstil
+1;1;2;4;39;Suku Cadang Alat Laboratorium Uji Tekstil
+1;1;2;4;40;Suku Cadang Alat Laboratorium Proses Teknologi Keramik
+1;1;2;4;41;Suku Cadang Alat Laboratorium Proses Teknologi Kulit Karet
+1;1;2;4;42;Suku Cadang Alat Laboratorium Uji Kulit Karet Dan Plastik
+1;1;2;4;43;Suku Cadang Alat Laboratorium Alat Uji Keramik
+1;1;2;4;44;Suku Cadang Alat Laboratorium Proses Teknologi Selulosa
+1;1;2;4;45;Suku Cadang Alat Laboratorium  Paska Panen
+1;1;2;4;46;Suku Cadang Alat Laboratorium Pertanian (Suku Cadang Alat Laboratorium)
+1;1;2;4;47;Suku Cadang Alat Laboratorium Kualitas Air
+1;1;2;4;48;Suku Cadang Alat Laboratorium Elektronika Dan Daya
+1;1;2;4;49;Suku Cadang Alat Laboratorium Energi Surya
+1;1;2;4;50;Suku Cadang Alat Laboratorium Konversi Batubara Dan Bioma
+1;1;2;4;51;Suku Cadang Alat Laboratorium Oceanografi
+1;1;2;4;52;Suku Cadang Alat Laboratorium Perairan
+1;1;2;4;53;Suku Cadang Alat Laboratorium Biologi
+1;1;2;4;54;Suku Cadang Alat Laboratorium Geofisika
+1;1;2;4;55;Suku Cadang Alat Laboratorium Tambang
+1;1;2;4;56;Suku Cadang Alat Laboratorium Tambang Proses/Teknik Kimia
+1;1;2;4;57;Suku Cadang Alat Laboratorium Proses Industri
+1;1;2;4;58;Suku Cadang Alat Laboratorium Kesehatan Kerja
+1;1;2;4;59;Suku Cadang Alat Laboratorium Kearsipan
+1;1;2;4;60;Suku Cadang Alat Laboratorium Perikanan dan Kelautan
+1;1;2;4;999;Suku Cadang Alat Laboratorium Lainnya
+1;1;2;5;0;SUKU CADANG ALAT PEMANCAR
+1;1;2;5;1;Suku Cadang Alat Pemancar MF/MW
+1;1;2;5;2;Suku Cadang Alat Pemancar HF/SW
+1;1;2;5;3;Suku Cadang Alat Pemancar FHF/MF
+1;1;2;5;4;Suku Cadang Alat Pemancar UHF
+1;1;2;5;5;Suku Cadang Alat Pemancar SHF
+1;1;2;5;999;Suku Cadang Alat Pemancar Lainnya
+1;1;2;6;0;SUKU CADANG ALAT STUDIO DAN KOMUNIKASI
+1;1;2;6;1;Suku Cadang Alat Studio
+1;1;2;6;2;Suku Cadang Alat Komunikasi
+1;1;2;6;999;Suku Cadang Alat Studio Dan Komunikasi Lainnya
+1;1;2;7;0;SUKU CADANG ALAT PERTANIAN
+1;1;2;7;1;Suku Cadang Alat Pengolahan Ternak Dan Tanaman
+1;1;2;7;2;Suku Cadang Alat Pemeliharaan Tanaman/Ikan/Ternak
+1;1;2;7;3;Suku Cadang Alat Panen
+1;1;2;7;4;Suku Cadang Alat Penyimpanan Hasil Percobaan Pertanian
+1;1;2;7;5;Suku Cadang Alat Laboratorium Pertanian (Suku Cadang Alat Pertanian)
+1;1;2;7;6;Suku Cadang Alat Prossesing
+1;1;2;7;7;Suku Cadang Alat Paska Panen
+1;1;2;7;8;Suku Cadang Alat Produksi
+1;1;2;7;999;Suku Cadang Alat Pertanian Lainnya
+1;1;2;8;0;SUKU CADANG ALAT BENGKEL
+1;1;2;8;1;Suku Cadang Alat Bengkel Bermesin
+1;1;2;8;2;Suku Cadang Alat Bengkel Tidak Bermesin
+1;1;2;8;999;Suku Cadang Alat Bengkel Lainnya
+1;1;2;99;0;SUKU CADANG LAINNYA
+1;1;2;99;999;Suku Cadang Lainnya
+1;1;3;0;0;ALAT/BAHAN UNTUK KEGIATAN KANTOR
+1;1;3;1;0;ALAT TULIS KANTOR
+1;1;3;1;1;Alat Tulis
+1;1;3;1;2;Tinta Tulis, Tinta Stempel
+1;1;3;1;3;Penjepit Kertas
+1;1;3;1;4;Penghapus/Korektor
+1;1;3;1;5;Buku Tulis
+1;1;3;1;6;Ordner Dan Map
+1;1;3;1;7;Penggaris
+1;1;3;1;8;Cutter (Alat Tulis Kantor)
+1;1;3;1;9;Pita Mesin Ketik
+1;1;3;1;10;Alat Perekat
+1;1;3;1;11;Stadler HD
+1;1;3;1;12;Staples
+1;1;3;1;13;Isi Staples
+1;1;3;1;14;Barang Cetakan
+1;1;3;1;15;Seminar Kit
+1;1;3;1;999;Alat Tulis Kantor Lainnya
+1;1;3;2;0;KERTAS DAN COVER
+1;1;3;2;1;Kertas HVS
+1;1;3;2;2;Berbagai Kertas
+1;1;3;2;3;Kertas Cover
+1;1;3;2;4;Amplop
+1;1;3;2;5;Kop Surat
+1;1;3;2;999;Kertas Dan Cover Lainnya
+1;1;3;3;0;BAHAN CETAK
+1;1;3;3;1;Transparant Sheet
+1;1;3;3;2;Tinta Cetak
+1;1;3;3;3;Plat Cetak
+1;1;3;3;4;Stensil Sheet
+1;1;3;3;5;Chenical/Bahan Kimia Cetak
+1;1;3;3;6;Film Cetak
+1;1;3;3;999;Bahan Cetak Lainnya
+1;1;3;4;0;BAHAN KOMPUTER
+1;1;3;4;1;Continuous Form
+1;1;3;4;2;Computer File/Tempat Disket
+1;1;3;4;3;Pita Printer
+1;1;3;4;4;Tinta/Toner Printer
+1;1;3;4;5;Disket
+1;1;3;4;6;USB/Flash Disk
+1;1;3;4;7;kartu Memori
+1;1;3;4;8;CD/DVD Drive
+1;1;3;4;9;Harddisk Internal
+1;1;3;4;10;Mouse
+1;1;3;4;11;CD/DVD
+1;1;3;4;999;Bahan Komputer Lainnya
+1;1;3;5;0;PERABOT KANTOR
+1;1;3;5;1;Sapu Dan Sikat
+1;1;3;5;2;Alat-Alat Pel Dan Lap
+1;1;3;5;3;Ember, Slang, Dan Tempat Air Lainnya
+1;1;3;5;4;Keset Dan Tempat Sampah
+1;1;3;5;5;Kunci, Kran Dan Semprotan
+1;1;3;5;6;Alat Pengikat
+1;1;3;5;7;Peralatan Ledeng
+1;1;3;5;8;Bahan Kimia Untuk Pembersih
+1;1;3;5;9;Alat Untuk Makan Dan Minum
+1;1;3;5;10;Kaos Lampu Petromak
+1;1;3;5;11;Kaca Lampu Petromak
+1;1;3;5;12;Pengharum Ruangan
+1;1;3;5;13;Kuas
+1;1;3;5;14;Segel/Tanda Pengaman
+1;1;3;5;999;Perabot Kantor Lainnya
+1;1;3;6;0;ALAT LISTRIK
+1;1;3;6;1;Kabel Listrik
+1;1;3;6;2;Lampu Listrik
+1;1;3;6;3;Stop Kontak
+1;1;3;6;4;Saklar
+1;1;3;6;5;Stacker
+1;1;3;6;6;Balast
+1;1;3;6;7;Starter
+1;1;3;6;8;Vitting
+1;1;3;6;9;Accu
+1;1;3;6;10;Batu Baterai
+1;1;3;6;11;Stavol
+1;1;3;6;999;Alat Listrik Lainnya
+1;1;3;7;0;PERLENGKAPAN DINAS
+1;1;3;7;1;Bahan Baku Pakaian
+1;1;3;7;2;Penutup Kepala
+1;1;3;7;3;Penutup Badan
+1;1;3;7;4;Penutup Tangan
+1;1;3;7;5;Penutup Kaki
+1;1;3;7;6;Atribut
+1;1;3;7;7;Perlengkapan Lapangan
+1;1;3;7;999;Perlengkapan Dinas Lainnya
+1;1;3;99;0;ALAT/BAHAN UNTUK KEGIATAN KANTOR LAINNYA
+1;1;3;99;999;Alat/bahan Untuk Kegiatan Kantor Lainnya
+1;1;4;0;0;OBAT-OBATAN
+1;1;4;1;0;OBAT
+1;1;4;1;1;Obat Cair
+1;1;4;1;2;Obat Padat
+1;1;4;1;3;Obat Gas
+1;1;4;1;4;Obat Serbuk/Tepung
+1;1;4;1;5;Obat Gel/Salep
+1;1;4;1;6;Alat/Obat Kontrasepsi Keluarga Berencana
+1;1;4;1;7;Non Alat/Obat Kontrasepsi Keluarga Berencana
+1;1;4;1;999;Obat Lainnya
+1;1;4;99;999;Obat-Obatan Lainnya
+1;1;5;0;0;PERSEDIAAN UNTUK DIJUAL/DISERAHKAN
+1;1;5;1;0;PERSEDIAAN UNTUK DIJUAL/DISERAHKAN  KEPADA MASYARAKAT
+1;1;5;1;1;Pita Cukai, Materai, Leges
+1;1;5;1;2;Tanah dan Bangunan
+1;1;5;1;3;Hewan dan Tanaman
+1;1;5;1;4;Peralatan dan Mesin
+1;1;5;1;5;Jalan, Irigasi, dan Jaringan
+1;1;5;1;6;Aset Tetap Lainnya
+1;1;5;1;7;Aset Lain-lain
+1;1;5;1;8;Barang Persediaan
+1;1;5;1;999;Persediaan Untuk Dijual/Diserahkan  Kepada Masyarakat Lainnya
+1;1;5;99;999;Persediaan Untuk Dijual/diserahkan Lainnya
+1;1;6;0;0;PERSEDIAAN UNTUK TUJUAN STRATEGIS/BERJAGA-JAGA
+1;1;6;1;0;PERSEDIAAN UNTUK TUJUAN STRATEGIS/BERJAGA-JAGA
+1;1;6;1;1;Cadangan Energi
+1;1;6;1;2;Cadangan Pangan
+1;1;6;1;999;Persediaan Untuk Tujuan Strategis/Berjaga-jaga Lainnya
+1;1;6;99;999;Persediaan Untuk Tujuan Strategis/Berjaga-jaga Lainnya
+1;1;7;0;0;NATURA DAN PAKAN
+1;1;7;1;0;NATURA
+1;1;7;1;1;Makanan/Sembako
+1;1;7;1;2;Minuman
+1;1;7;1;999;Natura Lainnya
+1;1;7;2;0;PAKAN
+1;1;7;2;1;Pakan Hewan
+1;1;7;2;2;Pakan Ikan
+1;1;7;2;999;Pakan Lainnya
+1;1;7;99;0;NATURA DAN PAKAN LAINNYA
+1;1;7;99;999;Natura Dan Pakan Lainnya
+1;1;8;0;0;PERSEDIAAN PENELITIAN BIOLOGI
+1;1;8;1;0;PERSEDIAAN PENELITIAN BIOLOGI
+1;1;8;1;1;Hewan/Ternak
+1;1;8;1;2;Biota Laut/Ikan
+1;1;8;1;3;Tanaman
+1;1;8;1;999;Persediaan Penelitian Biologi Lainnya
+1;1;8;99;999;Persediaan Penelitian Biologi Lainnya
+1;2;0;0;0;BARANG TAK HABIS PAKAI
+1;2;1;0;0;KOMPONEN
+1;2;1;1;0;KOMPONEN JEMBATAN BAJA
+1;2;1;1;1;Komponen Jembatan Bailley
+1;2;1;1;2;Komponen Jembatan Baja Prefab
+1;2;1;1;999;Komponen Jembatan Baja Lainnya
+1;2;1;2;0;KOMPONEN JEMBATAN PRATEKAN
+1;2;1;2;1;Komponen Jembatan Pratekan Prefab
+1;2;1;2;999;Komponen Jembatan Pratekan Lainnya
+1;2;1;3;0;KOMPONEN PERALATAN
+1;2;1;3;1;Dinamo Amper
+1;2;1;3;2;Dinamo Start
+1;2;1;3;3;Transmisi
+1;2;1;3;4;Injection Pump
+1;2;1;3;5;Karburator Unit
+1;2;1;3;6;Motor Hidrolik
+1;2;1;3;7;Engine Bensin
+1;2;1;3;8;Engine Diesel
+1;2;1;3;999;Komponen Peralatan Lainnya
+1;2;1;4;0;KOMPONEN RAMBU-RAMBU
+1;2;1;4;1;Komponen Rambu-Rambu Darat
+1;2;1;4;999;Komponen Rambu-Rambu Lainnya
+1;2;1;5;0;ATTACHMENT
+1;2;1;5;1;Blade
+1;2;1;5;2;Boom
+1;2;1;5;3;Bucket
+1;2;1;5;4;Scarifier
+1;2;1;5;999;Attachment Lainnya
+1;2;1;99;0;KOMPONEN LAINNYA
+1;2;1;99;999;Komponen Lainnya
+1;2;2;0;0;P I P A
+1;2;2;1;0;PIPA AIR BESI TUANG (DCI)
+1;2;2;1;1;DCI Filter
+1;2;2;1;2;Pipa Air Besi Tuang
+1;2;2;1;999;Pipa Air Besi Tuang (DCI) Lainnya
+1;2;2;2;0;PIPA ASBES SEMEN (ACP)
+1;2;2;2;1;A C P 1,0
+1;2;2;2;2;A C P 1,5
+1;2;2;2;3;A C P 2,0
+1;2;2;2;4;A C P 2,5
+1;2;2;2;5;A C P 3,0
+1;2;2;2;999;Pipa Asbes Semen (ACP) Lainnya
+1;2;2;3;0;PIPA BAJA
+1;2;2;3;1;Pipa Baja Gelombang
+1;2;2;3;2;Pipa Baja Konstruksi  (CSP)
+1;2;2;3;3;Pipa Baja Lapis Polyethelene
+1;2;2;3;4;Pipa Baja Lapis Seng (GIP)
+1;2;2;3;999;Pipa Baja Lainnya
+1;2;2;4;0;PIPA BETON PRATEKAN
+1;2;2;4;1;Fitter Pipa Beton Pratekan
+1;2;2;4;2;Pipa Beton Pratekan
+1;2;2;4;999;Pipa Beton Pratekan Lainnya
+1;2;2;5;0;PIPA FIBER GLASS
+1;2;2;5;1;Filter Pipa Fiber Glass
+1;2;2;5;2;Pipa Fiber Glass
+1;2;2;5;999;Pipa Fiber Glass Lainnya
+1;2;2;6;0;PIPA PLASTIK PVC (UPVC)
+1;2;2;6;1;Pipa Plastik PVC
+1;2;2;6;2;UPVC Fitter
+1;2;2;6;999;Pipa Plastik PVC (UPVC) Lainnya
+1;2;2;99;0;PIPA LAINNYA
+1;2;2;99;999;P I P A Lainnya
+1;2;3;0;0;RAMBU-RAMBU
+1;2;3;1;0;RAMBU-RAMBU
+1;2;3;1;1;Rambu - Rambu Lalu Lintas
+1;2;3;1;999;Rambu-rambu Lainnya
+1;2;3;99;999;Rambu-Rambu Lainnya
+1;3;0;0;0;BARANG BEKAS DIPAKAI
+1;3;1;0;0;KOMPONEN BEKAS DAN PIPA BEKAS
+1;3;1;1;0;KOMPONEN BEKAS
+1;3;1;1;1;Komponen Jembatan Baja Bekas
+1;3;1;1;2;Komponen Jembatan Pratekan Bekas
+1;3;1;1;3;Komponen Peralatan Bekas
+1;3;1;1;4;Attachment Bekas
+1;3;1;1;5;Kotak dan Bilik Suara
+1;3;1;1;999;Komponen Bekas Lainnya
+1;3;1;2;0;PIPA BEKAS
+1;3;1;2;1;Pipa Air Besi Tuang Bekas
+1;3;1;2;2;Pipa Asbes Semen Bekas
+1;3;1;2;3;Pipa Baja Bekas
+1;3;1;2;4;Pipa Beton Pratekan Bekas
+1;3;1;2;5;Pipa Fiber Gelas Bekas
+1;3;1;2;6;Pipa Plastik PVC (UPVC) Bekas
+1;3;1;2;999;Pipa Bekas Lainnya
+1;3;1;99;0;KOMPONEN BEKAS DAN PIPA BEKAS LAINNYA
+1;3;1;99;999;Komponen Bekas Dan Pipa Bekas Lainnya
+2;0;0;0;0;TANAH
+2;1;0;0;0;TANAH DESA
+2;1;1;0;0;TANAH KAS DESA
+2;1;1;1;0;TANAH BENGKOK
+2;1;1;1;1;Tanah Bengkok Kepala Desa
+2;1;1;1;999;Tanah Bengkok Lainnya
+2;1;1;2;0;TANAH BONDO
+2;1;1;3;0;TANAH KALAKERAN NEGERI
+2;1;1;4;0;TANAH PECATU
+2;1;1;5;0;TANAH PENGAREM-AREM
+2;1;1;6;0;TANAH TITISARA
+2;1;2;0;0;TANAH PERKAMPUNGAN
+2;1;2;1;0;TANAH PERKAMPUNGAN
+2;1;2;1;1;Tanah Perkampungan
+2;1;2;1;999;Tanah Perkampungan Lainnya
+2;1;2;2;0;EMPLASMEN
+2;1;2;2;1;Emplasmen
+2;1;2;2;999;Emplasmen Lainnya
+2;1;2;3;0;TANAH KUBURAN
+2;1;2;3;1;Tanah Kuburan Islam
+2;1;2;3;2;Tanah Kuburan Kristen
+2;1;2;3;3;Tanah Kuburan Cina
+2;1;2;3;4;Tanah Kuburan Hindu
+2;1;2;3;5;Tanah Kuburan Budha
+2;1;2;3;6;Tanah Makam Pahlawan
+2;1;2;3;7;Tanah Kuburan Tempat Benda Bersejarah
+2;1;2;3;8;Tanah Makam Umum/Kuburan  Umum
+2;1;2;3;999;Tanah Kuburan Lainnya
+2;1;3;0;0;TANAH PERTANIAN
+2;1;3;1;0;SAWAH SATU TAHUN DITANAMI
+2;1;3;1;1;Sawah Ditanami Padi
+2;1;3;1;2;Sawah Ditanami Palawija
+2;1;3;1;3;Sawah Ditanami Tebu
+2;1;3;1;4;Sawah Ditanami Sayuran
+2;1;3;1;5;Sawah Ditanami Tembakau
+2;1;3;1;6;Sawah Ditanami Rosella
+2;1;3;1;999;Sawah Ditanami Lainnya
+2;1;3;2;0;TANAH KERING/TEGALAN
+2;1;3;2;1;Tanah Kering Ditanami Buah-buahan
+2;1;3;2;2;Tanah Kering Ditanami Tembakau
+2;1;3;2;3;Tanah Kering Ditanami Jagung
+2;1;3;2;4;Tanah Kering Ditanami Ketela Pohon
+2;1;3;2;5;Tanah Kering Ditanami Kacang Tanah
+2;1;3;2;6;Tanah Kering Ditanami Kacang Hijau
+2;1;3;2;7;Tanah Kering Ditanami Kedelai
+2;1;3;2;8;Tanah Kering Ditanami Ubi Jalar
+2;1;3;2;9;Tanah Kering Ditanami Keladi
+2;1;3;2;999;Tanah Kering Ditanami Lainnya
+2;1;3;3;0;LADANG
+2;1;3;3;1;Ladang Padi
+2;1;3;3;2;Ladang Jagung
+2;1;3;3;3;Ladang Ketela Pohon
+2;1;3;3;4;Ladang Kacang Tanah
+2;1;3;3;5;Ladang Kacang Hijau
+2;1;3;3;6;Ladang Kedelai
+2;1;3;3;7;Ladang Ubi Jalar
+2;1;3;3;8;Ladang Keladi
+2;1;3;3;9;Ladang Bengkuang
+2;1;3;3;10;Ladang Apel
+2;1;3;3;11;Ladang Kentang
+2;1;3;3;12;Ladang Jeruk
+2;1;3;3;999;Ladang Lainnya
+2;1;4;0;0;TANAH PERKEBUNAN
+2;1;4;1;0;TANAH PERKEBUNAN
+2;1;4;1;1;Tanah Perkebunan Karet
+2;1;4;1;2;Tanah Perkebunan Kopi
+2;1;4;1;3;Tanah Perkebunan Kelapa
+2;1;4;1;4;Tanah Perkebunan Randu
+2;1;4;1;5;Tanah Perkebunan Lada
+2;1;4;1;6;Tanah Perkebunan Teh
+2;1;4;1;7;Tanah Perkebunan Kina
+2;1;4;1;8;Tanah Perkebunan Coklat
+2;1;4;1;9;Tanah Perkebunan Kelapa Sawit
+2;1;4;1;10;Tanah Perkebunan Sereh
+2;1;4;1;11;Tanah Perkebunan Cengkeh
+2;1;4;1;12;Tanah Perkebunan Pala
+2;1;4;1;13;Tanah Perkebunan Sagu
+2;1;4;1;14;Tanah Perkebunan Jambu Mente
+2;1;4;1;15;Tanah Perkebunan Tengkawang
+2;1;4;1;16;Tanah Perkebunan Minyak Kayu Putih
+2;1;4;1;17;Tanah Perkebunan Kayu Manis
+2;1;4;1;18;Tanah Perkebunan Petai
+2;1;4;1;999;Tanah Perkebunan Lainnya
+2;1;5;0;0;TANAH HUTAN
+2;1;5;1;0;TANAH HUTAN LEBAT (DITANAMI  JENIS KAYU UTAMA)
+2;1;5;1;1;Tanah Hutan Meranti
+2;1;5;1;2;Tanah Hutan Rasamala
+2;1;5;1;3;Tanah Hutan Bulian
+2;1;5;1;4;Tanah Hutan Medang
+2;1;5;1;5;Tanah Hutan Jelutung
+2;1;5;1;6;Tanah Hutan Ramin
+2;1;5;1;7;Tanah Hutan Puspa
+2;1;5;1;8;Tanah Hutan Sunintem
+2;1;5;1;9;Tanah Hutan Albenia
+2;1;5;1;10;Tanah Hutan Kayu Besi/Ulin
+2;1;5;1;999;Hutan Lebat Lainnya
+2;1;5;2;0;TANAH HUTAN BELUKAR
+2;1;5;2;1;Tanah Hutan Semak-semak
+2;1;5;2;2;Hutan Belukar
+2;1;5;2;3;Hutan Belukar Lainnya
+2;1;5;3;0;HUTAN TANAMAN JENIS
+2;1;5;3;1;Hutan Tanaman Jati
+2;1;5;3;2;Hutan Tanaman Pinus
+2;1;5;3;3;Hutan Tanaman Rotan
+2;1;5;3;999;Hutan Tanaman Jenis Lainnya
+2;1;5;4;0;HUTAN ALAM SEJENIS/HUTAN RAWA
+2;1;5;4;1;Hutan Bakau
+2;1;5;4;2;Hutan Cemara (yang tidak ditanaman)
+2;1;5;4;3;Hutan Galam
+2;1;5;4;4;Hutan Nipah
+2;1;5;4;5;Hutan Bambu
+2;1;5;4;6;Hutan Rotan
+2;1;5;4;999;Hutan Alam Sejenis Lainnya
+2;1;5;5;0;HUTAN UNTUK PENGGUNAAN KHUSUS
+2;1;5;5;1;Hutan Cadangan
+2;1;5;5;2;Hutan Lindung
+2;1;5;5;3;Hutan Cagar Alam
+2;1;5;5;4;Hutan Taman Wisata
+2;1;5;5;5;Hutan Taman Burung
+2;1;5;5;6;Hutan Suaka Marga Satwa
+2;1;5;5;7;Hutan Taman Nasional
+2;1;5;5;8;Hutan Produksi
+2;1;5;5;999;Hutan untuk Penggunaan Khusus Lainnya
+2;1;6;0;0;TANAH KEBUN CAMPURAN
+2;1;6;1;0;TANAH YANG TIDAK ADA JARINGAN PENGAIRAN
+2;1;6;1;1;Tanaman Rupa-rupa
+2;1;6;1;999;Tanah Kebun Campuran Lainnya
+2;1;6;2;0;TUMBUH LIAR BERCAMPUR JENIS LAIN
+2;1;6;2;1;Jenis Tanaman rupa-rupa & tidak jelas mana yang menonjol
+2;1;6;2;2;Tanaman Luar Perkarangan
+2;1;6;2;999;Tumbuh Liar Bercampur Jenis Lainnya
+2;1;7;0;0;TANAH KOLAM IKAN
+2;1;7;1;0;TAMBAK
+2;1;7;1;1;Tambak
+2;1;7;1;999;Tambak Lainnya
+2;1;7;2;0;AIR TAWAR
+2;1;7;2;1;Kolam Air Tawar
+2;1;7;2;999;Air Tawar Lainnya
+2;1;8;0;0;TANAH DANAU / RAWA
+2;1;8;1;0;RAWA
+2;1;8;1;1;Rawa
+2;1;8;1;999;Rawa Lainnya
+2;1;8;2;0;DANAU
+2;1;8;2;1;Sanau/Situ
+2;1;8;2;2;Waduk
+2;1;8;2;999;Danau Lainnya
+2;1;9;0;0;TANAH TANDUS / RUSAK
+2;1;9;1;0;TANAH TANDUS
+2;1;9;1;1;Berbatu-batu
+2;1;9;1;2;Longsor
+2;1;9;1;3;Tanah Lahar
+2;1;9;1;4;Tanah Berpasir/Pasir
+2;1;9;1;5;Tanah Pengambilan/Kuasi
+2;1;9;1;999;Tanah Tandus Lainnya
+2;1;9;2;0;TANAH RUSAK
+2;1;9;2;1;Tanah yang tererosi/Longsor
+2;1;9;2;2;Bekas Tambang/Galian
+2;1;9;2;3;Bekas Sawah/Rawa
+2;1;9;2;999;Tanah Rusak Lainnya
+2;1;10;0;0;TANAH ALANG-ALANG DAN PADANG RUMPUT
+2;1;10;1;0;ALANG-ALANG
+2;1;10;1;1;Alang-Alang
+2;1;10;1;999;Alang-Alang Lainnya
+2;1;10;2;0;PADANG RUMPUT
+2;1;10;2;1;Semak Belukar
+2;1;10;2;2;Padang Rumput
+2;1;10;2;999;Padang Rumput Lainnya
+2;1;11;0;0;TANAH PERTAMBANGAN
+2;1;11;1;0;TANAH PERTAMBANGAN
+2;1;11;1;1;Tanah Pertambangan Intan
+2;1;11;1;2;Tanah Pertambangan Emas
+2;1;11;1;3;Tanah Pertambangan Perak
+2;1;11;1;4;Tanah Pertambangan Nekel
+2;1;11;1;5;Tanah Pertambangan Timah
+2;1;11;1;6;Tanah Pertambangan Uranium
+2;1;11;1;7;Tanah Pertambangan Tembaga
+2;1;11;1;8;Tanah Pertambangan Minyak Bumi
+2;1;11;1;9;Tanah Pertambangan Batu Bara
+2;1;11;1;10;Tanah Pertambangan Koslin
+2;1;11;1;11;Tanah Pertambangan  Batu Bara Berharga
+2;1;11;1;12;Tanah Pertambangan Pasir Berharga
+2;1;11;1;999;Tanah Pertambangan Lainnya
+2;1;12;0;0;TANAH UNTUK BANGUNAN GEDUNG
+2;1;12;1;0;TANAH BANGUNAN PERUMAHAN/GDG. TEMPAT TINGGAL
+2;1;12;1;1;Tanah Bangunan Mess
+2;1;12;1;2;Tanah Bangunan Wisma
+2;1;12;1;3;Tanah Bangunan Asrama
+2;1;12;1;4;Tanah Bangunan Peristirahatan
+2;1;12;1;5;Tanah Bangunan Bungalaow
+2;1;12;1;6;Tanah Bangunan Cottage
+2;1;12;1;999;Tanah Bangunan Rumah Tempat Tinggal lainnya
+2;1;12;2;0;TANAH UNTUK BANGUNAN GEDUNG PERDAGANGAN
+2;1;12;2;1;Tanah Bangunan Pasar
+2;1;12;2;2;Tanah Bangunan Pertokoan/Rumah Toko
+2;1;12;2;3;Tanah Bangunan Gudang
+2;1;12;2;4;Tanah Bangunan Bioskop
+2;1;12;2;5;Tanah Bangunan Hotel/Penginapan
+2;1;12;2;6;Tanah Bangunan Terminal Darat
+2;1;12;2;7;Tanah Bangunan Terminal Laut
+2;1;12;2;8;Tanah Bangunan Gedung Kesenian
+2;1;12;2;9;Tanah Bangunan Gedung Pameran
+2;1;12;2;10;Tanah Bangunan Gedung Pusat Perbelanjaan
+2;1;12;2;11;Tanah Bangunan Apotik
+2;1;12;2;999;Tanah Bangunan Gedung Perdagangan Lainnya
+2;1;12;3;0;TANAH UNTUK BANGUNAN INDUSTRI
+2;1;12;3;1;Tanah Bangunan Industri Makanan
+2;1;12;3;2;Tanah Bangunan Industri Minuman
+2;1;12;3;3;Tanah Bangunan Industri/Alat RT.
+2;1;12;3;4;Tanah Bangunan Industri Pakaian/Garment
+2;1;12;3;5;Tanah Bangunan Industri Besi/Logam
+2;1;12;3;6;Tanah Bangunan Industri Baja
+2;1;12;3;7;Tanah Bangunan Industri Pengalengan
+2;1;12;3;8;Tanah Bangunan Industri Bengkel
+2;1;12;3;9;Tanah Bangunan Industri Penyulingan Minyak
+2;1;12;3;10;Tanah Bangunan Industri Semen
+2;1;12;3;11;Tanah Bangunan Industri Batu bata/Batako
+2;1;12;3;12;Tanah Bangunan Industri Genteng
+2;1;12;3;13;Tanah Bangunan Industri Percetakan
+2;1;12;3;14;Tanah Bangunan Industri Tesktil
+2;1;12;3;15;Tanah Bangunan Industri Obat-obatan
+2;1;12;3;16;Tanah Bangunan Industri Alat Olah Raga
+2;1;12;3;17;Tanah Bangunan Industri Kendaraan/ Otomotif
+2;1;12;3;19;Tanah Bangunan Industri Persenjataan
+2;1;12;3;20;Tanah Bangunan Industri Kapal Udara
+2;1;12;3;21;Tanah Bangunan Industri Kapal Laut
+2;1;12;3;22;Tanah Bangunan Industri Kapal Api
+2;1;12;3;23;Tanah Bangunan Industri Keramik/Marmer
+2;1;12;3;999;Tanah Bangunan Industri Lainnya
+2;1;12;4;0;TANAH UNTUK BANGUNAN TEMPAT KERJA/JASA
+2;1;12;4;1;Tanah Bangunan Kantor Pemerintah
+2;1;12;4;2;Tanah Bangunan Sekolah
+2;1;12;4;3;Tanah Bangunan Rumah Sakit
+2;1;12;4;4;Tanah Bangunan Apotik
+2;1;12;4;5;Tanah Bangunan Tempat Ibadah
+2;1;12;4;6;Tanah Bangunan Dermaga
+2;1;12;4;7;Tanah Bangunan Pelabuhan Udara
+2;1;12;4;8;Tanah Bangunan Olah Raga
+2;1;12;4;9;Tanah Bangunan Taman/Wisata/Rekreasi
+2;1;12;4;10;Tanah Bangunan Balai Sidang/Pertemuan
+2;1;12;4;11;Tanah Bangunan Balai Nikah
+2;1;12;4;12;Tanah Bangunan Puskesmas/Posyandu
+2;1;12;4;13;Tanah Bangunan Poliklinik
+2;1;12;4;14;Tanah Bangunan Laboraturium
+2;1;12;4;15;Tanah Bangunan Fumigasi/Sterlisasi
+2;1;12;4;16;Tanah Bangunan Karantina
+2;1;12;4;17;Tanah Bangunan Bangsal Pengolahan Pondon Kerja
+2;1;12;4;18;Tanah Bangunan Kandang Hewan
+2;1;12;4;19;Tanah Bangunan-bangunan Pembibitan
+2;1;12;4;20;Tanah Bangunan Rumah Pendingin
+2;1;12;4;21;Tanah Bangunan Rumah Pengering
+2;1;12;4;22;Tanah Bangunan Stasiun Penelitian
+2;1;12;4;23;Tanah Bangunan Gedung Pelelangan Ikan
+2;1;12;4;24;Tanah Bangunan Pos Jaga/Menara Jaga
+2;1;12;4;999;Tanah Bangunan Tempat Kerja Lainnya
+2;1;12;5;0;TANAH KOSONG
+2;1;12;5;1;Tanah Sawah
+2;1;12;5;2;Tanah Tegalan
+2;1;12;5;3;Tanah Kebun
+2;1;12;5;4;Kebun Pembibitan
+2;1;12;5;999;Tanah kosong yang tidak diusahakan
+2;1;12;6;0;TANAH PETERNAKAN
+2;1;12;6;1;Tanah Peternakan
+2;1;12;6;999;Tanah Peternakan Lainnya
+2;1;12;7;0;TANAH BANGUNAN PENGAIRAN
+2;1;12;7;1;Tanah Waduk
+2;1;12;7;2;Tanah Komplek Bendungan
+2;1;12;7;3;Tanah Jaringan/Saluran
+2;1;12;7;999;Tanah Bangunan Pengairan Lainnya
+2;1;12;8;0;TANAH BANGUNAN JALAN DAN JEMBATAN
+2;1;12;8;1;Tanah Jalan
+2;1;12;8;2;Tanah Jembatan
+2;1;12;8;999;Tanah Bangunan Jalan dan Jembatan Lainnya
+2;1;12;9;0;TANAH LEMBIRAN/BANTARAN/LEPE-LEPE/SETREN DST
+2;1;12;9;1;Tanah Lembiran Pengairan
+2;1;12;9;2;Tanah Lembiran Jalan dan Jembatan
+2;1;12;9;999;Tanah Lembiran Lainnya
+2;1;13;0;0;TANAH UNTUK BANGUNAN BUKAN GEDUNG
+2;1;13;1;0;TANAH LAPANGAN OLAH RAGA
+2;1;13;1;1;Tanah Lapangan Tenis
+2;1;13;1;2;Tanah Lapangan Basket
+2;1;13;1;3;Tanah Lapangan Badminton/Bulutangkis
+2;1;13;1;4;Tanah Lapangan Golf
+2;1;13;1;5;Tanah Lapangan Sepak Bola
+2;1;13;1;6;Tanah Lapangan Bola Volly
+2;1;13;1;7;Tanah Lapangan Sepak Takraw
+2;1;13;1;8;Taanh Lapangan Pacuan Kuda
+2;1;13;1;9;Tanah Lapangan Balap Sepeda
+2;1;13;1;10;Tanah Lapangan Atletik
+2;1;13;1;11;Tanah Lapangan Softball
+2;1;13;1;999;Tanah Lapangan Olahraga Lainnya
+2;1;13;2;0;TANAH LAPANGAN PARKIR
+2;1;13;2;1;Tanah Lapangan Parkir Kontruksi Beton
+2;1;13;2;2;Tanah Lapangan Parkir Kontruksi Aspal
+2;1;13;2;3;Tanah Lapangan Parkir Sirtu (Pasir Batu)
+2;1;13;2;4;Tanah Lapangan Parkir Konblok
+2;1;13;2;5;Tanah Lapangan Parkir Tanah Keras
+2;1;13;2;999;Tanah Lapangan Parkir Lainnya
+2;1;13;3;0;TANAH LAPANGAN PENIMBUN BARANG
+2;1;13;3;1;Tanah Lapangan Penimbun Barang Belum Diolah
+2;1;13;3;2;Tanah Lapangan Penimbun Barang Jadi
+2;1;13;3;3;Tanah Lapangan Penimbun Pembuangan Sampah
+2;1;13;3;4;Tanah Lapangan Penimbun Bahan Bangunan
+2;1;13;3;5;Tanah Lapangan Penimbun Barang Bukti
+2;1;13;3;999;Tanah Lapangan Penimbun Barang Lainnya
+2;1;13;4;0;TANAH LAPANGAN PEMANCAR DAN STUDIO ALAM
+2;1;13;4;1;Tanah Lapangan Pemancar TV/Radio/Radar
+2;1;13;4;2;Tanah Lapangan Studio Alam
+2;1;13;4;3;Tanah Lapangan Pemancar Lainnya
+2;1;13;4;999;Tanah Lapangan Pemancar Dan Studio Alam Lainnya
+2;1;13;5;0;TANAH LAPANGAN PENGUJIAN/PENGOLAHAN
+2;1;13;5;1;Tanah Lapangan Pengujian Kendaraan Bermotor
+2;1;13;5;2;Tanah lapangan pengelolaan Bahan Bangunan
+2;1;13;5;999;Tanah Lapangan Pengujian/Pengolahan  Lainnya
+2;1;13;6;0;TANAH LAPANGAN TERBANG
+2;1;13;6;1;Tanah Lapangan Terbang Perintis
+2;1;13;6;2;Tanah Lapngan Komersial
+2;1;13;6;3;Tanah Lapangan Terbang Khusus/Militer
+2;1;13;6;4;Tanah Laopangan Terbang Olah Raga
+2;1;13;6;5;Tanah Lapangan Terbang Pendidikan
+2;1;13;6;999;Tanah Lapangan Terbang Lainnya
+2;1;13;7;0;TANAH UNTUK BANGUNAN JALAN
+2;1;13;7;1;Tanah Untuk Jalan Nasional
+2;1;13;7;2;Tanah Untuk Jalan Propinsi
+2;1;13;7;3;Tanah Untuk Jalan Kabupaten
+2;1;13;7;4;Tanah Untuk Jalan Kotamadya
+2;1;13;7;5;Tanah Untuk Jalan Desa
+2;1;13;7;6;Tanah Untuk Jalan Tol
+2;1;13;7;7;Tanah Untuk Jalan Kereta api/lori
+2;1;13;7;8;Tanah Untuk Jalan Landasan Pacu Pesawat Terbang
+2;1;13;7;9;Tanah Untuk Jalan Khusus/Komplek
+2;1;13;7;999;Tanah Untuk Bangunan Jalan Lainnya
+2;1;13;8;0;TANAH UNTUK BANGUNAN AIR
+2;1;13;8;1;Tanah Untuk Bangunan Air Irigasi
+2;1;13;8;2;Tanah Untuk Bangunan Pengairan pasang surut
+2;1;13;8;3;Tanah Untuk Bangunan Pengembangan  Rawa dan Polder
+2;1;13;8;4;Tanah Untuk Bangunan Pengaman Sungai dan Penanggulangan Bencana Alam
+2;1;13;8;5;Tanah Untuk Bangunan Pengembangan Sumber Air dan air Tnh
+2;1;13;8;6;Tanah Untuk Bangunan Air Bersih/air Baku
+2;1;13;8;7;Tanah Untuk Bangunan Air Kotor
+2;1;13;8;999;Tanah Untuk Bangunan Air Lainnya
+2;1;13;9;0;TANAH UNTUK BANGUNAN INSTALASI
+2;1;13;9;1;Tanah Untuk Bangunan Instalasi Air Bersih/air Baku
+2;1;13;9;2;Tanah Untuk Bangunan Instalasi Air Kotor/Air Limbah
+2;1;13;9;3;Tanah Untuk Bangunan Instalasi Pengelohan Sampah
+2;1;13;9;4;Tanah Untuk Bangunan Instalasi Pengolahan Bahan bangunan
+2;1;13;9;5;Tanah Untuk Bangunan Instalasi Listrik
+2;1;13;9;6;Tanah Untuk Bangunan Instalasi Gardu Listrik
+2;1;13;9;7;Tanah Untuk Bangunan Pangolahan Limbah
+2;1;13;9;999;Tanah Untuk Bangunan Instalasi Lainnya
+2;1;13;10;0;TANAH UNTUK BANGUNAN JARINGAN
+2;1;13;10;1;Tanah Untuk Bangunan Jaringan Air Bersih/air Baku
+2;1;13;10;2;Tanah Untuk Bangunan Jaringan Komunikasi
+2;1;13;10;3;Tanah Untuk Bangunan Jaringan Listrik
+2;1;13;10;4;Tanah Untuk Bangunan Jaringan Gas/BBM
+2;1;13;10;999;Tanah Untuk Bangunan Jaringan Lainnya
+2;1;13;11;0;TANAH UNTUK BANGUNAN BERSEJARAH
+2;1;13;11;1;Tanah Untuk Monumen
+2;1;13;11;2;Tanah Untuk Tugu Peringatan
+2;1;13;11;3;Tanah Untuk Tugu Batas Wilayah
+2;1;13;11;4;Tanah Untuk Candi
+2;1;13;11;5;Tanah Untuk Bangunan Moseum
+2;1;13;11;6;Tanah Untuk Bangunan Bersejarah
+2;1;13;11;999;Tanah Untuk Bangunan Bersejarah Lainnya
+2;1;13;12;0;TANAH UNTUK BANGUNAN GEDUNG OLAH RAGA
+2;1;13;12;1;Tanah Bangunan Sarana Olaoh Raga Terbatas
+2;1;13;12;2;Tanah Bangunan Sarana Olah Raga Terbuka
+2;1;13;12;999;Tanah Bangunan Sarana Olah Raga Lainnya
+2;1;13;13;0;TANAH UNTUK BANGUNAN TEMPAT IBADAH
+2;1;13;13;1;Tanah Untuk Bangunan Mesjid
+2;1;13;13;2;Tanah Untuk Bangunan Gereja
+2;1;13;13;3;Tanah Untuk Bangunan Pura
+2;1;13;13;4;Tanah Untuk Bangunan Vihara
+2;1;13;13;5;Tanah Untuk Bangunan Klenteng/Kuil
+2;1;13;13;6;Tanah Untuk Bangunan Krematorium
+2;1;13;13;999;Tanah Untuk Bangunan Tampat Ibadah Lainnya
+2;1;14;0;0;TANAH PENGGUNAAN LAINNYA
+2;1;14;1;0;PENGGALIAN
+2;1;14;1;1;Penggalian
+2;1;14;1;2;Tempat Air Hangat
+2;1;14;1;999;Tanah Penggunaan Lainnya
+3;0;0;0;0;PERALATAN DAN MESIN
+3;1;0;0;0;ALAT BESAR
+3;1;1;0;0;ALAT BESAR DARAT
+3;1;1;1;0;TRACTOR
+3;1;1;1;1;Crawler Tractor + Attachment
+3;1;1;1;2;Wheel Tractor + Attachment
+3;1;1;1;3;Swamp Tractor + Attachment
+3;1;1;1;4;Prime Mower
+3;1;1;1;5;Aircraft Towing Tractor
+3;1;1;1;6;Towing Bar
+3;1;1;1;7;Bulldozer
+3;1;1;1;8;Wheel Dozer
+3;1;1;1;999;Tractor Lainnya
+3;1;1;2;0;GRADER
+3;1;1;2;1;Grader + Attachment
+3;1;1;2;2;Grader Towed Type
+3;1;1;2;999;Grader Lainnya
+3;1;1;3;0;EXCAVATOR
+3;1;1;3;1;Crawler Excavator + Attachment
+3;1;1;3;2;Wheel Excavator + Attachment
+3;1;1;3;999;Excavator Lainnya
+3;1;1;4;0;PILE DRIVER
+3;1;1;4;1;Diesel Pile Driver
+3;1;1;4;2;Pneumatic Pile Driver
+3;1;1;4;3;Vibration Pile Driver
+3;1;1;4;999;Pile Driver Lainnya
+3;1;1;5;0;HAULER
+3;1;1;5;1;Self Propelled Scraper
+3;1;1;5;2;Towed Scraper
+3;1;1;5;3;Dump Truck
+3;1;1;5;4;Dump Wagon
+3;1;1;5;5;Lori
+3;1;1;5;999;Hauler Lainnya
+3;1;1;6;0;ASPHALT EQUIPMENT
+3;1;1;6;1;Asphalt Mixing Plant
+3;1;1;6;2;Asphalt Finisher
+3;1;1;6;3;Asphalt Distributor
+3;1;1;6;4;Asphalt Heater
+3;1;1;6;5;Asphalt Tanker
+3;1;1;6;6;Asphalt Sprayer
+3;1;1;6;7;Asbuton Dryer
+3;1;1;6;8;Asphalt Recycle
+3;1;1;6;9;Cold Milling Machine
+3;1;1;6;10;Asphalt Mixer
+3;1;1;6;11;Bitumen / Asphalt Test
+3;1;1;6;999;Asphalt Equipment Lainnya
+3;1;1;7;0;COMPACTING EQUIPMENT
+3;1;1;7;1;Macadam Roller/Three Wheel Roller
+3;1;1;7;2;Tandem Roller
+3;1;1;7;3;Mesh Roller
+3;1;1;7;4;Vibration Roller
+3;1;1;7;5;Tyre Roller
+3;1;1;7;6;Soil Stabilizer
+3;1;1;7;7;Sheepfoot/Tamping Roller
+3;1;1;7;8;Stamper
+3;1;1;7;9;Vibration Plate
+3;1;1;7;10;Pemadat Sampah
+3;1;1;7;11;Truck & Bush Tyre
+3;1;1;7;999;Compacting Equipment Lainnya
+3;1;1;8;0;AGGREGATE & CONCRETE EQUIPMENT
+3;1;1;8;1;Stone Crushing Plant
+3;1;1;8;2;Screening Classifer
+3;1;1;8;3;Stone Chuser
+3;1;1;8;4;Aggregate Washer
+3;1;1;8;5;Batching Plant
+3;1;1;8;6;Concrete Finisher
+3;1;1;8;7;Concrete Pump
+3;1;1;8;8;Concrete Lift
+3;1;1;8;9;Concrete Prestres
+3;1;1;8;10;Concrete Cutter
+3;1;1;8;11;Concrete Mixer
+3;1;1;8;12;Concrete Vibrator
+3;1;1;8;13;Concrete Breaker
+3;1;1;8;14;Aggregate/Chip Spreader
+3;1;1;8;15;Grauting Machine
+3;1;1;8;16;Concrete Mould
+3;1;1;8;17;Pipe Plant Equipment
+3;1;1;8;18;Concrete Mixer Tandem
+3;1;1;8;19;Onion Head Machine
+3;1;1;8;20;Pan Mixer
+3;1;1;8;21;Asbuton Mixer
+3;1;1;8;22;Paddle Mixer
+3;1;1;8;23;Asphalt Buton Crusher
+3;1;1;8;24;Rock Drill
+3;1;1;8;999;Aggregate & Concrete Equipment Lainnya
+3;1;1;9;0;LOADER
+3;1;1;9;1;Track Loader + Attachment
+3;1;1;9;2;Wheel Loader + Attachment
+3;1;1;9;3;Main Deck Loader
+3;1;1;9;4;Conveyor Belt Truck
+3;1;1;9;5;High Lift Loader
+3;1;1;9;6;Backhoe Loader
+3;1;1;9;999;Loader Lainnya
+3;1;1;10;0;ALAT PENGANGKAT
+3;1;1;10;1;Tower Crane
+3;1;1;10;2;Truck Mounted Crane
+3;1;1;10;3;Truck Crane
+3;1;1;10;4;Wheel Crane
+3;1;1;10;5;Forklift
+3;1;1;10;6;Fortal Crane
+3;1;1;10;7;Crawler Crane
+3;1;1;10;8;Container Crane
+3;1;1;10;9;Transtainer
+3;1;1;10;10;Travelt Container Stacker
+3;1;1;10;11;Top Loader
+3;1;1;10;12;Rail Lifter
+3;1;1;10;13;Track Motor Car
+3;1;1;10;14;Salvage Pesawat Udara
+3;1;1;10;15;Hand Palet Truck
+3;1;1;10;16;Crane Shovel 20 T
+3;1;1;10;17;Shop Wood Working Crane Shovel 20 T
+3;1;1;10;999;Alat Pengangkat Lainnya
+3;1;1;11;0;MESIN PROSES
+3;1;1;11;1;Mesin Pembuat Pellet
+3;1;1;11;2;Mesin Pembuat Es
+3;1;1;11;3;Mesin Penghancur Es
+3;1;1;11;4;Water Treatment (Mesin Proses)
+3;1;1;11;5;Sea Water Treatment
+3;1;1;11;6;Mesin Pengolah Dodol
+3;1;1;11;999;Mesin Proses Lainnya
+3;1;1;99;0;ALAT BESAR DARAT LAINNYA
+3;1;1;99;999;Alat Besar Darat Lainnya
+3;1;2;0;0;ALAT BESAR APUNG
+3;1;2;1;0;DREDGER
+3;1;2;1;1;Suction Dredger
+3;1;2;1;2;Bucket Dredger
+3;1;2;1;3;Cutter Suction Dredger
+3;1;2;1;999;Dredger Lainnya
+3;1;2;2;0;FLOATING EXCAVATOR
+3;1;2;2;1;Floating Excavator + Attachment
+3;1;2;2;2;Floating Crane
+3;1;2;2;3;Floating Pump
+3;1;2;2;999;Floating Excavator Lainnya
+3;1;2;3;0;AMPHIBI DREDGER
+3;1;2;3;1;Plain Suction
+3;1;2;3;2;Cutter (Amphibi Dredger)
+3;1;2;3;3;Clamshell / Dragline
+3;1;2;3;999;Amphibi Dredger Lainnya
+3;1;2;4;0;KAPAL TARIK
+3;1;2;4;1;Kapal Tarik
+3;1;2;4;999;Kapal Tarik Lainnya
+3;1;2;5;0;MESIN PROSES APUNG
+3;1;2;5;1;Water Treatment (Mesin Proses Apung)
+3;1;2;5;999;Mesin Proses Apung Lainnya
+3;1;2;99;0;ALAT BESAR APUNG LAINNYA
+3;1;2;99;999;Alat Besar Apung Lainnya
+3;1;3;0;0;ALAT BANTU
+3;1;3;1;0;ALAT PENARIK
+3;1;3;1;1;Alat Penarik Kapal
+3;1;3;1;2;Alat Penarik Jaring
+3;1;3;1;999;Alat Penarik Lainnya
+3;1;3;2;0;FEEDER
+3;1;3;2;1;Elevator /Lift
+3;1;3;2;2;Belt Conveyor (Feeder)
+3;1;3;2;3;Screw Conveyor (Feeder)
+3;1;3;2;4;Escalator
+3;1;3;2;5;Gandola
+3;1;3;2;6;Elevator (Feeder)
+3;1;3;2;7;Gangway
+3;1;3;2;999;Feeder Lainnya (Alat Besar)
+3;1;3;3;0;COMPRESSOR
+3;1;3;3;1;Transportable Compressor
+3;1;3;3;2;Portable Compressor
+3;1;3;3;3;Stationary Compressor
+3;1;3;3;4;Air Compresor
+3;1;3;3;5;Compressor Pneumatic Tool 25 GMP
+3;1;3;3;999;Compressor Lainnya
+3;1;3;4;0;ELECTRIC GENERATING SET
+3;1;3;4;1;Transportable Generating Set
+3;1;3;4;2;Portable Generating Set
+3;1;3;4;3;Stationary Generating Set
+3;1;3;4;4;Dynamo Electric
+3;1;3;4;999;Electric Generating Set Lainnya
+3;1;3;5;0;POMPA
+3;1;3;5;1;Transportable Water Pump
+3;1;3;5;2;Portable Water Pump
+3;1;3;5;3;Stationary Water Pump
+3;1;3;5;4;Pompa Lumpur
+3;1;3;5;5;Sumersible Pump
+3;1;3;5;6;Pompa Tangan
+3;1;3;5;7;Pompa Angin
+3;1;3;5;8;Pompa Bensin/Minyak Stationery
+3;1;3;5;9;Pompa Bensin/Minyak Transportable
+3;1;3;5;10;Pompa Air
+3;1;3;5;11;Water Distributor
+3;1;3;5;12;Water Purification
+3;1;3;5;999;Pompa Lainnya
+3;1;3;6;0;MESIN BOR
+3;1;3;6;1;Mesin Bor Batu
+3;1;3;6;2;Mesin Bor Tanah
+3;1;3;6;3;Mesin Bor Beton
+3;1;3;6;999;Mesin Bor Lainnya
+3;1;3;7;0;UNIT PEMELIHARAAN LAPANGAN
+3;1;3;7;1;Mobil Workshop
+3;1;3;7;2;Service Car
+3;1;3;7;3;Floating Workshop
+3;1;3;7;4;Road Maintenance Truck
+3;1;3;7;5;Sweeper Truck
+3;1;3;7;6;Wreck Car
+3;1;3;7;7;Leak Detector (Unit Pemeliharaan Lapangan)
+3;1;3;7;8;Pipe Locator
+3;1;3;7;9;Metal Locator
+3;1;3;7;10;Mesin Diesel
+3;1;3;7;11;Ketle Heating
+3;1;3;7;12;Sweeper Penghisap Oli
+3;1;3;7;13;Fuel Tank
+3;1;3;7;14;Grass Colector
+3;1;3;7;15;Mesin Pemotong Aspal (Draging)
+3;1;3;7;16;Sweeper Rotary
+3;1;3;7;17;Earth Vager Truck
+3;1;3;7;18;Scrapper
+3;1;3;7;19;Roster
+3;1;3;7;20;Shop Truck Equipment
+3;1;3;7;999;Unit Pemeliharaan Lapangan Lainnya
+3;1;3;8;0;ALAT PENGOLAHAN AIR KOTOR
+3;1;3;8;1;Unit Pengolahan Air Kotor
+3;1;3;8;999;Alat Pengolahan Air Kotor lainnya
+3;1;3;9;0;PEMBANGKIT UAP AIR PANAS/STEAM GENERATOR
+3;1;3;9;1;Unit Pembangkit Uap Air Panas
+3;1;3;9;999;Pembangkit Uap Air Panas/Steam Generator Lainnya
+3;1;3;12;0;PERALATAN KEBAKARAN HUTAN
+3;1;3;12;1;Backpack Pump (Pompa Punggung Besar)
+3;1;3;12;2;Floating Fire Pump (Pompa Punggung Kecil)
+3;1;3;12;3;Pompa Portable
+3;1;3;12;4;Jet Shooter
+3;1;3;12;5;Golok Pemadam
+3;1;3;12;6;Blade Shovel (Sekop Pemadam)
+3;1;3;12;7;Sumbut
+3;1;3;12;8;Veld Bed
+3;1;3;12;9;Ransel Pemadam
+3;1;3;12;10;Full Body Harness
+3;1;3;12;11;Sit Harness
+3;1;3;12;12;Figure
+3;1;3;12;13;Ascender
+3;1;3;12;14;Scroll Lock
+3;1;3;12;15;Perlengkapan Rescue
+3;1;3;12;16;Automatic Snap Hook
+3;1;3;12;17;Tangga Tali
+3;1;3;12;18;Nozel Tabir Alumunium
+3;1;3;12;19;Nozel Kuningan Pernekel
+3;1;3;12;20;Selang Air
+3;1;3;12;21;Breathing Aparatus (Tabung 10 kg)
+3;1;3;12;22;Gepyok Pemadam
+3;1;3;12;23;Fire Rake (Garu Tajam)
+3;1;3;12;24;Pulaski Axe (Kapak Dua Fungsi)
+3;1;3;12;25;Fire Tool (Garu Pacul/ Cangkul)
+3;1;3;12;26;Sabit Semak
+3;1;3;12;27;Flapper (Pemukul Api)
+3;1;3;12;28;Drip Torch (Obor Sulut Tetes)
+3;1;3;12;29;Files (Kikir Baja)
+3;1;3;12;30;Kaca Mata (Lensa Tahan Panas)
+3;1;3;12;31;Kopel Rem
+3;1;3;12;32;Felpes
+3;1;3;12;33;Kantong Air
+3;1;3;12;34;Batang Pompa
+3;1;3;12;999;Peralatan Kebakaran Hutan Lainnya
+3;1;3;13;0;PERALATAN SELAM
+3;1;3;13;1;Tanks (Tabung Selam)
+3;1;3;13;2;Sepatu Karang
+3;1;3;13;3;Knives (Pisau Selam)
+3;1;3;13;4;Dive Lights (Senter Selam)
+3;1;3;13;5;Regulator Instruments
+3;1;3;13;6;Bouyancy Compensator Device (BCD)
+3;1;3;13;7;Belt (Sabuk Pemberat)
+3;1;3;13;8;Weight (Pemberat)
+3;1;3;13;9;Diving Gloves (Sarung Tangan Selam)
+3;1;3;13;10;Kompresor Selam
+3;1;3;13;11;Pelampung Life Jacket
+3;1;3;13;999;Peralatan Selam Lainnya
+3;1;3;14;0;PERALATAN SAR MOUNTENERING
+3;1;3;14;1;Tali Kamantel Static
+3;1;3;14;2;Tali Kamantel Dinamic
+3;1;3;14;3;Raincoat (Ponco)
+3;1;3;14;4;Seat Harness
+3;1;3;14;5;Prusik
+3;1;3;14;6;Jummar
+3;1;3;14;7;Pulley
+3;1;3;14;8;Descender Figure og Eight
+3;1;3;14;9;Carabiner Non Screw
+3;1;3;14;10;Webbing
+3;1;3;14;11;Tandu Lipat
+3;1;3;14;999;Peralatan SAR Mountenering Lainnya
+3;1;3;99;0;ALAT BANTU LAINNYA
+3;1;3;99;999;Alat Bantu Lainnya
+3;2;0;0;0;ALAT ANGKUTAN
+3;2;1;0;0;ALAT ANGKUTAN DARAT BERMOTOR
+3;2;1;1;0;KENDARAAN DINAS BERMOTOR PERORANGAN
+3;2;1;1;1;Sedan
+3;2;1;1;2;Jeep
+3;2;1;1;3;Station Wagon
+3;2;1;1;999;Kendaraan Dinas Bermotor Perorangan Lainnya
+3;2;1;2;0;KENDARAAN BERMOTOR PENUMPANG
+3;2;1;2;1;Bus ( Penumpang 30 Orang Keatas )
+3;2;1;2;2;Micro Bus ( Penumpang 15 S/D 29 Orang )
+3;2;1;2;3;Mini Bus ( Penumpang 14 Orang Kebawah )
+3;2;1;2;4;Kendaraan Lapis Baja
+3;2;1;2;999;Kendaraan Bermotor Penumpang Lainnya
+3;2;1;3;0;KENDARAAN BERMOTOR ANGKUTAN BARANG
+3;2;1;3;1;Truck + Attachment
+3;2;1;3;2;Pick Up
+3;2;1;3;3;Yeengler/Trailer
+3;2;1;3;4;Semi Trailer
+3;2;1;3;5;Truck Ponton dengan Trailler
+3;2;1;3;6;Dalhura
+3;2;1;3;999;Kendaraan Bermotor Angkutan Barang Lainnya
+3;2;1;4;0;KENDARAAN BERMOTOR BERODA DUA
+3;2;1;4;1;Sepeda Motor
+3;2;1;4;2;Scooter
+3;2;1;4;3;Sepeda Motor Perpustakaan Keliling
+3;2;1;4;4;Sepeda Motor Patroli
+3;2;1;4;5;Sepeda Motor Pengawalan
+3;2;1;4;999;Kendaraan Bermotor Beroda Dua Lainnya
+3;2;1;5;0;KENDARAAN BERMOTOR KHUSUS
+3;2;1;5;1;Mobil Ambulance
+3;2;1;5;2;Mobil Jenazah
+3;2;1;5;3;Mobil Unit Penerangan Darat
+3;2;1;5;4;Mobil Pemadam Kebakaran
+3;2;1;5;5;Mobil Tinja
+3;2;1;5;6;Mobil Tangki Air
+3;2;1;5;7;Mobil Unit Monitoring Frekwensi
+3;2;1;5;8;Mobil Unit Perpustakaan Keliling
+3;2;1;5;9;Mobil Unit Visual Mini (MUVIANI)
+3;2;1;5;10;Mobil Unit Satelite Link Van
+3;2;1;5;11;Mobil Unit Panggung
+3;2;1;5;12;Mobil Unit Pameran
+3;2;1;5;13;Out Side Broad Cast Van Radio
+3;2;1;5;14;Out Side Broad Cast Van Televisi
+3;2;1;5;15;Mobil Unit Produksi Film
+3;2;1;5;16;Mobil Unit Produksi Televisi
+3;2;1;5;17;Mobil Unit Produksi Cinerama
+3;2;1;5;18;Mobil Unit Kesehatan Masyarakat
+3;2;1;5;19;Mobil Unit Kesehatan Hewan
+3;2;1;5;20;Mobil Unit Tahanan
+3;2;1;5;21;Mobil Unit Pengangkut Uang
+3;2;1;5;22;Truck Sampah
+3;2;1;5;23;Mobil Tangki Bahan Bakar
+3;2;1;5;24;Mobil Unit Rontgen
+3;2;1;5;25;Mobil Unit Rehabilitasi Sosial Keliling
+3;2;1;5;26;Bomp Trailer
+3;2;1;5;27;Kendaraan Klinik
+3;2;1;5;28;Mobil Unit Pengangkut Limbah Radio Aktif
+3;2;1;5;29;Mobil Tranfusi Darah
+3;2;1;5;30;Kendaraan Tim Pemeliharaan
+3;2;1;5;31;Mobil Penarik (UNIMOG)
+3;2;1;5;32;Kendaraan Satmobek/Satmobeng/Satmomas
+3;2;1;5;33;Mobil Work Shop/Services
+3;2;1;5;34;Kendaraan Derek
+3;2;1;5;35;Mobil Unit Khusus Aljihandak
+3;2;1;5;36;Aircraft Air Conditioning
+3;2;1;5;37;Kendaraan Girafle Radar
+3;2;1;5;38;Mobil Pers Van
+3;2;1;5;39;Kendaraan Unit Bedah
+3;2;1;5;40;Mobile Floodlight
+3;2;1;5;41;Kendaraan Pengangkut Tank
+3;2;1;5;42;Crash Car
+3;2;1;5;43;Kendaraan Water Canon
+3;2;1;5;44;Foam Vehicle
+3;2;1;5;45;Kendaraan Toilet
+3;2;1;5;46;Rapid Invention Vehicle
+3;2;1;5;47;Kendaraan Gas Airmata
+3;2;1;5;48;Kendaraan Taktis
+3;2;1;5;49;Kendaraan VIP (Anti Peluru)
+3;2;1;5;50;Kendaraan Tangga Pesawat
+3;2;1;5;51;Kendaraan Meteo
+3;2;1;5;52;Kendaraan Sweeper
+3;2;1;5;53;Kendaraan Kamar Sandi
+3;2;1;5;54;Kendaraan Jamming Frekuensi
+3;2;1;5;55;Kendaraan Monitoring Sinyal
+3;2;1;5;56;Mobil Dapur Lapangan
+3;2;1;5;57;Mobil Penarik Barrier
+3;2;1;5;58;Mobil Operasional PJR
+3;2;1;5;59;Automatic Unguided Vehicle (AuGV)
+3;2;1;5;60;Rescue Car
+3;2;1;5;61;Rapid Deployment Land SAR
+3;2;1;5;62;Rescue Truck
+3;2;1;5;63;Monilog (Mobil Logistik/ Personil)
+3;2;1;5;64;Mobil Latih
+3;2;1;5;65;Ran Switch Wagon
+3;2;1;5;66;Ran Cacdri Wagon
+3;2;1;5;67;Ran Traktor
+3;2;1;5;68;Ran Tangki
+3;2;1;5;69;Ran Zat Asam
+3;2;1;5;70;Ran Penyapu Landasan
+3;2;1;5;71;Ran Pandu Pesawat
+3;2;1;5;72;Ran Penarik Pesawat
+3;2;1;5;73;Ran Penyapu Hanggar
+3;2;1;5;74;Ran Drug Chute
+3;2;1;5;75;Ran Pembangkit Tenaga
+3;2;1;5;76;Ran Crime Squid
+3;2;1;5;77;Ran Weapon Carrier
+3;2;1;5;78;Ran Laboratorium  / Uji Coba
+3;2;1;5;79;Ran Kantin
+3;2;1;5;80;Ran Patroli
+3;2;1;5;81;Ran Jeep Kommab
+3;2;1;5;82;Ran Recovery
+3;2;1;5;83;Ran Pengisi BB Pesawat
+3;2;1;5;84;Ran Wrecker
+3;2;1;5;85;Ran Forklip
+3;2;1;5;86;Mobil Patroli
+3;2;1;5;87;Kendaraan APC
+3;2;1;5;88;Kendaraan Dare V
+3;2;1;5;89;Kendaraan/Mobil Pengawalan
+3;2;1;5;90;Mobil Irup
+3;2;1;5;91;Mobil Komlek Polri
+3;2;1;5;92;Mobil Unit TKP
+3;2;1;5;93;Mobil Unit Laka Lantas
+3;2;1;5;94;Mobil Unit Identifikasi
+3;2;1;5;95;Mobil Unit Labfor
+3;2;1;5;96;Mobil Unit Penerangan Polri
+3;2;1;5;97;Mobil Unit Derek
+3;2;1;5;98;Mobil Unit Satwa
+3;2;1;5;99;Rantis PHH
+3;2;1;5;100;Kendaraan Pos Polisi Mobile
+3;2;1;5;101;Mobil Unit Alsus Jihandak
+3;2;1;5;102;Mobil Golfcar
+3;2;1;5;103;Rantis Rescue Samapta
+3;2;1;5;104;Ransus Satwa Anjing Type Kecil
+3;2;1;5;105;Ransus Satwa Anjing Type Sedang
+3;2;1;5;106;Ransus Satwa Anjing Type Besar
+3;2;1;5;107;Ransus Satwa Kuda Type Sedang
+3;2;1;5;108;Ransus Satwa Kuda Type Besar
+3;2;1;5;109;Trailer Kuda
+3;2;1;5;999;Kendaraan Bermotor Khusus Lainnya
+3;2;1;99;0;ALAT ANGKUTAN DARAT BERMOTOR LAINNYA
+3;2;1;99;999;Alat Angkutan Darat Bermotor Lainnya
+3;2;2;0;0;ALAT ANGKUTAN DARAT TAK BERMOTOR
+3;2;2;1;0;KENDARAAN TAK BERMOTOR ANGKUTAN BARANG
+3;2;2;1;1;Gerobak Tarik
+3;2;2;1;2;Gerobak Dorong
+3;2;2;1;3;Caravan
+3;2;2;1;4;Lori Dorong
+3;2;2;1;5;Trailer
+3;2;2;1;6;Container Dolly
+3;2;2;1;7;Pallet Dolly
+3;2;2;1;8;Baggage And Mail Cart
+3;2;2;1;9;Baggage Trolly
+3;2;2;1;10;Meja Dorong Saji/Trolley Saji
+3;2;2;1;11;Roda Dua Berinsulasi
+3;2;2;1;12;Roda Tiga/ Gerobak Kayuh Berinsulasi
+3;2;2;1;999;Kendaraan Tak Bermotor Angkutan Barang Lainnya
+3;2;2;2;0;KENDARAAN TAK BERMOTOR PENUMPANG
+3;2;2;2;1;Sepeda
+3;2;2;2;2;Kuda (Kendaraan Tak Bermotor Penumpang)
+3;2;2;2;999;Kendaraan Tak Bermotor Penumpang Lainnya
+3;2;2;3;0;ALAT ANGKUTAN KERETA REL TAK BERMOTOR
+3;2;2;3;1;Kereta Penumpang
+3;2;2;3;2;Kereta Makan
+3;2;2;3;3;Power Car
+3;2;2;3;4;Gerbong Barang Tertutup
+3;2;2;3;5;Gerbong Barang Terbuka
+3;2;2;3;999;Alat Angkutan Kereta Rel Tak Bermotor Lainnya
+3;2;2;99;0;ALAT ANGKUTAN DARAT TAK BERMOTOR LAINNYA
+3;2;2;99;999;Alat Angkutan Darat Tak Bermotor Lainnya
+3;2;3;0;0;ALAT ANGKUTAN APUNG BERMOTOR
+3;2;3;1;0;ALAT ANGKUTAN APUNG BERMOTOR UNTUK BARANG
+3;2;3;1;1;Kapal Minyak (Tanker)
+3;2;3;1;2;Tongkang Bermotor
+3;2;3;1;3;Tug Boat + Attachment
+3;2;3;1;4;Landing Ship Transportation( L.S.T )
+3;2;3;1;5;Kapal Cargo (Kapal Barang)
+3;2;3;1;6;Truck Air
+3;2;3;1;999;Alat Angkutan Apung Bermotor Untuk Barang Lainnya
+3;2;3;2;0;ALAT ANGKUTAN APUNG BERMOTOR UNTUK PENUMPANG
+3;2;3;2;1;Speed Boat / Motor Tempel
+3;2;3;2;2;Motor Boat
+3;2;3;2;3;Klotok
+3;2;3;2;4;Ferry
+3;2;3;2;5;Hidrofoil
+3;2;3;2;6;Jetfoil
+3;2;3;2;7;Long Boat
+3;2;3;2;8;Kapal Passanger (Kapal Penumpang)
+3;2;3;2;9;Perahu Kayu
+3;2;3;2;999;Alat Angkutan Apung Bermotor Untuk Penumpang Lainnya
+3;2;3;3;0;ALAT ANGKUTAN APUNG BERMOTOR KHUSUS
+3;2;3;3;1;Survey Boat
+3;2;3;3;2;Kapal Anti Polusi
+3;2;3;3;3;Kapal Perambuan
+3;2;3;3;4;Out Boat Motor
+3;2;3;3;5;Kapal Hydrografi
+3;2;3;3;6;Kapal Unit Penerangan Air
+3;2;3;3;7;Kapal Visual Mini
+3;2;3;3;8;Kapal Penangkap Ikan
+3;2;3;3;9;Kapal Pengangkut Hewan
+3;2;3;3;10;Kapal Patroli Pantai
+3;2;3;3;11;Kapal Motor Perpustakaan Keliling
+3;2;3;3;12;Floating Work Shop/Dock
+3;2;3;3;13;Moring Boat/Kepil
+3;2;3;3;14;Suction Dredger/Keruk Hisap
+3;2;3;3;15;Qutter Dredger/Keruk Bor
+3;2;3;3;16;Bucket Dredger/Keruk Timba
+3;2;3;3;17;Clampshel Dredger/Keruk Cakram
+3;2;3;3;18;Alat Angkutan Apung Untuk Mancing
+3;2;3;3;19;Floating Pile + Attachment (Alat Angkutan Apung Bermotor Khusus)
+3;2;3;3;20;Sekoci Motor Tempel
+3;2;3;3;21;Perahu Motor Tempel
+3;2;3;3;22;Kapal Oseanografi
+3;2;3;3;23;Perahu Tradisional
+3;2;3;3;24;Sea Rider
+3;2;3;3;25;Hover Craft
+3;2;3;3;26;Kapal Pengangkut Ikan
+3;2;3;3;27;Kapal Pengolah Ikan
+3;2;3;3;28;Kapal Penelitian/ Eksplorasi Perikanan
+3;2;3;3;29;Kapal Pendukung Operasi Penangkapan Ikan
+3;2;3;3;30;Kapal Pendukung Operasi Pembudidayaan Ikan
+3;2;3;3;31;Kapal Pengawas Perikanan
+3;2;3;3;32;Perahu Intai 3 orang
+3;2;3;3;33;Perahu Serbu 15 orang
+3;2;3;3;34;Kapal Patroli Polisi
+3;2;3;3;35;Jet Sky
+3;2;3;3;999;Alat Angkutan Apung Bermotor Khusus Lainnya
+3;2;3;99;0;ALAT ANGKUTAN APUNG BERMOTOR LAINNYA
+3;2;3;99;999;Alat Angkutan Apung Bermotor Lainnya
+3;2;4;0;0;ALAT ANGKUTAN APUNG TAK BERMOTOR
+3;2;4;1;0;ALAT ANGKUTAN APUNG TAK BERMOTOR UNTUK BARANG
+3;2;4;1;1;Tongkang
+3;2;4;1;2;Perahu Barang
+3;2;4;1;999;Alat Angkutan Apung Tak Bermotor Untuk Barang Lainnya
+3;2;4;2;0;ALAT ANGKUTAN APUNG TAK BERMOTOR UNTUK PENUMPANG
+3;2;4;2;1;Perahu Penumpang
+3;2;4;2;2;Perahu Penyeberangan
+3;2;4;2;999;Alat Angkutan Apung Tak Bermotor Untuk Penumpang Lainnya
+3;2;4;3;0;ALAT ANGKUTAN APUNG TAK BERMOTOR KHUSUS
+3;2;4;3;1;Ponton
+3;2;4;3;2;Perahu Karet (Alat Angkutan Apung Tak Bermotor Khusus)
+3;2;4;3;3;Ponton Rumah
+3;2;4;3;4;Floating Platform/Rakit
+3;2;4;3;999;Alat Angkutan Apung Tak Bermotor Khusus Lainnya
+3;2;4;99;0;ALAT ANGKUTAN APUNG TAK BERMOTOR LAINNYA
+3;2;4;99;999;Alat Angkutan Apung Tak Bermotor Lainnya
+3;3;0;0;0;ALAT BENGKEL DAN ALAT UKUR
+3;3;1;0;0;ALAT BENGKEL BERMESIN
+3;3;1;1;0;PERKAKAS KONSTRUKSI LOGAM TERPASANG PADA PONDASI
+3;3;1;1;1;Mesin Bubut
+3;3;1;1;2;Mesin Frais
+3;3;1;1;3;Mesin Ketam (Perkakas Konstruksi Logam Terpasang Pada Pondasi)
+3;3;1;1;4;Mesin Press Hidrolik & Punch
+3;3;1;1;5;Mesin Bor
+3;3;1;1;6;Mesin Gergaji Logam
+3;3;1;1;7;Mesin Gerinda
+3;3;1;1;8;Mesin Rol
+3;3;1;1;9;Mesin Bor Cylinder
+3;3;1;1;10;Mesin Skrup
+3;3;1;1;11;Mesin Meiling
+3;3;1;1;12;Mesin Purel
+3;3;1;1;13;Mesin Perapen
+3;3;1;1;14;Mesin Sikat Kulit
+3;3;1;1;15;Mesin Pemotong Kulit
+3;3;1;1;16;Mesin Jahit Kulit
+3;3;1;1;17;Mesin Pengepres Kulit
+3;3;1;1;18;Mesin Kompresor
+3;3;1;1;19;Mesin Las Listrik
+3;3;1;1;20;Mesin Dynamo Kron
+3;3;1;1;21;Mesin Sikat Besi Kron
+3;3;1;1;22;Mesin Pemotong Fiberglas/Poliyster
+3;3;1;1;23;Mesin Gulung Listrik
+3;3;1;1;24;Mesin Pelubang (Perkakas Konstruksi Logam Terpasang Pada Pondasi)
+3;3;1;1;25;Mesin Penekuk/Lipat Plat
+3;3;1;1;26;Mesin Gunting Plat
+3;3;1;1;27;Mesin Pembengkok Uni
+3;3;1;1;28;Mesin Amplas Plat
+3;3;1;1;29;Mesin Pemotong Plat
+3;3;1;1;30;Mesin Transmission Automotive
+3;3;1;1;31;Mesin Pembengkok Logam
+3;3;1;1;32;Mesin Crystal Growing
+3;3;1;1;33;Mesin Laser Cutting
+3;3;1;1;34;Mesin Laser Welding
+3;3;1;1;35;Mesin Lipat Plat
+3;3;1;1;36;Mesin Briket
+3;3;1;1;37;Univ. Grinder Seting Valve
+3;3;1;1;38;Univ. Grinder Valve Repair
+3;3;1;1;39;Mesin Serut
+3;3;1;1;40;Mesin Profile Kayu
+3;3;1;1;999;Perkakas Konstruksi  Logam Terpasang Pada Pondasi Lainnya
+3;3;1;2;0;PERKAKAS KONSTRUKSI LOGAM YANG TRANSPORTABLE (BERPINDAH)
+3;3;1;2;1;Mesin Gerinda Tangan
+3;3;1;2;2;Mesin Bor Tangan
+3;3;1;2;3;Mesin Cylinder
+3;3;1;2;4;Riveting Machine
+3;3;1;2;5;Mesin Gulung Manual
+3;3;1;2;6;Mesin Ampelas Tangan
+3;3;1;2;7;Mesin Ampelas Rol Kecil
+3;3;1;2;8;Mesin Gergaji Besi
+3;3;1;2;999;Perkakas Konstruksi Logam Yang Transportable (Berpindah) Lainnya
+3;3;1;3;0;PERKAKAS BENGKEL LISTRIK
+3;3;1;3;1;Battery Charge
+3;3;1;3;2;Winder
+3;3;1;3;3;Transformator
+3;3;1;3;4;Solder Listrik
+3;3;1;3;5;Sedotan Timah Listrik
+3;3;1;3;6;Electrical Discharge
+3;3;1;3;7;Vertical machining Centre
+3;3;1;3;8;Copy Milling
+3;3;1;3;9;Surface Grinding Proth
+3;3;1;3;10;Cydrical Grinder Yam
+3;3;1;3;11;Capacity Die Casting
+3;3;1;3;12;Hmc Cintinati Milacron
+3;3;1;3;13;Engine Cylinder Research Engine
+3;3;1;3;14;Valve Sensor
+3;3;1;3;15;Coordinate Measuring Machines
+3;3;1;3;16;Engine Cooling System
+3;3;1;3;17;Outlet Manifodld Pressure
+3;3;1;3;18;Impulse Orbital Welder
+3;3;1;3;19;AVL DIGAS
+3;3;1;3;20;Electric Wire Rope
+3;3;1;3;21;Steam Pressure Gauge
+3;3;1;3;22;Savetuy Valve
+3;3;1;3;23;Tresher Statis
+3;3;1;3;24;Variac
+3;3;1;3;25;Mixer (Perkakas Bengkel Listrik)
+3;3;1;3;26;Stepping Motor
+3;3;1;3;27;Cylinder Pressure Tranducer
+3;3;1;3;28;Engine Simulation Software Package
+3;3;1;3;29;Axhaust Gas Analizer
+3;3;1;3;30;Circular Saw
+3;3;1;3;31;Tester Listrik/Telepon/Internet
+3;3;1;3;999;Perkakas Bengkel Listrik Lainnya (Alat Bengkel Bermesin)
+3;3;1;4;0;PERKAKAS BENGKEL SERVICE
+3;3;1;4;1;Auto Lift
+3;3;1;4;2;Car Washer
+3;3;1;4;3;Steam Cleaner
+3;3;1;4;4;Lubriacating Equipment
+3;3;1;4;5;Mesin Spooring
+3;3;1;4;6;Mesin Balancer
+3;3;1;4;7;Brake Drum Lathe/Mesin  Perata Tromol
+3;3;1;4;8;Pengasah Lubang Stang Piston
+3;3;1;4;9;Lubricating Set (Perkakas Bengkel Service)
+3;3;1;4;10;Air Filter Regulator
+3;3;1;4;11;Diamond Care Drill Care
+3;3;1;4;12;AC Motor Control
+3;3;1;4;999;Perkakas Bengkel Service Lainnya (Alat Bengkel Bermesin)
+3;3;1;5;0;PERKAKAS PENGANGKAT BERMESIN
+3;3;1;5;1;Overhead Crane
+3;3;1;5;2;Hoist
+3;3;1;5;3;Winch/LIR
+3;3;1;5;999;Perkakas Pengangkat Bermesin Lainnya
+3;3;1;6;0;PERKAKAS BENGKEL KAYU
+3;3;1;6;1;Mesin Gergaji
+3;3;1;6;2;Mesin Ketam (Perkakas Bengkel Kayu)
+3;3;1;6;3;Mesin Bor Kayu
+3;3;1;6;4;Mesin Penghalus
+3;3;1;6;5;Tatah Listrik Oscar MK 361
+3;3;1;6;6;Pasah Listrik MKC
+3;3;1;6;7;Profile Listrik MKC
+3;3;1;6;8;Grendo Duduk
+3;3;1;6;9;Gergaji Bengkok ATS
+3;3;1;6;10;Amplas Listrik GMT
+3;3;1;6;11;Gergaji Chain Saw
+3;3;1;6;12;Table Saw 10 Eastco
+3;3;1;6;999;Perkakas Bengkel Kayu Lainnya
+3;3;1;7;0;PERKAKAS BENGKEL KHUSUS
+3;3;1;7;1;Mesin Jahit Terpal
+3;3;1;7;2;Perkakas Vulkanisir Ban
+3;3;1;7;3;Perkakas Bongkar/Pasang Ban
+3;3;1;7;4;Mesin Tenun Tekstil
+3;3;1;7;5;Mesin Celup (Perkakas Bengkel Khusus)
+3;3;1;7;6;Pemasang Baru
+3;3;1;7;7;Mesin Tenun Jahit
+3;3;1;7;999;Perkakas Bengkel Khusus Lainnya
+3;3;1;8;0;PERALATAN LAS
+3;3;1;8;1;Peralatan Las Listrik
+3;3;1;8;2;Peralatan Las Karbit
+3;3;1;8;3;Peralatan Las Gas
+3;3;1;8;999;Peralatan Las Lainnya
+3;3;1;99;0;ALAT BENGKEL BERMESIN LAINNYA
+3;3;1;99;999;Alat Bengkel Bermesin Lainnya
+3;3;2;0;0;ALAT BENGKEL TAK BERMESIN
+3;3;2;1;0;PERKAKAS BENGKEL KONSTRUKSI LOGAM
+3;3;2;1;1;Perkakas Dapur Tempa
+3;3;2;1;2;Perkakas Bangku Kerja
+3;3;2;1;3;Perkakas Pengukur
+3;3;2;1;4;Perkakas Pengecoran Logam
+3;3;2;1;5;R O L
+3;3;2;1;6;Perkakas Pemotong Plat
+3;3;2;1;7;Perkakas Press Hidrolik
+3;3;2;1;8;Perkakas Pemotong Kabel Sling
+3;3;2;1;9;Perkakas Pengecatan Kendaraan
+3;3;2;1;999;Perkakas Bengkel Konstruksi Logam Lainnya
+3;3;2;2;0;PERKAKAS BENGKEL LISTRIK
+3;3;2;2;1;Armature Drying Oven
+3;3;2;2;2;Mica Undercutter
+3;3;2;2;3;Commutator Turning Tool
+3;3;2;2;4;Armature Crowler
+3;3;2;2;5;Solid State Soldering Gun
+3;3;2;2;999;Perkakas Bengkel Listrik Lainnya (Alat Bengkel Tak Bermesin)
+3;3;2;3;0;PERKAKAS BENGKEL SERVICE
+3;3;2;3;1;Perkakas Bengkel Service
+3;3;2;3;2;Lubricating Set (Perkakas Bengkel Service)
+3;3;2;3;3;Perlengkapan Bengkel Mekanik
+3;3;2;3;4;Jembatan Service Hidrolik
+3;3;2;3;999;Perkakas Bengkel Service Lainnya (Alat Bengkel Tak Bermesin)
+3;3;2;4;0;PERKAKAS PENGANGKAT
+3;3;2;4;1;Dongkrak Mekanik
+3;3;2;4;2;Dongkrak Hidrolik
+3;3;2;4;3;T A K E L
+3;3;2;4;4;G A N T R Y
+3;3;2;4;5;T R I P O D
+3;3;2;4;6;Floor Crane
+3;3;2;4;999;Perkakas Pengangkat Lainnya
+3;3;2;5;0;PERKAKAS STANDARD (STANDARD TOOLS)
+3;3;2;5;1;Tool Kit Set
+3;3;2;5;2;Tool Kit Box
+3;3;2;5;3;Tool Cabinet Set
+3;3;2;5;4;Kunci Pipa
+3;3;2;5;5;Puller Set
+3;3;2;5;6;Tap Dies
+3;3;2;5;7;Greeper
+3;3;2;5;8;Engine Stand
+3;3;2;5;9;Kunci Moment
+3;3;2;5;10;Pembuat Fisik (DIESS)
+3;3;2;5;11;Tungku Non Ferrous
+3;3;2;5;12;Wheel Chock (Perkakas Standard (standard Tools))
+3;3;2;5;13;Maintenance Step
+3;3;2;5;14;Crimping Tolls
+3;3;2;5;15;Toolkit Tukang Kayu Ton
+3;3;2;5;16;Toolkit Tukang Batu Ton
+3;3;2;5;17;Toolkit Tukang Listrik
+3;3;2;5;18;Toolkit Pemeliharaan
+3;3;2;5;19;Toolkit Perbengkelan
+3;3;2;5;20;Toolkit Perpipaan
+3;3;2;5;21;Tool Outfit Pioner Electric
+3;3;2;5;22;Tool General Mechanic Set
+3;3;2;5;23;Toolkit Tukang Besi
+3;3;2;5;24;Tool Electrical Set
+3;3;2;5;25;Sawmil
+3;3;2;5;26;Unit Pelumas Portable
+3;3;2;5;27;Scafolding Set & Tool
+3;3;2;5;28;Hand Fallet
+3;3;2;5;29;Paron
+3;3;2;5;30;Cylinder Bearing
+3;3;2;5;31;Perlengkapan Bengkel Pengecatan
+3;3;2;5;999;Perkakas Standard (Standard Tools) Lainnya
+3;3;2;6;0;PERKAKAS KHUSUS (SPECIAL TOOLS)
+3;3;2;6;1;Kunci Khusus Untuk Engine
+3;3;2;6;2;Kunci Khusus Alat Besar Darat
+3;3;2;6;3;Kunci Khusus Alat Besar Apung
+3;3;2;6;4;Kunci Khusus Casis Alat Angkut Darat
+3;3;2;6;5;Kunci Khusus Casis
+3;3;2;6;6;Kunci Khusus Alat Angkut Apung
+3;3;2;6;7;Kunci Khusus Pembuka Mur/Baut
+3;3;2;6;8;Kunci Khusus Moment
+3;3;2;6;9;Kunci Khusus Alat Besar Udara
+3;3;2;6;10;Kunci Khusus Casis Alat Besar Udara
+3;3;2;6;11;Digital Tang Ampere
+3;3;2;6;12;Digital Tachometer
+3;3;2;6;13;Foot Klep
+3;3;2;6;14;Cincin/Kopling Slang Hydrant
+3;3;2;6;15;Kunci L
+3;3;2;6;16;TBA
+3;3;2;6;999;Perkakas Khusus (Special Tools) Lainnya
+3;3;2;7;0;PERKAKAS BENGKEL KERJA
+3;3;2;7;1;Gergaji
+3;3;2;7;2;Ketam
+3;3;2;7;3;Bor
+3;3;2;7;4;Pahat
+3;3;2;7;5;Kakak Tua
+3;3;2;7;6;Water Pas
+3;3;2;7;7;Siku
+3;3;2;7;8;Palu
+3;3;2;7;999;Perkakas Bengkel Kerja Lainnya
+3;3;2;8;0;PERALATAN TUKANG BESI
+3;3;2;8;1;Tanggem
+3;3;2;8;2;Gunting Plat
+3;3;2;8;3;Landasan Kenteng
+3;3;2;8;4;Kunci Kaul
+3;3;2;8;5;Gunting Plat Tangan
+3;3;2;8;6;Tang Kombinasi
+3;3;2;8;7;Tang Potong
+3;3;2;8;8;Betel, Seter, Drip, Dreg, Sneper
+3;3;2;8;9;Pukul Konde
+3;3;2;8;10;Pukul Lengkung
+3;3;2;8;11;Pukul Sabit
+3;3;2;8;12;Kikir
+3;3;2;8;13;Kunci Pas
+3;3;2;8;14;Tang Senai & Tap
+3;3;2;8;15;Drei Biasa (Obeng)
+3;3;2;8;16;Drei Kembang (Obeng)
+3;3;2;8;17;Drei Ketok (Obeng)
+3;3;2;8;18;Seket Mat
+3;3;2;8;19;Jangka Besi
+3;3;2;8;20;Kunci Stang
+3;3;2;8;999;Peralatan Tukang Besi Lainnya
+3;3;2;9;0;PERALATAN TUKANG KAYU
+3;3;2;9;1;Tatah Biasa
+3;3;2;9;2;Tatah Lengkung
+3;3;2;9;3;Kaota
+3;3;2;9;4;Petel
+3;3;2;9;5;Patar
+3;3;2;9;6;Bor Engkol
+3;3;2;9;7;Perlengkapan Bengkel Kayu
+3;3;2;9;999;Peralatan Tukang Kayu Lainnya
+3;3;2;10;0;PERALATAN TUKANG KULIT
+3;3;2;10;1;Pisau Kulit
+3;3;2;10;2;Pandokan Sepatu
+3;3;2;10;3;Lis Sepatu
+3;3;2;10;4;Cokro
+3;3;2;10;5;Plong Kulit
+3;3;2;10;6;Catut
+3;3;2;10;7;Pukul Sepatu
+3;3;2;10;8;Gunting Kulit
+3;3;2;10;9;Gunting Kain
+3;3;2;10;10;Drek Mata Ayam
+3;3;2;10;12;Uncek
+3;3;2;10;999;Peralatan Tukang Kulit Lainnya
+3;3;2;11;0;PERALATAN UKUR, GIP & FETING
+3;3;2;11;1;Dipan Ukur
+3;3;2;11;2;Meteran Kain
+3;3;2;11;3;Rol Meter
+3;3;2;11;4;Jangka Berkaki
+3;3;2;11;5;Patar Gip
+3;3;2;11;6;Pisau Gip
+3;3;2;11;7;Pararel Bar
+3;3;2;11;8;Cermin Besar
+3;3;2;11;9;Tangga Latihan
+3;3;2;11;10;Trap Latihan
+3;3;2;11;999;Peralatan Ukur, Gip & Feting Lainnya
+3;3;2;12;0;PERALATAN BENGKEL KHUSUS PELADAM
+3;3;2;12;1;Mesin CNC
+3;3;2;12;2;Dynamo Tungku
+3;3;2;12;3;Mesin Frais
+3;3;2;12;4;Mesin Skraf
+3;3;2;12;5;Mesin Bor Meja / Kaki Listrik
+3;3;2;12;6;Palu Besar
+3;3;2;12;7;Mesin Korter
+3;3;2;12;8;Palu Kecil
+3;3;2;12;9;Mesin Gerinda Duduk (Bench Gerinda)
+3;3;2;12;10;Gegep Pemotong Kuku
+3;3;2;12;11;Gegep Pemotong Paku
+3;3;2;12;12;Pisau Renet
+3;3;2;12;13;Mesin Jahit Terpal
+3;3;2;12;14;Pelobang Tapel
+3;3;2;12;15;Tang Buaya
+3;3;2;12;16;Mesin Battery Set / Pengisi Accu
+3;3;2;12;17;Peralatan Bengkel Lainnya
+3;3;2;12;18;Mesin Blower Listrik / Mekanik
+3;3;2;12;19;Mesin Sikat / Brush Machine
+3;3;2;12;20;Mesin Pembuka Ban
+3;3;2;12;21;Mesin Slep Kruk As
+3;3;2;12;22;Mesin Asah Silider Cop
+3;3;2;12;23;Mesin Gulung Spool
+3;3;2;12;24;Mesin Gulung Plat
+3;3;2;12;25;Mesin Pompa air PMK
+3;3;2;12;26;Mesin Asah Klep
+3;3;2;12;27;Mesin Tusuk / Stik
+3;3;2;12;28;Mesin Bor Listrik Tangan
+3;3;2;12;29;Mesin Nimbling
+3;3;2;12;30;Mesin Gerinda tangan Listrik
+3;3;2;12;31;Mesin Potong plat bentuk / hand nimbler
+3;3;2;12;32;Unit Cat
+3;3;2;12;33;Cut Off Saw
+3;3;2;12;34;Mesin Analisa System
+3;3;2;12;35;Blender Las Potong
+3;3;2;12;36;Mesin Cuci kendaraan/ Car Washer
+3;3;2;12;37;Perkakas AC
+3;3;2;12;999;Peralatan Bengkel Khusus Peladam Lainnya
+3;3;2;99;0;ALAT BENGKEL TAK BERMESIN LAINNYA
+3;3;2;99;999;Alat Bengkel Tak Bermesin Lainnya
+3;3;3;0;0;ALAT UKUR
+3;3;3;1;0;ALAT UKUR UNIVERSAL
+3;3;3;1;1;Af Generator Tone Generator
+3;3;3;1;2;Audio Signal Source
+3;3;3;1;3;Audio Test Set
+3;3;3;1;4;Audio Morse & Distributor Meter
+3;3;3;1;5;Audio Sweep Osilator
+3;3;3;1;6;VTVM Volt
+3;3;3;1;7;Independence Meter
+3;3;3;1;8;Decible Meter
+3;3;3;1;9;Crt Tester
+3;3;3;1;10;Circuit Tester (Alat Ukur Universal)
+3;3;3;1;11;Electronic Capasitor Tester
+3;3;3;1;12;Illumino Meter
+3;3;3;1;13;IC Tester Semi Test IV
+3;3;3;1;14;IC Meter
+3;3;3;1;15;Mihvolt Meter
+3;3;3;1;16;Multitester & Accessorie
+3;3;3;1;17;Multisester Digital
+3;3;3;1;18;Photo Illumination Meter
+3;3;3;1;19;Transistor Tester Semitest I
+3;3;3;1;20;Transistor Tester Semitest II
+3;3;3;1;21;Transistor Tester Semitest V
+3;3;3;1;22;Transistor Tester AVO
+3;3;3;1;23;Volt Meter Elektronik
+3;3;3;1;24;Volt Meter Digital
+3;3;3;1;25;Volt Meter Higt Tension
+3;3;3;1;26;Widw Band Level Meter
+3;3;3;1;27;Automatic Distrotion Meter
+3;3;3;1;28;Power Meter And Accessories
+3;3;3;1;29;PH Meter (Alat Ukur Universal)
+3;3;3;1;30;Quasi Peak Meter
+3;3;3;1;31;Thruline Watt Meter
+3;3;3;1;32;Digital Multimeter (Alat Ukur Universal)
+3;3;3;1;33;Multi Meter
+3;3;3;1;34;Meter Calibrator
+3;3;3;1;35;Moise Figure Meter
+3;3;3;1;36;Distortion Analyzer
+3;3;3;1;37;Vector Volt Meter (Alat Ukur Universal)
+3;3;3;1;38;Pulse Generator (Alat Ukur Universal)
+3;3;3;1;39;DME Ground Station Test Set (Alat Ukur Universal)
+3;3;3;1;40;UHF Signal Generator
+3;3;3;1;41;Sweep Oscillator (Alat Ukur Universal)
+3;3;3;1;42;VHF Signal Generator
+3;3;3;1;43;Spektrum Analyzer
+3;3;3;1;44;Tube Tester (Alat Ukur Universal)
+3;3;3;1;45;Dosimeter & Accesories
+3;3;3;1;46;Survey Meter (Alat Ukur Universal)
+3;3;3;1;47;Sound Detector
+3;3;3;1;48;Vidicon Quick Tester
+3;3;3;1;49;Pattern For TV Adjustment
+3;3;3;1;50;Power Meter Cillibrator
+3;3;3;1;51;Thermistor
+3;3;3;1;52;Signal Generator Audio VHF, UHF
+3;3;3;1;53;X - Tal Detector
+3;3;3;1;54;CO - Axial Slot Line
+3;3;3;1;55;RF Volt Meter
+3;3;3;1;56;Frekquency Wave Meter
+3;3;3;1;57;Megger
+3;3;3;1;58;CO Axial Attenuator
+3;3;3;1;59;Variabel CO Axial Attenuator
+3;3;3;1;60;Directional Coupler (Alat Ukur Universal)
+3;3;3;1;61;Pin Modulator
+3;3;3;1;62;Logig Trouble Shoting Kit
+3;3;3;1;63;SWR Meter
+3;3;3;1;64;Memori Programmer
+3;3;3;1;65;Logig Statc Analyzer
+3;3;3;1;66;Frequency Cuonter
+3;3;3;1;67;Universal Bridge
+3;3;3;1;68;FB Meter
+3;3;3;1;69;Noise
+3;3;3;1;70;Radiation Monitor Isotropic
+3;3;3;1;71;Phase Meter
+3;3;3;1;72;Global Positioning System
+3;3;3;1;73;ILS. Calibration RX.
+3;3;3;1;74;DCP ( Alat Control ) Sensor
+3;3;3;1;75;Moisteur Meter
+3;3;3;1;76;Rota Meter
+3;3;3;1;77;Mini Phasec View
+3;3;3;1;78;Frequency Inverter
+3;3;3;1;79;Accumeter
+3;3;3;1;80;Temperatur Digital
+3;3;3;1;81;Argometer
+3;3;3;1;82;Dial Test Indicator
+3;3;3;1;83;Speed Meter
+3;3;3;1;84;Oil Bath, Hart Scientific
+3;3;3;1;85;Speed Detector
+3;3;3;1;86;Thermohygrometer (Alat Ukur Universal)
+3;3;3;1;87;Traffic Counter
+3;3;3;1;88;Standar Test Gauge
+3;3;3;1;90;Sigma Meter
+3;3;3;1;91;Ionisasi Meter
+3;3;3;1;92;Rotan Sampler Spliter
+3;3;3;1;93;Henry Meter
+3;3;3;1;94;Mesin Kocok Horisontal
+3;3;3;1;95;Capasitor Meter
+3;3;3;1;96;Microprocessor Conductivity
+3;3;3;1;97;UHF Out Pusttessting Equipment
+3;3;3;1;98;Shrangkage Limit Apparatus
+3;3;3;1;99;R.F. Signal Generator
+3;3;3;1;100;Dewmeter Print
+3;3;3;1;102;Orbital Shaker
+3;3;3;1;103;VHF/UHF Dummy Load
+3;3;3;1;104;Ozonizer
+3;3;3;1;105;Psophometric Weighting Network
+3;3;3;1;106;Personal CDT
+3;3;3;1;107;Portable Test Reck
+3;3;3;1;108;Radio Meter (Alat Ukur Universal)
+3;3;3;1;109;Nmotor Drive Wire Wropper
+3;3;3;1;110;Salinity Temp Depth Analizer
+3;3;3;1;111;Digital Circuit Tester
+3;3;3;1;112;Salinometer
+3;3;3;1;113;Field Strength Meter
+3;3;3;1;114;Acientific Soundeer System
+3;3;3;1;115;Alterneatur
+3;3;3;1;116;Senter Bawah Air
+3;3;3;1;117;Mega Ohm Tester
+3;3;3;1;118;Six Place Hidromanifold
+3;3;3;1;119;Insulation Tester (Alat Ukur Universal)
+3;3;3;1;120;Sonicator Virsoic Call Disluptor
+3;3;3;1;121;Electric Bench
+3;3;3;1;122;Sweep Function Generator
+3;3;3;1;123;Loadmeter
+3;3;3;1;124;System UV Sterelisasi dan Sirkulasi AI
+3;3;3;1;125;Counter Tester
+3;3;3;1;126;System For Chemical Oxygen Demond
+3;3;3;1;127;The Dacor Seasprint Under Water Vehicle
+3;3;3;1;128;Titration Unit
+3;3;3;1;129;Ultrasonic Cleaner (Alat Ukur Universal)
+3;3;3;1;130;Water Analysis Kit
+3;3;3;1;131;Wheel Meter
+3;3;3;1;132;Proyection Polariscope
+3;3;3;1;133;CDMA/GSM Test
+3;3;3;1;134;Antenna Selector
+3;3;3;1;135;Log Periodic Antenna
+3;3;3;1;136;Alat Ukur Sigmat
+3;3;3;1;999;Alat Ukur Universal Lainnya
+3;3;3;2;0;UNIVERSAL TESTER
+3;3;3;2;1;Frequency Counter (Universal Tester)
+3;3;3;2;2;Insulation Res Meter Mod
+3;3;3;2;3;Noise & Distortion Meter
+3;3;3;2;4;Oscilator Distortion Meter
+3;3;3;2;5;Oscilator Test Signal
+3;3;3;2;6;Oscilator Widw Band
+3;3;3;2;7;Oscilator Sweep
+3;3;3;2;8;Precision Encoder Monitor
+3;3;3;2;9;Plambicon Test Unit
+3;3;3;2;10;Scanner (Universal Tester)
+3;3;3;2;11;Time Interval Unit
+3;3;3;2;12;Universal Counter (Universal Tester)
+3;3;3;2;13;Video Noise Meter
+3;3;3;2;14;Admintance Meter
+3;3;3;2;15;Admintance Bride
+3;3;3;2;16;Fieldstrength Meter
+3;3;3;2;17;RF Bridge
+3;3;3;2;18;RF Push Button Attenuator
+3;3;3;2;19;Vision And Sound Nyquist Demodulator AMF
+3;3;3;2;20;V.S.W.R Standing Review
+3;3;3;2;22;Digital Frequence Meter
+3;3;3;2;23;Vindicam Quick Tester
+3;3;3;2;24;Coaxial ATT
+3;3;3;2;25;Variable Coaxial ATT
+3;3;3;2;26;Logic Probe (Universal Tester)
+3;3;3;2;27;Survey Meter (Universal Tester)
+3;3;3;2;28;Logic Comparator
+3;3;3;2;999;Universal Tester Lainnya
+3;3;3;3;0;ALAT UKUR/PEMBANDING
+3;3;3;3;1;Ukuran Johanson (Alat Pembanding Standar Ukuran Panjang)
+3;3;3;3;2;Micro Indicator (Dengan Perlengkapan Suparto Pointers Dan Revolv
+3;3;3;3;3;Perlengkapan Micro Indicator
+3;3;3;3;4;Psycometer Vanlambrecht
+3;3;3;3;5;Psycometer
+3;3;3;3;6;Barometer Logam
+3;3;3;3;7;Barometer Mercury
+3;3;3;3;8;Manometer Untuk Mesin
+3;3;3;3;9;Monotor Precisi
+3;3;3;3;10;Alat Pemeriksa Manometer ( Dengan Perlengkapan )
+3;3;3;3;11;Alat Pemeriksaan Zat Cair
+3;3;3;3;12;Termometer Standar
+3;3;3;3;13;Termometer Govermen Tester 0 Derajat Sampai Dengan 100 Derajat C
+3;3;3;3;14;Thermostat ( Penguji Pemeriksaan Termometer )
+3;3;3;3;15;Jam Ukur ( Meet Lock )
+3;3;3;3;16;Hardnes Tester
+3;3;3;3;17;Stopwatch
+3;3;3;3;18;Loup
+3;3;3;3;19;Planimeter (Alat Ukur/pembanding)
+3;3;3;3;20;Metra Block
+3;3;3;3;21;Lemari Baja Pengering
+3;3;3;3;22;Sanblas Unit
+3;3;3;3;23;Alat Pemeriksaan Timbangan Tekanan Beroda
+3;3;3;3;24;Stelan Instrumen Bourje
+3;3;3;3;25;Lampu Untuk Menerangi  Skala Neraca Pakai Standar
+3;3;3;3;26;Avometer Su 20 - 20 K
+3;3;3;3;27;Trappo 1.000 Watt
+3;3;3;3;28;Tool Set
+3;3;3;3;29;Landasan Cap Lengkap
+3;3;3;3;30;Kaki Tiga Gantungan Dacin
+3;3;3;3;31;Alat Pendatar Takaran Bensin
+3;3;3;3;32;Tang Plombir / Segel
+3;3;3;3;33;Exicator Besar
+3;3;3;3;34;Exicator Kecil
+3;3;3;3;35;Desicator ( Size ) 3
+3;3;3;3;36;Desicator ( Size ) 4
+3;3;3;3;37;Botol Air Saling Dari 25 Liter
+3;3;3;3;38;Picnometer
+3;3;3;3;39;Desimeter ( Hidrometer )
+3;3;3;3;40;Telescope Tile Varieble
+3;3;3;3;41;Optical Strean ( Untuk Pemeriksaan Kaca )
+3;3;3;3;42;Optocal Teknis Gange ( Pengukur Tebal Dinding )
+3;3;3;3;43;Lifter Capasitas 500 Kg
+3;3;3;3;44;Taximeter Tester
+3;3;3;3;45;Spedometer Tester
+3;3;3;3;46;Standard Guage Blocks
+3;3;3;3;47;Finest Direct Reading Intern Micrometer Of Varios Range Up To 10
+3;3;3;3;48;Constant Temperature Combined Bridge Thermostat
+3;3;3;3;49;Transparan Plastic Rack Insert For 20 Test Test Tubes 75 X 17
+3;3;3;3;50;Water Bath Plexiglass Capasity 71
+3;3;3;3;51;Test Tube Rack Stainlesstel With 10 Holes 18 mm DIA
+3;3;3;3;52;Calorimeter Thermometer Aceto Bestmen Certificate
+3;3;3;3;53;Sit Of Gauge Pretition Lands Berger Thermometer
+3;3;3;3;54;Set Of 14 Hight Precision Ameral Thermometer
+3;3;3;3;55;Addition Tuner Stop Watch
+3;3;3;3;56;Universal Clamp, Clamping Range 6 To 12 mm
+3;3;3;3;57;Universal Clamp, Clamping Range 6 To 75 mm
+3;3;3;3;58;Venier Caliver
+3;3;3;3;59;Propile Proyektor Toyo Serie
+3;3;3;3;60;Tool Maker Microscope Magnification 30 X
+3;3;3;3;61;Microscope Multiview
+3;3;3;3;999;Alat Ukur/Pembanding Lainnya
+3;3;3;4;0;ALAT UKUR LAINNYA
+3;3;3;4;1;Meter X - 27 Dari Platina Tridium
+3;3;3;4;2;H - Meter Dari Baja Nikel
+3;3;3;4;3;Komparator
+3;3;3;4;4;Alat Pengukur Garis Tengah
+3;3;3;4;5;Ban Ukur
+3;3;3;4;6;Diameter Tape
+3;3;3;4;7;Ukuran Tinggi Orang
+3;3;3;4;8;Schuifmaat ( Ukuran Ingsut )
+3;3;3;4;9;Lifter Standard ( 1 Liter )
+3;3;3;4;10;Bejana Ukur
+3;3;3;4;11;Alat Ukur Kadar Air (Alat Ukur Lainnya)
+3;3;3;4;12;Alat Ukur Pemecah Kulit Gabah
+3;3;3;4;13;Rain Gauge
+3;3;3;4;14;Needle Lift Sensor
+3;3;3;4;999;Alat Ukur Lainnya
+3;3;3;5;0;ALAT TIMBANGAN/BIARA
+3;3;3;5;1;Timbangan Jembatan Capasitas 10 Ton
+3;3;3;5;2;Timbangan Meja Capasitas 10 Kg
+3;3;3;5;3;Timbangan Meja Capasitas 5 Kg
+3;3;3;5;4;Timbangan Bbi Capasitas 100 Kg
+3;3;3;5;5;Timbangan Bbi Capasitas 25 Kg
+3;3;3;5;6;Timbangan Bbi Capasitas 15 Kg ( Timbangan Bayi )
+3;3;3;5;7;Timbangan Bbi Capasitas 10 Kg
+3;3;3;5;8;Timbangan Cepat Capasitas 10 Kg
+3;3;3;5;9;Timbangan Cepat Capasitas 25 Kg
+3;3;3;5;10;Timbangan Cepat Capasitas 200 Kg
+3;3;3;5;11;Timbangan Pegas Capasitas 10 Kg
+3;3;3;5;12;Timbangan Pegas Capasitas 50 Kg (Alat Timbangan/biara)
+3;3;3;5;14;Timbangan Surat Capasitas 100 Kg
+3;3;3;5;15;Timbangan Kwadran Capasitas 100 Kg
+3;3;3;5;16;Timbangan Sentisimal Dacin Kuningan
+3;3;3;5;17;Timbangan Gula Gaveka
+3;3;3;5;18;Timbangan Gantung Capasitas 50 Gram
+3;3;3;5;19;Neraca Halus + Lemari Capasitas 500 Gram
+3;3;3;5;20;Neraca Parama E
+3;3;3;5;21;Neraca Parama D Capasitas 5 Gram
+3;3;3;5;22;Neraca Percisi Elektronik Capasitas 1 Kg.
+3;3;3;5;23;Neraca Percisi ( Single Pan ) Capasitas 20 Kg.
+3;3;3;5;24;Neraca Percisi ( Elektronik Vacum Me )
+3;3;3;5;25;Neraca Percisi 30 Kg ( Micro Balance )
+3;3;3;5;26;Neraca Percisi Capasitas 50 Gram
+3;3;3;5;27;Neraca Percisi Capasitas 1 Kg.
+3;3;3;5;28;Neraca Tera E
+3;3;3;5;29;Neraca Tera A Capasitas 75 Kg.
+3;3;3;5;30;Neraca Tera B Capasitas 10 Kg.
+3;3;3;5;31;Neraca Torsion Balance Capasitas 500 Gram
+3;3;3;5;32;Neraca Analisa Capasitas 1000 Gram
+3;3;3;5;33;Neraca Analisa Capasitas 20 Kg
+3;3;3;5;34;Neraca Capasitas 1 Kg.
+3;3;3;5;35;Neraca Capasitas 20 Kg.
+3;3;3;5;36;Moister Meter
+3;3;3;5;37;Neraca Dengan Digital Display
+3;3;3;5;999;Alat Timbangan/Biara Lainnya
+3;3;3;6;0;ANAK TIMBANGAN / BIARA
+3;3;3;6;1;Kilogram Tembaga Nasional Platina
+3;3;3;6;2;Kilogram Tembaga Bentuk Tong Bersadur Mas Murni 1 Kg.
+3;3;3;6;3;Kilogram Sepuh Mas 1 Kg. Pakai Tombol
+3;3;3;6;4;Kilogram Baja Berbentuk Tong Bersadur Croom
+3;3;3;6;5;Kilogram Dari Baja Berbentuk Slinder
+3;3;3;6;6;Kilogram Kerja Standar Tk.II
+3;3;3;6;7;Kilogram Standar
+3;3;3;6;8;Anak Timbangan Tembaga Kantor Tk.III
+3;3;3;6;9;Anak Timbangan Miligram
+3;3;3;6;10;Anak Timbangan Miligram Platina
+3;3;3;6;11;Anak Timbangan Miligram Aluminium
+3;3;3;6;12;Anak Timbangan Gram Standar 1 Gram
+3;3;3;6;13;Anak Timbangan Halus Dari 1.000 - 1 Gram
+3;3;3;6;14;Anak Timbangan Biasa Dari 1.000 - 1 Gram
+3;3;3;6;15;Anak Timbangan Bidur
+3;3;3;6;16;Anak Timbangan Dari Besi
+3;3;3;6;17;Anak Timbangan Keping ( Mulut Kecil )
+3;3;3;6;18;Anak Timbangan Keping ( Mulut Besar )
+3;3;3;6;999;Anak Timbangan / Biara Lainnya
+3;3;3;7;0;TAKARAN KERING
+3;3;3;7;1;Takaran Kering Dari 100 - 50 - 20 Liter
+3;3;3;7;2;Takaran Kering Dari 10 S/D 0,5 Liter
+3;3;3;7;999;Takaran Kering Lainnya
+3;3;3;8;0;TAKARAN BAHAN BANGUNAN
+3;3;3;8;1;Takaran Bahan Bangunan 2 HL Berbentuk Tong
+3;3;3;8;999;Takaran Bahan Bangunan Lainnya
+3;3;3;9;0;TAKARAN LAINNYA
+3;3;3;9;1;Takaran Latex/Getah Susu
+3;3;3;9;2;Takaran Buah Kopi Dari 0,5 HL
+3;3;3;9;3;Takaran Kapuk Dari Kayu 2 Dan 1 HL
+3;3;3;9;4;Takaran Minyak Dari Besi 0,5 HL
+3;3;3;9;5;Takaran Gandum 0,5 HL
+3;3;3;9;999;Takaran Lainnya
+3;3;3;99;999;Alat Ukur Lainnya
+3;4;0;0;0;ALAT PERTANIAN
+3;4;1;0;0;ALAT PENGOLAHAN
+3;4;1;1;0;ALAT PENGOLAHAN TANAH DAN TANAMAN
+3;4;1;1;1;Bajak Kayu
+3;4;1;1;2;Bajak Muara
+3;4;1;1;3;Pacul
+3;4;1;1;4;Linggis
+3;4;1;1;5;Garpu Pacul
+3;4;1;1;6;Garpu Kayu
+3;4;1;1;7;Garpu Besi
+3;4;1;1;8;Tractor Four Wheel (Dengan Kelengkapannya)
+3;4;1;1;9;Tractor Tangan Dengan Perlengkapannya
+3;4;1;1;999;Alat Pengolahan Tanah Dan Tanaman Lainnya
+3;4;1;2;0;ALAT PEMELIHARAAN TANAMAN/IKAN/TERNAK
+3;4;1;2;1;Kored
+3;4;1;2;2;Arit
+3;4;1;2;3;Babatan
+3;4;1;2;4;Pacul Dangir
+3;4;1;2;5;Penyemprot Otomatis (Automatic Sprayer)
+3;4;1;2;6;Penyemprot Mesin (Power Sprayer)
+3;4;1;2;7;Penyemprot Tangan (Hand Sprayer)
+3;4;1;2;8;Alat Penyiang Tanaman
+3;4;1;2;999;Alat Pemeliharaan Tanaman/Ikan/Ternak Lainnya
+3;4;1;3;0;ALAT PANEN
+3;4;1;3;1;Ani-Ani
+3;4;1;3;2;Alat Perontokan (Thresser Pedal)
+3;4;1;3;3;Alat Perontokan Mesin (Power Thresser)
+3;4;1;3;4;Alat Pemipil Jagung
+3;4;1;3;5;Alat Pengering (Dryer)
+3;4;1;3;6;Alat Pengukur Kadar Air (Moisture Tester)
+3;4;1;3;7;Alat Penggiling Kopi
+3;4;1;3;8;Alat Pengolah Tepung
+3;4;1;3;9;Alat Bantu Uji Tumbuh
+3;4;1;3;10;Alat Penampi
+3;4;1;3;999;Alat Panen Lainnya
+3;4;1;4;0;ALAT PENYIMPAN HASIL PERCOBAAN PERTANIAN
+3;4;1;4;1;Cold Storage (Kamar Pendingin)
+3;4;1;4;2;Selo (Kotak Penyimpanan) Dengan Pengatur Temperatur
+3;4;1;4;3;Rak-Rak Penyimpan
+3;4;1;4;4;Lemari Penyimpan
+3;4;1;4;999;Alat Penyimpan Hasil Percobaan Pertanian Lainnya
+3;4;1;5;0;ALAT LABORATORIUM PERTANIAN
+3;4;1;5;1;Alat Pengukur Curah Hujan
+3;4;1;5;2;Alat Pengukur Cahaya
+3;4;1;5;3;Alat Pengukur Intensitas Cahaya
+3;4;1;5;4;Alat Pengukur Temperatur
+3;4;1;5;5;Alat Pengukur P.H. Tanah (Soil Tester)
+3;4;1;5;6;Alat Pengambil Sample Tanah
+3;4;1;5;7;Rice
+3;4;1;5;8;Grindding Mill
+3;4;1;5;9;Volume Test
+3;4;1;5;10;Weight
+3;4;1;5;11;Straw Facture
+3;4;1;5;12;Falling Number
+3;4;1;5;13;Electrode Ph Meter
+3;4;1;5;14;Alat Penurun Kadar Air Madu
+3;4;1;5;999;Alat Laboratorium Pertanian Lainnya (Alat Pengolahan Pertanian)
+3;4;1;6;0;ALAT PROSESING
+3;4;1;6;1;Unit Pengaduk
+3;4;1;6;2;Alat Pencabut Bulu Ayam
+3;4;1;6;3;Alat Pembuat Pelet/Makanan Ternak
+3;4;1;6;4;Alat Pembuat Molase Blok
+3;4;1;6;5;Mesin Tetas
+3;4;1;6;6;Mesin Perah Susu
+3;4;1;6;7;Milk Can
+3;4;1;6;8;Pengupas Kulit Ari Kedelai
+3;4;1;6;9;Pemarut Serat Serba Guna
+3;4;1;6;10;Penyawut Singkong
+3;4;1;6;11;Gilingan Beras
+3;4;1;6;12;Salina Injector
+3;4;1;6;13;Scaller Motor
+3;4;1;6;14;ULV Cabinet
+3;4;1;6;15;TLC Drayer
+3;4;1;6;16;Mesin Pencuci Alat (Miele)
+3;4;1;6;17;Hydrolic Pieces
+3;4;1;6;18;Reaper
+3;4;1;6;19;Electric Disk Cutter
+3;4;1;6;20;Ragum /Catok
+3;4;1;6;21;Diesel Eggane
+3;4;1;6;22;Alat Prosesing Daging
+3;4;1;6;23;Alat Prosesing Telur
+3;4;1;6;24;Ice Cream Maker
+3;4;1;6;25;Hand Separator
+3;4;1;6;26;Mesin Penepung Beras
+3;4;1;6;27;Alat Penggiling Jagung
+3;4;1;6;28;Mesin Pengayak Tepung
+3;4;1;6;29;Pengolahan Produk Kering
+3;4;1;6;30;Penyawut Besar dan Kecil
+3;4;1;6;31;Processing Multiguna
+3;4;1;6;32;Pump for HPLC and Accessories
+3;4;1;6;33;Sausage Feeler Machine
+3;4;1;6;34;Twin Paper Roller Bearing
+3;4;1;6;35;Skinning Cradle
+3;4;1;6;36;Head Restrainer
+3;4;1;6;37;Stuning Device
+3;4;1;6;38;Penyodok Kotoran
+3;4;1;6;39;Pengarah Kepala
+3;4;1;6;40;Offal Wash
+3;4;1;6;41;Beef Splitter
+3;4;1;6;999;Alat Prosesing Lainnya
+3;4;1;7;0;ALAT PASCA PANEN
+3;4;1;7;1;Alat Pengasapan
+3;4;1;7;2;Alat Pembekuan
+3;4;1;7;3;Alat Penggiling Padi
+3;4;1;7;4;Alat Pencacah Hijauan
+3;4;1;7;5;Alat Pemecah Tapioka
+3;4;1;7;999;Alat Pasca Panen Lainnya
+3;4;1;8;0;ALAT PRODUKSI PERIKANAN
+3;4;1;8;1;Pukat
+3;4;1;8;2;Double Rig Shrimp Trawl/Pukat Udang Ganda
+3;4;1;8;3;Payang ( Termasuk Lampara )
+3;4;1;8;4;Danish Seine ( Dogol )
+3;4;1;8;5;Beach Seine ( Pukat Pantai )
+3;4;1;8;6;Drift Gill Net ( Jaring Insang Hanyut )
+3;4;1;8;7;Encircling Gill Net ( Jaring Insang Lingkar )
+3;4;1;8;8;Shrimp Gill Net ( Jaring Klitik )
+3;4;1;8;9;Set Gill Net ( Jaring Insang Tetap )
+3;4;1;8;10;Boat Raft Lift Net ( Bagan Perahu/Rakit )
+3;4;1;8;11;Bagan Tancap Berikut Kelong
+3;4;1;8;12;Scoop Net ( Serok )
+3;4;1;8;13;Jaring Angkat Lainnya
+3;4;1;8;14;Guiding Barrier ( Serok )
+3;4;1;8;15;Stow Net ( Jermal Termasuk Togo )
+3;4;1;8;16;Portable Traps ( Bubu )
+3;4;1;8;17;Perangkap Lainnya
+3;4;1;8;18;Tuna Long Line ( Rawai Tuna )
+3;4;1;8;19;Set Long Line ( Rawai Tetap )
+3;4;1;8;20;Skipjack Pole And Lines ( Huhate )
+3;4;1;8;21;Trool Line ( Pancing Tonda )
+3;4;1;8;22;Pancing Lainnya
+3;4;1;8;23;Muroami Inc. Mallalugis
+3;4;1;8;24;Jala
+3;4;1;8;25;Garpu
+3;4;1;8;26;Tombak
+3;4;1;8;27;Sea Water Reservoir
+3;4;1;8;28;Bak Pemeliharaan Sementara
+3;4;1;8;29;Bak Pengendapan
+3;4;1;8;30;Keramba ( Jaring Apung )
+3;4;1;8;31;Jaring Lingkar
+3;4;1;8;32;Pukat Tarik Berkapal
+3;4;1;8;33;Pukat Hela
+3;4;1;8;34;Pukat Dorong
+3;4;1;8;35;Penggaruk
+3;4;1;8;36;Jaring Angkat Menetap
+3;4;1;8;37;Jaring Angkat Tidak Menetap
+3;4;1;8;38;Alat yang Dijatuhkan
+3;4;1;8;39;Alat Penjepit dan Melukai
+3;4;1;8;999;Alat Produksi Perikanan Lainnya
+3;4;1;99;0;ALAT PENGOLAHAN LAINNYA
+3;4;1;99;999;Alat Pengolahan Lainnya
+3;5;0;0;0;ALAT KANTOR & RUMAH TANGGA
+3;5;1;0;0;ALAT KANTOR
+3;5;1;1;0;MESIN KETIK
+3;5;1;1;1;Mesin Ketik Manual Portable (11-13 Inci)
+3;5;1;1;2;Mesin Ketik Manual Standard (14-16 Inci)
+3;5;1;1;3;Mesin Ketik Manual Langewagon (18-27 Inci)
+3;5;1;1;4;Mesin Ketik Listrik
+3;5;1;1;5;Mesin Ketik Listrik Potable (11-13 Inci)
+3;5;1;1;6;Mesin Ketik Listrik Standard (14-16 Inci)
+3;5;1;1;7;Mesin Ketik Listrik Langewagon (18-27 Inci)
+3;5;1;1;8;Mesin Ketik Elektronik/Selektrik
+3;5;1;1;9;Mesin Ketik Braille
+3;5;1;1;10;Mesin Phromosons
+3;5;1;1;11;Mesin Cetak Stereo Piper (Braille)
+3;5;1;1;999;Mesin Ketik Lainnya
+3;5;1;2;0;MESIN HITUNG/MESIN JUMLAH
+3;5;1;2;1;Mesin Hitung Manual
+3;5;1;2;2;Mesin Hitung Listrik
+3;5;1;2;3;Mesin Hitung Elektronik/Calculator
+3;5;1;2;4;Mesin Kas Register
+3;5;1;2;5;Abakus (Alat Hitung)
+3;5;1;2;6;Blokycs (Mesin Hitung Braille)
+3;5;1;2;7;Mesin Penghitung Uang
+3;5;1;2;8;Mesin Pembukuan
+3;5;1;2;9;Mesin Penghitung Kertas/Pita Cukai
+3;5;1;2;999;Mesin Hitung/Mesin Jumlah Lainnya
+3;5;1;3;0;ALAT REPRODUKSI (PENGGANDAAN)
+3;5;1;3;1;Mesin Stensil Manual Folio
+3;5;1;3;2;Mesin Stensil Manual Double Folio
+3;5;1;3;3;Mesin Stensil Listrik Folio
+3;5;1;3;4;Mesin Stensil Listrik Double Folio
+3;5;1;3;5;Mesin Stensil Spiritus Manual
+3;5;1;3;6;Mesin Stensil Spiritus Listrik
+3;5;1;3;7;Mesin Fotocopy Folio
+3;5;1;3;8;Mesin Fotocopy Double Folio
+3;5;1;3;9;Mesin Fotocopy Electronic
+3;5;1;3;10;Mesin Thermoforn
+3;5;1;3;11;Mesin Fotocopy Lainnya
+3;5;1;3;12;Risograf
+3;5;1;3;999;Alat Reproduksi (Penggandaan) Lainnya
+3;5;1;4;0;ALAT PENYIMPAN PERLENGKAPAN KANTOR
+3;5;1;4;1;Lemari Besi/Metal
+3;5;1;4;2;Lemari Kayu
+3;5;1;4;3;Rak Besi
+3;5;1;4;4;Rak Kayu
+3;5;1;4;5;Filing Cabinet Besi
+3;5;1;4;6;Filing Cabinet Kayu
+3;5;1;4;7;Brandkas
+3;5;1;4;8;Peti Uang/Cash Box/Coin Box
+3;5;1;4;9;Kardex Besi
+3;5;1;4;10;Kardex Kayu
+3;5;1;4;11;Rotary Filling
+3;5;1;4;12;Compact Rolling
+3;5;1;4;13;Buffet
+3;5;1;4;14;Mobile File
+3;5;1;4;15;Locker
+3;5;1;4;16;Roll Opek
+3;5;1;4;17;Tempat Menyimpan Gambar
+3;5;1;4;18;Kontainer
+3;5;1;4;19;Coin Box
+3;5;1;4;20;Lemari Display
+3;5;1;4;21;Water Proof Box
+3;5;1;4;22;Folding Container Box
+3;5;1;4;23;Box Truck
+3;5;1;4;24;Laci Box
+3;5;1;4;25;Lemari Katalog
+3;5;1;4;999;Alat Penyimpan Perlengkapan Kantor Lainnya
+3;5;1;5;0;ALAT KANTOR LAINNYA
+3;5;1;5;1;Tabung Pemadam Api
+3;5;1;5;2;Hydrant
+3;5;1;5;3;Sprinkler
+3;5;1;5;4;Fire Alarm
+3;5;1;5;5;Rambu-Rambu
+3;5;1;5;6;Narkotik Test
+3;5;1;5;7;CCTV - Camera Control Television System
+3;5;1;5;8;Papan Visual/Papan Nama
+3;5;1;5;9;Movitex Board
+3;5;1;5;10;White Board
+3;5;1;5;11;Alat Detektor Uang Palsu
+3;5;1;5;12;Alat Detektor Barang Terlarang/X Ray
+3;5;1;5;13;Copy Board/Elektric White Board
+3;5;1;5;14;Peta
+3;5;1;5;15;Alat Penghancur Kertas
+3;5;1;5;16;Globe
+3;5;1;5;17;Mesin Absensi
+3;5;1;5;18;Dry Seal
+3;5;1;5;19;Fergulator
+3;5;1;5;20;Cream Polisher
+3;5;1;5;21;Mesin Perangko
+3;5;1;5;22;Check Writer
+3;5;1;5;23;Numerator
+3;5;1;5;24;Alat Pemotong Kertas
+3;5;1;5;25;Headmachine Besar
+3;5;1;5;26;Perforator Besar
+3;5;1;5;27;Alat Pencetak Label
+3;5;1;5;28;Overhead Projector
+3;5;1;5;29;Hand Metal Detector
+3;5;1;5;30;Walkman Detector
+3;5;1;5;31;Panel Pameran
+3;5;1;5;32;Alat Pengaman / Sinyal
+3;5;1;5;33;Board Modulux
+3;5;1;5;34;Porto Safe Travel Cose
+3;5;1;5;35;Disk Prime
+3;5;1;5;36;Megashow
+3;5;1;5;37;White Board Electronic
+3;5;1;5;38;Laser Pointer
+3;5;1;5;39;Display
+3;5;1;5;40;Exhauster Form
+3;5;1;5;41;Rubu Mujayyab
+3;5;1;5;42;Electric Dumper
+3;5;1;5;43;Mesin Teraan
+3;5;1;5;44;Mesin Laminating
+3;5;1;5;45;Penangkal Petir
+3;5;1;5;46;Stempel Timbul/Bulat
+3;5;1;5;47;Lampu-lampu Kristal
+3;5;1;5;48;LCD Projector/Infocus
+3;5;1;5;49;Flip Chart
+3;5;1;5;50;Binding Machine
+3;5;1;5;51;Softboard
+3;5;1;5;52;Alat Perekam Suara (Voice Pen)
+3;5;1;5;53;Acces Control System
+3;5;1;5;54;Intruction Detector
+3;5;1;5;55;Monitor Panel With Mimic Board
+3;5;1;5;56;Panic Button System, Alarm Indicator
+3;5;1;5;57;Pintu Elektrik (yang Memakai Akses)
+3;5;1;5;58;Focusing Screen/Layar LCD Projector
+3;5;1;5;59;Alat Detektor Barang Terlarang
+3;5;1;5;60;Proyector Spider Bracket
+3;5;1;5;61;Papan Gambar
+3;5;1;5;62;Bel
+3;5;1;5;63;Electric Pressing Machine
+3;5;1;5;64;Encapsulator (Jarasonic welder)
+3;5;1;5;65;Deacidificator Unit (Non Aquas)
+3;5;1;5;66;Full Automatic Leaf Caster
+3;5;1;5;67;Conservation Tools
+3;5;1;5;68;Board Stan
+3;5;1;5;69;Vacum Freeze Dry Chamber
+3;5;1;5;70;Kotak Surat
+3;5;1;5;71;Gembok
+3;5;1;5;72;Compact Hand Projector
+3;5;1;5;73;Alat Sidik Jari
+3;5;1;5;74;Alat Penghancur Jarum
+3;5;1;5;75;Walkthrough/ Portal Metal Detector
+3;5;1;5;76;Handheld Trace Detector
+3;5;1;5;77;Alat Deteksi Pita Cukai Palsu/ Video Spectral Comparator
+3;5;1;5;78;Mesin Packing/ Starpping Machine
+3;5;1;5;79;Television Control Operasional Lift
+3;5;1;5;80;Mesin Antrian
+3;5;1;5;81;Papan Pengumuman
+3;5;1;5;82;Mesin Fogging
+3;5;1;5;83;Teralis
+3;5;1;5;999;Perkakas Kantor Lainnya
+3;5;1;99;0;ALAT KANTOR LAINNYA
+3;5;1;99;999;Alat Kantor Lainnya
+3;5;2;0;0;ALAT RUMAH TANGGA
+3;5;2;1;0;MEUBELAIR
+3;5;2;1;1;Meja Kerja Besi/Metal
+3;5;2;1;2;Meja Kerja Kayu
+3;5;2;1;3;Kursi Besi/Metal
+3;5;2;1;4;Kursi Kayu
+3;5;2;1;5;Sice
+3;5;2;1;6;Bangku Panjang Besi/Metal
+3;5;2;1;7;Bangku Panjang Kayu
+3;5;2;1;8;Meja Rapat
+3;5;2;1;9;Meja Komputer
+3;5;2;1;10;Tempat Tidur Besi
+3;5;2;1;11;Tempat Tidur Kayu
+3;5;2;1;12;Meja Ketik
+3;5;2;1;13;Meja Telepon
+3;5;2;1;14;Meja Resepsionis
+3;5;2;1;15;Meja Marmer
+3;5;2;1;16;Kasur/Spring Bed
+3;5;2;1;17;Sketsel
+3;5;2;1;18;Meja Makan Besi
+3;5;2;1;19;Meja Makan Kayu
+3;5;2;1;20;Kursi Fiber Glas/Plastik
+3;5;2;1;21;Pot Bunga
+3;5;2;1;22;Partisi
+3;5;2;1;23;Publik Astari (Pembatas Antrian)
+3;5;2;1;24;Rak Sepatu ( Almunium )
+3;5;2;1;25;Gantungan Jas
+3;5;2;1;26;Nakas
+3;5;2;1;27;Cubikal
+3;5;2;1;28;Workstation
+3;5;2;1;999;Meubelair Lainnya
+3;5;2;2;0;ALAT PENGUKUR WAKTU
+3;5;2;2;1;Jam Mekanis
+3;5;2;2;2;Jam Listrik
+3;5;2;2;3;Jam Elektronik
+3;5;2;2;4;Control Clock
+3;5;2;2;999;Alat Pengukur Waktu Lainnya
+3;5;2;3;0;ALAT PEMBERSIH
+3;5;2;3;1;Mesin Penghisap Debu/Vacuum Cleaner
+3;5;2;3;2;Mesin Pel/Poles
+3;5;2;3;3;Mesin Pemotong Rumput
+3;5;2;3;4;Mesin Cuci
+3;5;2;3;5;Air Cleaner
+3;5;2;3;6;Alat Pembersih Salju
+3;5;2;3;999;Alat Pembersih Lainnya
+3;5;2;4;0;ALAT PENDINGIN
+3;5;2;4;1;Lemari Es
+3;5;2;4;2;A.C. Sentral
+3;5;2;4;3;A.C. Window
+3;5;2;4;4;A.C. Split
+3;5;2;4;5;Portable Air Conditioner (Alat Pendingin)
+3;5;2;4;6;Kipas Angin
+3;5;2;4;7;Exhause Fan
+3;5;2;4;8;Cold Storage (Alat Pendingin)
+3;5;2;4;9;Reach In Frezzer
+3;5;2;4;10;Reach In Chiller
+3;5;2;4;11;Up Right Chiller/Frezzer
+3;5;2;4;12;Cold Room Frezzer
+3;5;2;4;13;Air Curtain
+3;5;2;4;14;Air Handling Unit
+3;5;2;4;999;Alat Pendingin Lainnya
+3;5;2;5;0;ALAT DAPUR
+3;5;2;5;1;Kompor Listrik (Alat Dapur)
+3;5;2;5;2;Kompor Gas (Alat Dapur)
+3;5;2;5;3;Kompor Minyak
+3;5;2;5;4;Teko Listrik
+3;5;2;5;5;Rice Cooker (Alat Dapur)
+3;5;2;5;6;Oven Listrik
+3;5;2;5;7;Rice Warmer
+3;5;2;5;8;Kitchen Set
+3;5;2;5;9;Tabung Gas
+3;5;2;5;10;Mesin Giling Bumbu
+3;5;2;5;11;Treng Air/Tandon Air
+3;5;2;5;12;Mesin Parutan Kelapa
+3;5;2;5;13;Kompor Kompresor
+3;5;2;5;14;Alat Pemanggang Roti/Sate
+3;5;2;5;15;Rak Piring Alumunium
+3;5;2;5;16;Alat Penyimpan Beras
+3;5;2;5;17;Panci
+3;5;2;5;18;Blender
+3;5;2;5;19;Mixer
+3;5;2;5;20;Oven Gas
+3;5;2;5;21;Presto Cooker
+3;5;2;5;22;Wonder Pan
+3;5;2;5;23;Mesin Giling Daging
+3;5;2;5;24;Heating Set
+3;5;2;5;25;Thermos Air
+3;5;2;5;999;Alat Dapur Lainnya
+3;5;2;6;0;ALAT RUMAH TANGGA LAINNYA ( HOME USE )
+3;5;2;6;1;Radio
+3;5;2;6;2;Televisi
+3;5;2;6;3;Video Cassette
+3;5;2;6;4;Tape Recorder (Alat Rumah Tangga Lainnya ( Home Use ))
+3;5;2;6;5;Amplifier
+3;5;2;6;6;Equalizer
+3;5;2;6;7;Loudspeaker
+3;5;2;6;8;Sound System
+3;5;2;6;9;Compact Disc
+3;5;2;6;10;Laser Disc
+3;5;2;6;11;Karaoke
+3;5;2;6;12;Wireless
+3;5;2;6;13;Megaphone
+3;5;2;6;14;Microphone
+3;5;2;6;15;Microphone Table Stand
+3;5;2;6;16;Mic Conference
+3;5;2;6;17;Unit Power Supply
+3;5;2;6;18;Step Up/Down (Alat Rumah Tangga Lainnya ( Home Use ))
+3;5;2;6;19;Stabilisator
+3;5;2;6;20;Camera Video
+3;5;2;6;21;Tustel
+3;5;2;6;22;Mesin Jahit
+3;5;2;6;23;Timbangan Orang
+3;5;2;6;24;Timbangan Barang
+3;5;2;6;25;Alat Hiasan
+3;5;2;6;26;Lambang Garuda Pancasila
+3;5;2;6;27;Gambar Presiden/Wakil Presiden
+3;5;2;6;28;Lambang Korpri/Dharma Wanita
+3;5;2;6;29;Aquarium (Alat Rumah Tangga Lainnya ( Home Use ))
+3;5;2;6;30;Tiang Bendera
+3;5;2;6;31;Pataka
+3;5;2;6;32;Seterika
+3;5;2;6;33;Water Filter
+3;5;2;6;34;Tangga Aluminium
+3;5;2;6;35;Kaca Hias
+3;5;2;6;36;Dispenser
+3;5;2;6;37;Mimbar/Podium
+3;5;2;6;38;Gucci
+3;5;2;6;39;Tangga Hidrolik
+3;5;2;6;40;Palu Sidang
+3;5;2;6;41;Mesin Pengering Pakaian
+3;5;2;6;42;Lambang Instansi
+3;5;2;6;43;Lonceng/Genta
+3;5;2;6;44;Mesin Pemotong Keramik
+3;5;2;6;45;Coffee Maker
+3;5;2;6;46;Handy Cam
+3;5;2;6;47;Mesin Obras
+3;5;2;6;48;Mesin Potong Kain
+3;5;2;6;49;Mesin Pelubang Kancing
+3;5;2;6;50;Meja Potong
+3;5;2;6;51;Rader
+3;5;2;6;52;Manequin (Boneka)
+3;5;2;6;53;Pinset (Pisau Lobang Kancing)
+3;5;2;6;54;Mini Compo
+3;5;2;6;55;Heater (Alat Rumah Tangga Lainnya ( Home Use ))
+3;5;2;6;56;Karpet
+3;5;2;6;57;Vertikal Blind
+3;5;2;6;58;Gordyin/Kray
+3;5;2;6;59;Kabel Roll
+3;5;2;6;60;Asbak Tinggi
+3;5;2;6;61;Keset Kaki
+3;5;2;6;62;Sun Screen
+3;5;2;6;63;Alat Pemanas Ruangan
+3;5;2;6;64;Lemari Plastik
+3;5;2;6;65;Mesin Pengering Tangan
+3;5;2;6;66;Panggung
+3;5;2;6;67;Mesin Pedding
+3;5;2;6;68;DVD Player
+3;5;2;6;69;Lampu Belajar
+3;5;2;6;70;Tangga
+3;5;2;6;71;Kabel
+3;5;2;6;72;Lampu
+3;5;2;6;73;Jemuran
+3;5;2;6;74;Patung Peraga Pakaian
+3;5;2;6;75;Gendola
+3;5;2;6;76;Gunting Rumput Non Mesin
+3;5;2;6;77;Bendera Negara
+3;5;2;6;78;Bingkai Foto
+3;5;2;6;79;Alat Pangkas Rambut Listrik
+3;5;2;6;80;Bracket Standing Peralatan
+3;5;2;6;81;Tangki Air
+3;5;2;6;82;Home Theater
+3;5;2;6;999;Alat Rumah Tangga Lainnya ( Home Use )
+3;5;2;99;0;ALAT RUMAH TANGGA LAINNYA
+3;5;2;99;999;Alat Rumah Tangga Lainnya
+3;6;0;0;0;ALAT STUDIO, KOMUNIKASI DAN PEMANCAR
+3;6;1;0;0;ALAT STUDIO
+3;6;1;1;0;PERALATAN STUDIO AUDIO
+3;6;1;1;1;Audio Mixing Console
+3;6;1;1;2;Audio Mixing Portable
+3;6;1;1;3;Audio Mixing Stationer
+3;6;1;1;4;Audio Attenuator
+3;6;1;1;5;Audio Amplifier
+3;6;1;1;6;Audio Erase Unit
+3;6;1;1;7;Audio Video Selector (Peralatan Studio Audio)
+3;6;1;1;8;Audio Monitor Active
+3;6;1;1;9;Audio Monitor Passive
+3;6;1;1;10;Audio Reverberation
+3;6;1;1;11;Audio Patch Panel
+3;6;1;1;12;Audio Distribution
+3;6;1;1;13;Audio Tone Generator
+3;6;1;1;14;Audio Catridge Recorder
+3;6;1;1;15;Audio Logging Recorder
+3;6;1;1;16;Compact Disc Player
+3;6;1;1;17;Cassette Duplicator
+3;6;1;1;18;Disc Record Player
+3;6;1;1;19;Multitrack Recorder
+3;6;1;1;20;Reel Tape Duplicator
+3;6;1;1;21;Compact Disc Juke Box System
+3;6;1;1;22;Telephone Hybrid
+3;6;1;1;23;Audio Phone In
+3;6;1;1;24;Profanity Delay System
+3;6;1;1;25;Audio Visual
+3;6;1;1;26;Audio Filter
+3;6;1;1;27;Audio Limiter
+3;6;1;1;28;Audio Compressor
+3;6;1;1;29;Turn Table
+3;6;1;1;30;Talk Back Unit
+3;6;1;1;31;Intercom Unit
+3;6;1;1;32;Buzzer
+3;6;1;1;33;Set Studio Light Signal
+3;6;1;1;34;Dolby Noise Reduction
+3;6;1;1;35;Modulation Monitor Speaker Kabaret
+3;6;1;1;36;Microphone/Wireless MIC
+3;6;1;1;37;Microphone/Boom Stand
+3;6;1;1;38;Microphone Connector Box
+3;6;1;1;39;Light Signal
+3;6;1;1;40;Power Supply Microphone
+3;6;1;1;41;Professional Sound System
+3;6;1;1;42;Audio Master Control Unit
+3;6;1;1;43;Time Indetification Unit
+3;6;1;1;44;Audio Announcer Desk
+3;6;1;1;45;Master Clock (Peralatan Studio Audio)
+3;6;1;1;46;Slave Clock (Peralatan Studio Audio)
+3;6;1;1;47;Audio Command Desk
+3;6;1;1;48;Uninterruptible Power Supply (UPS)
+3;6;1;1;49;Master Control Desk
+3;6;1;1;50;Head Compensator
+3;6;1;1;51;Automatic Voltage Regulator (AVR)
+3;6;1;1;53;HUM/Cable Conpensator
+3;6;1;1;54;Editing & Dubbing System
+3;6;1;1;55;Analog Delay (Peralatan Studio Audio)
+3;6;1;1;56;Battery Charger (Peralatan Studio Audio)
+3;6;1;1;57;Blank Panel
+3;6;1;1;58;Control Unit HF
+3;6;1;1;59;Delay Unit
+3;6;1;1;60;Power Amplifier
+3;6;1;1;61;Paging Mic
+3;6;1;1;62;Compact Monitor Panel For Stereo
+3;6;1;1;63;Pistol Grip
+3;6;1;1;64;Mounting Breaken
+3;6;1;1;65;Chairman/Audio Conference
+3;6;1;1;66;Time Switching
+3;6;1;1;67;Terminal Board
+3;6;1;1;68;Encoder/Decoder
+3;6;1;1;69;Wind Shield
+3;6;1;1;70;Receiver HF/LF
+3;6;1;1;71;Receiver VHF/FM
+3;6;1;1;72;Audio Tape Reel Recorder
+3;6;1;1;73;Audio Cassette Recorder
+3;6;1;1;74;Compact Disc Recorder
+3;6;1;1;75;Digital Audio Storage System
+3;6;1;1;76;Digital Audio Taperecorder
+3;6;1;1;77;Blitzzer
+3;6;1;1;78;Audio Maximizer
+3;6;1;1;79;Microphone Cable
+3;6;1;1;80;Signal Instrument Switcer
+3;6;1;1;81;Celling Mount Bracket
+3;6;1;1;82;Interfaceboard
+3;6;1;1;83;Video Presenter
+3;6;1;1;84;Multiscan Proyector
+3;6;1;1;85;Cable
+3;6;1;1;86;Scanner Coir, Presst
+3;6;1;1;87;Komp. Interface Boar
+3;6;1;1;88;Voice Recorder
+3;6;1;1;89;AM/FM Measurement
+3;6;1;1;90;Signal On Air
+3;6;1;1;91;Digital LED Running Text
+3;6;1;1;92;Analog/Digital Receiver
+3;6;1;1;93;Digital Keyboard Technics
+3;6;1;1;94;Explorist 600
+3;6;1;1;999;Peralatan Studio Audio Lainnya
+3;6;1;2;0;PERALATAN STUDIO VIDEO DAN FILM
+3;6;1;2;1;Assignment Switcher
+3;6;1;2;2;Off Air TV Monitor
+3;6;1;2;3;Camera Electronic
+3;6;1;2;4;Pulse Generator (Peralatan Studio Video Dan Film)
+3;6;1;2;5;Pulse Distribution Amplifier
+3;6;1;2;6;Pulse Switcher
+3;6;1;2;7;Pulse Delay Line
+3;6;1;2;8;Character Generator (Peralatan Studio Video Dan Film)
+3;6;1;2;9;Caption Generator
+3;6;1;2;10;Telecine
+3;6;1;2;11;Video Distribution Amplifier
+3;6;1;2;12;Video Monitor
+3;6;1;2;13;Video Tape Recorder Portable
+3;6;1;2;14;Video Tape Recorder Stationer
+3;6;1;2;15;Video Mixer
+3;6;1;2;16;Video Switcher
+3;6;1;2;17;Video Equalizer Amplifier
+3;6;1;2;18;Video Color Bar Generator
+3;6;1;2;19;Video Cross Bar Switch
+3;6;1;2;20;Video Test Signal Generator
+3;6;1;2;21;Video Corrector
+3;6;1;2;22;Video Caption Adder
+3;6;1;2;23;Video Hum Compensator
+3;6;1;2;24;Video Processor
+3;6;1;2;25;Video Station Id Generator
+3;6;1;2;26;Video Patch Panel
+3;6;1;2;27;Video Delay Unit
+3;6;1;2;28;Video Processing Amplifier
+3;6;1;2;29;Video Equalizer
+3;6;1;2;30;Video Tape Evaluator
+3;6;1;2;31;Video Effect Generator
+3;6;1;2;32;VITS Inserter Generator
+3;6;1;2;33;Camera Wall Box
+3;6;1;2;34;Teleprompter
+3;6;1;2;35;Time Base Corrector
+3;6;1;2;36;Gun Smoke
+3;6;1;2;37;Automatic Editing Control (Peralatan Studio Video Dan Film)
+3;6;1;2;38;Power Supply (Peralatan Studio Video Dan Film)
+3;6;1;2;39;Editing Electronic
+3;6;1;2;40;Rectifier Unit
+3;6;1;2;41;Remote Control Unit
+3;6;1;2;42;Rak Peralatan
+3;6;1;2;43;Stabilizing Amplifier
+3;6;1;2;44;Digital Video Effect
+3;6;1;2;45;Tripod Camera
+3;6;1;2;46;Dimmer
+3;6;1;2;47;Chiller
+3;6;1;2;48;Slave Clock (Peralatan Studio Video Dan Film)
+3;6;1;2;49;Master Clock (Peralatan Studio Video Dan Film)
+3;6;1;2;50;Teledyne
+3;6;1;2;51;Flying Spot Scanner
+3;6;1;2;52;Synchronizing Pulse Generator
+3;6;1;2;53;DC Converter
+3;6;1;2;54;Black Burst Generator
+3;6;1;2;55;Lighting Stand Tripod
+3;6;1;2;56;Film Projector
+3;6;1;2;57;Slide Projector
+3;6;1;2;58;Command Desk
+3;6;1;2;59;Announcer Desk
+3;6;1;2;60;Camera Film
+3;6;1;2;61;Lensa Kamera
+3;6;1;2;62;Film Magazine
+3;6;1;2;63;Claper
+3;6;1;2;64;Changing Bag
+3;6;1;2;65;Conditioner
+3;6;1;2;66;Colour Film Analyzer
+3;6;1;2;68;Film Sound Recorder
+3;6;1;2;69;Tele Recorder
+3;6;1;2;70;Camera View Finder
+3;6;1;2;71;Servo Zoom Lens
+3;6;1;2;72;Camera Adaptor
+3;6;1;2;73;Photo Processing Set
+3;6;1;2;74;Micro Film
+3;6;1;2;75;Mixer PVC
+3;6;1;2;76;Unit Replenieser Tank
+3;6;1;2;77;Horizontal Motorized Film Rewinder
+3;6;1;2;78;Vertical Motorized Film Rewinder
+3;6;1;2;79;Manual Film Rewinder
+3;6;1;2;80;Mesin Prosesing Film Negatif
+3;6;1;2;81;Mesin Prosesing Film Positif
+3;6;1;2;82;Mesin Prosesing Film Warna Negatif (ECN)
+3;6;1;2;83;Mesin Prosesing Film Warna Positif (ECP)
+3;6;1;2;84;Mesin Film Color Analyzer
+3;6;1;2;85;Analitical Balance (Peralatan Studio Video Dan Film)
+3;6;1;2;86;Alat Pemanas Prosesing ( Water Heater )
+3;6;1;2;87;Stapler Film
+3;6;1;2;88;Magnetic Stip
+3;6;1;2;89;Splitzer Tape
+3;6;1;2;90;Meja Editing Film
+3;6;1;2;91;Digital Tbc
+3;6;1;2;92;Titanium Tank Single Shaft
+3;6;1;2;93;Temperatur Control C/W
+3;6;1;2;94;Gear Box Sun Assy
+3;6;1;2;95;Tacho Generator For Drive Motor Raching
+3;6;1;2;96;Circulation System Complet
+3;6;1;2;97;Chiller Water Complet
+3;6;1;2;98;Video Audio Jack Panel
+3;6;1;2;99;Automatic Emergency Light
+3;6;1;2;100;Film Chain Multiplier
+3;6;1;2;101;Photo Tustel
+3;6;1;2;102;Photo Tustel Polaroid
+3;6;1;2;103;Betacam Recorder/Player
+3;6;1;2;104;Slide Rail
+3;6;1;2;105;Weapon & Metal Detector ( Check Gate )
+3;6;1;2;107;Layar Film/Projector
+3;6;1;2;108;Camera Tune Simulator
+3;6;1;2;109;Dry Splitzer Film
+3;6;1;2;110;Video Tone Cleaner
+3;6;1;2;111;Mini Viewer
+3;6;1;2;112;Push Button Control Panel
+3;6;1;2;113;Rak Terminal Vencing
+3;6;1;2;114;Standard True Signal/Master Rack
+3;6;1;2;115;Motor Driver
+3;6;1;2;116;Analog Delay (Peralatan Studio Video Dan Film)
+3;6;1;2;117;Standard Point Animation
+3;6;1;2;118;Head Set
+3;6;1;2;119;Character Effect Interface
+3;6;1;2;120;Lighting Head Body
+3;6;1;2;121;Lighting Mechanic
+3;6;1;2;122;Alos 321 Fiche Reader
+3;6;1;2;123;Alos 321 Alos Reader
+3;6;1;2;124;Inserter Jacket Filmnes Model Frf-160 & 3500
+3;6;1;2;125;Diaso Printer, 404
+3;6;1;2;126;Diaso Processor 404 dan 404 D
+3;6;1;2;127;Camera Under Water
+3;6;1;2;128;Camera Digital
+3;6;1;2;129;Tas Kamera
+3;6;1;2;130;Lampu Blitz Kamera
+3;6;1;2;131;Lensa Filter
+3;6;1;2;132;Video Conference
+3;6;1;2;133;Turbo IDDR (Intelligent Digital Disk Recorder)
+3;6;1;2;134;Video Router
+3;6;1;2;135;LCD Monitor
+3;6;1;2;136;Sdi Rasteriser
+3;6;1;2;137;Audio Monitoring Unit
+3;6;1;2;138;Frame Synchronizer
+3;6;1;2;139;Audio Transcoder
+3;6;1;2;140;Audio Converter
+3;6;1;2;141;Automation Main
+3;6;1;2;142;Recording Workstation
+3;6;1;2;143;Editor Workstation
+3;6;1;2;144;On Air Recording
+3;6;1;2;145;Connectors
+3;6;1;2;146;Patch Cord
+3;6;1;2;147;Audio Embedder
+3;6;1;2;148;VTR Recorder
+3;6;1;2;149;Analog Video Router
+3;6;1;2;150;Broadband Amlifier
+3;6;1;2;151;Splitter
+3;6;1;2;152;RF Cable
+3;6;1;2;153;F Connector
+3;6;1;2;154;TV Connector
+3;6;1;2;155;Thermo Bind Machine
+3;6;1;2;156;Kamera Stile
+3;6;1;2;157;Mini DV
+3;6;1;2;158;Monopod
+3;6;1;2;159;Clipp On
+3;6;1;2;160;Computer Editing
+3;6;1;2;161;Cut Editing
+3;6;1;2;162;Duplicator VCD
+3;6;1;2;163;Duplicator DVD
+3;6;1;2;164;Video Splitter
+3;6;1;2;165;Camera Conference
+3;6;1;2;999;Peralatan Studio Video Dan Film Lainnya
+3;6;1;3;0;PERALATAN STUDIO GAMBAR
+3;6;1;3;1;Meja Gambar
+3;6;1;3;2;Lichdruck Apparaat
+3;6;1;3;3;Sablon Set
+3;6;1;3;4;Alat Tulis Gambar
+3;6;1;3;5;Busur Gambar
+3;6;1;3;6;Jangka Gambar
+3;6;1;3;999;Peralatan Studio Gambar Lainnya
+3;6;1;4;0;PERALATAN CETAK
+3;6;1;4;1;Meja Membuat Klise
+3;6;1;4;2;Meja Cetak Tangan
+3;6;1;4;3;Mesin Cetak Listrik Sheet
+3;6;1;4;4;Mesin Cetak Listrik Roll
+3;6;1;4;5;Mesin Cetak Elektronik
+3;6;1;4;6;Mesin Cetak
+3;6;1;4;7;Mesin Cetak Offset Sheet
+3;6;1;4;8;Mesin Cetak Offset Roll
+3;6;1;4;9;Mesin Cetak Offset Mini
+3;6;1;4;10;Mesin Pemotong Biasa
+3;6;1;4;11;Mesin Pemotong Biasa Tiga Pisau
+3;6;1;4;12;Mesin Jilid Bundar
+3;6;1;4;13;Mesin Jilid Besar
+3;6;1;4;14;Mesin Jilid
+3;6;1;4;15;Mesin Lipat
+3;6;1;4;16;Mesin Pembuat Huruf
+3;6;1;4;17;Mesin Penyusun Huruf Biasa
+3;6;1;4;18;Mesin Penyusun Huruf Foto (Foto Type Setting)
+3;6;1;4;19;Mesin Pelubang (Peralatan Cetak)
+3;6;1;4;20;Mesin Proof
+3;6;1;4;21;Camera Vertical
+3;6;1;4;22;Mesin Pres
+3;6;1;4;23;Mesin Jahit Kawat
+3;6;1;4;24;Mesin Jahit Benang
+3;6;1;4;25;Mesin Pilung
+3;6;1;4;26;Mesin Garis
+3;6;1;4;27;Mesin Perekam Stensil Folio
+3;6;1;4;28;Mesin Perekam Stensil Double Folio
+3;6;1;4;29;Mesin Plate Maker Folio
+3;6;1;4;30;Mesin Plate Maker Double Folio
+3;6;1;4;31;Mesin Potong
+3;6;1;4;32;Mesin Handpress
+3;6;1;4;33;Mesin Stahd
+3;6;1;4;34;Mesin Kertas
+3;6;1;4;35;Kacip Potong Sudut
+3;6;1;4;36;Alat Pembuat Vormstand
+3;6;1;4;37;Mesin Paset
+3;6;1;4;38;Mesin Prasise Klise
+3;6;1;4;39;Mesin Pembolong Film Setengah Plano
+3;6;1;4;40;Mesin Cetak Mas
+3;6;1;4;41;Mesin Cetak Stereo Typer
+3;6;1;4;42;Mesin Cetak Braille
+3;6;1;4;43;Mesin Fonds
+3;6;1;4;44;Mesin Folding
+3;6;1;4;45;Mesin Barcode
+3;6;1;4;46;Mesin Profesional Velobinder
+3;6;1;4;47;Mesin Cacah
+3;6;1;4;48;Image Setter
+3;6;1;4;49;Mesin Sparasi
+3;6;1;4;50;Camera Horizontal
+3;6;1;4;51;Alat Cover Creasing
+3;6;1;4;52;Mesin Pembuat ID Card
+3;6;1;4;999;Peralatan Cetak Lainnya
+3;6;1;5;0;PERALATAN STUDIO PEMETAAN/PERALATAN UKUR TANAH
+3;6;1;5;1;Autograph Unit
+3;6;1;5;2;Aviograph Plus Ploting Table
+3;6;1;5;3;Planitop
+3;6;1;5;4;Point Tranter Device
+3;6;1;5;5;Trestirial Camera
+3;6;1;5;6;Slohed Temlet
+3;6;1;5;7;Sketch Master
+3;6;1;5;8;Rectifier (Peralatan Studio Pemetaan/peralatan Ukur Tanah)
+3;6;1;5;9;Optical Pantograph
+3;6;1;5;10;Contact Printer
+3;6;1;5;11;Pengering Photo
+3;6;1;5;12;Vacum Frame
+3;6;1;5;13;Coordinatograph
+3;6;1;5;14;Pemotong Film
+3;6;1;5;15;Streoscope Tanah
+3;6;1;5;16;Waterpas
+3;6;1;5;17;Theodolite (Peralatan Studio Pemetaan/peralatan Ukur Tanah)
+3;6;1;5;18;Distomat
+3;6;1;5;19;B.T.M
+3;6;1;5;20;Level
+3;6;1;5;21;Jalon
+3;6;1;5;22;Rambu/Bak Ukur
+3;6;1;5;23;Kompas Geologi
+3;6;1;5;24;Clinometer
+3;6;1;5;25;Altimeter (Peralatan Studio Pemetaan/peralatan Ukur Tanah)
+3;6;1;5;26;Holiometer
+3;6;1;5;27;Telescope (Peralatan Studio Pemetaan/peralatan Ukur Tanah)
+3;6;1;5;28;Passer Doss
+3;6;1;5;29;Curvermeter
+3;6;1;5;30;Rollmeter
+3;6;1;5;31;Meet Band
+3;6;1;5;32;Busur Derajat
+3;6;1;5;33;Chronometer (Peralatan Studio Pemetaan/peralatan Ukur Tanah)
+3;6;1;5;34;Gawang Lokasi
+3;6;1;5;35;Kompas (Peralatan Studio Pemetaan/peralatan Ukur Tanah)
+3;6;1;5;36;Sextant
+3;6;1;5;37;Teropong/Keker
+3;6;1;5;38;GPS Receiver
+3;6;1;5;39;Ground Paretrating Radar
+3;6;1;5;40;Teken Schaal/Jangka Tusuk
+3;6;1;5;41;Pantograph
+3;6;1;5;42;Plani Meter
+3;6;1;5;43;Prisma Roelak
+3;6;1;5;44;Prisma Meter
+3;6;1;5;45;Prisma Ukur
+3;6;1;5;46;Ruiter Plaat
+3;6;1;5;47;Kamera Udara
+3;6;1;5;48;Stereoplotter
+3;6;1;5;49;Planicomp
+3;6;1;5;50;Meja Sinar
+3;6;1;5;51;Graver
+3;6;1;5;52;Pen Holder
+3;6;1;5;999;Peralatan Studio Pemetaan/Peralatan Ukur Tanah Lainnya
+3;6;1;99;0;ALAT STUDIO LAINNYA
+3;6;1;99;999;Alat Studio Lainnya
+3;6;2;0;0;ALAT KOMUNIKASI
+3;6;2;1;0;ALAT KOMUNIKASI TELEPHONE
+3;6;2;1;1;Telephone (PABX)
+3;6;2;1;2;Intermediate Telephone/Key Telephone
+3;6;2;1;3;Pesawat Telephone
+3;6;2;1;4;Telephone Mobile
+3;6;2;1;5;Pager
+3;6;2;1;6;Handy Talky (HT)
+3;6;2;1;7;Telex
+3;6;2;1;8;Selective Colling
+3;6;2;1;9;Peralatan Spech Plas
+3;6;2;1;10;Facsimile
+3;6;2;1;11;Bidding Pit
+3;6;2;1;12;Local Battery Telephone
+3;6;2;1;13;Senhub Fixed
+3;6;2;1;14;Senhub Mobile
+3;6;2;1;15;Telepon Lapangan
+3;6;2;1;16;Sentral Telepon Lapangan
+3;6;2;1;17;Telepon Satelit
+3;6;2;1;18;Kom Data
+3;6;2;1;19;PDA
+3;6;2;1;20;Telepon Digital
+3;6;2;1;21;Telepon Analog
+3;6;2;1;999;Alat Komunikasi Telephone Lainnya
+3;6;2;2;0;ALAT KOMUNIKASI RADIO SSB
+3;6;2;2;1;Unit Tranceiver Ssb Portable
+3;6;2;2;2;Unit Tranceiver Ssb Transportable
+3;6;2;2;3;Unit Tranceiver Ssb Stationery
+3;6;2;2;999;Alat Komunikasi Radio Ssb Lainnya
+3;6;2;3;0;ALAT KOMUNIKASI RADIO HF/FM
+3;6;2;3;1;Unit Tranceiver HF Portable
+3;6;2;3;2;Unit Tranceiver HF Transportable
+3;6;2;3;3;Unit Tranceiver HF Stationery
+3;6;2;3;4;Unit Tranceiver FM
+3;6;2;3;999;Alat Komunikasi Radio HF/FM Lainnya
+3;6;2;4;0;ALAT KOMUNIKASI RADIO VHF
+3;6;2;4;1;Unit Tranceiver VHF Portable
+3;6;2;4;2;Unit Tranceiver VHF Transportable
+3;6;2;4;3;Unit Tranceiver VHF Stationary
+3;6;2;4;999;Alat Komunikasi Radio VHF Lainnya
+3;6;2;5;0;ALAT KOMUNIKASI RADIO UHF
+3;6;2;5;1;Unit Tranceiver UHF Portable
+3;6;2;5;2;Unit Tranceiver UHF Transportable
+3;6;2;5;3;Unit Tranceiver UHF Stationary
+3;6;2;5;999;Alat Komunikasi Radio UHF Lainnya
+3;6;2;6;0;ALAT KOMUNIKASI SOSIAL
+3;6;2;6;1;Publik Address (Lapangan)
+3;6;2;6;2;Wireless Amplifier
+3;6;2;6;3;Slide Projector (Lapangan)
+3;6;2;6;4;Multiplex System
+3;6;2;6;5;Frequency Systhesizer Unit
+3;6;2;6;6;Patching Board
+3;6;2;6;999;Alat Komunikasi Sosial Lainnya
+3;6;2;7;0;ALAT-ALAT SANDI
+3;6;2;7;1;Morse Keyer
+3;6;2;7;2;Automatic Deorse Keyer
+3;6;2;7;3;Alat Semboyan
+3;6;2;7;4;Mesin Sandi dan Kelengkapannya
+3;6;2;7;5;Finger Printer Time and Attandance Acces Control System
+3;6;2;7;6;Mesin Sandi Teks
+3;6;2;7;7;Mesin Sandi Suara
+3;6;2;7;8;Mesin Sandi Data
+3;6;2;7;9;Mesin Sandi Berbasis Software
+3;6;2;7;10;Mesin Sandi Berbasis Hardware
+3;6;2;7;11;Mesin Sandi Berbasis Software dan Hardware
+3;6;2;7;12;Alat Pembangkit Kunci
+3;6;2;7;13;Alat Pendistribusi Kunci
+3;6;2;7;14;Crypthopone
+3;6;2;7;15;Crytofax
+3;6;2;7;16;Server Encription
+3;6;2;7;17;Handphone Encription
+3;6;2;7;18;GSM Jammer
+3;6;2;7;19;CDMA Jammer
+3;6;2;7;999;Alat-Alat Sandi Lainnya
+3;6;2;8;0;ALAT KOMUNIKASI KHUSUS
+3;6;2;8;1;Alat DF Radio SSB
+3;6;2;8;2;Super Broom
+3;6;2;8;3;Alat DF Radio HF/FM
+3;6;2;8;4;Scanlock Plus Ceberus
+3;6;2;8;5;Alat DF Radio VHF
+3;6;2;8;6;Stelath Digital Repeater
+3;6;2;8;7;Alat DF Radio UHF
+3;6;2;8;8;Tranking
+3;6;2;8;9;Telepon Taping
+3;6;2;8;10;Stelath
+3;6;2;8;11;Visatelit
+3;6;2;8;12;Mainframe (Alat Komunikasi Khusus)
+3;6;2;8;13;Safe Light Filter
+3;6;2;8;14;Anti Sadap Telepon (Scanbler)
+3;6;2;8;15;Billinf System
+3;6;2;8;16;Room Monitoring MC06
+3;6;2;8;17;Watch Transmiter
+3;6;2;8;18;Ashtray
+3;6;2;8;19;Non Direction Beacon (NDB)
+3;6;2;8;20;Radio Link
+3;6;2;8;21;Localizer
+3;6;2;8;22;Glade Path
+3;6;2;8;23;Midle Marker
+3;6;2;8;24;Radio Communication Matching Switch (RCMS)
+3;6;2;8;25;Direction Very Omni Range (DVOR)
+3;6;2;8;26;Integrated Ground Caommunication System (SGRS)
+3;6;2;8;27;Switching Ground Receiver System (SGRS)
+3;6;2;8;28;Alat Rx Radio SSb
+3;6;2;8;29;Alat Rx Radio HF/FM
+3;6;2;8;30;Alat Rx Radio VHF
+3;6;2;8;31;Alat Rx Radio UHF
+3;6;2;8;32;Alat Jamming Radio SSB
+3;6;2;8;33;Alat Jamming Radio HF/FM
+3;6;2;8;34;Alat Jamming Radio VHF
+3;6;2;8;35;Alat Jamming Radio UHF
+3;6;2;8;36;Alat Spektrum Frek Monitor SSB
+3;6;2;8;37;Alat Spektrum Frek Monitor HF/FM
+3;6;2;8;38;Alat Spektrum Frek Monitor VHF
+3;6;2;8;39;Alat Spektrum Frek Monitor UHF
+3;6;2;8;40;Alat Traffic Analysis
+3;6;2;8;41;Alat Countersurveillance
+3;6;2;8;42;Alat Surveillance
+3;6;2;8;43;Alat Jamming Frekuensi
+3;6;2;8;44;Alat Pengendali Pancaran Gelombang Elektromagnetik (Tempest)
+3;6;2;8;999;Alat Komunikasi Khusus Lainnya
+3;6;2;9;0;ALAT KOMUNIKASI DIGITAL DAN KONVENSIONAL
+3;6;2;9;1;System Control Node Multi Site System
+3;6;2;9;2;Site Base stataion Multi Site System
+3;6;2;9;3;Controll Center
+3;6;2;9;4;E2EEncryption Management Tools
+3;6;2;9;5;Network Monitoring System
+3;6;2;9;6;Switching Matrix and Server
+3;6;2;9;7;Digital Recording System
+3;6;2;9;8;Official Pheripheral
+3;6;2;9;9;Mobile Unit
+3;6;2;9;10;Mobile Gateway
+3;6;2;9;11;Convert Body
+3;6;2;9;12;Repeater RX/TX
+3;6;2;9;13;Repeater Multiband Combiner 4 in 4out
+3;6;2;9;14;Repeater Multiband Combiner 4 in 2out
+3;6;2;9;15;Repeater Multiband Combiner 2 in 2out
+3;6;2;9;16;Repeater CDMA 80PO MHz
+3;6;2;9;17;Repeater CDS 1800 MHz
+3;6;2;9;999;Alat Komunikasi Digital Dan Konvensional Lainnya
+3;6;2;10;0;ALAT KOMUNIKASI SATELIT
+3;6;2;10;1;Fully System HUB
+3;6;2;10;2;VSAT System for Remote Terminal
+3;6;2;10;3;Commob (Communication Mobile) VSAT
+3;6;2;10;4;Wireless Base Station + Surveillance Manpack Kit
+3;6;2;10;5;Flyaway
+3;6;2;10;6;Encryption
+3;6;2;10;7;Remote Data Connection  Distribution
+3;6;2;10;8;Remote VoIP Gateway E1 Card Interface
+3;6;2;10;9;Spectrum Analyzer for HUB Station
+3;6;2;10;10;Spectrum Analyzer Portable for Field Use
+3;6;2;10;11;UPS 15 KVA for HUB Station
+3;6;2;10;12;UPS 1 KVA for Remote Station
+3;6;2;10;999;Alat Komunikasi Satelit Lainnya
+3;6;2;99;0;ALAT KOMUNIKASI LAINNYA
+3;6;2;99;999;Alat Komunikasi Lainnya
+3;6;3;0;0;PERALATAN PEMANCAR
+3;6;3;1;0;PERALATAN PEMANCAR MF/MW
+3;6;3;1;1;Unit Pemancar MF/MW Portable
+3;6;3;1;2;Unit Pemancar MF/MW Transportable
+3;6;3;1;3;Unit Pemancar MF/MW Stationary
+3;6;3;1;999;Peralatan Pemancar MF/MW Lainnya
+3;6;3;2;0;PERALATAN PEMANCAR HF/SW
+3;6;3;2;1;Unit Pemancar HF/SW Portable
+3;6;3;2;2;Unit Pemancar HF/SW Transportable
+3;6;3;2;3;Unit Pemancar HF/SW Stationary
+3;6;3;2;999;Peralatan Pemancar HF/SW Lainnya
+3;6;3;3;0;PERALATAN PEMANCAR VHF/FM
+3;6;3;3;1;Unit Pemancar VHF/FM Portable
+3;6;3;3;2;Unit Pemancar VHF/FM Transportable
+3;6;3;3;3;Unit Pemancar VHF/FM Stationary
+3;6;3;3;999;Peralatan Pemancar VHF/FM Lainnya
+3;6;3;4;0;PERALATAN PEMANCAR UHF
+3;6;3;4;1;Unit Pemancar UHF Portable
+3;6;3;4;2;Unit Pemancar UHF Transportable
+3;6;3;4;3;Unit Pemancar UHF Stationary
+3;6;3;4;4;Portable Reporter Link
+3;6;3;4;999;Peralatan Pemancar UHF Lainnya
+3;6;3;5;0;PERALATAN PEMANCAR SHF
+3;6;3;5;1;Unit Pemancar SHF Portable
+3;6;3;5;2;Unit Pemancar SHF Transportable
+3;6;3;5;3;Unit Pemancar SHF Stationary
+3;6;3;5;4;Satellite Link ( Up/Down Link )
+3;6;3;5;999;Peralatan Pemancar SHF Lainnya
+3;6;3;6;0;PERALATAN ANTENA MF/MW
+3;6;3;6;1;Antene MF/MW Portable
+3;6;3;6;2;Antene MF/MW Transportable
+3;6;3;6;3;Antene MF/MW Stationary
+3;6;3;6;999;Peralatan Antena MF/MW Lainnya
+3;6;3;7;0;PERALATAN ANTENA HF/SW
+3;6;3;7;1;Antene HF/SW Portable
+3;6;3;7;2;Antene HF/SW Transportable
+3;6;3;7;3;Antene HF/SW Stationary
+3;6;3;7;999;Peralatan Antena HF/SW Lainnya
+3;6;3;8;0;PERALATAN ANTENA VHF/FM
+3;6;3;8;1;Antene VHF/FM Portable
+3;6;3;8;2;Antene VHF/FM Transportable
+3;6;3;8;3;Antene VHF/FM Stationary
+3;6;3;8;999;Peralatan Antena VHF/FM Lainnya
+3;6;3;9;0;PERALATAN ANTENA UHF
+3;6;3;9;1;Antene UHF Portable
+3;6;3;9;2;Antene UHF Transportable
+3;6;3;9;3;Antene UHF Stationary
+3;6;3;9;999;Peralatan Antena UHF Lainnya
+3;6;3;10;0;PERALATAN ANTENA SHF/PARABOLA
+3;6;3;10;1;Antene SHF Portable
+3;6;3;10;2;Antene SHF Transportable
+3;6;3;10;3;Antene SHF Stationary
+3;6;3;10;4;Antena All Band
+3;6;3;10;5;Antena SSB
+3;6;3;10;999;Peralatan Antena SHF/Parabola Lainnya
+3;6;3;11;0;PERALATAN TRANSLATOR VHF/VHF
+3;6;3;11;1;Translator VHF/VHF Portable
+3;6;3;11;2;Translator VHF/VHF Transportable
+3;6;3;11;3;Translator VHF/VHF Stationary
+3;6;3;11;999;Peralatan Translator VHF/VHF Lainnya
+3;6;3;12;0;PERALATAN TRANSLATOR UHF/UHF
+3;6;3;12;1;Translator UHF/UHF Portable
+3;6;3;12;2;Translator UHF/UHF Transportable
+3;6;3;12;3;Translator UHF/UHF Stationary
+3;6;3;12;999;Peralatan Translator UHF/UHF Lainnya
+3;6;3;13;0;PERALATAN TRANSLATOR VHF/UHF
+3;6;3;13;1;Translator VHF/UHF Portable
+3;6;3;13;2;Translator VHF/UHF Transportable
+3;6;3;13;3;Translator VHF/UHF Stationary
+3;6;3;13;999;Peralatan Translator VHF/UHF Lainnya
+3;6;3;14;0;PERALATAN TRANSLATOR UHF/VHF
+3;6;3;14;1;Translator UHF/VHF Portable
+3;6;3;14;2;Translator UHF/VHF Transportable
+3;6;3;14;3;Translator UHF/VHF Stationary
+3;6;3;14;999;Peralatan Translator UHF/VHF Lainnya
+3;6;3;15;0;PERALATAN MICROWAVE F P U
+3;6;3;15;1;Microwave F P U Portable
+3;6;3;15;2;Microwave F P U Transportable
+3;6;3;15;3;Microwave F P U Stationary
+3;6;3;15;999;Peralatan Microwave F P U Lainnya
+3;6;3;16;0;PERALATAN MICROWAVE TERESTRIAL
+3;6;3;16;1;Microwave Terestrial Portable
+3;6;3;16;2;Microwave Terestrial Transportable
+3;6;3;16;3;Microwave Terestrial Stationary
+3;6;3;16;999;Peralatan Microwave Terestrial Lainnya
+3;6;3;17;0;PERALATAN MICROWAVE TVRO
+3;6;3;17;1;Microwave TVRO Portable
+3;6;3;17;2;Microwave TVRO Transportable
+3;6;3;17;3;Microwave TVRO Stationary
+3;6;3;17;999;Peralatan Microwave  TVRO Lainnya
+3;6;3;18;0;PERALATAN DUMMY LOAD
+3;6;3;18;1;Dummy Load Pendingin Udara
+3;6;3;18;2;Dummy Load Pendingin Air
+3;6;3;18;3;Dummy Load Pendingin Minyak
+3;6;3;18;4;Dummy Load Pendingin Gas
+3;6;3;18;999;Peralatan Dummy Load Lainnya
+3;6;3;19;0;SWITCHER ANTENA
+3;6;3;19;1;Switcher Combination
+3;6;3;19;2;Switcher Manual
+3;6;3;19;3;Switcher Automatic Motor
+3;6;3;19;999;Switcher Antena Lainnya
+3;6;3;20;0;SWITCHER/MENARA ANTENA
+3;6;3;20;1;Self Supporting Tower
+3;6;3;20;2;Guy Tower
+3;6;3;20;3;Mast Tower
+3;6;3;20;4;Concrete Tower
+3;6;3;20;999;Switcher/Menara Antena Lainnya
+3;6;3;21;0;FEEDER
+3;6;3;21;1;Open Wire
+3;6;3;21;2;Coaxial Feeder
+3;6;3;21;3;Antenna Tuning Unit
+3;6;3;21;4;Dehydrator
+3;6;3;21;999;Feeder Lainnya (Alat Studio, Komunikasi Dan Pemancar)
+3;6;3;22;0;HUMIDITY CONTROL
+3;6;3;22;1;Dehumidifier (Humidity Control)
+3;6;3;22;999;Humidity Control Lainnya
+3;6;3;23;0;PROGRAM INPUT EQUIPMENT
+3;6;3;23;1;Receiver STL/VHF ( FM)
+3;6;3;23;2;Receiver STL/UHF
+3;6;3;23;3;Receiver STL/SHF
+3;6;3;23;4;TVRO
+3;6;3;23;5;Line Amplifier
+3;6;3;23;6;S R O
+3;6;3;23;7;Line Equalizer
+3;6;3;23;8;Automatic Gain Control
+3;6;3;23;9;Compressor Amplifier
+3;6;3;23;10;Expander Amplifier
+3;6;3;23;11;Attenuator
+3;6;3;23;12;Audio Processor Am
+3;6;3;23;13;Stereo Generator Fm
+3;6;3;23;14;Distributor Amplifier
+3;6;3;23;15;Switcher/Patch Panel
+3;6;3;23;16;Audio Monitor
+3;6;3;23;17;AM Monitor
+3;6;3;23;18;FM Monitor
+3;6;3;23;19;Power Distribution Board
+3;6;3;23;20;Lightning Protector
+3;6;3;23;21;All Band Receiver
+3;6;3;23;22;Change Over Switch
+3;6;3;23;999;Program Input Equipment Lainnya
+3;6;3;24;0;PERALATAN ANTENE PENERIMA VHF
+3;6;3;24;1;Antene Penerima VHF
+3;6;3;24;2;Peralatan Antena Penerima LF
+3;6;3;24;3;Peralatan Antena Penerima MF
+3;6;3;24;4;Peralatan Antena Penerima HF
+3;6;3;24;5;Peralatan Antena Penerima MF+HF
+3;6;3;24;6;Peralatan Antena Penerima VHF
+3;6;3;24;7;Peralatan Antena Penerima UHF
+3;6;3;24;8;Peralatan Antena Penerima SSHF
+3;6;3;24;999;Peralatan Antene Penerima VHF Lainnya
+3;6;3;25;0;PERALATAN PEMANCAR LF
+3;6;3;25;1;Peralatan Pemancar LF Transportable
+3;6;3;25;2;Peralatan Pemancar LF Portable
+3;6;3;25;3;Peralatan Pemancar LF Stationary
+3;6;3;25;999;Peralatan Pemancar LF Lainnya
+3;6;3;26;0;UNIT PEMANCAR MF+HF
+3;6;3;26;1;Unit Pemancar MF+HF Transportable
+3;6;3;26;2;Unit Pemancar MF+HF Portable
+3;6;3;26;3;Unit Pemancar MF+HF Stationary
+3;6;3;26;999;Unit Pemancar MF+HF Lainnya
+3;6;3;27;0;PERALATAN ANTENA PEMANCAR MF+HF
+3;6;3;27;1;Peralatan Antena Pemancar MF+HF Transportable
+3;6;3;27;2;Peralatan Antena Pemancar MF+HF Portable
+3;6;3;27;3;Peralatan Antena Pemancar MF+HF Stationary
+3;6;3;27;999;Peralatan Antena Pemancar MF+HF Lainnya
+3;6;3;28;0;PERALATAN PENERIMA
+3;6;3;28;1;Peralatan Penerima LF
+3;6;3;28;2;Peralatan Penerima MF
+3;6;3;28;3;Peralatan Penerima HF
+3;6;3;28;4;Peralatan Penerima MF+HF
+3;6;3;28;5;Peralatan Penerima UHF
+3;6;3;28;6;Peralatan Penerima SHF
+3;6;3;28;999;Peralatan Penerima Lainnya
+3;6;3;29;0;PERALATAN PEMANCAR DAN PENERIMA LF
+3;6;3;29;1;Unit Transceiver LF Transportable
+3;6;3;29;2;Unit Transceiver LF Portable
+3;6;3;29;3;Unit Transceiver LF Stationary
+3;6;3;29;999;Peralatan Pemancar dan Penerima LF Lainnya
+3;6;3;30;0;PERALATAN PEMANCAR DAN PENERIMA MF
+3;6;3;30;1;Unit Transceiver MF Transportable
+3;6;3;30;2;Unit Transceiver MF Portable
+3;6;3;30;3;Unit Transceiver MF Stationary
+3;6;3;30;999;Peralatan Pemancar dan Penerima MF Lainnya
+3;6;3;31;0;PERALATAN PEMANCAR DAN PENERIMA HF
+3;6;3;31;1;Unit Transceiver HF Transportable
+3;6;3;31;2;Unit Transceiver HF Portable
+3;6;3;31;3;Unit Transceiver HF Stationary
+3;6;3;31;4;Rs Ssb Tranciever
+3;6;3;31;5;Mini Ranger
+3;6;3;31;6;Artemis
+3;6;3;31;7;Telerometer
+3;6;3;31;999;Peralatan Pemancar dan Penerima HF Lainnya
+3;6;3;32;0;PERALATAN PEMANCAR DAN PENERIMA MF+HF
+3;6;3;32;1;Unit Transceiver MF+HF Transportable
+3;6;3;32;2;Unit Transceiver MF+HF Portable
+3;6;3;32;3;Unit Transceiver MF+HF Stationary
+3;6;3;32;4;Differential Omega (Peralatan Pemancar Dan Penerima Mf+hf)
+3;6;3;32;999;Peralatan Pemancar dan Penerima MF+HF Lainnya
+3;6;3;33;0;PERALATAN PEMANCAR DAN PENERIMA VHF
+3;6;3;33;1;Unit Transceiver VHF Transportable
+3;6;3;33;2;Unit Transceiver VHF Portable
+3;6;3;33;3;Unit Transceiver VHF Stationary
+3;6;3;33;999;Peralatan Pemancar dan Penerima VHF lainnya
+3;6;3;34;0;PERALATAN PEMANCAR DAN PENERIMA UHF
+3;6;3;34;1;Unit Transceiver UHF Transportable
+3;6;3;34;2;Unit Transceiver UHF Portable
+3;6;3;34;3;Unit Transceiver UHF Stationary
+3;6;3;34;4;Ultra Hight Frequence Link
+3;6;3;34;5;Auto Alarm Tustel (AAT)
+3;6;3;34;6;Distribution Board and Signal Unit
+3;6;3;34;7;Remote Terminal Unit
+3;6;3;34;8;Multiplex Terminal Equipment
+3;6;3;34;9;Signal Velvoger Grounding
+3;6;3;34;10;Bridge Merger Testing
+3;6;3;34;11;Message Repeater
+3;6;3;34;12;Electric Cleaner
+3;6;3;34;13;Aotomatic Aerlale
+3;6;3;34;14;Power and Awr Meter Round
+3;6;3;34;15;Voltage Regulator
+3;6;3;34;16;Gyro Compass
+3;6;3;34;17;Frequence Synthesizer Unit
+3;6;3;34;18;Vodas (Voice Devise Anti Singing)
+3;6;3;34;19;Anemometer (Peralatan Pemancar Dan Penerima UHF)
+3;6;3;34;20;Clear View Screen
+3;6;3;34;21;Arq unit
+3;6;3;34;22;Radio Direction Finder
+3;6;3;34;23;Power transmitter
+3;6;3;34;24;Tele Controller
+3;6;3;34;25;Local Terminal
+3;6;3;34;26;Digital Selective Calling (DSC)
+3;6;3;34;999;Peralatan Pemancar dan Penerima UHF Lainnya
+3;6;3;35;0;PERALATAN PEMANCAR DAN PENERIMA SHF
+3;6;3;35;1;Unit Transceiver SHF Transportable
+3;6;3;35;2;Unit Transceiver SHF Portable
+3;6;3;35;3;Unit Transceiver SHF Stationary
+3;6;3;35;999;Peralatan Pemancar dan Penerima SHF Lainnya
+3;6;3;36;0;PERALATAN ANTENA PEMANCAR DAN PENERIMA LF
+3;6;3;36;1;Unit Antena Transceiver LF Transportable
+3;6;3;36;2;Unit Antena Transceiver LF Portable
+3;6;3;36;3;Unit Antena Transceiver LF Stationary
+3;6;3;36;999;Peralatan Antena Pemancar dan Penerima LF Lainnya
+3;6;3;37;0;PERALATAN ANTENA PEMANCAR DAN PENERIMA MF
+3;6;3;37;1;Unit Antena Transceiver MF Transportable
+3;6;3;37;2;Unit Antena Transceiver MF Portable
+3;6;3;37;3;Unit Antena Transceiver MF Stationary
+3;6;3;37;999;Peralatan Antena Pemancar dan Penerima MF Lainnya
+3;6;3;38;0;PERALATAN ANTENA PEMANCAR DAN PENERIMA HF
+3;6;3;38;1;Unit Antena Transceiver HF Transportable
+3;6;3;38;2;Unit Antena Transceiver HF Portable
+3;6;3;38;3;Unit Antena Transceiver HF Stationary
+3;6;3;38;999;Peralatan Antena Pemancar dan Penerima HF Lainnya
+3;6;3;39;0;PERALATAN ANTENA PEMANCAR DAN PENERIMA MF+HF
+3;6;3;39;1;Unit Antena Transceiver MF+ HF Transportable
+3;6;3;39;2;Unit Antena Transceiver MF+HF Portable
+3;6;3;39;3;Unit Antena Transceiver MF+HF Stationary
+3;6;3;39;999;Peralatan Antena Pemancar dan Penerima MF+HF Lainnya
+3;6;3;40;0;PERALATAN ANTENA PEMANCAR DAN PENERIMA VHF
+3;6;3;40;1;Unit Antena Transceiver VHF Transportable
+3;6;3;40;2;Unit Antena Transceiver VHF Portable
+3;6;3;40;3;Unit Antena Transceiver VHF Stationary
+3;6;3;40;999;Peralatan Antena Pemancar dan Penerima VHF Lainnya
+3;6;3;41;0;PERALATAN ANTENA PEMANCAR DAN PENERIMA UHF
+3;6;3;41;1;Unit Antena Transceiver UHF Transportable
+3;6;3;41;2;Unit Antena Transceiver UHF Portable
+3;6;3;41;3;Unit Antena Transceiver UHF Stationary
+3;6;3;41;999;Peralatan Antena Pemancar dan Penerima UHF Lainnya
+3;6;3;42;0;PERALATAN ANTENA PEMANCAR DAN PENERIMA SHF
+3;6;3;42;1;Unit Antena Transceiver SHF Transportable
+3;6;3;42;2;Unit Antena Transceiver SHF Portable
+3;6;3;42;3;Unit Antena Transceiver SHF Stationary
+3;6;3;42;999;Peralatan Antena Pemancar dan Penerima SHF Lainnya
+3;6;3;43;0;PERALATAN PENERIMA CUACA CITRA SATELITE RESOLUSI RENDAH
+3;6;3;43;1;Alat Penerima Satelite Cuaca
+3;6;3;43;999;Peralatan Penerima Cuaca Citra Satelite Resolusi Rendah Lainnya
+3;6;3;44;0;PERALATAN PENERIMA CUACA CITRA SATELITE RESOLUSI TINGGI
+3;6;3;44;1;Alat Penerima Satelite Cuaca Geo Stasimeter
+3;6;3;44;2;Alat Penerima Satelite Cuaca Orbit Polar
+3;6;3;44;999;Peralatan Penerima Cuaca Citra Satelite Resolusi Tinggi Lainnya
+3;6;3;45;0;PERALATAN PENERIMA DAN PENGIRIM GAMBAR KE PERMUKAAN
+3;6;3;45;1;Scanner Facsimile
+3;6;3;45;2;Alden Minifax Recorder
+3;6;3;45;3;Universal Graphic Recorder
+3;6;3;45;4;Weather Chart Recorder
+3;6;3;45;999;Peralatan Penerima dan Pengirim Gambar ke Permukaan Lainnya
+3;6;3;46;0;PERALATAN PERLENGKAPAN RADIO
+3;6;3;46;1;Box Battery
+3;6;3;46;2;Cutton Duck
+3;6;3;46;3;Carring Case
+3;6;3;46;4;Hand Set
+3;6;3;46;5;Conecctor
+3;6;3;46;999;Peralatan Perlengkapan Radio Lainnya
+3;6;3;47;0;SUMBER TENAGA
+3;6;3;47;1;BA-30
+3;6;3;47;2;Genset
+3;6;3;47;3;Solar Cell
+3;6;3;47;4;Charger
+3;6;3;47;999;Sumber Tenaga Lainnya
+3;6;3;99;0;PERALATAN PEMANCAR LAINNYA
+3;6;3;99;999;Peralatan Pemancar Lainnya
+3;6;4;0;0;PERALATAN KOMUNIKASI NAVIGASI
+3;6;4;1;0;PERALATAN KOMUNIKASI NAVIGASI INSTRUMEN LANDING SYSTEM
+3;6;4;1;1;Standard Instrumen Landing System
+3;6;4;1;2;Microwave Landing System
+3;6;4;1;999;Peralatan Komunikasi Navigasi Instrumen Landing System lainnya
+3;6;4;2;0;VERY HIGHT FREQUENCE OMNI RANGE (VOR)
+3;6;4;2;1;Conventional  VOR (CVOR)
+3;6;4;2;2;Doople VOR (DVOR)
+3;6;4;2;999;Very Hight Frequence Omni Range (VOR) Lainnya
+3;6;4;3;0;DISTANCE MEASURING EQUIPMENT (DME)
+3;6;4;3;1;Transponder DME
+3;6;4;3;2;Antena DME
+3;6;4;3;3;BEACON
+3;6;4;3;4;NDB
+3;6;4;3;5;DB
+3;6;4;3;6;Radar Beacon
+3;6;4;3;7;Differential Omega (Distance Measuring Equipment (dme))
+3;6;4;3;8;Differential GPS
+3;6;4;3;999;Distance Measuring Equipment (DME) Lainnya
+3;6;4;4;0;RADAR
+3;6;4;4;1;Primary Surveillance Radar
+3;6;4;4;2;Secondary Surveillance Radar
+3;6;4;4;999;Radar Lainnya
+3;6;4;5;0;ALAT PENGATUR TELEKOMUNIKASI
+3;6;4;5;1;Message Switching Center (MSC)
+3;6;4;5;2;Automatic Message Switching Center (AMSC)
+3;6;4;5;3;Current Console Regulator
+3;6;4;5;4;Controller Console PVC
+3;6;4;5;6;No Break Casinet
+3;6;4;5;7;Telegraphic Frame
+3;6;4;5;8;Morden
+3;6;4;5;9;Radio Console
+3;6;4;5;10;Supervisori Console
+3;6;4;5;999;Alat Pengatur Telekomunikasi Lainnya
+3;6;4;6;0;PERALATAN KOMUNIKASI UNTUK DOKUMENTASI
+3;6;4;6;1;Unit Tape Recorder
+3;6;4;6;2;Unit Time Announcing
+3;6;4;6;3;Unit Master Clock
+3;6;4;6;4;Unit Reproducer
+3;6;4;6;5;Unit Remote Control
+3;6;4;6;999;Peralatan Komunikasi Untuk Dokumentasi Lainnya
+3;6;4;99;0;PERALATAN KOMUNIKASI NAVIGASI LAINNYA
+3;6;4;99;999;Peralatan Komunikasi Navigasi Lainnya
+3;7;0;0;0;KOMPUTER
+3;7;1;0;0;KOMPUTER UNIT
+3;7;1;1;0;KOMPUTER JARINGAN
+3;7;1;1;1;Mainframe (Komputer Jaringan)
+3;7;1;1;2;Mini Komputer
+3;7;1;1;3;Local Area Network (LAN)
+3;7;1;1;4;Internet
+3;7;1;1;5;Komputer Wedis
+3;7;1;1;6;Komputer Synergie
+3;7;1;1;7;PC Workstation
+3;7;1;1;999;Komputer Jaringan Lainnya
+3;7;1;2;0;PERSONAL KOMPUTER
+3;7;1;2;1;P.C Unit
+3;7;1;2;2;Lap Top
+3;7;1;2;3;Note Book
+3;7;1;2;4;Palm Top
+3;7;1;2;5;Code Breaker Super Komputer
+3;7;1;2;6;Thinclient
+3;7;1;2;7;Net Book
+3;7;1;2;8;Ultra Mobile P.C.
+3;7;1;2;999;Personal Komputer Lainnya
+3;7;1;99;0;KOMPUTER UNIT LAINNYA
+3;7;1;99;999;Komputer Unit Lainnya
+3;7;2;0;0;PERALATAN KOMPUTER
+3;7;2;1;0;PERALATAN MAINFRAME
+3;7;2;1;1;Card Reader (Peralatan Mainframe)
+3;7;2;1;2;Magnetic Tape Unit (Peralatan Mainframe)
+3;7;2;1;3;Floppy Disk Unit (Peralatan Mainframe)
+3;7;2;1;4;Storage Modul Disk (Peralatan Mainframe)
+3;7;2;1;5;Console Unit (Peralatan Mainframe)
+3;7;2;1;6;CPU (Peralatan Mainframe)
+3;7;2;1;7;Disk Pack (Peralatan Mainframe)
+3;7;2;1;8;Hard Copy Console
+3;7;2;1;9;Serial Printer
+3;7;2;1;10;Line Printer
+3;7;2;1;11;Plotter (Peralatan Mainframe)
+3;7;2;1;12;Hard Disk
+3;7;2;1;13;Keyboard (Peralatan Mainframe)
+3;7;2;1;14;Steamer
+3;7;2;1;15;Data Patch Panel
+3;7;2;1;16;Paper Tape Reader
+3;7;2;1;17;Panaboard
+3;7;2;1;999;Peralatan Mainframe Lainnya
+3;7;2;2;0;PERALATAN MINI KOMPUTER
+3;7;2;2;1;Card Reader (Peralatan Mini Komputer)
+3;7;2;2;2;Magnetic Tape Unit (Peralatan Mini Komputer)
+3;7;2;2;3;Floppy Disk Unit (Peralatan Mini Komputer)
+3;7;2;2;4;Storage Modul Disk (Peralatan Mini Komputer)
+3;7;2;2;5;Console Unit (Peralatan Mini Komputer)
+3;7;2;2;6;CPU (Peralatan Mini Komputer)
+3;7;2;2;7;Disk Pack (Peralatan Mini Komputer)
+3;7;2;2;9;Plotter (Peralatan Mini Komputer)
+3;7;2;2;10;Scanner (Peralatan Mini Komputer)
+3;7;2;2;11;Computer Compatible
+3;7;2;2;12;Viewer (Peralatan Mini Komputer)
+3;7;2;2;13;Digitizer (Peralatan Mini Komputer)
+3;7;2;2;14;Keyboard (Peralatan Mini Komputer)
+3;7;2;2;15;Auto Switch/Data Switch
+3;7;2;2;16;Cut Sheet Feeder
+3;7;2;2;17;Speaker Komputer
+3;7;2;2;999;Peralatan Mini Komputer Lainnya
+3;7;2;3;0;PERALATAN PERSONAL KOMPUTER
+3;7;2;3;1;CPU (Peralatan Personal Komputer)
+3;7;2;3;2;Monitor
+3;7;2;3;3;Printer (Peralatan Personal Komputer)
+3;7;2;3;4;Scanner (Peralatan Personal Komputer)
+3;7;2;3;5;Plotter (Peralatan Personal Komputer)
+3;7;2;3;6;Viewer (Peralatan Personal Komputer)
+3;7;2;3;7;External
+3;7;2;3;8;Digitizer (Peralatan Personal Komputer)
+3;7;2;3;9;Keyboard (Peralatan Personal Komputer)
+3;7;2;3;10;CD Writter
+3;7;2;3;11;DVD Writer
+3;7;2;3;12;Firewire Card
+3;7;2;3;13;Capture Card
+3;7;2;3;14;LAN Card
+3;7;2;3;15;External CD/ DVD Drive (ROM)
+3;7;2;3;16;External Floppy Disk Drive
+3;7;2;3;17;External/ Portable Hardisk
+3;7;2;3;999;Peralatan Personal Komputer Lainnya
+3;7;2;4;0;PERALATAN JARINGAN
+3;7;2;4;1;Server
+3;7;2;4;2;Router
+3;7;2;4;3;Hub
+3;7;2;4;4;Modem
+3;7;2;4;5;Netware Interface External
+3;7;2;4;6;Repeater and Transciever
+3;7;2;4;7;Head Copy Terminal
+3;7;2;4;8;rack Modem
+3;7;2;4;9;Card Punch
+3;7;2;4;10;Head Copy Printer
+3;7;2;4;11;Character Terminal
+3;7;2;4;12;Graphic Terminal
+3;7;2;4;13;Terminal
+3;7;2;4;14;Rak Server
+3;7;2;4;15;Firewall
+3;7;2;4;16;Switch Rak
+3;7;2;4;17;Wanscaller
+3;7;2;4;18;E-Mail Security
+3;7;2;4;19;Client Clearing House
+3;7;2;4;20;CAT 6 Cable
+3;7;2;4;21;Kabel UTP
+3;7;2;4;22;Wireless PCI Card
+3;7;2;4;23;Wireless Access Point
+3;7;2;4;24;Switch
+3;7;2;4;25;Hubbel UTP
+3;7;2;4;26;Acces Point
+3;7;2;4;27;Rackmount
+3;7;2;4;28;KVM Keyboard Video Monitor
+3;7;2;4;29;Mobile Modem GSM/ CDMA
+3;7;2;4;30;Network Cable Tester
+3;7;2;4;31;Jaringan Satpas
+3;7;2;4;999;Peralatan Jaringan Lainnya
+3;7;2;99;0;PERALATAN KOMPUTER LAINNYA
+3;7;2;99;999;Peralatan Komputer Lainnya
+3;8;0;0;0;ALAT PENGEBORAN
+3;8;1;0;0;ALAT PENGEBORAN MESIN
+3;8;1;1;0;BOR MESIN TUMBUK
+3;8;1;1;1;Bor Mesin Tumbuk Pakai Kabel
+3;8;1;1;2;Bor Mesin Tumbuk Pakai Setang Bor
+3;8;1;1;3;Bor Mesin Tumbuk Kombinasi 01 & 02
+3;8;1;1;999;Bor Mesin Tumbuk Lainnya
+3;8;1;2;0;BOR MESIN PUTAR
+3;8;1;2;1;Rotary Table (Bor Mesin Putar)
+3;8;1;2;2;Spindle
+3;8;1;2;3;Kombinasi 01 & 02
+3;8;1;2;4;Top Drive
+3;8;1;2;5;Wikie Drill
+3;8;1;2;999;Bor Mesin Putar Lainnya
+3;8;1;99;0;ALAT PENGEBORAN MESIN LAINNYA
+3;8;1;99;999;Alat Pengeboran Mesin Lainnya
+3;8;2;0;0;ALAT PENGEBORAN NON MESIN
+3;8;2;1;0;BANGKA
+3;8;2;1;1;Bangka
+3;8;2;1;999;Bangka Lainnya
+3;8;2;2;0;PANTEK
+3;8;2;2;1;Pantek
+3;8;2;2;2;Sondir
+3;8;2;2;999;Pantek Lainnya
+3;8;2;3;0;PUTAR
+3;8;2;3;1;Putar
+3;8;2;3;2;Band Hidrolik
+3;8;2;3;999;Putar Lainnya
+3;8;2;4;0;PERALATAN BANTU
+3;8;2;4;1;Drawwork
+3;8;2;4;2;Drill Pipe
+3;8;2;4;3;Drill Cillar
+3;8;2;4;4;Kelly
+3;8;2;4;5;Cemeting Unit
+3;8;2;4;6;Rotary Table (Peralatan Bantu)
+3;8;2;4;7;Tubing Slip
+3;8;2;4;8;Tubing Spinder
+3;8;2;4;9;Alat Pancing
+3;8;2;4;10;Swivel
+3;8;2;4;11;Mud Tank
+3;8;2;4;999;Peralatan Bantu Lainnya
+3;8;2;99;0;ALAT PENGEBORAN NON MESIN LAINNYA
+3;8;2;99;999;Alat Pengeboran Non Mesin Lainnya
+3;9;0;0;0;ALAT PRODUKSI, PENGOLAHAN DAN PEMURNIAN
+3;9;1;0;0;SUMUR
+3;9;1;1;0;PERALATAN SUMUR MINYAK
+3;9;1;1;1;Alat Perawat Sumur
+3;9;1;1;2;Amerada Test
+3;9;1;1;3;Sonolog
+3;9;1;1;4;Performing Unit
+3;9;1;1;5;Logging Unit
+3;9;1;1;6;Sand Pump
+3;9;1;1;999;Peralatan Sumur Minyak Lainnya
+3;9;1;2;0;SUMUR PEMBORAN
+3;9;1;2;1;Sumur Pemboran Panas Bumi
+3;9;1;2;2;Sumur Pemboran Gas
+3;9;1;2;3;Sumur Pemboran Air
+3;9;1;2;999;Sumur Pemboran Lainnya
+3;9;1;99;0;SUMUR LAINNYA
+3;9;1;99;999;Sumur Lainnya
+3;9;2;0;0;PRODUKSI
+3;9;2;1;0;R I G
+3;9;2;1;1;Stang Bor
+3;9;2;1;999;R I G Lainnya
+3;9;2;99;0;PRODUKSI LAINNYA
+3;9;2;99;999;Produksi Lainnya
+3;9;3;0;0;PENGOLAHAN DAN PEMURNIAN
+3;9;3;1;0;ALAT PENGOLAHAN MINYAK
+3;9;3;1;1;Kapasitas Kecil (Alat Pengolahan Minyak)
+3;9;3;1;2;Kapasitas Sedang (Alat Pengolahan Minyak)
+3;9;3;1;3;Kapasitas Besar (Alat Pengolahan Minyak)
+3;9;3;1;4;Calon Evaporator
+3;9;3;1;5;Condensor (Alat Pengolahan Minyak)
+3;9;3;1;6;Cooler (Alat Pengolahan Minyak)
+3;9;3;1;7;Pompa Proso
+3;9;3;1;8;Turbine
+3;9;3;1;9;Air Dryer
+3;9;3;1;10;Boiler
+3;9;3;1;999;Alat Pengolahan Minyak Lainnya
+3;9;3;2;0;ALAT PENGOLAHAN AIR
+3;9;3;2;1;Kapasitas Kecil (Alat Pengolahan Air)
+3;9;3;2;2;Kapasitas Sedang (Alat Pengolahan Air)
+3;9;3;2;3;Kapasitas Besar (Alat Pengolahan Air)
+3;9;3;2;999;Alat Pengolahan Air Lainnya
+3;9;3;3;0;ALAT PENGOLAHAN STEAM
+3;9;3;3;1;Kapasitas Kecil (Alat Pengolahan Steam)
+3;9;3;3;2;Kapasitas Sedang (Alat Pengolahan Steam)
+3;9;3;3;3;Kapasitas Besar (Alat Pengolahan Steam)
+3;9;3;3;999;Alat Pengolahan Steam Lainnya
+3;9;3;4;0;ALAT PENGOLAHAN WAX
+3;9;3;4;1;Kapasitas Kecil (Alat Pengolahan Wax)
+3;9;3;4;2;Kapasitas Sedang (Alat Pengolahan Wax)
+3;9;3;4;3;Kapasitas Besar (Alat Pengolahan Wax)
+3;9;3;4;999;Alat Pengolahan Wax Lainnya
+3;9;3;99;0;PENGOLAHAN DAN PEMURNIAN LAINNYA
+3;9;3;99;999;Pengolahan Dan Pemurnian Lainnya
+3;10;0;0;0;PERALATAN OLAH RAGA
+3;10;1;0;0;PERALATAN OLAH RAGA
+3;10;1;1;0;PERALATAN OLAH RAGA ATLETIK
+3;10;1;1;1;Lempar Cakram
+3;10;1;1;2;Lempar Lembing
+3;10;1;1;3;Tolak Peluru
+3;10;1;1;4;Alat Lari Gawang
+3;10;1;1;5;Galah
+3;10;1;1;6;Martil
+3;10;1;1;7;Mistar Lompat Tinggi
+3;10;1;1;8;Matras Lari
+3;10;1;1;9;Start Block
+3;10;1;1;10;Meter Line
+3;10;1;1;11;Bendera Start
+3;10;1;1;12;Pull Master
+3;10;1;1;13;Kostum
+3;10;1;1;14;Bak Lompat Tinggi
+3;10;1;1;15;Bak Lompat Jauh
+3;10;1;1;999;Peralatan Atletik Lainnya
+3;10;1;2;0;PERALATAN PERMAINAN
+3;10;1;2;1;Alat Tenis Meja
+3;10;1;2;2;Alat Volley
+3;10;1;2;3;Alat Bilyard
+3;10;1;2;4;Alat Badminton
+3;10;1;2;5;Sepatu Roda
+3;10;1;2;6;Bola Kaki
+3;10;1;2;7;Alat Basket
+3;10;1;2;8;Bola Basket
+3;10;1;2;9;Keranjang Bola/Ring
+3;10;1;2;10;Kostum Basket
+3;10;1;2;11;Kostum Sepak Bola
+3;10;1;2;12;Sepatu Bola + Kaos Kaki
+3;10;1;2;13;Raket Tenis
+3;10;1;2;14;Net Tenis
+3;10;1;2;15;Bola Tenis
+3;10;1;2;16;Root
+3;10;1;2;999;Peralatan Permainan Lainnya
+3;10;1;3;0;PERALATAN SENAM
+3;10;1;3;1;Palang Sejajar
+3;10;1;3;2;Palang Kuda
+3;10;1;3;3;Matras
+3;10;1;3;4;Gelang-Gelang
+3;10;1;3;5;Peralatan Fitnes
+3;10;1;3;6;Kuda Pelana
+3;10;1;3;7;Balance Beem
+3;10;1;3;8;Multi Station
+3;10;1;3;9;Argocycle
+3;10;1;3;10;Treadmill
+3;10;1;3;11;Orbitrek
+3;10;1;3;12;Heng Up Board
+3;10;1;3;13;Sit Up Board
+3;10;1;3;14;Beck Up Board
+3;10;1;3;15;Damble Set
+3;10;1;3;16;Barble Set
+3;10;1;3;17;Rak Damble Set
+3;10;1;3;18;Rak Darble Set
+3;10;1;3;19;Massage Chair
+3;10;1;3;20;Massage Foot
+3;10;1;3;999;Peralatan Senam Lainnya
+3;10;1;4;0;PARALATAN OLAH RAGA AIR
+3;10;1;4;1;Ski Air
+3;10;1;4;2;Ski Diving
+3;10;1;4;3;Selancar
+3;10;1;4;4;Perahu Karet (Paralatan Olah Raga Air)
+3;10;1;4;5;Perahu Layar
+3;10;1;4;6;Alat Arung Jeram
+3;10;1;4;7;Alat Dayung
+3;10;1;4;8;Kaca Mata Air
+3;10;1;4;9;Full Foot Fin
+3;10;1;4;10;Alat Ukur Kedalaman
+3;10;1;4;11;Bouyance Kompensator
+3;10;1;4;12;HP Kompressor
+3;10;1;4;13;Kompas Selam
+3;10;1;4;14;Pisau Selam
+3;10;1;4;15;Perayu Kayak 1
+3;10;1;4;16;Perayu Kayak 2
+3;10;1;4;17;Perahu Cano Canadian 1
+3;10;1;4;18;Perahu Cano Canadian 2
+3;10;1;4;19;Perahu Tradisional/Perahu Naga
+3;10;1;4;20;Roowing/Single Scool
+3;10;1;4;21;Roowing/Double Scool
+3;10;1;4;22;Papan Jumping + Tali + Helm
+3;10;1;4;23;Papan Slalom + Tali + Helm
+3;10;1;4;24;Papan Trick + Tali + Helm
+3;10;1;4;25;Jamping Track
+3;10;1;4;26;Motor penarik/Speed Boat
+3;10;1;4;27;Pelampung Lintasan
+3;10;1;4;28;Optimist
+3;10;1;4;29;Enterprise
+3;10;1;4;30;Kelas 420
+3;10;1;4;31;Kelas 470
+3;10;1;4;32;Fireball
+3;10;1;4;33;Selancar Angin
+3;10;1;4;34;Hobby Cat
+3;10;1;4;35;Kiil Boat
+3;10;1;4;999;Paralatan Olah Raga Air Lainnya
+3;10;1;5;0;PERALATAN OLAH RAGA UDARA
+3;10;1;5;1;Gantole
+3;10;1;5;2;Balon Udara
+3;10;1;5;3;Payung Udara (Parasut)
+3;10;1;5;4;Alat Terbang Layang
+3;10;1;5;999;Peralatan Olah Raga Udara Lainnya
+3;10;1;6;0;PERALATAN OLAH RAGA LAINNYA
+3;10;1;6;1;Catur
+3;10;1;6;2;Sarung Tinju
+3;10;1;6;3;Sepeda Olah Raga
+3;10;1;6;999;Peralatan Olah Raga Lainnya
+3;10;1;99;999;Peralatan Olah Raga Lainnya
+4;0;0;0;0;GEDUNG DAN BANGUNAN
+4;1;0;0;0;BANGUNAN GEDUNG
+4;1;1;0;0;BANGUNAN GEDUNG TEMPAT KERJA
+4;1;1;1;0;BANGUNAN GEDUNG KANTOR
+4;1;1;1;1;Bangunan Gedung Kantor Permanen
+4;1;1;1;2;Bangunan Gedung Kantor Semi Permanen
+4;1;1;1;3;Bangunan Gedung Kantor Darurat
+4;1;1;1;4;Rumah Panel
+4;1;1;1;999;Bangunan Gedung Kantor Lainnya
+4;1;1;2;0;BANGUNAN GUDANG
+4;1;1;2;1;Bangunan Gudang Tertutup Permanen
+4;1;1;2;2;Bangunan Gudang Tertutup Semi Permanen
+4;1;1;2;3;Bangunan Gudang Tertutup Darurat
+4;1;1;2;4;Bangunan Gudang Terbuka Permanen
+4;1;1;2;5;Bangunan Gudang Terbuka Semi Permanen
+4;1;1;2;6;Bangunan Gudang Terbuka Darurat
+4;1;1;2;999;Bangunan Gudang Lainnya
+4;1;1;3;0;BANGUNAN GEDUNG UNTUK BENGKEL
+4;1;1;3;1;Bangunan Bengkel Permanen
+4;1;1;3;2;Bangunan Bengkel Semi Permanen
+4;1;1;3;3;Bangunan Bengkel Darurat
+4;1;1;3;999;Bangunan Gedung Untuk Bengkel Lainnya
+4;1;1;4;0;BANGUNAN GEDUNG INSTALASI
+4;1;1;4;1;Gedung Instalasi Studio
+4;1;1;4;2;Gedung Instalasi Pemancar
+4;1;1;4;999;Bangunan Gedung Instalasi Lainnya
+4;1;1;5;0;BANGUNAN GEDUNG LABORATORIUM
+4;1;1;5;1;Bangunan Gedung Laboratorium Permanen
+4;1;1;5;2;Bangunan Gedung Laboratorium Semi Permanen
+4;1;1;5;3;Bangunan Gedung Laboratorium Darurat
+4;1;1;5;999;Bangunan Gedung Laboratorium Lainnya
+4;1;1;6;0;BANGUNAN KESEHATAN
+4;1;1;6;1;Bangunan Posyandu
+4;1;1;6;2;Bangunan Polindes (Pondok Bersalin Desa)
+4;1;1;6;3;Bangunan Apotik
+4;1;1;6;4;Bangunan Toko khusus obat/jamu
+4;1;1;6;999;Bangunan Kesehatan Lainnya
+4;1;1;7;0;BANGUNAN GEDUNG TEMPAT IBADAH
+4;1;1;7;1;Bangunan Gedung Tempat Ibadah Permanen
+4;1;1;7;2;Bangunan Gedung Tempat Ibadah Semi Permanen
+4;1;1;7;3;Bangunan Gedung Tempat Ibadah Darurat
+4;1;1;7;999;Bangunan Gedung Tempat Ibadah Lainnya
+4;1;1;8;0;BANGUNAN GEDUNG TEMPAT PERTEMUAN
+4;1;1;8;1;Bangunan Gedung Pertemuan Permanen
+4;1;1;8;2;Bangunan Gedung Pertemuan Semi Permanen
+4;1;1;8;3;Bangunan Gedung Pertemuan Darurat
+4;1;1;8;999;Bangunan Gedung Tempat Pertemuan Lainnya
+4;1;1;9;0;BANGUNAN GEDUNG TEMPAT PENDIDIKAN
+4;1;1;9;1;Bangunan Gedung Pendidikan Permanen
+4;1;1;9;2;Bangunan Gedung Pendidikan Semi Permanen
+4;1;1;9;3;Bangunan Gedung Pendidikan Darurat
+4;1;1;9;4;Bangunan Gedung Pendidikan dan Latihan
+4;1;1;9;999;Bangunan Gedung Tempat Pendidikan Lainnya
+4;1;1;10;0;BANGUNAN GEDUNG TEMPAT OLAH RAGA
+4;1;1;10;1;Gedung Olah Raga Tetutup Permanen
+4;1;1;10;2;Gedung Olah Raga Tertutup Semi Permanen
+4;1;1;10;3;Gedung Olah Raga Tertutup Darurat
+4;1;1;10;4;Bangunan Olah Raga Terbuka Permanen
+4;1;1;10;5;Bangunan Olah Raga Terbuka Semi Permanen
+4;1;1;10;6;Bangunan Olah Raga Terbuka Darurat
+4;1;1;10;7;Bangunan Gedung Olah Raga Kolam Renang
+4;1;1;10;999;Bangunan Gedung Tempat Olah Raga Lainnya
+4;1;1;11;0;BANGUNAN GEDUNG PERTOKOAN/KOPERASI/PASAR
+4;1;1;11;1;Gedung Pertokoan/Koperasi/Pasar Permanen
+4;1;1;11;2;Gedung Pertokoan/Koperasi/Pasar Semi Permanen
+4;1;1;11;3;Gedung Pertokoan/Koperasi/Pasar Darurat
+4;1;1;11;999;Bangunan Gedung Pertokoan/Koperasi/Pasar Lainnya
+4;1;1;12;0;BANGUNAN GEDUNG GARASI/POOL
+4;1;1;12;1;Gedung Garasi/Pool Permanen
+4;1;1;12;2;Gedung Garasi/Pool Semi Permanen
+4;1;1;12;3;Gedung Garasi/Pool Darurat
+4;1;1;12;999;Bangunan Gedung Garasi/Pool Lainnya
+4;1;1;13;0;BANGUNAN GEDUNG PEMOTONG HEWAN
+4;1;1;13;1;Gedung Pemotong Hewan Permanen
+4;1;1;13;2;Gedung Pemotong Hewan Semi Permanen
+4;1;1;13;3;Gedung Pemotong Hewan Darurat
+4;1;1;13;999;Bangunan Gedung Pemotong Hewan Lainnya
+4;1;1;14;0;BANGUNAN GEDUNG PERPUSTAKAAN
+4;1;1;14;1;Bangunan Gedung Perpustakaan Permanen
+4;1;1;14;2;Bangunan Gedung Perpustakaan Semi Permanen
+4;1;1;14;3;Bangunan Gedung Perpustakaan Darurat
+4;1;1;14;999;Bangunan Gedung Perpustakaan Lainnya
+4;1;1;15;0;BANGUNAN GEDUNG MUSIUM
+4;1;1;15;1;Bangunan Gedung Musium Permanen
+4;1;1;15;2;Bangunan Gedung Musium Semi Permanen
+4;1;1;15;3;Bangunan Gedung Musium Darurat
+4;1;1;15;999;Bangunan Gedung Musium Lainnya
+4;1;1;16;0;BANGUNAN GEDUNG TERMINAL/PELABUHAN
+4;1;1;16;1;Bangunan Gedung Terminal/Pelabuhan Permanen
+4;1;1;16;2;Bangunan Gedung Terminal/Pelabuhan Semi Permanen
+4;1;1;16;3;Bangunan Gedung Terminal/Pelabuhan Darurat
+4;1;1;16;4;Bangunan Halte/Shelter
+4;1;1;16;999;Bangunan Gedung Terminal/Pelabuhan Lainnya
+4;1;1;17;0;BANGUNAN TERBUKA
+4;1;1;17;1;Bangunan Lantai Jemur Permanen
+4;1;1;17;2;Bangunan Lantai Jemur Semi Permanen
+4;1;1;17;3;Bangunan Lantai Jemur Darurat
+4;1;1;17;999;Bangunan Terbuka Lainnya
+4;1;1;18;0;BANGUNAN PENAMPUNG SEKAM
+4;1;1;18;1;Bangunan Penampung Sekam Permanen
+4;1;1;18;2;Bangunan Penampung Sekam Semi Permanen
+4;1;1;18;3;Bangunan Penampung Sekam Darurat
+4;1;1;18;999;Bangunan Penampung Sekam Lainnya
+4;1;1;19;0;BANGUNAN TEMPAT PELELANGAN IKAN (TPI)
+4;1;1;19;1;Bangunan TPI Permanen
+4;1;1;19;2;Bangunan TPI Semi Permanen
+4;1;1;19;3;Bangunan TPI Darurat
+4;1;1;19;999;Bangunan Tempat Pelelangan Ikan (TPI) Lainnya
+4;1;1;20;0;BANGUNAN INDUSTRI
+4;1;1;20;1;Bangunan Industri Makanan
+4;1;1;20;2;Bangunan Industri Minuman
+4;1;1;20;3;Bangunan Industri alat RT
+4;1;1;20;4;Bangunan Industri Pakaian/Garment
+4;1;1;20;5;Bangunan Industri Baja/Besi/Logam
+4;1;1;20;6;Bangunan Industri Pengemasan
+4;1;1;20;7;Bangunan Industri Bengkel
+4;1;1;20;8;Bangunan Industri Penyulingan Minyak
+4;1;1;20;9;Bangunan Industri Kimia Dan Pupuk
+4;1;1;20;10;Bangunan Industri Obat-Obatan
+4;1;1;20;11;Bangunan Industri Semen
+4;1;1;20;12;Bangunan Industri Batu-Bata/Batako
+4;1;1;20;13;Bangunan Industri Genteng
+4;1;1;20;14;Bangunan Industri Percetakan
+4;1;1;20;15;Bangunan Industri Tekstil
+4;1;1;20;16;Bangunan Industri Alat Olah Raga
+4;1;1;20;17;Bangunan Industri Kendaraan/Otomotif
+4;1;1;20;18;Bangunan Industri Keramik/Marmer
+4;1;1;20;19;Bangunan Pabrik Es
+4;1;1;20;20;Bangunan Pasar Ikan Higienis/ PIH
+4;1;1;20;21;Bangunan Depo Pasar Ikan
+4;1;1;20;22;Bangunan Pasar/ Raiser Ikan Hias
+4;1;1;20;999;Bangunan Industri Lainnya
+4;1;1;21;0;BANGUNAN PETERNAKAN/PERIKANAN
+4;1;1;21;1;Bangunan Untuk Kandang
+4;1;1;21;2;Bangunan Kolam/Bak Ikan
+4;1;1;21;3;Bangunan Pembesar Ikan
+4;1;1;21;999;Bangunan Peternakan/Perikanan Lainnya
+4;1;1;22;0;BANGUNAN GEDUNG TEMPAT KERJA LAINNYA
+4;1;1;22;1;Bangunan Gedung Tempat Kerja Lainnya Permanen
+4;1;1;22;2;Bangunan Gedung Tempat Kerja Lainnya Semi Permanen
+4;1;1;22;3;Bangunan Gedung Tempat Kerja Lainnya Darurat
+4;1;1;22;4;Gedung Pengujian Kendaraan Lainnya
+4;1;1;22;999;Bangunan Lainnya
+4;1;1;23;0;BANGUNAN FASILITAS UMUM
+4;1;1;23;1;Bangunan Tempat Parkir
+4;1;1;23;2;Bangunan Tempat Bermain Anak
+4;1;1;23;3;Bangunan Penerangan Jalan
+4;1;1;23;4;Bangunan Penerangan Taman
+4;1;1;23;999;Bangunan Fasilitas Umum Lainnya
+4;1;1;24;0;BANGUNAN PARKIR
+4;1;1;24;1;Bangunan Parkir Terbuka Permanen
+4;1;1;24;2;Bangunan Parkir Terbuka Semi Permanen
+4;1;1;24;3;Bangunan Parkir Terbuka Darurat
+4;1;1;24;4;Bangunan Parkir Tertutup Permanen
+4;1;1;24;5;Bangunan Parkir Tertutup Semi Permanen
+4;1;1;24;6;Bangunan Parkir Tertutup Darurat
+4;1;1;24;999;Bangunan Parkir Lainnya
+4;1;1;25;0;TAMAN
+4;1;1;25;1;Taman Permanen
+4;1;1;25;2;Taman Semi Permanen
+4;1;1;25;999;Taman Lainnya
+4;1;1;99;0;BANGUNAN GEDUNG TEMPAT KERJA LAINNYA
+4;1;1;99;999;Bangunan Gedung Tempat Kerja Lainnya
+4;1;2;1;0;HOTEL
+4;1;2;1;1;Hotel Permanen
+4;1;2;1;2;Hotel Semi Permanen
+4;1;2;1;999;Hotel Lainnya
+4;1;2;2;0;MOTEL
+4;1;2;2;1;Motel Permanen
+4;1;2;2;2;Motel Semi Permanen
+4;1;2;2;999;Motel Lainnya
+4;1;2;3;0;PANTI ASUHAN
+4;1;2;3;1;Panti Asuhan
+4;1;2;3;999;Panti Asuhan Lainnya
+4;1;2;99;0;BANGUNAN GEDUNG TEMPAT TINGGAL LAINNYA
+4;1;2;99;999;Bangunan Gedung Tempat Tinggal Lainnya
+4;2;0;0;0;MONUMEN
+4;2;1;0;0;CANDI/TUGU PERINGATAN/PRASASTI
+4;2;1;1;0;CANDI
+4;2;1;1;1;Candi
+4;2;1;1;999;Candi Lainnya
+4;2;1;2;0;TUGU
+4;2;1;2;1;Tugu Kemerdekaan
+4;2;1;2;2;Tugu Pembangunan
+4;2;1;2;999;Tugu Peringatan Lainnya
+4;2;1;3;0;BANGUNAN PENINGGALAN
+4;2;1;3;1;Istana Peninggalan
+4;2;1;3;2;Rumah Adat
+4;2;1;3;3;Rumah Peninggalan Sejarah
+4;2;1;3;4;Makam Bersejarah
+4;2;1;3;999;Bangunan Peninggalan Lainnya
+4;2;1;99;0;CANDI/TUGU PERINGATAN/PRASASTI LAINNYA
+4;2;1;99;999;Bangunan Peninggalan Lainnya
+4;2;1;99;999;Candi/Tugu Peringatan/Prasasti Lainnya
+5;0;0;0;0;JALAN, IRIGASI DAN JARINGAN
+5;1;0;0;0;JALAN DAN JEMBATAN
+5;1;1;0;0;JALAN
+5;1;1;1;0;JALAN DESA
+5;1;1;1;1;Jalan Desa
+5;1;1;1;999;Jalan Desa Lainnya
+5;1;1;2;0;JALAN KHUSUS
+5;1;1;2;1;Jalan Khusus Inspeksi
+5;1;1;2;2;Jalan Khusus Kompleks
+5;1;1;2;3;Jalan Khusus Proyek
+5;1;1;2;4;Jalan Khusus Quarry
+5;1;1;2;5;Jalan Khusus Lori
+5;1;1;2;6;Jalan Khusus Badan Hukum
+5;1;1;2;7;Jalan Khusus Perorangan
+5;1;1;2;8;Jalan Khusus Lainnya
+5;1;1;2;9;Jalan Khusus Pejalan Kaki (Trotoar)
+5;1;1;2;999;Lainnya (Jalan Khusus)
+5;1;1;99;0;JALAN LAINNYA
+5;1;1;99;999;Jalan Lainnya
+5;1;2;0;0;JEMBATAN
+5;1;2;1;0;JEMBATAN PADA JALAN DESA
+5;1;2;1;1;Jembatan Pada Jalan Desa
+5;1;2;1;999;Jembatan Pada Jalan Desa Lainnya
+5;1;2;2;0;JEMBATAN PADA JALAN KHUSUS
+5;1;2;2;1;Jembatan Pada Jalan Khusus Inspeksi
+5;1;2;2;2;Jembatan Pada Jalan Khusus Kompleks
+5;1;2;2;3;Jembatan Pada Jalan Khusus Proyek
+5;1;2;2;4;Jembatan Pada Jalan Khusus Quarry
+5;1;2;2;5;Jembatan Pada Jalan Khusus Lori
+5;1;2;2;6;Jembatan Pada Jalan Khusus Badan Hukum
+5;1;2;2;7;Jembatan Pada Jalan Khusus Perorangan
+5;1;2;2;999;Jembatan Pada Jalan Khusus Lainnya
+5;1;2;3;0;JEMBATAN PENYEBERANGAN
+5;1;2;3;1;Jembatan Penyeberangan Orang
+5;1;2;3;2;Jembatan Penyeberangan Kendaraan
+5;1;2;3;5;Jembatan Gantung
+5;1;2;3;999;Jembatan Penyeberangan Lainnya
+5;1;2;4;0;JEMBATAN LABUH/SANDAR PADA TERMINAL
+5;1;2;4;1;Dermaga
+5;1;2;4;2;Kade
+5;1;2;4;3;Embarkasi/Debarkasi
+5;1;2;4;4;Jembatan Pantai
+5;1;2;4;999;Jembatan Labuh/Sandar Pada Terminal Lainnya
+5;1;2;5;0;JEMBATAN PENGUKUR
+5;1;2;5;1;Jembatan Timbang
+5;1;2;5;2;Jembatan KIR/Pengujian
+5;1;2;5;999;Jembatan Pengukur Lainnya
+5;1;2;99;0;JEMBATAN LAINNYA
+5;1;2;99;999;Jembatan Lainnya
+5;2;0;0;0;BANGUNAN AIR
+5;2;1;0;0;BANGUNAN AIR IRIGASI
+5;2;1;1;0;BANGUNAN WADUK IRIGASI
+5;2;1;1;1;Waduk Dengan Bendungan, Tanggul, Menara Pengambilan Pelimpah Ban
+5;2;1;1;2;Waduk Dengan Bendungan, Tanggul Dan Menara Pengambilan
+5;2;1;1;3;Waduk Dengan Menara Pengambilan
+5;2;1;1;4;Waduk Dengan Tanggul, Dan Pintu Air/Menara Pengambilan
+5;2;1;1;5;Waduk Dengan Tanggul Dan Pintu Pengukur Waduk Lapangan
+5;2;1;1;999;Bangunan Waduk Irigasi Lainnya
+5;2;1;2;0;BANGUNAN PENGAMBILAN IRIGASI
+5;2;1;2;1;Bendung
+5;2;1;2;2;Bendung Dengan Pintu Bilas
+5;2;1;2;3;Bendung Dengan Pompa
+5;2;1;2;4;Bangunan Pengambilan Bebas
+5;2;1;2;5;Bangunan Pengambilan Bebas Dgn Pompa (Bgnan Pengambilan Irigasi)
+5;2;1;2;6;Sumur Dengan Pompa (Bangunan Pengambilan Irigasi)
+5;2;1;2;999;Bangunan Pengambilan Irigasi Lainnya
+5;2;1;3;0;BANGUNAN PEMBAWA IRIGASI
+5;2;1;3;1;Saluran Muka (Bangunan Pembawa Irigasi)
+5;2;1;3;2;Saluran Induk (Bangunan Pembawa Irigasi)
+5;2;1;3;3;Saluran Sekunder (Bangunan Pembawa Irigasi)
+5;2;1;3;4;Saluran Tersier (Bangunan Pembawa Irigasi)
+5;2;1;3;5;Saluran Kwarter
+5;2;1;3;6;Saluran Pasang Tertutup/Terowongan
+5;2;1;3;7;Saluran Suplesi
+5;2;1;3;999;Bangunan Pembawa Irigasi Lainnya
+5;2;1;4;0;BANGUNAN PEMBUANG IRIGASI
+5;2;1;4;1;Saluran Induk Pembuang (Bangunan Pembuang Irigasi)
+5;2;1;4;2;Saluran Sekunder Pembuang (Bangunan Pembuang Irigasi)
+5;2;1;4;3;Saluran Tersier Pembuang (Bangunan Pembuang Irigasi)
+5;2;1;4;999;Bangunan Pembuang Irigasi Lainnya
+5;2;1;5;0;BANGUNAN PENGAMAN IRIGASI
+5;2;1;5;1;Tanggul Banjir (Bangunan Pengaman Irigasi)
+5;2;1;5;2;Bangunan Pintu Air/Klep (Bangunan Pengaman Irigasi)
+5;2;1;5;999;Bangunan Pengaman Irigasi Lainnya
+5;2;1;6;0;BANGUNAN PELENGKAP IRIGASI
+5;2;1;6;1;Bangunan Bagi
+5;2;1;6;2;Bangunan Bagi Dan Sadap (Bangunan Pelengkap Irigasi)
+5;2;1;6;3;Bangunan Sadap (Bangunan Pelengkap Irigasi)
+5;2;1;6;4;Bangunan Got Miring
+5;2;1;6;5;Bangunan Terjun (Bangunan Pelengkap Irigasi)
+5;2;1;6;6;Bangunan Talang (Bangunan Pelengkap Irigasi)
+5;2;1;6;7;Bangunan Syphon (Bangunan Pelengkap Irigasi)
+5;2;1;6;8;Bangunan Gorong-Gorong (Bangunan Pelengkap Irigasi)
+5;2;1;6;9;Bangunan Pelimpah Sampah
+5;2;1;6;10;Bangunan Pengeluaran/Pintu
+5;2;1;6;11;Bangunan Box Tersier (Bangunan Pelengkap Irigasi)
+5;2;1;6;12;Bangunan Pengukur
+5;2;1;6;13;Bangunan Mandi Hewan
+5;2;1;6;14;Bangunan Pertemuan Saluran
+5;2;1;6;15;Bangunan Pelengkap Dalam Petak Tersier
+5;2;1;6;16;Bangunan Jembatan (Bangunan Pelengkap Irigasi)
+5;2;1;6;999;Bangunan Pelengkap Irigasi Lainnya
+5;2;1;7;0;BANGUNAN SAWAH IRIGASI
+5;2;1;7;1;Bangunan Sawah Irigasi Tehnis
+5;2;1;7;2;Bangunan Sawah Irigasi Semi Tehnis
+5;2;1;7;3;Bangunan Sawah Irigasi Non Tehnis
+5;2;1;7;999;Bangunan Sawah Irigasi Lainnya
+5;2;1;99;0;BANGUNAN AIR IRIGASI LAINNYA
+5;2;1;99;999;Bangunan Air Irigasi Lainnya
+5;2;2;0;0;BANGUNAN PENGAIRAN PASANG SURUT
+5;2;2;1;0;BANGUNAN WADUK PASANG SURUT
+5;2;2;1;1;Waduk Pasang Surut
+5;2;2;1;999;Bangunan Waduk Pasang Surut Lainnya
+5;2;2;2;0;BANGUNAN PENGAMBILAN PASANG SURUT
+5;2;2;2;1;Bangunan Bendung Dengan Pompa
+5;2;2;2;2;Bangunan Pengambilan Bebas Dgn Pompa (Bgnan Pengambilan Psg Surut
+5;2;2;2;999;Bangunan Pengambilan Pasang Surut Lainnya
+5;2;2;3;0;BANGUNAN PEMBAWA PASANG SURUT
+5;2;2;3;1;Saluran Muka (Bangunan Pembawa Pasang Surut)
+5;2;2;3;2;Saluran Induk (Bangunan Pembawa Pasang Surut)
+5;2;2;3;3;Saluran Sekunder (Bangunan Pembawa Pasang Surut)
+5;2;2;3;4;Saluran Tersier (Bangunan Pembawa Pasang Surut)
+5;2;2;3;5;Saluran Penyimpan Air
+5;2;2;3;6;Saluran Lalu Lintas Air
+5;2;2;3;999;Bangunan Pembawa Pasang Surut Lainnya
+5;2;2;4;0;SALURAN PEMBUANG PASANG SURUT
+5;2;2;4;1;Saluran Induk Pembuang (Saluran Pembuang Pasang Surut)
+5;2;2;4;2;Saluran Sekunder Pembuang (Saluran Pembuang Pasang Surut)
+5;2;2;4;3;Saluran Tersier Pembuang (Saluran Pembuang Pasang Surut)
+5;2;2;4;4;Saluran Pengumpul Air
+5;2;2;4;999;Saluran Pembuang Pasang Surut Lainnya
+5;2;2;5;0;BANGUNAN PENGAMAN PASANG SURUT
+5;2;2;5;1;Bangunan Pintu Air/Klep (Bangunan Pengaman Pasang Surut)
+5;2;2;5;2;Bangunan Pemasukan/Pembuang
+5;2;2;5;3;Kolam Pasang
+5;2;2;5;999;Bangunan Pengaman Pasang Surut Lainnya
+5;2;2;6;0;BANGUNAN PELENGKAP PASANG SURUT
+5;2;2;6;1;Bangunan Jembatan (Bangunan Pelengkap Pasang Surut)
+5;2;2;6;2;Bangunan Jembatan Penghalang (Bangunan Pelengkap Pasang Surut)
+5;2;2;6;3;Bangunan Penutup Penangkis Kotoran
+5;2;2;6;4;Bangunan Pengukur Muka Air (Bangunan Pelengkap Pasang Surut)
+5;2;2;6;5;Bangunan Pengukur Curah Hujan (Bangunan Pelengkap Pasang Surut)
+5;2;2;6;999;Bangunan Pelengkap Pasang Surut Lainnya
+5;2;2;7;0;BANGUNAN SAWAH PASANG SURUT
+5;2;2;7;1;Bangunan Sawah Pasang Surut Teknis
+5;2;2;7;2;Bangunan Sawah Pasang Surut Semi Teknis
+5;2;2;7;3;Bangunan Sawah Pasang Surut Non Teknis
+5;2;2;7;999;Bangunan Sawah Pasang Surut Lainnya
+5;2;2;99;0;BANGUNAN PENGAIRAN PASANG SURUT LAINNYA
+5;2;2;99;999;Bangunan Pengairan Pasang Surut Lainnya
+5;2;3;0;0;BANGUNAN PENGEMBANGAN RAWA DAN POLDER
+5;2;3;1;0;BANGUNAN WADUK PENGEMBANGAN RAWA
+5;2;3;1;1;Bangunan Waduk
+5;2;3;1;999;Bangunan Waduk Pengembangan  Rawa Lainnya
+5;2;3;2;0;BANGUNAN PENGAMBILAN PENGEMBANGAN RAWA
+5;2;3;2;1;Waduk Pengambilan Rawa
+5;2;3;2;999;Bangunan Pengambilan  Pengembangan Rawa Lainnya
+5;2;3;3;0;BANGUNAN PEMBAWA PENGEMBANGAN RAWA
+5;2;3;3;1;Saluran Muka (Bangunan Pembawa Pengembangan Rawa)
+5;2;3;3;2;Saluran Induk (Bangunan Pembawa Pengembangan Rawa)
+5;2;3;3;3;Saluran Sekunder (Bangunan Pembawa Pengembangan Rawa)
+5;2;3;3;4;Saluran Tersier (Bangunan Pembawa Pengembangan Rawa)
+5;2;3;3;999;Bangunan Pembawa Pengembangan Rawa Lainnya
+5;2;3;4;0;BANGUNAN PEMBUANG PENGEMBANGAN RAWA
+5;2;3;4;1;Saluran Induk Pembuang (Bangunan Pembuang Pengembangan Rawa)
+5;2;3;4;2;Saluran Sekunder Pembuang (Bangunan Pembuang Pengembangan Rawa)
+5;2;3;4;3;Saluran Tersier Pembuang (Bangunan Pembuang Pengembangan Rawa)
+5;2;3;4;999;Bangunan Pembuang Pengembangan Rawa Lainnya
+5;2;3;5;0;BANGUNAN PENGAMAN PENGEMBANGAN RAWA
+5;2;3;5;1;Tanggul Keliling
+5;2;3;5;2;Bangunan Pintu Air/Klep (Bangunan Pengaman Pengembangan Rawa)
+5;2;3;5;999;Bangunan Pengaman Pengembangan Rawa Lainnya
+5;2;3;6;0;BANGUNAN PELENGKAP PENGEMBANGAN RAWA
+5;2;3;6;1;Bangunan Bagi Dan Sadap (Bangunan Pelengkap Pengembangan Rawa)
+5;2;3;6;2;Bangunan Sadap (Bangunan Pelengkap Pengembangan Rawa)
+5;2;3;6;3;Bangunan Terjun (Bangunan Pelengkap Pengembangan Rawa)
+5;2;3;6;4;Bangunan Syphon (Bangunan Pelengkap Pengembangan Rawa)
+5;2;3;6;5;Bangunan Gorong-Gorong (Bangunan Pelengkap Pengembangan Rawa)
+5;2;3;6;6;Bangunan Jembatan (Bangunan Pelengkap Pengembangan Rawa)
+5;2;3;6;7;Bangunan Jembatan Penghalang (Bgnan Pelengkap Pengembangan Rawa)
+5;2;3;6;8;Bangunan Pengukur Muka Air (Bangunan Pelengkap Pengembangan Rawa)
+5;2;3;6;9;Bangunan Pengukur Curah Hujan (Bgnan Pelengkap Pengembangan Rawa)
+5;2;3;6;10;Bangunan Penutup Sungai
+5;2;3;6;11;Bangunan Stasiun Pompa Pemasukan/Pembuang
+5;2;3;6;999;Bangunan Pelengkap Pengembangan Rawa Lainnya
+5;2;3;7;0;BANGUNAN SAWAH PENGEMBANGAN RAWA
+5;2;3;7;1;Bangunan Sawah Rawa Teknis
+5;2;3;7;2;Bangunan Sawah Rawa Semi Teknis
+5;2;3;7;3;Bangunan Sawah Rawa Non Teknis
+5;2;3;7;999;Bangunan Sawah Pengembangan  Rawa Lainnya
+5;2;3;99;0;BANGUNAN PENGEMBANGAN RAWA DAN POLDER LAINNYA
+5;2;3;99;999;Bangunan Pengembangan  Rawa Dan Polder Lainnya
+5;2;4;0;0;BANGUNAN PENGAMAN SUNGAI/PANTAI & PENANGGULANGAN BENCANA ALAM
+5;2;4;1;0;BANGUNAN PENGAMAN SUNGAI/PANTAI & PENANGGULANGAN BENCANA ALAM
+5;2;4;1;1;Banguna Wasuk Pengaman Sungai/Pantai
+5;02;04;01;002;Waduk Dengan Tanggul, Dan Pintu Pembuang (Bangunan Pengaman Sungai/Pantai & Penanggulangan Bencana Alam)
+5;2;4;1;999;Bangunan Pengaman Sungai/Pantai & Penanggulangan Bencana Alam Lainnya
+5;2;4;2;0;BANGUNAN PENGAMBILAN PENGAMAN SUNGAI/PANTAI
+5;2;4;2;1;Bangunan Pengambilan Pengamanan Sungai
+5;2;4;2;2;Bangunan Pengambilan Pengamanan Pantai
+5;2;4;2;999;Bangunan Pengambilan Pengaman Sungai/Pantai Lainnya
+5;2;4;3;0;BANGUNAN PEMBAWA PENGAMAN SUNGAI/PANTAI
+5;2;4;3;1;Bangunan Pembawa Pengaman Sungai
+5;2;4;3;2;Bangunan Pembawa Pengaman Pantai
+5;2;4;3;999;Bangunan Pembawa Pengaman Sungai/Pantai Lainnya
+5;2;4;4;0;BANGUNAN PEMBUANG PENGAMAN SUNGAI
+5;2;4;4;1;Saluran Banjir
+5;2;4;4;2;Saluran Drainage
+5;2;4;4;999;Bangunan Pembuang Pengaman Sungai Lainnya
+5;2;4;5;0;BANGUNAN PENGAMAN PENGAMANAN SUNGAI/PANTAI
+5;2;4;5;1;Tanggul Banjir (Bangunan Pengaman Pengamanan Sungai/pantai)
+5;2;4;5;2;Pintu Pengatur Banjir
+5;2;4;5;3;Coupure/Sodetan
+5;2;4;5;4;Kantong Pasir/Lahar/Lumpur
+5;2;4;5;5;Chekdam/Penahan Sedimen
+5;2;4;5;6;Krib Pengaman Sungai/Pantai
+5;2;4;5;7;Bangunan Penguat Tebing/Pantai
+5;2;4;5;8;Bangunan Pelimpah Banjir
+5;2;4;5;9;Dam Konsolidasi
+5;2;4;5;10;Peralatan Saringan Sampah ( Pond Screen )
+5;2;4;5;11;Klep Pengatur Banjir
+5;2;4;5;12;Bangunan Pemecah Gelombang
+5;2;4;5;13;Bangunan Pelantaran Pantai
+5;2;4;5;999;Bangunan Pengaman Pengamanan Sungai/Pantai Lainnya
+5;2;4;6;0;BANGUNAN PELENGKAP PENGAMAN SUNGAI
+5;2;4;6;1;Bangunan Syphon (Bangunan Pelengkap Pengaman Sungai)
+5;2;4;6;2;Bangunan Gorong-Gorong (Bangunan Pelengkap Pengaman Sungai)
+5;2;4;6;3;Bangunan Jembatan (Bangunan Pelengkap Pengaman Sungai)
+5;2;4;6;4;Bangunan Pengukur Muka Air (Bangunan Pelengkap Pengaman Sungai)
+5;2;4;6;5;Bangunan Pengukur Curah Hujan (Bgnan Pelengkap Pengaman Sungai)
+5;2;4;6;6;Stasiun Pos Penjaga/Pengamat
+5;2;4;6;7;Bangunan Dermaga
+5;2;4;6;8;Bangunan Stasiun Pompa Pembuang
+5;2;4;6;9;Warning System
+5;2;4;6;999;Bangunan Pelengkap Pengaman Sungai Lainnya
+5;02;04;99;000;BANGUNAN PENGAMAN SUNGAI/PANTAI & PENANGGULANGAN BENCANA ALAM LAINNYA
+5;2;4;99;999;Bangunan Pengaman Sungai/pantai & Penanggulangan Bencana Alam Lainnya
+5;2;5;0;0;BANGUNAN PENGEMBANGAN SUMBER AIR DAN AIR TANAH
+5;2;5;1;0;BANGUNAN WADUK PENGEMBANGAN SUMBER AIR
+5;2;5;1;1;Embung/Waduk Lapangan
+5;2;5;1;999;Bangunan Waduk Pengembangan Sumber Air Lainnya
+5;2;5;2;0;BANGUNAN PENGAMBILAN PENGEMBANGAN SUMBER AIR
+5;2;5;2;1;Sumur Dengan Pompa (Bangunan Pengambilan Pengembangan Sumber Air)
+5;2;5;2;2;Sumur Artetis
+5;2;5;2;999;Bangunan Pengambilan Pengembangan Sumber Air Lainnya
+5;2;5;3;0;BANGUNAN PEMBAWA PENGEMBANGAN SUMBER AIR
+5;2;5;3;1;Saluran Tersier (Bangunan Pembawa Pengembangan Sumber Air)
+5;2;5;3;2;Saluran Kuartier
+5;2;5;3;999;Bangunan Pembawa Pengembangan Sumber Air Lainnya
+5;2;5;4;0;BANGUNAN PEMBUANG PENGEMBANGAN SUMBER AIR
+5;2;5;4;1;Saluran Pembuang
+5;2;5;4;999;Bangunan Pembuang Pengembangan Sumber Air Lainnya
+5;2;5;5;0;BANGUNAN PENGAMAN PENGEMBANGAN SUMBER AIR
+5;2;5;5;1;Bak Penampung/Kolam/  Menara Penampungan
+5;2;5;5;2;Bangunan Klimatologi
+5;2;5;5;3;Bangunan Hidrometri
+5;2;5;5;4;Sumur Pengamatan
+5;2;5;5;999;Bangunan Pengaman Pengembangan Sumber Air Lainnya
+5;2;5;6;0;BANGUNAN PELENGKAP PENGEMBANGAN SUMBER AIR
+5;2;5;6;1;Bangunan Terjun (Bangunan Pelengkap Pengembangan Sumber Air)
+5;2;5;6;2;Bangunan Talang (Bangunan Pelengkap Pengembangan Sumber Air)
+5;2;5;6;3;Bangunan Syphon (Bangunan Pelengkap Pengembangan Sumber Air)
+5;2;5;6;4;Bangunan Gorong-Gorong (Bgnan Pelengkap Pengembangan Sumber Air)
+5;2;5;6;5;Bangunan Box Tersier (Bangunan Pelengkap Pengembangan Sumber Air)
+5;2;5;6;6;Bangunan Jembatan (Bangunan Pelengkap Pengembangan Sumber Air)
+5;2;5;6;999;Bangunan Pelengkap Pengembangan Sumber Air Lainnya
+5;2;5;7;0;BANGUNAN SAWAH IRIGASI AIR TANAH
+5;2;5;7;1;Bangunan Sawah Irigasi Air Tanah Teknis
+5;2;5;7;2;Bangunan Sawah Irigasi Air Tanah Semi Teknis
+5;2;5;7;3;Bangunan Sawah Irigasi Air Tanah Non Teknis
+5;2;5;7;999;Bangunan Sawah Irigasi Air Tanah Lainnya
+5;2;5;99;0;BANGUNAN PENGEMBANGAN SUMBER AIR DAN AIR TANAH LAINNYA
+5;2;5;99;999;Bangunan Pengembangan Sumber Air Dan Air Tanah Lainnya
+5;2;6;0;0;BANGUNAN AIR BERSIH/AIR BAKU
+5;2;6;1;0;BANGUNAN WADUK AIR BERSIH/AIR BAKU
+5;2;6;1;1;Waduk Penyimpanan Air Baku
+5;2;6;1;2;Waduk Penyimpanan Air Hujan
+5;2;6;1;3;Bak Penyimpanan/Tower  Air Baku
+5;2;6;1;999;Bangunan Waduk Air Bersih/Air Baku Lainnya
+5;2;6;2;0;BANGUNAN PENGAMBILAN AIR BERSIH/AIR BAKU
+5;2;6;2;1;Bangunan Pengambilan Dari Waduk
+5;2;6;2;2;Bangunan Pengambilan Dari Sungai
+5;2;6;2;3;Bangunan Pengambilan Dari Danau
+5;2;6;2;4;Bangunan Pengambilan Dari Rawa
+5;2;6;2;5;Bangunan Pengambilan Dari Air Laut
+5;2;6;2;6;Bangunan Pengambilan Dari Sumber Air
+5;2;6;2;7;Bangunan Pengambilan Dari Sumur Artetis
+5;2;6;2;999;Bangunan Pengambilan Air Bersih/Air Baku Lainnya
+5;2;6;3;0;BANGUNAN PEMBAWA AIR BERSIH/AIR BAKU
+5;2;6;3;1;Saluran Pembawa Air Baku Terbuka
+5;2;6;3;2;Saluran Pembawa Air Baku Tertutup
+5;2;6;3;999;Bangunan Pembawa Air Bersih/Air Baku Lainnya
+5;2;6;4;0;BANGUNAN PEMBUANG AIR BERSIH/AIR BAKU
+5;2;6;4;1;Saluran Pembuang Air Cucian Air Baku
+5;2;6;4;2;Saluran Pembuang Air Cucian Instalasi
+5;2;6;4;999;Bangunan Pembuang Air Bersih/Air Baku Lainnya
+5;2;6;5;0;BANGUNAN PELENGKAP AIR BERSIH/AIR BAKU
+5;2;6;5;1;Bangunan Talang (Bangunan Pelengkap Air Bersih/air Baku)
+5;2;6;5;2;Bangunan Syphon (Bangunan Pelengkap Air Bersih/air Baku)
+5;2;6;5;3;Bangunan Gorong-Gorong (Bangunan Pelengkap Air Bersih/air Baku)
+5;2;6;5;4;Bangunan Jembatan (Bangunan Pelengkap Air Bersih/air Baku)
+5;2;6;5;5;Bangunan Penampung Air Baku
+5;2;6;5;6;Bangunan Hidran Umum
+5;2;6;5;7;Bangunan Mandi Cuci Kakus (MCK)
+5;2;6;5;8;Bangunan Menara/Bak Penampung/Reservoir Air Minum
+5;2;6;5;9;Bangunan Buster Pump
+5;2;6;5;999;Bangunan Pelengkap Air Bersih/Air Baku Lainnya
+5;2;6;99;0;BANGUNAN AIR BERSIH/AIR BAKU LAINNYA
+5;2;6;99;999;Bangunan Air Bersih/air Baku Lainnya
+5;2;7;0;0;BANGUNAN AIR KOTOR
+5;2;7;1;0;BANGUNAN PEMBAWA AIR KOTOR
+5;2;7;1;1;Saluran Pengumpul Air Hujan
+5;2;7;1;2;Saluran Pengumpul Air Buangan Domestik
+5;2;7;1;3;Saluran Pengumpul Air Buangan Industri
+5;2;7;1;4;Saluran Pengumpul Air Buangan Pertanian
+5;2;7;1;999;Bangunan Pembawa Air Kotor Lainnya
+5;2;7;2;0;BANGUNAN WADUK AIR KOTOR
+5;2;7;2;1;Waduk Air Hujan
+5;2;7;2;2;Waduk Air Buangan Domestik
+5;2;7;2;3;Waduk Air Buangan Industri
+5;2;7;2;4;Waduk Air Buangan Pertanian
+5;2;7;2;999;Bangunan Waduk Air Kotor Lainnya
+5;2;7;3;0;BANGUNAN PEMBUANG AIR KOTOR
+5;2;7;3;1;Saluran Pembuang Air Buangan Air Hujan
+5;2;7;3;2;Saluran Pembuang Air Buangan Domestik
+5;2;7;3;3;Saluran Pembuang Air Buangan Air Industri
+5;2;7;3;4;Saluran Pembuang Air Buangan Air Pertanian
+5;2;7;3;999;Bangunan Pembuang Air Kotor Lainnya
+5;2;7;4;0;BANGUNAN PENGAMAN AIR KOTOR
+5;2;7;4;1;Bangunan Pompa Air Hujan
+5;2;7;4;2;Bangunan Pompa Air Buangan Domestik
+5;2;7;4;3;Bangunan Pompa Air Buangan Industri
+5;2;7;4;4;Bangunan Pompa Air Buangan Pertanian
+5;2;7;4;999;Bangunan Pengaman Air Kotor Lainnya
+5;2;7;5;0;BANGUNAN PELENGKAP AIR KOTOR
+5;2;7;5;1;Bangunan Talang (Bangunan Pelengkap Air Kotor)
+5;2;7;5;2;Bangunan Syphon (Bangunan Pelengkap Air Kotor)
+5;2;7;5;3;Bangunan Gorong-Gorong (Bangunan Pelengkap Air Kotor)
+5;2;7;5;4;Bangunan Jembatan (Bangunan Pelengkap Air Kotor)
+5;2;7;5;5;Bangunan Bak Kontrol/Man Hole
+5;2;7;5;6;Saluran Air Kotor Sambungan Dari Rumah
+5;2;7;5;7;Bangunan (Box) Culvert
+5;2;7;5;8;Multiple Pipa Arches
+5;2;7;5;9;Bangunan Plat Deker
+5;2;7;5;999;Bangunan Pelengkap Air Kotor Lainnya
+5;2;7;99;0;BANGUNAN AIR KOTOR LAINNYA
+5;2;7;99;999;Bangunan Air Kotor Lainnya
+5;3;0;0;0;INSTALASI
+5;3;1;0;0;INSTALASI AIR BERSIH / AIR BAKU
+5;3;1;1;0;INSTALASI AIR PERMUKAAN
+5;3;1;1;1;Instalasi Air Permukaan Kapasitas Kecil
+5;3;1;1;2;Instalasi Air Permukaan Kapasitas Sedang
+5;3;1;1;3;Instalasi Air Permukaan Kapasitas Besar
+5;3;1;1;999;Instalasi Air Permukaan Lainnya
+5;3;1;2;0;INSTALASI AIR SUMBER / MATA AIR
+5;3;1;2;1;Instalasi Air Sumber / Mata Air Kapasitas Kecil
+5;3;1;2;2;Instalasi Air Sumber / Mata Air Kapasitas Sedang
+5;3;1;2;3;Instalasi Air Sumber / Mata Air Kapasitas Besar
+5;3;1;2;999;Instalasi Air Sumber / Mata Air Lainnya
+5;3;1;3;0;INSTALASI AIR TANAH DALAM
+5;3;1;3;1;Instalasi Air Tanah Dalam Kapasitas Kecil
+5;3;1;3;2;Instalasi Air Tanah Dalam Kapasitas Sedang
+5;3;1;3;3;Instalasi Air Tanah Dalam Kapasitas Besar
+5;3;1;3;999;Instalasi Air Tanah Dalam Lainnya
+5;3;1;4;0;INSTALASI AIR TANAH DANGKAL
+5;3;1;4;1;Instalasi Air Tanah Dangkal Kapasitas Kecil
+5;3;1;4;2;Instalasi Air Tanah Dangkal Kapasitas Sedang
+5;3;1;4;3;Instalasi Air Tanah Dangkal Kapasitas Besar
+5;3;1;4;999;Instalasi Air Tanah Dangkal Lainnya
+5;3;1;5;0;INSTALASI AIR BERSIH / AIR BAKU LAINNYA
+5;3;1;5;1;Sistem Pengolahan Air Sederhana (SIPAS)
+5;3;1;5;2;Jaringan Rumah Tangga (JARUT)
+5;3;1;5;3;Penampungan Air Hujan (PAH)
+5;3;1;5;4;Sumur Gali (SGL)
+5;3;1;5;5;Sumur Resapan
+5;3;1;5;999;Instalasi Air Bersih / Air Baku Lainnya Lainnya
+5;3;1;99;0;INSTALASI AIR BERSIH / AIR BAKU LAINNYA
+5;3;1;99;999;Instalasi Air Bersih / Air Baku Lainnya
+5;3;2;0;0;INSTALASI AIR KOTOR
+5;3;2;1;0;INSTALASI AIR BUANGAN DOMESTIK
+5;3;2;1;1;Instalasi Air Buangan Domestik Kapasitas Kecil
+5;3;2;1;2;Instalasi Air Buangan Domestik Kapasitas Sedang
+5;3;2;1;3;Instalasi Air Buangan Domestik Kapasitas Besar
+5;3;2;1;999;Instalasi Air Buangan Domestik Lainnya
+5;3;2;2;0;INSTALASI AIR BUANGAN INDUSTRI
+5;3;2;2;1;Instalasi Air Buangan Industri Kapasitas Kecil
+5;3;2;2;2;Instalasi Air Buangan Industri Kapasitas Sedang
+5;3;2;2;3;Instalasi Air Buangan Industri Kapasitas Besar
+5;3;2;2;999;Instalasi Air Buangan Industri Lainnya
+5;3;2;3;0;INSTALASI AIR BUANGAN PERTANIAN
+5;3;2;3;1;Instalasi Air Buangan Pertanian Kapasitas Kecil
+5;3;2;3;2;Instalasi Air Buangan Pertanian Kapasitas Sedang
+5;3;2;3;3;Instalasi Air Buangan Pertanian Kapasitas Besar
+5;3;2;3;999;Instalasi Air Buangan Pertanian Lainnya
+5;3;2;99;0;INSTALASI AIR KOTOR LAINNYA
+5;3;2;99;999;Instalasi Air Kotor Lainnya
+5;3;3;0;0;INSTALASI PENGOLAHAN SAMPAH
+5;3;3;1;0;INSTALASI PENGOLAHAN SAMPAH ORGANIK
+5;3;3;1;1;Instalasi Pengolahan Sampah Organik Sistem Pembakaran
+5;3;3;1;2;Instalasi Pengolahan Sampah Organik Sistem Kompos
+5;3;3;1;3;Instalasi Pengolahan Sampah Organik Sistem Penimbunan
+5;3;3;1;999;Instalasi Pengolahan Sampah Organik Lainnya
+5;3;3;2;0;INSTALASI PENGOLAHAN SAMPAH NON ORGANIK
+5;3;3;2;1;Instalasi Pengolahan Sampah Non Organik Daur Ulang Logam
+5;3;3;2;2;Instalasi Pengolahan Sampah Non Organik Daur Ulang Non Logam
+5;3;3;2;999;Instalasi Pengolahan Sampah Non Organik Lainnya
+5;3;3;3;0;BANGUNAN PENAMPUNG SAMPAH
+5;3;3;3;1;Bangunan Tempat Penampung Sampah Rumah Tangga
+5;3;3;3;2;Bangunan Tempat Menampung  Sampah Lingkungan
+5;3;3;3;999;Bangunan Penampung Sampah Lainnya
+5;3;3;99;0;INSTALASI PENGOLAHAN SAMPAH LAINNYA
+5;3;3;99;999;Instalasi Pengolahan Sampah Lainnya
+5;3;4;0;0;INSTALASI PENGOLAHAN BAHAN BANGUNAN
+5;3;4;1;0;INSTALASI PENGOLAHAN BAHAN BANGUNAN PERCONTOHAN
+5;3;4;1;1;Instalasi Pengolahan Bahan Bangunan Percontohan Pengawetan Kayu
+5;3;4;1;2;Instalasi Pengolahan Bahan Bangunan Percontohan Pengeringan Kayu
+5;3;4;1;3;Instalasi Pengolahan Bahan Bangunan Percontohan Pengerjaan Kayu
+5;3;4;1;4;Instalasi Pengolahan Bahan Bangunan Percontohan Perkapuran
+5;3;4;1;5;Instalasi Pengolahan Bahan Bangunan Percontohan Pembuatan Batu
+5;3;4;1;6;Instalasi Pengolahan Bahan Bangunan Percontohan Pembuatan Agrega
+5;3;4;1;999;Instalasi Pengolahan Bahan Bangunan Percontohan Lainnya
+5;3;4;2;0;INSTALASI PENGOLAHAN BAHAN BANGUNAN PERINTIS
+5;3;4;2;1;Instalasi Pengolahan Bahan Bangunan Perintis Pengawetan Kayu
+5;3;4;2;2;Instalasi Pengolahan Bahan Bangunan Perintis Pengeringan Kayu
+5;3;4;2;3;Instalasi Pengolahan Bahan Bangunan Perintis Pengerjaan Kayu
+5;3;4;2;4;Instalasi Pengolahan Bahan Bangunan Perintis Perkapuran
+5;3;4;2;5;Instalasi Pengolahan Bahan Bangunan Perintis Pembuatan Batu Ceta
+5;3;4;2;6;Instalasi Pengolahan Bahan Bangunan Perintis Pembuatan Agregat
+5;3;4;2;999;Instalasi Pengolahan Bahan Bangunan Perintis Lainnya
+5;3;4;3;0;INSTALASI PENGOLAHAN BAHAN BANGUNAN TERAPAN
+5;3;4;3;1;Instalasi Pengolahan Bahan Bangunan Terapan
+5;3;4;3;999;Instalasi Pengolahan Bahan Bangunan Terapan Lainnya
+5;3;4;99;0;INSTALASI PENGOLAHAN BAHAN BANGUNAN LAINNYA
+5;3;4;99;999;Instalasi Pengolahan Bahan Bangunan Lainnya
+5;3;5;0;0;INSTALASI PEMBANGKIT LISTRIK
+5;3;5;1;0;INSTALASI PEMBANGKIT LISTRIK TENAGA AIR (PLTA)
+5;3;5;1;1;Instalasi PLTA Kapasitas Kecil
+5;3;5;1;2;Instalasi PLTA Kapasitas Sedang
+5;3;5;1;3;Instalasi PLTA Kapasitas Besar
+5;3;5;1;999;Instalasi Pembangkit Listrik Tenaga Air (PLTA) Lainnya
+5;3;5;2;0;INSTALASI PEMBANGKIT LISTRIK TENAGA DIESEL (PLTD)
+5;3;5;2;1;Instalasi PLTD Kapasitas Kecil
+5;3;5;2;2;Instalasi PLTD Kapasitas Sedang
+5;3;5;2;3;Instalasi PLTD Kapasitas Besar
+5;3;5;2;999;Instalasi Pembangkit Listrik Tenaga Diesel (PLTD) Lainnya
+5;3;5;3;0;INSTALASI PEMBANGKIT LISTRIK TENAGA MIKRO HIDRO (PLTM)
+5;3;5;3;1;Instalasi PLTM Kapasitas Kecil
+5;3;5;3;2;Instalasi PLTM Kapasitas Sedang
+5;3;5;3;3;Instalasi PLTM Kapasitas Besar
+5;3;5;3;999;Instalasi Pembangkit Listrik Tenaga Mikro Hidro (PLTM) Lainnya
+5;3;5;4;0;INSTALASI PEMBANGKIT LISTRIK TENAGA ANGIN (PLTAN)
+5;3;5;4;1;Instalasi PLTAN Kapasitas Kecil
+5;3;5;4;2;Instalasi PLTAN Kapasitas Sedang
+5;3;5;4;3;Instalasi PLTAN Kapasitas Besar
+5;3;5;4;999;Instalasi Pembangkit Listrik Tenaga Angin (PLTAN) Lainnya
+5;3;5;5;0;INSTALASI PEMBANGKIT LISTRIK TENAGA UAP (PLTU)
+5;3;5;5;1;Instalasi PLTU Kapasitas Kecil
+5;3;5;5;2;Instalasi PLTU Kapasitas Sedang
+5;3;5;5;3;Instalasi PLTU Kapasitas Besar
+5;3;5;5;999;Instalasi Pembangkit Listrik Tenaga Uap (PLTU) Lainnya
+5;3;5;6;0;INSTALASI PEMBANGKIT LISTRIK TENAGA NUKLIR (PLTN)
+5;3;5;6;1;Instalasi PLTN Kapasitas Kecil
+5;3;5;6;2;Instalasi PLTN Kapasitas Sedang
+5;3;5;6;3;Instalasi PLTN Kapasitas Besar
+5;3;5;6;999;Instalasi Pembangkit Listrik Tenaga Nuklir (PLTN) Lainnya
+5;3;5;7;0;INSTALASI PEMBANGKIT LISTRIK TENAGA GAS (PLTG)
+5;3;5;7;1;Instalasi PLTG Kapasitas Kecil
+5;3;5;7;2;Instalasi PLTG Kapasitas Sedang
+5;3;5;7;3;Instalasi PLTG Kapasitas Besar
+5;3;5;7;999;Instalasi Pembangkit Listrik Tenaga Gas (PLTG) Lainnya
+5;3;5;8;0;INSTALASI PEMBANGKIT LISTRIK TENAGA PANAS BUMI (PLTP)
+5;3;5;8;1;Instalasi PLTP Kapasitas Kecil
+5;3;5;8;2;Instalasi PLTP Kapasitas Sedang
+5;3;5;8;3;Instalasi PLTP Kapasitas Besar
+5;3;5;8;999;Instalasi Pembangkit Listrik Tenaga Panas Bumi (PLTP) Lainnya
+5;3;5;9;0;INSTALASI PEMBANGKIT LISTRIK TENAGA SURYA (PLTS)
+5;3;5;9;1;Instalasi PLTS Kapasitas Kecil
+5;3;5;9;2;Instalasi PLTS Kapasitas Sedang
+5;3;5;9;3;Instalasi PLTS Kapasitas Besar
+5;3;5;9;999;Instalasi Pembangkit Listrik Tenaga Surya (PLTS) Laiinnya
+5;3;5;10;0;INSTALASI PEMBANGKIT LISTRIK TENAGA BIOGAS (PLTB)
+5;3;5;10;1;Instalasi PLTB Kapasitas Kecil
+5;3;5;10;2;Instalasi PLTB Kapasitas Sedang
+5;3;5;10;3;Instalasi PLTB Kapasitas Besar
+5;3;5;10;999;Instalasi Pembangkit Listrik Tenaga Biogas (PLTB) Lainnya
+5;3;5;11;0;INSTALASI PEMBANGKIT LISTRIK TENAGA SAMUDERA / GELOMBANG SAMUDERA
+5;3;5;11;1;Instalasi PLTSM Kapasitas Kecil
+5;3;5;11;2;Instalasi PLTSM Kapasitas Sedang
+5;3;5;11;3;Instalasi PLTSM Kapasitas Besar
+5;3;5;11;999;Instalasi Pembangkit Listrik Tenaga Samudera / Gelombang Samudera Lainnya
+5;3;5;99;0;INSTALASI PEMBANGKIT LISTRIK LAINNYA
+5;3;5;99;999;Instalasi Pembangkit Listrik Lainnya
+5;3;6;0;0;INSTALASI GARDU LISTRIK
+5;3;6;1;0;INSTALASI GARDU LISTRIK INDUK
+5;3;6;1;1;Instalasi Gardu Listrik Induk Kapasitas Kecil
+5;3;6;1;2;Instalasi Gardu Listrik Induk Kapasitas Sedang
+5;3;6;1;3;Instalasi Gardu Listrik Induk Kapasitas Besar
+5;3;6;1;999;Instalasi Gardu Listrik Induk Lainnya
+5;3;6;2;0;INSTALASI GARDU LISTRIK DISTRIBUSI
+5;3;6;2;1;Instalasi Gardu Listrik Distribusi Kapasitas Kecil
+5;3;6;2;2;Instalasi Gardu Listrik Distribusi Kapasitas Sedang
+5;3;6;2;3;Instalasi Gardu Listrik Distribusi Kapasitas Besar
+5;3;6;2;999;Instalasi Gardu Listrik Distribusi Lainnya
+5;3;6;3;0;INSTALASI PUSAT PENGATUR LISTRIK
+5;3;6;3;1;Instalasi Pusat Pengatur Listrik Kapasitas Kecil
+5;3;6;3;2;Instalasi Pusat Pengatur Listrik Kapasitas Sedang
+5;3;6;3;3;Instalasi Pusat Pengatur Listrik Kapasitas Besar
+5;3;6;3;999;Instalasi Pusat Pengatur Listrik Lainnya
+5;3;6;99;0;INSTALASI GARDU LISTRIK LAINNYA
+5;3;6;99;999;Instalasi Gardu Listrik Lainnya
+5;3;7;0;0;INSTALASI LAIN
+5;3;7;1;0;INSTALASI LAIN
+5;3;7;1;1;Instalasi Generating Set
+5;3;7;1;2;Instalasi AC
+5;3;7;1;3;Instalasi Building Automation System (BAS)
+5;3;7;1;4;Instalasi Komputer
+5;3;7;1;999;Instalasi Lain-lain
+5;4;0;0;0;JARINGAN
+5;4;1;0;0;JARINGAN AIR MINUM
+5;4;1;1;0;JARINGAN PEMBAWA
+5;4;1;1;1;Jaringan Pembawa Kapasitas Kecil
+5;4;1;1;2;Jaringan Pembawa Kapasitas Sedang
+5;4;1;1;3;Jaringan Pembawa Kapasitas Besar
+5;4;1;1;999;Jaringan Pembawa Lainnya
+5;4;1;2;0;JARINGAN INDUK DISTRIBUSI
+5;4;1;2;1;Jaringan Induk Distribusi Kapasitas Kecil
+5;4;1;2;2;Jaringan Induk Distribusi Kapasitas Sedang
+5;4;1;2;3;Jaringan Induk Distribusi Kapasitas Besar
+5;4;1;2;999;Jaringan Induk Distribusi Lainnya
+5;4;1;3;0;JARINGAN CABANG DISTRIBUSI
+5;4;1;3;1;Jaringan Cabang Distribusi Kapasitas Kecil
+5;4;1;3;2;Jaringan Cabang Distribusi Kapasitas Sedang
+5;4;1;3;3;Jaringan Cabang Distribusi Kapasitas Besar
+5;4;1;3;999;Jaringan Cabang Distribusi Lainnya
+5;4;1;4;0;JARINGAN SAMBUNGAN  KE RUMAH
+5;4;1;4;1;Jaringan Sambungan Ke Rumah Kapasitas Kecil
+5;4;1;4;2;Jaringan Sambungan Ke Rumah Kapasitas Sedang
+5;4;1;4;3;Jaringan Sambungan Ke Rumah Kapasitas Besar
+5;4;1;4;999;Jaringan Sambungan Ke Rumah Lainnya
+5;4;1;99;0;JARINGAN AIR MINUM LAINNYA
+5;4;1;99;999;Jaringan Air Minum Lainnya
+5;4;2;0;0;JARINGAN LISTRIK
+5;4;2;1;0;JARINGAN TRANSMISI
+5;4;2;1;1;Jaringan Transmisi Tegangan Diatas 300 KVA
+5;4;2;1;2;Jaringan Transmisi Tegangan 100 S/D 300 KVA
+5;4;2;1;3;Jaringan Transmisi Tegangan Dibawah 100 KVA
+5;4;2;1;999;Jaringan Transmisi Lainnya
+5;4;2;2;0;JARINGAN DISTRIBUSI
+5;4;2;2;1;Jaringan Distribusi Tegangan Diatas 20 KVA
+5;4;2;2;2;Jaringan Distribusi Tegangan 1 S/D 20 KVA
+5;4;2;2;3;Jaringan Distribusi Tegangan Dibawah 1 KVA
+5;4;2;2;999;Jaringan Distribusi Lainnya
+5;4;2;99;0;JARINGAN LISTRIK LAINNYA
+5;4;2;99;999;Jaringan Listrik Lainnya
+5;4;3;0;0;JARINGAN TELEPON
+5;4;3;1;0;JARINGAN TELEPON DIATAS TANAH
+5;4;3;1;1;Jaringan Telepon Diatas Tanah Kapasitas Kecil
+5;4;3;1;2;Jaringan Telepon Diatas Tanah Kapasitas Sedang
+5;4;3;1;3;Jaringan Telepon Diatas Tanah Kapasitas Besar
+5;4;3;1;999;Jaringan Telepon Diatas Tanah Lainnya
+5;4;3;2;0;JARINGAN TELEPON DIBAWAH TANAH
+5;4;3;2;1;Jaringan Telepon Dibawah Tanah Kapasitas Kecil
+5;4;3;2;2;Jaringan Telepon Dibawah Tanah Kapasitas Sedang
+5;4;3;2;3;Jaringan Telepon Dibawah Tanah Kapasitas Besar
+5;4;3;2;999;Jaringan Telepon Dibawah Tanah Lainnya
+5;4;3;3;0;JARINGAN TELEPON DIDALAM AIR
+5;4;3;3;1;Jaringan Telepon Didalam Air Kapasitas Kecil
+5;4;3;3;2;Jaringan Telepon Didalam Air Kapasitas Sedang
+5;4;3;3;3;Jaringan Telepon Didalam Air Kapasitas Besar
+5;4;3;3;999;Jaringan Telepon Didalam Air Lainnya
+5;4;3;4;0;JARINGAN DENGAN MEDIA UDARA
+5;4;3;4;1;Jaringan Satelit
+5;4;3;4;2;Jaringan Radio
+5;4;3;4;999;Jaringan Dengan Media Udara Lainnya
+5;4;3;99;0;JARINGAN TELEPON LAINNYA
+5;4;3;99;999;Jaringan Telepon Lainnya
+5;4;4;0;0;JARINGAN GAS
+5;4;4;1;0;JARINGAN PIPA GAS TRANSMISI
+5;4;4;1;1;Jaringan Pipa Baja
+5;4;4;1;999;Jaringan Pipa Gas Transmisi Lainnya
+5;4;4;2;0;JARINGAN PIPA DISTRIBUSI
+5;4;4;2;1;Jaringan Pipa Distribusi Tekanan Tinggi
+5;4;4;2;2;Jaringan Pipa Distribusi Tekanan Menengah Pipa Baja
+5;4;4;2;3;Jaringan Pipa Distribusi Tekanan Menengah Pipa PE
+5;4;4;2;4;Jaringan Pipa Distribusi Tekanan Rendah Pipa Baja
+5;4;4;2;5;Jaringan Pipa Distribusi Tekanan Rendah Pipa PC
+5;4;4;2;999;Jaringan Pipa Distribusi Lainnya
+5;4;4;3;0;JARINGAN PIPA DINAS
+5;4;4;3;1;Jaringan Pipa Dinas Pipa Baja
+5;4;4;3;2;Jaringan Pipa Dinas Pipa PE
+5;4;4;3;999;Jaringan Pipa Dinas Lainnya
+5;4;4;4;0;JARINGAN BBM
+5;4;4;4;1;Jaringan BBM Bensin
+5;4;4;4;2;Jaringan BBM Solar
+5;4;4;4;3;Jaringan BBM Minyak Tanah
+5;4;4;4;999;Jaringan BBM Lainnya
+5;4;4;99;0;JARINGAN GAS LAINNYA
+5;4;4;99;999;Jaringan Gas Lainnya
+6;0;0;0;0;ASET TETAP LAINNYA
+6;1;0;0;0;BAHAN PERPUSTAKAAN
+6;1;1;0;0;BAHAN PERPUSTAKAAN TERCETAK
+6;1;1;1;0;BUKU
+6;1;1;1;1;Monograf
+6;1;1;1;2;Referensi
+6;1;1;1;999;Buku Lainnya
+6;1;1;2;0;SERIAL
+6;1;1;2;1;Surat Kabar
+6;1;1;2;2;Majalah
+6;1;1;2;3;Buletin
+6;1;1;2;4;Laporan
+6;1;1;2;999;Serial Lainnya
+6;1;1;99;0;TERCETAK LAINNYA
+6;1;1;99;999;Bahan Perpustakaan Tercetak Lainnya
+6;1;2;0;0;BAHAN PERPUSTAKAAN TEREKAM DAN BENTUK MIKRO
+6;1;2;1;0;AUDIO VISUAL
+6;1;2;1;1;Kaset
+6;1;2;1;2;Video
+6;1;2;1;3;CD/VCD/DVD/LD
+6;1;2;1;4;Pita Film
+6;1;2;1;5;Pita Suara
+6;1;2;1;6;Piringan Hitam
+6;1;2;1;28;Peta Digital
+6;1;2;1;999;Audio Visual Lainnya
+6;1;2;2;0;BENTUK MIKRO (MICROFORM)
+6;1;2;2;1;Mikrofilm
+6;1;2;2;2;Mikrofisch
+6;1;2;2;3;Slide
+6;1;2;2;999;Bentuk Mikro/Mikroform Lainnya
+6;1;2;99;0;TEREKAM DAN BENTUK MIKRO LAINNYA
+6;1;2;99;999;Bahan Perpustakaan Terekam Dan Bentuk Mikro Lainnya
+6;1;3;0;0;KARTOGRAFI, NASKAH DAN LUKISAN
+6;1;3;1;0;BAHAN KARTOGRAFI
+6;1;3;1;1;Peta (Map)
+6;1;3;1;2;Atlas
+6;1;3;1;3;Blue Print
+6;1;3;1;4;Bola Dunia (Globe)
+6;1;3;1;999;Bahan Kartografi Lainnya
+6;1;3;2;0;NASKAH (MANUSKRIP) / ASLI
+6;1;3;2;1;Naskah/Manuskrip  Berbahan Kertas
+6;1;3;2;2;Naskah/Manuskrip  Berbahan Daun
+6;1;3;2;3;Naskah/Manuskrip  Berbahan Kayu
+6;1;3;2;4;Naskah/Manuskrip  Berbahan Bambu
+6;1;3;2;5;Naskah/Manuskrip  Berbahan Kulit Kayu
+6;1;3;2;6;Naskah/Manuskrip  Berbahan Kulit Binatang
+6;1;3;2;7;Naskah/Manuskrip  Berbahan Tulang/Tanduk
+6;1;3;2;8;Naskah/Manuskrip  Berbahan Tempurung
+6;1;3;2;999;Naskah/Manuskrip  Berbahan Lainnya
+6;1;3;3;0;LUKISAN DAN UKIRAN
+6;1;3;3;1;Lukisan Kanvas
+6;1;3;3;2;Lukisan Batu, Keramik, Kayu, dll
+6;1;3;3;3;Ukiran Kayu dan sejenisnya
+6;1;3;3;4;Ukiran Logam dan sejenisnya
+6;1;3;3;5;Ukiran Batu dan sejenisnya
+6;1;3;3;999;Ukiran dan Lukisan Lainnya
+6;1;3;99;0;KARTOGRAFI, NASKAH DAN LUKISAN LAINNYA
+6;1;3;99;999;Kartografi, Naskah Dan Lukisan Lainnya
+6;2;0;0;0;BARANG BERCORAK KESENIAN/KEBUDAYAAN/OLAHRAGA
+6;2;1;0;0;BARANG BERCORAK KESENIAN
+6;2;1;1;0;ALAT MUSIK
+6;2;1;1;1;Alat Musik Tradisional/Daerah
+6;2;1;1;2;Alat Musik Modern/Band
+6;2;1;1;999;Alat Musik Lainnya
+6;2;1;2;0;LUKISAN
+6;2;1;2;1;Lukisan Cat Air
+6;2;1;2;2;Sulaman / Tempelan
+6;2;1;2;3;Lukisan Cat Minyak
+6;2;1;2;4;Lukisan Bulu
+6;2;1;2;5;Seni Relief
+6;2;1;2;999;Lukisan Lainnya
+6;2;1;3;0;ALAT PERAGA KESENIAN
+6;2;1;3;1;Wayang Golek
+6;2;1;3;2;Wayang Kulit
+6;2;1;3;999;Alat Peraga Kesenian Lainnya
+6;2;1;99;0;BARANG BERCORAK KESENIAN LAINNYA
+6;2;1;99;999;Barang Bercorak Kesenian Lainnya
+6;2;2;0;0;ALAT BERCORAK KEBUDAYAAN
+6;2;2;1;0;PAHATAN
+6;2;2;1;1;Pahatan Batu
+6;2;2;1;2;Pahatan Kayu
+6;2;2;1;3;Pahatan Logam
+6;2;2;1;999;Pahatan Lainnya
+6;2;2;2;0;MAKET, MINIATUR,  REPLIKA DAN FOTO DOKUMEN
+6;2;2;2;1;Maket/Miniatur/Replika
+6;2;2;2;2;Foto Dokumen
+6;2;2;2;3;Naskah Kuno
+6;2;2;2;4;Mata Uang/ Numismatik
+6;2;2;2;5;Perhiasan
+6;2;2;2;6;Barang Keramik/ Gerabah
+6;2;2;2;7;Arca/ Patung
+6;2;2;2;8;Benda Kuno/ Unik
+6;2;2;2;9;Fosil
+6;2;2;2;10;Mumy
+6;2;2;2;999;Maket Dan Foto Dokumen Lainnya
+6;2;2;99;0;ALAT BERCORAK KEBUDAYAAN LAINNYA
+6;2;2;99;999;Alat Bercorak Kebudayaan Lainnya
+6;2;3;0;0;TANDA PENGHARGAAN BIDANG OLAH RAGA
+6;2;3;1;0;TANDA PENGHARGAAN
+6;2;3;1;1;Piala
+6;2;3;1;2;Medali
+6;2;3;1;3;Piagam
+6;2;3;1;999;Tanda Penghargaan Lainnya
+6;2;3;99;0;TANDA PENGHARGAAN BIDANG OLAH RAGA LAINNYA
+6;2;3;99;999;Tanda Penghargaan Bidang Olah Raga Lainnya
+6;3;0;0;0;HEWAN
+6;3;1;0;0;HEWAN PIARAAN
+6;3;1;1;0;HEWAN PENGAMAN
+6;3;1;1;1;Anjing Pelacak
+6;3;1;1;2;Anjing Penjaga
+6;3;1;1;999;Hewan Pengaman Lainnya
+6;3;1;2;0;HEWAN PENGANGKUT
+6;3;1;2;1;Gajah
+6;3;1;2;2;Kuda (Hewan Pengangkut)
+6;3;1;2;999;Hewan Pengangkut Lainnya
+6;3;1;99;0;HEWAN PIARAAN LAINNYA
+6;3;1;99;999;Hewan Piaraan Lainnya
+6;3;2;0;0;TERNAK
+6;3;2;1;0;TERNAK POTONG
+6;3;2;1;1;Babi
+6;3;2;1;2;Domba
+6;3;2;1;3;Kambing
+6;3;2;1;4;Kerbau
+6;3;2;1;5;Sapi Potong
+6;3;2;1;999;Ternak Potong Lainnya
+6;3;2;2;0;TERNAK PERAH
+6;3;2;2;1;Sapi Perah
+6;3;2;2;2;Domba Perah
+6;3;2;2;3;Kambing Perah
+6;3;2;2;999;Ternak Perah Lainnya
+6;3;2;3;0;TERNAK UNGGAS
+6;3;2;3;1;Ayam
+6;3;2;3;2;Burung
+6;3;2;3;3;Itik
+6;3;2;3;999;Ternak Unggas Lainnya
+6;3;2;99;0;TERNAK LAINNYA
+6;3;2;99;999;Ternak Lainnya
+6;3;3;0;0;HEWAN LAINNYA
+6;3;3;1;0;HEWAN LAINNYA
+6;3;3;1;1;Hewan Lainnya
+6;4;0;0;0;IKAN
+6;4;1;0;0;IKAN BERSIRIP (PISCES/IKAN BERSIRIP)
+6;4;1;1;0;IKAN BUDIDAYA
+6;4;1;1;1;Ikan Air Tawar Budidaya
+6;4;1;1;2;Ikan Air Laut Budidaya
+6;4;1;1;3;Ikan Air Payau Budidaya
+6;4;1;1;4;Ikan Hias Air Tawar Budidaya
+6;4;1;1;5;Ikan Hias Air Payau/Laut Budidaya
+6;4;1;1;999;Ikan Budidaya Lainnya
+6;4;2;0;0;CRUSTEA (UDANG, RAJUNGAN, KEPITING, DAN SEBANGSANYA)
+6;4;2;1;0;CRUSTEA BUDIDAYA (UDANG, RAJUNGAN, KEPITING, DAN SEBANGSANYA)
+6;4;2;1;1;Udang
+6;4;2;1;2;Rajungan
+6;4;2;1;3;Kepiting
+6;4;2;1;999;Crustea (Udang, Rajungan, Kepiting, dan Sebangsanya) Lainnya
+6;4;3;0;0;MOLLUSCA (KERANG, TIRAM, CUMI-CUMI, GURITA, SIPUT, DAN SEBANGSANYA)
+6;04;03;01;000;MOLLUSCA BUDIDAYA (KERANG, TIRAM, CUMI-CUMI, GURITA, SIPUT, DAN SEBANGSANYA)
+6;4;3;1;1;Kerang
+6;4;3;1;2;Tiram
+6;4;3;1;3;Cumi-Cumi
+6;4;3;1;4;Gurita
+6;4;3;1;5;Siput
+6;4;3;1;999;Mollusca (kerang, Tiram, Cumi-cumi, Gurita, Siput, Dan Sebangsanya) Lainnya
+6;4;4;0;0;COELENTERATA (UBUR-UBUR DAN SEBANGSANYA)
+6;4;4;1;0;COELENTERATA BUDIDAYA (UBUR-UBUR DAN SEBANGSANYA)
+6;4;4;1;1;Ubur-Ubur Budidaya
+6;4;4;1;999;Coelenterata (ubur-ubur Dan Sebangsanya) Lainnya
+6;4;5;0;0;ECHINODERMATA (TRIPANG, BULU BABI, DAN SEBANGSANYA)
+6;4;5;1;0;ECHINODERMATA BUDIDAYA (TRIPANG, BULU BABI, DAN SEBANGSANYA)
+6;4;5;1;1;Teripang
+6;4;5;1;2;Bulu Babi
+6;4;5;1;999;Echinodermata (tripang, Bulu Babi, Dan Sebangsanya) Lainnya
+6;4;6;0;0;AMPHIBIA (KODOK DAN SEBANGSANYA)
+6;4;6;1;0;AMPHIBIA BUDIDAYA (KODOK DAN SEBANGSANYA)
+6;4;6;1;1;Kodok
+6;4;6;1;2;Sebangsa Kodok
+6;4;6;1;999;Amphibia (kodok Dan Sebangsanya) Lainnya
+6;4;7;0;0;REPTILIA (BUAYA, PENYU, KURA-KURA, BIAWAK, ULAR AIR, DAN SEBANGSANYA
+6;04;07;01;000;REPTILIA BUDIDAYA (BUAYA, PENYU, KURA-KURA, BIAWAK, ULAR AIR, DAN SEBANGSANYA)
+6;4;7;1;1;Penyu
+6;4;7;1;2;Kura-Kura
+6;4;7;1;3;Biawak
+6;4;7;1;4;Ular Air
+6;4;7;1;999;Reptilia (buaya, Penyu, Kura-kura, Biawak, Ular Air, Dan Sebangsanya) Lainnya
+6;4;8;0;0;MAMMALIA (PAUS, LUMBA-LUMBA, PESUT, DUYUNG, DAN SEBANGSANYA)
+6;4;8;1;0;MAMMALIA BUDIDAYA (PAUS, LUMBA-LUMBA, PESUT, DUYUNG DAN SEBANGSANYA)
+6;4;8;1;1;Paus
+6;4;8;1;2;Lumba-Lumba
+6;4;8;1;3;Pesut
+6;4;8;1;4;Duyung
+6;4;8;1;999;Mammalia (paus, Lumba-lumba, Pesut, Duyung, Dan Sebangsanya) Lainnya
+6;4;9;0;0;ALGAE (RUMPUT LAUT DAN TUMBUH-TUMBUHAN LAIN YANG HIDUP DI DALAM AIR)
+6;04;09;01;000;ALGAE BUDIDAYA (RUMPUT LAUT DAN TUMBUH-TUMBUHAN LAIN YANG HIDUP DI DALAM AIR)
+6;4;9;1;1;Rumput Laut
+6;4;9;1;2;Tumbuh-Tumbuhan Lain yang Hidup di dalam Air
+6;4;9;1;999;Algae (rumput Laut Dan Tumbuh-tumbuhan Lain Yang Hidup Di Dalam Air) Lainnya
+6;4;10;0;0;BIOTA PERAIRAN LAINNYA
+6;4;10;1;0;BUDIDAYA BIOTA PERAIRAN LAINNYA
+6;4;10;1;1;Biota Perairan Lainnya
+6;5;0;0;0;TANAMAN
+6;5;1;0;0;TANAMAN
+6;5;1;1;0;TANAMAN
+6;5;1;1;1;Tanaman Keras
+6;5;1;1;2;Tanaman Industri
+6;5;1;1;3;Tanaman Perkebunan
+6;5;1;1;4;Tanaman Hortikultura
+6;5;1;1;5;Tanaman Pangan
+6;5;1;1;6;Tanaman Hias
+6;5;1;1;7;Tanaman Obat
+6;5;1;1;8;Tanaman Plasma
+6;5;1;1;999;Tanaman Lainnya
+6;6;0;0;0;ASET TETAP DALAM  RENOVASI
+6;6;1;0;0;ASET TETAP DALAM  RENOVASI
+6;6;1;1;0;ASET TETAP DALAM  RENOVASI
+6;6;1;1;1;Tanah Dalam Renovasi
+6;6;1;1;2;Peralatan dan Mesin Dalam Renovasi
+6;6;1;1;3;Gedung dan Bangunan Dalam Renovasi
+6;6;1;1;4;Jalan, Irigasi, dan jaringan Dalam Renovasi
+6;6;1;1;5;Aset Tetap Lainnya Dalam Renovasi
+6;6;1;1;999;Aset Tetap Dalam Renovasi Lainnya
+7;0;0;0;0;KONSTRUKSI DALAM PENGERJAAN
+7;1;0;0;0;KONSTRUKSI DALAM PENGERJAAN
+7;1;1;0;0;KONSTRUKSI DALAM PENGERJAAN
+7;1;1;1;0;KONSTRUKSI DALAM PENGERJAAN
+7;1;1;1;1;Tanah Dalam Pengerjaan
+7;1;1;1;2;Peralatan dan Mesin dalam Pengerjaan
+7;1;1;1;3;Gedung dan Bangunan dalam Pengerjaan
+7;1;1;1;4;Jalan, Irigasi, dan jaringan dalam Pengerjaan
+7;1;1;1;5;Aset Tetap Lainnya dalam Pengerjaan
+7;1;1;1;999;Konstruksi dalam Pengerjaan Lainnya
+8;0;0;0;0;ASET TAK BERWUJUD
+8;1;0;0;0;ASET TAK BERWUJUD
+8;1;1;0;0;ASET TAK BERWUJUD
+8;1;1;1;0;ASET TAK BERWUJUD
+8;1;1;1;1;Software Komputer
+8;1;1;1;2;Lisensi
+8;1;1;1;3;Francise
+8;1;1;1;4;Hak Cipta (Copyright)
+8;1;1;1;5;Hak Paten
+8;1;1;1;6;Hak Lainnya
+8;1;1;1;7;Hasil Kajian/Penelitian
+8;1;1;1;999;Aset Tak Berwujud Lainnya
+8;2;0;0;0;ASET TAK BERWUJUD DALAM PENGERJAAN
+8;2;1;0;0;ASET TAK BERWUJUD DALAM PENGERJAAN
+8;2;1;1;0;ASET TAK BERWUJUD DALAM PENGERJAAN
+8;2;1;1;1;Aset Tak Berwujud dalam Pengerjaan

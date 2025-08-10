@@ -13,16 +13,20 @@ class Desa extends Model
 
     protected $fillable = [
         'nama_desa',
+        'subdomain',
         'slug',
         'alamat_desa',
         'kecamatan',
         'kota',
         'provinsi',
         'kode_pos',
-        'nama_kades',             // Tambahkan ini
+        'nama_kades',     
         'subscription_status',
         'subscription_ends_at',
         'trial_ends_at',
+        'foto_kades_path',
+        'sambutan_kades',  
+        'path_logo',         
     ];
 
     protected $casts = [

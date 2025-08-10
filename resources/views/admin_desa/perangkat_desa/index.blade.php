@@ -25,6 +25,7 @@
             <table class="table table-striped table-valign-middle">
                 <thead>
                     <tr>
+                        <th>Foto</th>
                         <th>Nama</th>
                         <th>Jabatan</th>
                         <th>User Akun</th>
@@ -34,6 +35,13 @@
                 <tbody>
                     @forelse ($perangkatDesas as $perangkat)
                         <tr>
+                            <td>
+                                @if ($perangkat->foto_path)
+                                    <img src="{{ asset('storage/' . $perangkat->foto_path) }}" alt="Foto {{ $perangkat->nama }}" style="height: 60px; width: auto; border-radius: 5px;">
+                                @else
+                                    <span class="text-muted">-</span>
+                                @endif
+                            </td>
                             <td>{{ $perangkat->nama }}</td>
                             <td>{{ $perangkat->jabatan }}</td>
                             <td>{{ $perangkat->user->name ?? '-' }}</td>

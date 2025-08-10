@@ -1,95 +1,386 @@
 @extends('admin.master')
-@section('title', 'Detail Laporan Kegiatan')
-@section('content_header')
-    <div>
-        <h1 class="m-0 text-dark">Laporan Kegiatan: {{ $kegiatan->nama_kegiatan }}</h1>
-        <small>Diselenggarakan oleh {{ $lembaga->nama_lembaga }}</small>
-    </div>
-@stop
+@section('title', 'Detail Kegiatan')
+@section('content_header')<h1 class="m-0 text-dark">Detail Kegiatan: {{ $kegiatan->nama_kegiatan }}</h1>@stop
+
 @section('content_main')
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Detail Laporan</h3>
-                <div class="card-tools">
-                    <a href="{{ route('lembaga.kegiatan.cetak', [$lembaga, $kegiatan]) }}" target="_blank" class="btn btn-sm btn-primary"><i class="fas fa-print"></i> Cetak Laporan (PDF)</a>
-                    <a href="{{ route('lembaga.kegiatan.edit', [$lembaga, $kegiatan]) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
-                </div>
+<div class="card card-primary card-tabs">
+    <div class="card-header p-0 pt-1">
+        <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="tab-proposal-tab" data-toggle="pill"
+                    href="#tab-proposal" role="tab">Detail Proposal</a></li>
+            <li class="nav-item"><a class="nav-link" id="tab-keuangan-tab" data-toggle="pill" href="#tab-keuangan"
+                    role="tab">Laporan Keuangan</a></li>
+            <li class="nav-item"><a class="nav-link" id="tab-lpj-tab" data-toggle="pill" href="#tab-lpj"
+                    role="tab">LPJ</a></li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="tab-content" id="custom-tabs-one-tabContent">
+            {{-- TAB 1: ISI PROPOSAL --}}
+            <div class="tab-pane fade show active" id="tab-proposal" role="tabpanel">
+                {{-- Tampilkan semua detail proposal di sini --}}
+                <h4>{{ $kegiatan->nama_kegiatan }}</h4>
+                <p><strong>Penyelenggara:</strong>
+                    {{ $kegiatan->kegiatanable->nama_lembaga ?? $kegiatan->kegiatanable->nama_kelompok }}</p>
+                <p><strong>Tanggal:</strong> {{ $kegiatan->tanggal_kegiatan->format('d M Y') }}</p>
+                <a href="{{ route('kegiatans.cetakProposal', $kegiatan->id) }}" class="btn btn-danger mb-3"
+                    target="_blank">
+                    <i class="fas fa-file-pdf"></i> Cetak Proposal (PDF)
+                </a>
+                <hr>
+                <strong>Latar Belakang:</strong>
+                <p>{!! nl2br(e($kegiatan->latar_belakang)) !!}</p>
+                <hr>
+                <strong>Tujuan Kegiatan:</strong>
+                <p>{!! nl2br(e($kegiatan->tujuan_kegiatan)) !!}</p>
+                <hr>
+                <strong>Deskripsi Kegiatan:</strong>
+                <p>{!! nl2br(e($kegiatan->deskripsi_kegiatan)) !!}</p>
+                <hr>
+                <strong>Rencana Anggaran:</strong>
+                <p>{!! nl2br(e($kegiatan->laporan_dana)) !!}</p>
+                <hr>
+                <strong>Penutup:</strong>
+                <p>{!! nl2br(e($kegiatan->penutup)) !!}</p>
+                {{-- ... tampilkan data proposal lainnya ... --}}
             </div>
-            <div class="card-body">
-                {{-- Bagian Pendahuluan --}}
-                <div class="mb-5">
-                    <h4>1. Pendahuluan</h4>
-                    <hr>
-                    <dl class="row">
-                        <dt class="col-sm-3">Nama Kegiatan</dt>
-                        <dd class="col-sm-9">{{ $kegiatan->nama_kegiatan }}</dd>
 
-                        <dt class="col-sm-3">Latar Belakang</dt>
-                        <dd class="col-sm-9">{!! nl2br(e($kegiatan->latar_belakang)) !!}</dd>
+            {{-- TAB 2: LAPORAN KEUANGAN --}}
+            <div class="tab-pane fade" id="tab-keuangan" role="tabpanel">
+                <button type="button" class="btn btn-success mb-3" data-toggle="modal"
+                    data-target="#tambahPengeluaranModal">
+                    <i class="fas fa-plus"></i> Tambah Catatan Pengeluaran
+                </button>
 
-                        <dt class="col-sm-3">Tujuan dan Sasaran</dt>
-                        <dd class="col-sm-9">{!! nl2br(e($kegiatan->tujuan_kegiatan)) !!}</dd>
+                {{-- Tabel untuk menampilkan riwayat pengeluaran --}}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Uraian</th>
+                            <th>Tipe</th>
+                            <th>Jumlah</th>
+                            <th>Dokumen</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($kegiatan->pengeluarans as $pengeluaran)
+                            <tr>
+                                <td>{{ $pengeluaran->tanggal_transaksi->format('d M Y') }}</td>
+                                <td>{{ $pengeluaran->uraian }}</td>
+                                <td><span class="badge badge-secondary">{{ $pengeluaran->tipe_pengeluaran }}</span></td>
+                                <td class="text-right">Rp {{ number_format($pengeluaran->jumlah, 0, ',', '.') }}</td>
+                                <td>
+                                    @if($pengeluaran->tipe_pengeluaran == 'Pembelian Pesanan')
+                                        <a href="{{ route('cetak.surat-pesanan', $pengeluaran->id) }}"
+                                            class="btn btn-xs btn-info" target="_blank" title="Cetak Surat Pesanan">
+                                            <i class="fas fa-file-invoice"></i>
+                                        </a>
+                                        <a href="{{ route('cetak.kwitansi', $pengeluaran->id) }}" class="btn btn-xs btn-success"
+                                            target="_blank" title="Cetak Kwitansi">
+                                            <i class="fas fa-receipt"></i>
+                                        </a>
+                                        <a href="{{ route('cetak.berita-acara', $pengeluaran->id) }}"
+                                            class="btn btn-xs btn-primary" target="_blank" title="Cetak Berita Acara">
+                                            <i class="fas fa-list-check"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        {{-- Tombol Edit --}}
+                                        <button type="button" class="btn btn-xs btn-warning edit-pengeluaran-btn" 
+                                                data-url="{{ route('pengeluarans.edit', $pengeluaran->id) }}">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
 
-                        <dt class="col-sm-3">Waktu dan Tempat</dt>
-                        <dd class="col-sm-9">{{ $kegiatan->tanggal_kegiatan->translatedFormat('l, d F Y') }} di {{ $kegiatan->lokasi_kegiatan }}</dd>
-                    </dl>
-                </div>
+                                        {{-- Tombol Hapus --}}
+                                        <form action="{{ route('pengeluarans.destroy', $pengeluaran->id) }}" method="POST"
+                                            style="margin: 0;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Yakin ingin menghapus catatan pengeluaran ini?')">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
 
-                {{-- Bagian Pelaksanaan --}}
-                <div class="mb-5">
-                    <h4>2. Pelaksanaan Kegiatan</h4>
-                    <hr>
-                    <dl class="row">
-                         <dt class="col-sm-3">Uraian Kegiatan</dt>
-                        <dd class="col-sm-9">{!! nl2br(e($kegiatan->deskripsi_kegiatan)) !!}</dd>
-                    </dl>
-                </div>
-                
-                 {{-- Bagian Anggaran --}}
-                <div class="mb-5">
-                    <h4>3. Rencana dan Realisasi Anggaran</h4>
-                    <hr>
-                    <dl class="row">
-                        <dt class="col-sm-3">Sumber Dana</dt>
-                        <dd class="col-sm-9">{{ $kegiatan->sumber_dana ?? '-' }}</dd>
 
-                         <dt class="col-sm-3">Anggaran Biaya</dt>
-                        <dd class="col-sm-9">Rp {{ number_format($kegiatan->anggaran_biaya, 2, ',', '.') }}</dd>
-                    </dl>
-                </div>
-
-                {{-- Bagian Penutup --}}
-                <div class="mb-5">
-                    <h4>4. Penutup</h4>
-                    <hr>
-                    <p>{!! nl2br(e($kegiatan->penutup)) !!}</p>
-                </div>
-
-                {{-- Lampiran Dokumentasi --}}
-                <div class="mb-5">
-                    <h4>5. Lampiran: Dokumentasi Kegiatan</h4>
-                    <hr>
-                    <div class="row">
-                         @forelse($kegiatan->photos as $photo)
-                            <div class="col-md-4 mb-3">
-                                <a href="{{ asset('storage/' . $photo->path) }}" data-toggle="lightbox" data-gallery="gallery-kegiatan">
-                                    <img src="{{ asset('storage/' . $photo->path) }}" class="img-fluid rounded shadow-sm" alt="Dokumentasi Kegiatan">
-                                </a>
-                            </div>
+                            </tr>
                         @empty
-                            <p class="col-12">Tidak ada dokumentasi foto.</p>
+                            <tr>
+                                <td colspan="5" class="text-center">Belum ada catatan pengeluaran.</td>
+                            </tr>
                         @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            {{-- TAB 3: LPJ --}}
+            <div class="tab-pane fade" id="tab-lpj" role="tabpanel">
+                @if($kegiatan->lpj)
+                    {{-- TAMPILAN JIKA LPJ SUDAH DIBUAT --}}
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Laporan Pertanggungjawaban (LPJ)</h5>
+                        <div>
+                            <a href="{{ route('lpjs.edit', $kegiatan->lpj->id) }}" class="btn btn-warning"><i
+                                    class="fas fa-edit"></i> Edit LPJ</a>
+                            <a href="{{ route('lpj.generate', $kegiatan->id) }}" class="btn btn-danger" target="_blank"><i
+                                    class="fas fa-file-pdf"></i> Cetak Ulang LPJ</a>
+                        </div>
                     </div>
-                </div>
+                    <hr>
+                    {{-- Tampilkan ringkasan dari LPJ --}}
+                    <strong>Hasil Kegiatan:</strong>
+                    <div class="p-2 bg-light border rounded mb-3" style="white-space: pre-wrap;">
+                        {{ $kegiatan->lpj->hasil_kegiatan }}</div>
+
+                    <strong>Evaluasi & Kendala:</strong>
+                    <div class="p-2 bg-light border rounded" style="white-space: pre-wrap;">
+                        {{ $kegiatan->lpj->evaluasi_kendala }}</div>
+                @else
+                    {{-- TAMPILAN JIKA LPJ BELUM DIBUAT --}}
+                    <div class="text-center p-4">
+                        <p>Laporan Pertanggungjawaban (LPJ) untuk kegiatan ini belum dibuat. Silakan lengkapi laporan
+                            keuangan terlebih dahulu.</p>
+                        <a href="{{ route('lpjs.create', $kegiatan->id) }}" class="btn btn-lg btn-success">
+                            <i class="fas fa-plus-circle"></i> Buat LPJ Sekarang
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
-@stop
 
+{{-- MODAL UNTUK TAMBAH PENGELUARAN --}}
+<div class="modal fade" id="tambahPengeluaranModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="{{ route('pengeluarans.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="kegiatan_id" value="{{ $kegiatan->id }}">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Catatan Pengeluaran</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                {{-- Di dalam modal #tambahPengeluaranModal --}}
+                <div class="modal-body">
+                    {{-- Field Umum --}}
+                    <div class="form-group">
+                        <label>Tipe Pengeluaran</label>
+                        <select name="tipe_pengeluaran" id="tipe_pengeluaran" class="form-control" required>
+                            <option value="Biasa">Biasa (Contoh: ATK, konsumsi rapat)</option>
+                            <option value="Pembelian Pesanan">Pembelian Pesanan (Barang/Jasa)</option>
+                            <option value="Upah Kerja">Pembayaran Upah Kerja</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal_transaksi">Tanggal Transaksi</label>
+                        <input type="date" name="tanggal_transaksi" class="form-control" value="{{ date('Y-m-d') }}"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="uraian">Uraian Pengeluaran</label>
+                        <input type="text" name="uraian" class="form-control"
+                            placeholder="Contoh: Pembelian spanduk kegiatan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah Total (Rp)</label>
+                        <input type="number" name="jumlah" id="jumlah_total" class="form-control" required>
+                    </div>
+                    <hr>
+
+                    {{-- Field Khusus untuk Pembelian Pesanan (Awalnya Tersembunyi) --}}
+                    <div id="form-pembelian-pesanan" style="display: none;">
+                        <h5>Detail Pembelian Pesanan</h5>
+                        <div class="form-group">
+                            <label for="tanggal_pesanan">Tanggal Pesanan</label>
+                            <input type="date" name="tanggal_pesanan" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="penyedia">Penyedia (Nama Toko/Jasa)</label>
+                            <input type="text" name="penyedia" class="form-control"
+                                placeholder="Contoh: Percetakan Jaya Abadi">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="nama_pemesan">Nama Pemesan</label>
+                                <input type="text" name="nama_pemesan" class="form-control" placeholder="Nama yang ttd di Surat Pesanan">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="nama_penerima">Nama Penerima Barang</label>
+                                <input type="text" name="nama_penerima" class="form-control" placeholder="Nama yang ttd di Berita Acara">
+                            </div>
+                        </div>
+                        {{-- BAGIAN BARU UNTUK RINCIAN BARANG --}}
+                        <h6>Rincian Barang/Jasa yang Dipesan</h6>
+                        <div id="rincian-barang-wrapper">
+                            {{-- Baris pertama untuk rincian --}}
+                            <div class="row rincian-barang-item mb-2 align-items-center">
+                                <div class="col-4"><input type="text" name="detail_barang[0][nama_barang]"
+                                        class="form-control form-control-sm" placeholder="Nama Barang"></div>
+                                <div class="col-2"><input type="number" step="0.1" name="detail_barang[0][volume]"
+                                        class="form-control form-control-sm" placeholder="Volume"></div>
+                                <div class="col-2"><input type="text" name="detail_barang[0][satuan]"
+                                        class="form-control form-control-sm" placeholder="Satuan"></div>
+                                <div class="col-3"><input type="number" name="detail_barang[0][harga_satuan]"
+                                        class="form-control form-control-sm" placeholder="Harga Satuan"></div>
+                                <div class="col-1"><button type="button"
+                                        class="btn btn-sm btn-danger remove-rincian-btn"
+                                        style="display: none;">&times;</button></div>
+                            </div>
+                        </div>
+                        <button type="button" id="tambah-rincian-btn" class="btn btn-sm btn-secondary mt-2">+ Tambah
+                            Baris</button>
+                    </div>
+
+                    {{-- Field Khusus untuk Upah Kerja (Awalnya Tersembunyi) --}}
+                    <div id="form-upah-kerja" style="display: none;">
+                        <h5>Detail Upah Kerja</h5>
+                        <div class="form-group">
+                            <label for="nama_pekerja">Nama Penerima Upah</label>
+                            <input type="text" name="nama_pekerja" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="tanda_tangan_path">Upload KTP</label>
+                            <input type="file" name="tanda_tangan_path" class="form-control">
+                        </div>
+                    </div>
+
+                    {{-- Field Keterangan (Umum) --}}
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan (Opsional)</label>
+                        <textarea name="keterangan" class="form-control" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editPengeluaranModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            {{-- Konten form edit akan dimuat di sini oleh JavaScript --}}
+        </div>
+    </div>
+</div>
+@stop
 @push('js')
-    {{-- Script untuk mengaktifkan lightbox galeri foto --}}
-    <script src="[https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js](https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js)"></script>
+    <script>
+        $(document).ready(function () {
+            // Fungsi untuk menampilkan form yang sesuai
+            function toggleFormFields() {
+                var selectedType = $('#tipe_pengeluaran').val();
+
+                // Sembunyikan semua form khusus dulu
+                $('#form-pembelian-pesanan').hide();
+                $('#form-upah-kerja').hide();
+
+                // Tampilkan form yang sesuai dengan pilihan
+                if (selectedType === 'Pembelian Pesanan') {
+                    $('#form-pembelian-pesanan').show();
+                } else if (selectedType === 'Upah Kerja') {
+                    $('#form-upah-kerja').show();
+                }
+            }
+
+            // Panggil fungsi saat dropdown berubah
+            $('#tipe_pengeluaran').on('change', function () {
+                toggleFormFields();
+            });
+
+            // Panggil juga saat modal pertama kali dibuka (jika ada nilai default)
+            $('#tambahPengeluaranModal').on('shown.bs.modal', function () {
+                toggleFormFields();
+            });
+
+            let rincianIndex = 1; // Mulai dari indeks 1 untuk baris baru
+
+            // Event listener untuk tombol "+ Tambah Baris"
+            $('#tambah-rincian-btn').on('click', function () {
+                const newRow = `
+                                    <div class="row rincian-barang-item mb-2 align-items-center">
+                                        <div class="col-4"><input type="text" name="detail_barang[${rincianIndex}][nama_barang]" class="form-control form-control-sm" placeholder="Nama Barang"></div>
+                                        <div class="col-2"><input type="number" step="0.1" name="detail_barang[${rincianIndex}][volume]" class="form-control form-control-sm" placeholder="Volume"></div>
+                                        <div class="col-2"><input type="text" name="detail_barang[${rincianIndex}][satuan]" class="form-control form-control-sm" placeholder="Satuan"></div>
+                                        <div class="col-3"><input type="number" name="detail_barang[${rincianIndex}][harga_satuan]" class="form-control form-control-sm" placeholder="Harga Satuan"></div>
+                                        <div class="col-1"><button type="button" class="btn btn-sm btn-danger remove-rincian-btn">&times;</button></div>
+                                    </div>
+                                `;
+                $('#rincian-barang-wrapper').append(newRow);
+                rincianIndex++;
+            });
+
+            // Event listener untuk tombol hapus baris (delegasi event)
+            $('#rincian-barang-wrapper').on('click', '.remove-rincian-btn', function () {
+                $(this).closest('.rincian-barang-item').remove();
+            });
+
+            const rincianWrapper = $('#rincian-barang-wrapper');
+            const totalInput = $('#jumlah_total');
+
+            function calculateTotal() {
+                let grandTotal = 0;
+                // Loop setiap baris rincian yang ada
+                $('.rincian-barang-item').each(function () {
+                    const row = $(this);
+                    const volume = parseFloat(row.find('input[name*="[volume]"]').val()) || 0;
+                    const hargaSatuan = parseFloat(row.find('input[name*="[harga_satuan]"]').val()) || 0;
+                    const subTotal = volume * hargaSatuan;
+                    grandTotal += subTotal;
+                });
+                // Update nilai di input Jumlah Total
+                totalInput.val(grandTotal);
+            }
+
+            // Panggil fungsi calculateTotal() setiap kali ada input di kolom volume atau harga
+            // Kita gunakan event delegation agar berfungsi juga untuk baris yang baru ditambahkan
+            rincianWrapper.on('input', 'input[name*="[volume]"], input[name*="[harga_satuan]"]', function () {
+                calculateTotal();
+            });
+
+            // Panggil juga saat baris baru ditambahkan atau dihapus
+            $('#tambah-rincian-btn').on('click', function () {
+                // Biarkan script tambah baris yang lama tetap ada
+                // Kita hanya perlu memastikan kalkulasi dipanggil setelahnya jika perlu
+            });
+
+            rincianWrapper.on('click', '.remove-rincian-btn', function () {
+                // Setelah baris dihapus, hitung ulang totalnya
+                setTimeout(calculateTotal, 100); // Beri jeda sedikit agar proses remove selesai
+            });
+
+            // Panggil pertama kali saat modal dibuka untuk menghitung nilai awal
+            $('#tambahPengeluaranModal').on('shown.bs.modal', function () {
+                calculateTotal();
+            });
+
+            $('.edit-pengeluaran-btn').on('click', function () {
+                var url = $(this).data('url');
+                var modal = $('#editPengeluaranModal'); // Targetkan modal edit yang baru
+                var modalContent = modal.find('.modal-content');
+
+                // Tampilkan pesan loading
+                modalContent.html('<div class="modal-body text-center"><p>Memuat data...</p></div>');
+                modal.modal('show');
+
+                // Ambil konten form dari server via AJAX
+                $.get(url, function (data) {
+                    // Masukkan konten form yang diterima ke dalam modal
+                    modalContent.html(data);
+                }).fail(function() {
+                    modalContent.html('<div class="modal-body text-center"><p class="text-danger">Gagal memuat data.</p></div>');
+                });
+            });
+        });
+    </script>
+    
 @endpush

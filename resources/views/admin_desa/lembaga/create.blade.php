@@ -70,6 +70,18 @@
                     @endif
                 </div>
                 <button type="button" class="btn btn-success btn-sm" id="add-pengurus">Tambah Pengurus</button>
+                <hr>
+                <h4>Logo Lembaga</h4>
+                <div class="form-group">
+                    <label for="path_kop_surat">Upload Logo (Opsional)</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="path_kop_surat" name="path_kop_surat">
+                            <label class="custom-file-label" for="path_kop_surat">Pilih file gambar...</label>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Gunakan gambar (JPG/PNG) dengan rasio landscape untuk hasil terbaik. Jika sudah ada, mengunggah file baru akan menggantikan yang lama.</small>
+                </div>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Simpan Lembaga</button>
@@ -118,6 +130,11 @@
             document.getElementById('sk_kepala_desa').addEventListener('change', function() {
                 var fileName = this.files[0] ? this.files[0].name : 'Pilih file PDF';
                 this.nextElementSibling.innerText = fileName;
+            });
+
+            $('.custom-file-input').on('change', function() {
+                let fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
             });
         });
     </script>

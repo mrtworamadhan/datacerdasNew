@@ -14,7 +14,7 @@ class UserDirectoryController extends Controller
     /**
      * Display a listing of the users with filters for the current desa.
      */
-    public function index(Request $request)
+    public function index(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
@@ -48,7 +48,7 @@ class UserDirectoryController extends Controller
     /**
      * Update 'nama_ketua' for multiple RW/RT users.
      */
-    public function updateBatch(Request $request)
+    public function updateBatch(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {

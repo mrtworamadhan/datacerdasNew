@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
+use Riskihajar\Terbilang\Facades\Terbilang;
 use App\Models\CompanySetting; 
 
 class AppServiceProvider extends ServiceProvider
@@ -24,8 +25,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
-        config(['app.locale' => 'id']);
+        config(['app.locale' => 'id', 'terbilang.locale' => 'id']);
         Carbon::setLocale('id');
+        
         View::composer([
             'welcome', // Halaman welcome
             'layouts.public', // Layout untuk halaman publik (login, register, dll.)

@@ -11,6 +11,12 @@
         <div class="card-header">
             <h3 class="card-title">Data Seluruh Warga</h3>
             <div class="card-tools">
+                <a href="{{ route('warga.import.form') }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-file-import"></i> Impor Data Warga
+                </a>
+                {{-- Tombol untuk ekspor data warga (jika ada route ekspor) --}}
+                {{-- <a href="{{ route('warga.export') }}" class="btn btn-info btn-sm">
+                    <i class="fas fa-file-export"></i> Ekspor Data Warga
                 {{-- Tombol tambah warga bisa diarahkan ke form tambah anggota keluarga di KK --}}
                 {{-- Atau jika ada form tambah warga standalone, bisa kesana --}}
                 {{-- <a href="{{ route('kartu-keluarga.anggota.create', /* ID KK default atau pilihan */) }}" class="btn btn-primary btn-sm">

@@ -15,13 +15,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class PengajuanSuratController extends Controller
 {
     use AuthorizesRequests;
-    public function index(Request $request)
+    public function index(Request $request, string $subdomain)
     {
         $user = Auth::user();
         // Cek hak akses umum untuk modul ini
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melihat daftar pengajuan surat.');
-        }
+        
         // Logika untuk Info Card (tetap sama)
         $stats = [
             'total' => PengajuanSurat::count(),
@@ -59,9 +57,8 @@ class PengajuanSuratController extends Controller
         return view('admin_desa.pengajuan_surat.index', compact('pengajuansPending', 'pengajuansFinished', 'stats'));
     }
 
-    public function create()
+    public function create(string $subdomain)
     {
-         $this->authorize('create-surat-request');
         $user = Auth::user();
         
         // Cek hak akses untuk membuat pengajuan surat (Admin RT ke atas)
@@ -77,10 +74,8 @@ class PengajuanSuratController extends Controller
         return view('admin_desa.pengajuan_surat.create', compact('jenisSurats', 'wargas'));
     }
 
-    public function reprint(PengajuanSurat $pengajuanSurat)
-    {
-        $this->authorize('admin_desa_access'); // Memerlukan Gate 'create-surat-request'
-        
+    public function reprint(string $subdomain, PengajuanSurat $pengajuanSurat)
+    {        
         $user = Auth::user();
         // Cek hak akses untuk membuat pengajuan surat (Admin RT ke atas)
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() ) {
@@ -126,29 +121,48 @@ class PengajuanSuratController extends Controller
         }
         $processedContent = str_replace(array_keys($dataToReplace), array_values($dataToReplace), $pengajuanSurat->jenisSurat->isi_template);
 
+        $kopSuratBase64 = null;
 
-        // Generate PDF dengan flag 'isReprint'
+        if ($suratSetting->path_kop_surat) {
+            $path = public_path('storage/' . $suratSetting->path_kop_surat);
+            if (file_exists($path)) {
+                $type = mime_content_type($path);
+                $data = base64_encode(file_get_contents($path));
+                $kopSuratBase64 = "data:$type;base64,$data";
+            }
+        }
+        $ttdBase64 = null;
+        if ($suratSetting->path_ttd) {
+            $path = public_path('storage/' . $suratSetting->path_ttd);
+            if (file_exists($path)) {
+                $type = mime_content_type($path);
+                $data = base64_encode(file_get_contents($path));
+                $ttdBase64 = "data:$type;base64,$data";
+            }
+        }
+        // 4. Generate PDF
         $pdf = Pdf::loadView('admin_desa.pengajuan_surat.cetak', [
             'suratSetting' => $suratSetting,
             'pengajuanSurat' => $pengajuanSurat,
             'processedContent' => $processedContent,
             'desa' => $desa,
-            'isReprint' => true, // <-- Flag untuk cetak ulang
+            'kopSuratBase64' => $kopSuratBase64,
+            'ttdBase64' => $ttdBase64,
+            'isReprint' => true,
         ]);
 
         $fileName = 'arsip-surat-' . \Illuminate\Support\Str::slug($pengajuanSurat->jenisSurat->nama_surat) . '.pdf';
         return $pdf->stream($fileName);
     }
 
-    public function store(Request $request)
-    {
-        $this->authorize('create-surat-request');
-        
+    public function store(Request $request, string $subdomain)
+    { 
         $validated = $request->validate([
             'warga_id' => 'required|exists:wargas,id',
             'jenis_surat_id' => 'required|exists:jenis_surats,id',
             'persyaratan_terpenuhi' => 'nullable|array',
             'custom_fields' => 'nullable|array',
+            
         ]);
 
         // Tentukan jalur pengajuan berdasarkan role user
@@ -170,16 +184,15 @@ class PengajuanSuratController extends Controller
         return redirect()->route('pengajuan-surat.index')->with('success', 'Pengajuan surat berhasil dibuat.');
     }
 
-    public function show(PengajuanSurat $pengajuanSurat)
+    public function show(string $subdomain, PengajuanSurat $pengajuanSurat)
     {
-        $this->authorize('admin_desa_access');
         // Eager load relasi yang dibutuhkan
         $pengajuanSurat->load(['warga', 'jenisSurat', 'diajukanOleh']);
 
         return view('admin_desa.pengajuan_surat.show', compact('pengajuanSurat'));
     }
     // Method untuk API
-    public function getJenisSuratDetails(JenisSurat $jenisSurat)
+    public function getJenisSuratDetails(string $subdomain, JenisSurat $jenisSurat)
     {
         return response()->json([
             'persyaratan' => $jenisSurat->persyaratan ?? [],
@@ -187,9 +200,8 @@ class PengajuanSuratController extends Controller
         ]);
     }
 
-    public function approveAndPrint(PengajuanSurat $pengajuanSurat)
+    public function approveAndPrint(string $subdomain, PengajuanSurat $pengajuanSurat)
     {
-        $this->authorize('admin_desa_access');
         // 1. Generate Nomor Surat (LOGIKA BARU YANG LEBIH AMAN)
         $tahun = date('Y');
         $klasifikasiKode = $pengajuanSurat->jenisSurat->klasifikasi->kode;
@@ -250,13 +262,35 @@ class PengajuanSuratController extends Controller
         foreach ($dataToReplace as $variable => $value) {
             $processedContent = str_replace($variable, "{$value}", $processedContent);
         }
+        
+        $kopSuratBase64 = null;
 
+        if ($suratSetting->path_kop_surat) {
+            $path = public_path('storage/' . $suratSetting->path_kop_surat);
+            if (file_exists($path)) {
+                $type = mime_content_type($path);
+                $data = base64_encode(file_get_contents($path));
+                $kopSuratBase64 = "data:$type;base64,$data";
+            }
+        }
+
+        $ttdBase64 = null;
+        if ($suratSetting->path_ttd) {
+            $path = public_path('storage/' . $suratSetting->path_ttd);
+            if (file_exists($path)) {
+                $type = mime_content_type($path);
+                $data = base64_encode(file_get_contents($path));
+                $ttdBase64 = "data:$type;base64,$data";
+            }
+        }
         // 4. Generate PDF
         $pdf = Pdf::loadView('admin_desa.pengajuan_surat.cetak', [
             'suratSetting' => $suratSetting,
             'pengajuanSurat' => $pengajuanSurat,
             'processedContent' => $processedContent,
             'desa' => $desa,
+            'kopSuratBase64' => $kopSuratBase64,
+            'ttdBase64' => $ttdBase64,
         ]);
 
         $fileName = 'surat-' . \Illuminate\Support\Str::slug($pengajuanSurat->jenisSurat->nama_surat) . '-' . \Illuminate\Support\Str::slug($warga->nama_lengkap) . '.pdf';
@@ -265,9 +299,8 @@ class PengajuanSuratController extends Controller
         return $pdf->stream($fileName);
     }
 
-    public function reject(Request $request, PengajuanSurat $pengajuanSurat)
+    public function reject(Request $request, string $subdomain, PengajuanSurat $pengajuanSurat)
     {
-        $this->authorize('admin_desa_access');
         $request->validate([
             'catatan_penolakan' => 'required|string|max:500',
         ]);
@@ -298,9 +331,8 @@ class PengajuanSuratController extends Controller
         return $returnValue;
     }
 
-    public function generatePengantar(Request $request)
+    public function generatePengantar(Request $request, string $subdomain)
     {
-        $this->authorize('create-surat-request');
         $data = $request->validate([
             'warga_id' => 'required|exists:wargas,id',
             'keperluan' => 'required|string',

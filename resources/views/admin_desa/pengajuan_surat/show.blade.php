@@ -38,7 +38,7 @@
                     </tr>
                     <tr>
                         <th>Diajukan Oleh</th>
-                        <td>{{ $pengajuanSurat->diajukanOleh->name }} ({{ $pengajuanSurat->diajukanOleh->user_type }})
+                        <td>{{ $pengajuanSurat->diajukanOleh->name ?? "" }} ({{ $pengajuanSurat->diajukanOleh->user_type ?? ""}})
                         </td>
                     </tr>
                 </table>

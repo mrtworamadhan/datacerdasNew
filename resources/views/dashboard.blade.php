@@ -27,9 +27,9 @@
             <div class="card">
                 <div class="card-body">
                     <p class="mb-0">Selamat datang di Dashboard Desa Cerdas!</p>
-                    <p>Anda login sebagai **{{ Auth::user()->name }}** ({{ ucfirst(str_replace('_', ' ', Auth::user()->user_type)) }}).</p>
+                    <p>Anda login sebagai {{ Auth::user()->name }} ({{ ucfirst(str_replace('_', ' ', Auth::user()->user_type)) }}).</p>
                     @if(Auth::user()->desa)
-                        <p>Desa Anda: **{{ Auth::user()->desa->nama_desa }}**</p>
+                        <p>Desa Anda: Desa {{ Auth::user()->desa->nama_desa }}</p>
                         <p>Status Langganan Desa: 
                             @php
                                 $badgeClass = 'secondary';

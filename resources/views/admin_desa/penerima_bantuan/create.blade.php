@@ -167,7 +167,6 @@
                         @endif
                     @endif
                 </div>
-
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Ajukan Penerima Bantuan</button>
@@ -177,12 +176,12 @@
     </div>
 @endsection
 
-@section('css')
+@push('css')
     {{-- Select2 CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {{-- Select2 Bootstrap 5 Theme CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
-@stop
+@endpush
 
 @section('js')
     {{-- Select2 JS --}}
@@ -192,25 +191,16 @@
             // Inisialisasi Select2 untuk dropdown warga (AJAX Search)
             $('#warga_ids').select2({
                 theme: 'bootstrap-5',
-                placeholder: "-- Ketik NIK atau Nama Warga --",
-                allowClear: true,
+                placeholder: "Ketik Nama atau NIK Warga...",
                 minimumInputLength: 3,
                 ajax: {
-                    url: "{{ route('search.penerimaWarga') }}",
+                    url: "{{ route('search.warga', ['subdomain' => app('tenant')->subdomain]) }}",
                     dataType: 'json',
                     delay: 250,
-                    data: function(params) {
-                        return {
-                            term: params.term, // Query pencarian
-                            kategori_id: {{ $kategoriBantuan->id }} // Kirim ID kategori bantuan
-                        };
-                    },
-                    processResults: function(data) {
-                        return { results: data.results };
-                    },
-                    cache: true
+                    processResults: data => ({ results: data.results }),
                 }
             });
+
 
             // Inisialisasi Select2 untuk dropdown Kartu Keluarga (AJAX Search)
             $('#kartu_keluarga_ids').select2({
@@ -219,7 +209,7 @@
                 allowClear: true,
                 minimumInputLength: 3,
                 ajax: {
-                    url: "{{ route('search.kk') }}",
+                    url: "{{ route('search.kk', ['subdomain' => app('tenant')->subdomain]) }}",
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {

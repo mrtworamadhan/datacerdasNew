@@ -16,7 +16,7 @@ class KartuKeluargaController extends Controller
     /**
      * Display a listing of the Kartu Keluarga for the current desa.
      */
-    public function index()
+    public function index(string $subdomain)
     {
         $user = Auth::user();
         // Check if user has permission to access this module at all
@@ -32,7 +32,7 @@ class KartuKeluargaController extends Controller
     /**
      * Show the form for creating a new Kartu Keluarga.
      */
-    public function create()
+    public function create(string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -46,9 +46,9 @@ class KartuKeluargaController extends Controller
         $klasifikasiOptions = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
         $jenisKelaminOptions = ['Laki-laki', 'Perempuan'];
         $agamaOptions = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
-        $statusPerkawinanOptions = ['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'];
+        $statusPerkawinanOptions = ['BELUM KAWIN', 'KAWIN TERCATAT', 'KAWIN BLM TERCATAT', 'CERAI MATI', 'CERAI HIDUP', 'CERAI BLM TERCATAT'];
         $pekerjaanOptions = [
-            'Belum / Tidak Bekerja', 'Mengurus Rumah Tangga', 'Pelajar / Mahasiswa', 'Pensiunan',
+            'BLm Bekerja', 'Mengurus Rumah Tangga', 'Pelajar / Mahasiswa', 'Pensiunan',
             'Pegawai Negeri Sipil', 'Tentara Nasional Indonesia', 'Kepolisian RI', 'Perdagangan',
             'Petani / Pekebun', 'Peternak', 'Nelayan / Perikanan', 'Industri', 'Konstruksi',
             'Transportasi', 'Karyawan Swasta', 'Karyawan BUMN', 'Karyawan BUMD', 'Karyawan Honorer',
@@ -69,11 +69,12 @@ class KartuKeluargaController extends Controller
             'Chef', 'Manajer', 'Tenaga Tata Usaha', 'Operator', 'Pekerja Pengolahan, Kerajinan',
             'Teknisi', 'Asisten Ahli', 'Lainnya'
         ];
-        $pendidikanOptions = ['Tidak/Belum Sekolah', 'SD', 'SMP', 'SMA', 'S1', 'S2', 'S3'];
+        $pendidikanOptions = ['BLM SEKOLAH','BLM TAMAT SD', 'SD', 'SLTP', 'SLTA', 'DIPLOMA I/II', 'DIPLOMA IV/STRATA I', 'STRATA II', 'STRATA III'];
         $kewarganegaraanOptions = ['WNI', 'WNA'];
         $golonganDarahOptions = ['A', 'B', 'AB', 'O', '-'];
         $hubunganKeluargaOptions = ['Kepala Keluarga','Anak', 'Cucu', 'Istri', 'Menantu', 'Suami', 'Saudara', 'Kakak', 'Adik', 'Lainnya'];
         $statusKependudukanOptions = ['Warga Asli', 'Pendatang', 'Sementara', 'Pindah', 'Meninggal'];
+        $statusKhususOptions = ['Disabilitas', 'Lansia', 'Ibu Hamil', 'Balita', 'Penerima PKH', 'Penerima BPNT', 'Lainnya'];
 
         return view('admin_desa.kartu_keluarga.create', compact(
             'rws', 'rts', 'klasifikasiOptions', 'jenisKelaminOptions', 'agamaOptions',
@@ -85,7 +86,7 @@ class KartuKeluargaController extends Controller
     /**
      * Store a newly created Kartu Keluarga and its Kepala Keluarga.
      */
-    public function store(Request $request)
+    public function store(Request $request,string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
@@ -164,7 +165,7 @@ class KartuKeluargaController extends Controller
     /**
      * Show the form for editing the specified Kartu Keluarga.
      */
-    public function edit(KartuKeluarga $kartuKeluarga)
+    public function edit(string $subdomain, KartuKeluarga $kartuKeluarga)
     {
         $user = Auth::user();
         // Global scope should handle filtering. This is a safeguard.
@@ -175,9 +176,7 @@ class KartuKeluargaController extends Controller
         } elseif ($user->isAdminRt() && ($kartuKeluarga->rt_id !== $user->rt_id || $kartuKeluarga->rw_id !== $user->rw_id || $kartuKeluarga->desa_id !== $user->desa_id)) {
             abort(403, 'Kartu Keluarga ini bukan milik wilayah RT Anda.');
         }
-        // Super Admin has full access.
 
-        // Ambil RW dan RT sesuai scope user yang login
         $rws = RW::all();
         $rts = RT::where('rw_id', $kartuKeluarga->rw_id)->get(); 
 
@@ -204,7 +203,7 @@ class KartuKeluargaController extends Controller
             'Chef', 'Manajer', 'Tenaga Tata Usaha', 'Operator', 'Pekerja Pengolahan, Kerajinan',
             'Teknisi', 'Asisten Ahli', 'Lainnya'
         ];
-        $pendidikanOptions = ['Tidak/Belum Sekolah', 'SD', 'SMP', 'SMA', 'S1', 'S2', 'S3'];
+        $pendidikanOptions = ['BLM SEKOLAH','BLM TAMAT SD', 'SD', 'SLTP', 'SLTA', 'DIPLOMA I/II', 'DIPLOMA IV/STRATA I', 'STRATA II', 'STRATA III'];
         
         return view('admin_desa.kartu_keluarga.edit', compact(
             'kartuKeluarga', 'rws', 'rts', 'klasifikasiOptions', 'pekerjaanOptions', 'pendidikanOptions'
@@ -214,7 +213,7 @@ class KartuKeluargaController extends Controller
     /**
      * Update the specified Kartu Keluarga.
      */
-    public function update(Request $request, KartuKeluarga $kartuKeluarga)
+    public function update(Request $request, string $subdomain, KartuKeluarga $kartuKeluarga)
     {
         $user = Auth::user();
         // Global scope should handle filtering. This is a safeguard.
@@ -249,7 +248,7 @@ class KartuKeluargaController extends Controller
     /**
      * Remove the specified Kartu Keluarga.
      */
-    public function destroy(KartuKeluarga $kartuKeluarga)
+    public function destroy(string $subdomain, KartuKeluarga $kartuKeluarga)
     {
         $user = Auth::user();
             // Check if user has permission to access this module at all
@@ -274,7 +273,7 @@ class KartuKeluargaController extends Controller
     /**
      * Get RTs by RW ID for dynamic dropdowns.
      */
-    public function getRtsByRw(Request $request)
+    public function getRtsByRw(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt() || !$user->desa_id) {
@@ -298,7 +297,7 @@ class KartuKeluargaController extends Controller
     /**
      * Search Kartu Keluarga by nomor_kk or nama_kepala_keluarga for AJAX Select2.
      */
-    public function searchKk(Request $request)
+    public function searchKk(Request $request, string $subdomain)
     {
         $user = Auth::user();
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {

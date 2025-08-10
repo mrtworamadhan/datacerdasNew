@@ -66,28 +66,36 @@
                         <div class="card-header">
                             <h5 class="card-title">Generate Akun Kader Posyandu</h5>
                         </div>
+                        {{-- Arahkan action ke route yang benar --}}
                         <form action="{{ route('admin_desa.user_management.generate_kaders') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="rw_id_for_kader">Pilih RW untuk Akun Kader</label>
-                                    <select name="rw_id_for_kader" class="form-control @error('rw_id_for_kader') is-invalid @enderror" id="rw_id_for_kader" required>
-                                        <option value="">-- Pilih RW --</option>
-                                        @foreach($rws as $rw)
+                                    {{-- Ganti label dari RW menjadi Posyandu --}}
+                                    <label for="posyandu_id">Pilih Posyandu untuk Akun Kader</label>
+                                    
+                                    {{-- Sesuaikan nama input dan error handling --}}
+                                    <select name="posyandu_id" class="form-control @error('posyandu_id') is-invalid @enderror" id="posyandu_id" required>
+                                        <option value="">-- Pilih Posyandu --</option>
+                                        
+                                        {{-- Loop sekarang menggunakan variabel $posyandus --}}
+                                        @foreach($posyandus as $posyandu)
                                             @php
-                                                $hasKader = $rwsWithKader->contains('id', $rw->id);
+                                                // Cek apakah posyandu ini sudah punya kader
+                                                $hasKader = $posyandusWithKader->contains($posyandu->id);
                                             @endphp
-                                            <option value="{{ $rw->id }}" 
-                                                {{ old('rw_id_for_kader') == $rw->id ? 'selected' : '' }}
-                                                {{ $hasKader ? 'disabled' : '' }}
-                                            >
-                                                RW {{ $rw->nomor_rw }} 
-                                                @if($hasKader) (Sudah ada Kader) @endif
+                                            <option value="{{ $posyandu->id }}" 
+                                                {{ old('posyandu_id') == $posyandu->id ? 'selected' : '' }}
+                                                {{ $hasKader ? 'disabled' : '' }}>
+                                                {{-- Tampilkan Nama Posyandu dan RW-nya --}}
+                                                {{ $posyandu->nama_posyandu }} (RW {{ $posyandu->rws->nomor_rw ?? 'N/A' }})
+                                                @if($hasKader) (Sudah ada Akun) @endif
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('rw_id_for_kader') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                                    <small class="form-text text-muted">Satu RW hanya boleh memiliki satu akun Kader Posyandu.</small>
+
+                                    @error('posyandu_id') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                    <small class="form-text text-muted">Satu Posyandu hanya boleh memiliki satu akun Kader.</small>
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -138,7 +146,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Akun yang Baru Digenerate/Diperbarui</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>

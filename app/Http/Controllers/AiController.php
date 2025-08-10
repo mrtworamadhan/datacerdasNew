@@ -9,57 +9,102 @@ use Illuminate\Http\Client\ConnectionException; // <-- Tambahkan ini
 
 class AiController extends Controller
 {
-    public function generateReportText(Request $request)
+    public function generateReportText(Request $request, string $subdomain,)
     {
         try {
-            $validated = $request->validate([
-            'context' => 'required|string',
-            'section' => 'required|string',
-            'nama_lembaga' => 'required|string',
-            'nama_desa' => 'required|string',
-            'lokasi_kegiatan' =>'required|string',
-            'anggaran' =>'required|string',
-            'tanggal' =>'required|string',
-        ]);
+            // --- PERBAIKAN UTAMA: VALIDASI DINAMIS ---
+            $section = $request->input('section');
 
+            // Aturan validasi dasar yang berlaku untuk semua
+            $baseRules = [
+                'context' => 'required|string',
+                'section' => 'required|string',
+                'penyelenggara_nama' => 'required|string',
+                'nama_desa' => 'required|string',
+            ];
+
+            $additionalRules = [];
+            // Tentukan aturan tambahan berdasarkan section
+            if (str_contains(strtolower($section), 'lpj') || str_contains(strtolower($section), 'hasil') || str_contains(strtolower($section), 'evaluasi') || str_contains(strtolower($section), 'rekomendasi')) {
+                // Untuk semua section LPJ (e.g., 'Latar Belakang LPJ', 'Hasil Kegiatan')
+                $additionalRules = [
+                    'original_text' => 'nullable|string',
+                ];
+            } else {
+                // Untuk semua section Proposal (default)
+                $additionalRules = [
+                    'lokasi_kegiatan' => 'required|string',
+                    'anggaran' => 'nullable|string',
+                    'tanggal' => 'required|string',
+                ];
+            }
+            
+            // Gabungkan dan jalankan validasi
+            $validated = $request->validate(array_merge($baseRules, $additionalRules));
+            
             $context = $validated['context'];
-            $section = $validated['section'];
-            $namaLembaga = $validated['nama_lembaga'];
+            $namaPenyelenggara = $validated['penyelenggara_nama'];
             $namaDesa = $validated['nama_desa'];
-            $lokasiKegiatan = $validated['lokasi_kegiatan'];
-            $anggaran = $validated['anggaran'];
-            $tanggal = $validated['tanggal'];
+            $lokasiKegiatan = $validated['lokasi_kegiatan'] ?? 'tidak disebutkan';
+            $anggaran = $validated['anggaran'] ?? 'tidak ditentukan';
+            $tanggal = $validated['tanggal'] ?? 'tidak ditentukan';
+            $originalText = $validated['original_text'] ?? '';
             $prompt = "";
 
             // PERUBAHAN: Prompt yang lebih spesifik
             switch ($section) {
                 case 'Latar Belakang':
-                    $prompt = "Buatkan narasi untuk bagian 'Latar Belakang' dari sebuah laporan pertanggungjawaban bernama '{$context}'. 
+                    $prompt = "Buatkan narasi untuk bagian 'Latar Belakang' dari sebuah proposal pertanggungjawaban bernama '{$context}'. 
                     minimal 1 halaman ukuran 1 4 dengan 5 paragraf, 
-                    dengan menyebutkan di dalamnya nama desa '{$namaDesa}' kegiatan ini dilaksanakan oleh '{$namaLembaga}'. 
+                    dengan menyebutkan di dalamnya nama desa '{$namaDesa}' kegiatan ini dilaksanakan oleh '{$namaPenyelenggara}'. 
                     buatkan tanpa membuat format bold dan lain sebagainya, gunakan bahasa resmi dan text resmi.";
                     break;
+                case 'Latar Belakang LPJ':
+                    $originalText = $request->input('original_text');
+                    $prompt = "Anda adalah seorang penulis laporan profesional. Tugas Anda adalah menulis ulang (rewrite) teks 
+                    'Latar Belakang' dari sebuah proposal menjadi narasi untuk Laporan Pertanggungjawaban (LPJ). 
+                    Ubah bahasanya menjadi bentuk lampau (past tense) dan fokus pada apa yang telah melatarbelakangi terlaksananya kegiatan. 
+                    Jangan gunakan markdown.\n\nTEKS PROPOSAL ASLI:\n\"{$originalText}\"\n\nTEKS LPJ HASIL REWRITE:";
+                    break;
                 case 'Tujuan Kegiatan':
-                    $prompt = "Buatkan poin pin untuk bagian 'Tujuan Kegiatan' dari sebuah laporan kegiatan bernama '{$context}'. 
+                    $prompt = "Buatkan poin pin untuk bagian 'Tujuan Kegiatan' dari sebuah proposal kegiatan bernama '{$context}'. 
                     Hasilnya harus dalam format daftar bernomor (numbered list) yang jelas dan ringkas. 
                     buatkan tanpa membuat format bold dan lain sebagainya, gunakan bahasa resmi dan text resmi.berikan respon tanpa kata kata pembuka dan penutup dari mu.";
                     break;
                 case 'Deskripsi Kegiatan':
-                    $prompt = "Buatkan narasi deskripsi yang panjang dan detail untuk bagian 'Deskripsi Lengkap Kegiatan' dari sebuah laporan pertanggungjawaban 
-                    bernama '{$context}'. yang dilaksanakan oleh '{$namaLembaga}' desa '{$namaDesa}' berlokasi di '{$lokasiKegiatan}' 
+                    $prompt = "Buatkan narasi deskripsi yang panjang dan detail untuk bagian 'Deskripsi Lengkap Kegiatan' dari sebuah proposal 
+                    bernama '{$context}'. yang dilaksanakan oleh '{$namaPenyelenggara}' desa '{$namaDesa}' berlokasi di '{$lokasiKegiatan}', pada tanggal '{$tanggal}'. 
                     Jelaskan kemungkinan urutan acara dari awal hingga akhir. 
                     buatkan tanpa membuat format bold dan lain sebagainya, gunakan bahasa resmi dan text resmi.berikan respon tanpa kata kata pembuka dan penutup dari mu.";
                     break;
                 case 'Rincian Anggaran':
-                    $prompt = "Buatkan laporan keuangan dalam bentuk tabel dalam sebuah laporan pertanggungjawaban kegiatan. 
-                    Nama kegiatannya adalah '{$context}'. dengan jumlah anggaran '{$anggaran}' dengan saldo 0. 
+                    $prompt = "Buatkan Rencana Anggaran Biaya dalam bentuk tabel dalam sebuah proposal kegiatan. 
+                    Nama kegiatannya adalah '{$context}'. dengan jumlah anggaran '{$anggaran}'. 
                     Hasilnya berupa rincian dengan nomor urut, keterangan, satuan, harga, jumlah contoh: 1. Pembuatan Banner, 25.000, 3m, 75.000.
                     jangan gunakan tabel, gunakan (numbered list). berikan respon tanpa kata kata pembuka dan penutup dari mu. jangan gunakan font bold. gunakan font resmi saja.
-                    acara berlangsung pada '{$tanggal}'";
+                    ";
+                    break;
+                case 'Hasil Kegiatan':
+                    $originalText = $request->input('original_text');
+                    $prompt = "Anda adalah seorang penulis laporan profesional. Tugas Anda adalah menulis ulang (rewrite) teks 
+                    'Deskripsi Kegiatan' dari sebuah proposal menjadi narasi untuk Laporan Pertanggungjawaban (LPJ). 
+                    Ubah bahasanya menjadi bentuk lampau (past tense) dan fokus pada apa yang telah dilakukan pada kegiatan ini. 
+                    Jangan gunakan markdown.\n\nTEKS PROPOSAL ASLI:\n\"{$originalText}\"\n\nTEKS LPJ HASIL REWRITE. buatkan tanpa membuat format bold dan lain sebagainya, gunakan bahasa resmi dan text resmi.berikan respon tanpa kata kata pembuka dan penutup dari mu.";
+                    break;
+                case 'Evaluasi Kendala':
+                    $originalText = $request->input('original_text');
+                    $prompt = "Anda adalah seorang penulis laporan profesional. Tugas anda adalah menulis, Evaluasi dari kegiatan yang telah dilaksanakan,
+                    dengan memperhatikan tujuan kegiatan berikut {$originalText}, dan deskripsi kegiatan yang dilaksanakan {$originalText}.
+                    Jangan gunakan markdown. buatkan tanpa membuat format bold dan lain sebagainya, gunakan bahasa resmi dan text resmi.berikan respon tanpa kata kata pembuka dan penutup dari mu.";
+                    break;
+                case 'Rekomendasi Kegiatan':
+                    $prompt = "Anda adalah seorang penulis laporan profesional. Tugas anda adalah menulis 2 paragraph, paragraph pertama adalah Rekomendasi atau saran dari kegiatan yang telah dilaksanakan,
+                    kegiatan ini bernama '{$context}'. dan paragraph kedua adalah penutup dari sebuah Laporan Pertanggung Jawaban dari kegiatan tersebut. Jangan gunakan markdown.
+                    buatkan tanpa membuat format bold dan lain sebagainya, gunakan bahasa resmi dan text resmi.berikan respon tanpa kata kata pembuka dan penutup dari mu.";
                     break;
                 default:
-                    $prompt = "Buatkan narasi untuk bagian '{$section}' dalam sebuah laporan pertanggungjawaban kegiatan. Nama kegiatannya adalah '{$context}', 
-                    diselenggarakan oleh {$namaLembaga} di Desa {$namaDesa}. Gunakan bahasa Indonesia yang formal, baku, dan jelas. tidak usah ada tambahan salam dadn tanda tangan,
+                    $prompt = "Buatkan narasi untuk bagian '{$section}' dalam sebuah proposal kegiatan. Nama kegiatannya adalah '{$context}', 
+                    diselenggarakan oleh {$namaPenyelenggara} di Desa {$namaDesa}. Gunakan bahasa Indonesia yang formal, baku, dan jelas. tidak usah ada tambahan salam dadn tanda tangan,
                     cukup hanya paragraf penutup.berikan respon tanpa kata kata pembuka dan penutup dari mu.";
                     break;
                     

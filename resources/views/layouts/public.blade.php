@@ -49,48 +49,6 @@
             padding-top: 72px;
         }
 
-        .hero-section {
-            background-image: url('{{ asset(' images/welcome/bg-hero.png') }}');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            min-height: 450px;
-
-        }
-
-        .overlay {
-            background-color: rgba(41, 41, 41, 0.67);
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 1rem;
-            /* default padding kecil */
-            box-sizing: border-box;
-        }
-
-        @media (min-width: 640px) {
-            .overlay {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .overlay {
-                padding-left: 5%;
-                padding-right: 5%;
-            }
-        }
-
-        .hero-content {
-            max-width: 4xl;
-            text-align: left;
-            color: white;
-            z-index: 10;
-        }
-
 
         .card-shadow {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -109,6 +67,8 @@
             margin-right: 12px;
         }
     </style>
+    @stack('css')
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
 <body class="antialiased">

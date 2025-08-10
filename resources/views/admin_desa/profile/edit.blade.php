@@ -11,7 +11,7 @@
         <div class="card-header">
             <h3 class="card-title">Edit Profil Desa Anda ({{ $desa->nama_desa }})</h3>
         </div>
-        <form action="{{ route('admin_desa.profile.update') }}" method="POST">
+        <form action="{{ route('admin_desa.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-body">
@@ -95,6 +95,56 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                <h5>Pengaturan Halaman Sambutan Publik</h5>
+
+                <div class="form-group">
+                    <label for="sambutan_kades">Teks Sambutan Kepala Desa</label>
+                    <textarea name="sambutan_kades" class="form-control" rows="5"
+                        placeholder="Tuliskan kata sambutan singkat untuk ditampilkan di halaman utama desa...">{{ old('sambutan_kades', $desa->sambutan_kades) }}</textarea>
+                    <small class="form-text text-muted">Teks ini akan muncul di bawah nama desa pada halaman profil
+                        publik.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="foto_kades_path">Upload Foto Kepala Desa</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="foto_kades_path" name="foto_kades_path">
+                            <label class="custom-file-label" for="foto_kades_path">Pilih file gambar...</label>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Gunakan foto formal. Jika sudah ada, mengunggah file baru akan
+                        menggantikan yang lama.</small>
+
+                    {{-- Tampilkan foto yang sudah ada --}}
+                    @if($desa->foto_kades_path)
+                        <div class="mt-2">
+                            <p>Foto saat ini:</p>
+                            <img src="{{ asset('storage/' . $desa->foto_kades_path) }}" alt="Foto Kepala Desa"
+                                class="img-thumbnail" style="max-width: 200px;">
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="path_logo">Upload Foto Kepala Desa</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="path_logo" name="path_logo">
+                            <label class="custom-file-label" for="path_logo">Pilih file gambar...</label>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Gunakan format png transparan</small>
+
+                    {{-- Tampilkan foto yang sudah ada --}}
+                    @if($desa->path_logo)
+                        <div class="mt-2">
+                            <p>Foto saat ini:</p>
+                            <img src="{{ asset('storage/' . $desa->path_logo) }}" alt="Foto Kepala Desa"
+                                class="img-thumbnail" style="max-width: 200px;">
+                        </div>
+                    @endif
+                </div>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Simpan Profil Desa</button>
@@ -104,3 +154,14 @@
 
     {{-- Bagian untuk menampilkan generated_accounts dihapus dari sini --}}
 @endsection
+@push('js')
+<script>
+    // Script untuk menampilkan nama file di custom file input
+    $('.custom-file-input').on('change', function() {
+        // Ambil nama file dari path lengkapnya
+        let fileName = $(this).val().split('\\').pop(); 
+        // Tampilkan nama file tersebut di label di sebelahnya
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+</script>
+@endpush

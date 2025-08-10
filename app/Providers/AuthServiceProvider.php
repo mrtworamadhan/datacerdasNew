@@ -22,38 +22,30 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Gate 'is_super_admin': Hanya Super Admin
+        // Gate ini sekarang HANYA untuk Super Admin. Sangat jelas.
         Gate::define('is_super_admin', function (User $user) {
-            return $user->user_type === 'super_admin';
+            return $user->isSuperAdmin();
         });
 
-        // Gate 'admin_desa_access': Super Admin atau Admin Desa
+        // Gate ini sekarang HANYA untuk Admin Desa. Tidak ada lagi || super_admin.
         Gate::define('admin_desa_access', function (User $user) {
-            return $user->user_type === 'admin_desa' || $user->user_type === 'super_admin';
+            return $user->isAdminDesa();
         });
 
-        // Gate 'admin_rw_access': Super Admin, Admin Desa, atau Admin RW
+        // Gate ini sekarang lebih sederhana.
         Gate::define('admin_rw_access', function (User $user) {
-            return $user->user_type === 'admin_rw' || $user->user_type === 'admin_desa' || $user->user_type === 'super_admin';
+            return $user->isAdminDesa() || $user->isAdminRw();
         });
 
-        // Gate 'admin_rt_access': Super Admin, Admin Desa, Admin RW, atau Admin RT
+        // Gate ini juga menjadi lebih sederhana.
         Gate::define('admin_rt_access', function (User $user) {
-            return $user->user_type === 'admin_rt' || $user->user_type === 'admin_rw' || $user->user_type === 'admin_desa' || $user->user_type === 'super_admin';
+            return $user->isAdminDesa() || $user->isAdminRw() || $user->isAdminRt();
         });
 
-        Gate::define('create-surat-request', function (User $user) {
-            return $user->user_type === 'admin_rt' || $user->user_type === 'admin_rw' || $user->user_type === 'admin_desa' || $user->user_type === 'super_admin';
-        });
-
-        // Gate 'kader_posyandu_access': Super Admin, Admin Desa, Admin RW, Admin RT, atau Kader Posyandu
+        // Gate untuk Kader Posyandu
         Gate::define('kader_posyandu_access', function (User $user) {
-            return $user->user_type === 'kader_posyandu' || $user->user_type === 'admin_rt' || $user->user_type === 'admin_rw' || $user->user_type === 'admin_desa' || $user->user_type === 'super_admin';
-        });
-
-        // Gate 'auth': User terautentikasi (seharusnya sudah otomatis oleh AdminLTE, tapi bisa didaftarkan juga)
-        Gate::define('auth', function (User $user) {
-            return true;
+            // Admin Desa kita anggap bisa mengakses menu kader juga
+            return $user->isKaderPosyandu() || $user->isAdminDesa();
         });
     }
 }

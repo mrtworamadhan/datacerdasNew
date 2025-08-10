@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('agama');
-            $table->enum('status_perkawinan', ['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati']);
+            $table->enum('status_perkawinan', ['BELUM KAWIN', 'KAWIN TERCATAT', 'KAWIN BLM TERCATAT', 'CERAI MATI', 'CERAI HIDUP', 'CERAI BLM TERCATAT']);
             $table->string('pekerjaan'); // Akan jadi FK ke master_pekerjaan nanti
             $table->string('kewarganegaraan'); // Akan jadi FK ke master_kewarganegaraan nanti
             $table->string('golongan_darah')->nullable(); // Akan jadi FK ke master_golongan_darah nanti

@@ -68,7 +68,13 @@
                     <div class="mt-5" style="width: 40%; float: right; text-align: center;">
                          <p>Desa Contoh, {{ \Carbon\Carbon::now()->translatedFormat("d F Y") }}</p>
                          <p>{{ $suratSetting->penanda_tangan_jabatan ?? 'Kepala Desa' }}</p>
-                         <br><br><br>
+                         <div class="text-center mb-2 " style="padding-bottom: 5px;">
+                            @if(isset($suratSetting) && $suratSetting->path_ttd)
+                                <img src="{{ asset('storage/' . $suratSetting->path_ttd) }}" alt="Kop Surat" style="max-width: 40%; height: auto;">
+                            @else
+                                <p class="text-muted">[ TTD AKAN TAMPIL DI SINI ]</p>
+                            @endif
+                        </div>
                          <p><strong><u>{{ $suratSetting->penanda_tangan_nama ?? 'Nama Kepala Desa' }}</u></strong></p>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ class Lembaga extends Model
         'nama_lembaga',
         'deskripsi',
         'sk_kepala_desa_path', // Untuk path file PDF
+        'path_kop_surat', // Untuk path file gambar kop surat
     ];
 
     // Relasi ke Desa
@@ -33,6 +34,6 @@ class Lembaga extends Model
 
     public function kegiatans()
     {
-        return $this->hasMany(Kegiatan::class);
+        return $this->morphMany(Kegiatan::class, 'kegiatanable');
     }
 }

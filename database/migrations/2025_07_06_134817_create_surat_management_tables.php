@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('desa_id')->unique()->constrained('desas')->onDelete('cascade');
             $table->string('path_kop_surat')->nullable();
+            $table->string('path_ttd')->nullable();
             $table->string('penanda_tangan_nama')->nullable();
             $table->string('penanda_tangan_jabatan')->nullable();
             $table->timestamps();
@@ -44,14 +45,14 @@ return new class extends Migration {
             $table->foreignId('desa_id')->constrained('desas')->onDelete('cascade');
             $table->foreignId('jenis_surat_id')->constrained('jenis_surats')->onDelete('cascade');
             $table->foreignId('warga_id')->constrained('wargas')->onDelete('cascade');
-            $table->foreignId('diajukan_oleh_user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('diajukan_oleh_user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('status_permohonan')->default('Diajukan');
             $table->string('nomor_surat')->nullable()->unique();
             $table->date('tanggal_pengajuan');
             $table->date('tanggal_selesai')->nullable();
             $table->string('file_pendukung')->nullable();
             $table->json('detail_tambahan')->nullable(); 
-            $table->enum('jalur_pengajuan', ['rt_rw', 'langsung_desa'])->default('langsung_desa');
+            $table->enum('jalur_pengajuan', ['rt_rw', 'langsung_desa', 'mandiri'])->default('langsung_desa');
             $table->string('file_pengantar_rt_rw')->nullable();
             $table->json('persyaratan_terpenuhi')->nullable();
             $table->text('catatan_penolakan')->nullable();

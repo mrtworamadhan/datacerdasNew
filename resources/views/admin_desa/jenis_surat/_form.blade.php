@@ -37,6 +37,16 @@
                     <textarea id="custom_fields_text" name="custom_fields_text" class="form-control" rows="5">{{ old('custom_fields_text', isset($jenisSurat) && is_array($jenisSurat->custom_fields) ? implode("\n", $jenisSurat->custom_fields) : '') }}</textarea>
                     <small class="form-text text-muted">Contoh: Nama Usaha, Alamat Tujuan, dll. Akan menjadi isian tambahan saat pengajuan.</small>
                 </div>
+                {{-- Contoh di dalam form create.blade.php --}}
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        {{-- PERBAIKAN: Gunakan old() dengan default dari $jenisSurat --}}
+                        <input type="checkbox" class="custom-control-input" id="is_mandiri" name="is_mandiri" value="1" 
+                            {{ old('is_mandiri', $jenisSurat->is_mandiri ?? false) ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="is_mandiri">Izinkan Akses di Anjungan Mandiri</label>
+                    </div>
+                    <small class="form-text text-muted">Jika dicentang, warga dapat mencetak surat ini secara mandiri melalui anjungan.</small>
+                </div>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Simpan Template</button>
@@ -70,10 +80,16 @@
                     </div>
                     {{-- Tanda Tangan (Dinamis) --}}
                     <div id="preview-signature" class="mt-2" style="width: 50%; float: right; text-align: left;">
-                         <p class="fs-6 lh-sm mb-0">Desa {{$desa->nama_desa}}, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
-                         <p class="fs-6 lh-sm">{{$suratSetting->penanda_tangan_jabatan}} {{$desa->nama_desa}}</p>
-                         <br><br><br>
-                         <p class="font-weight-bold fs-6 ">{{$suratSetting->penanda_tangan_nama}}</p>
+                        <p class="fs-6 lh-sm mb-0">Desa {{$desa->nama_desa}}, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+                        <p class="fs-6 lh-sm">{{$suratSetting->penanda_tangan_jabatan}} {{$desa->nama_desa}}</p>
+                        <div class="text-center mb-2 " style="padding-bottom: 5px;">
+                            @if(isset($suratSetting) && $suratSetting->path_ttd)
+                                <img src="{{ asset('storage/' . $suratSetting->path_ttd) }}" alt="Kop Surat" style="max-width: 25%; height: auto;">
+                            @else
+                                <p class="text-muted">[ TTD AKAN TAMPIL DI SINI ]</p>
+                            @endif
+                        </div>
+                        <p class="font-weight-bold fs-6 ">{{$suratSetting->penanda_tangan_nama}}</p>
                     </div>
                 </div>
             </div>

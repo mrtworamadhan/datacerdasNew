@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
     {
         // Super Admin
         User::firstOrCreate(
-            ['email' => 'superadmin@tatadesa.id'],
+            ['email' => 'admin@datacerdas.com'],
             [
-                'name' => 'Super Admin TataDesa',
+                'name' => 'Super Admin DataCerdas',
                 'password' => Hash::make('password'),
                 'user_type' => 'super_admin',
                 'desa_id' => null,
@@ -27,64 +27,37 @@ class UserSeeder extends Seeder
 
         // Desa Dummy
         $desa1 = Desa::firstOrCreate(
-            ['nama_desa' => 'Desa Pagelaran'],
+            ['nama_desa' => 'Cerdas'],
             [
+                'subdomain' => 'cerdas',
                 'kecamatan' => 'Ciomas',
                 'kota' => 'Kab Bogor',
                 'provinsi' => 'Jawa Barat',
                 'kode_pos' => '12345',
                 'alamat_desa' => 'Jl. Raya Maju Jaya No. 1',
                 'nama_kades' => 'Ir. Suganda',
-                'jumlah_rw' => 3,
-                'jumlah_rt' => 3,
-                'status_langganan' => 'aktif',
-                'tanggal_mulai_langganan' => now(),
-                'tanggal_akhir_langganan' => now()->addYear(),
-            ]
-        );
-
-        $desa2 = Desa::firstOrCreate(
-            ['nama_desa' => 'Desa Srumpit'],
-            [
-                'kecamatan' => 'Widodaren',
-                'kota' => 'Kab Ngawi',
-                'provinsi' => 'Jawa Timur',
-                'kode_pos' => '54321',
-                'alamat_desa' => 'Jl. Sejahtera Abadi No. 2',
-                'nama_kades' => 'Sri Sulastri,MH',
-                'jumlah_rw' => 2,
-                'jumlah_rt' => 2,
-                'status_langganan' => 'pending',
-                'tanggal_mulai_langganan' => now(),
-                'tanggal_akhir_langganan' => now()->addMonths(6),
+                'subscription_status' => 'aktif',
+                'subscription_ends_at' => now()->addYear(),
             ]
         );
 
         // Admin Desa
         User::firstOrCreate(
-            ['email' => 'admin.pagelaran@tatadesa.id'],
+            ['email' => 'admin.cerdas@datacerdas.com'],
             [
-                'name' => 'Admin Desa Pagelaran',
+                'name' => 'Admin Desa Cerdas',
                 'password' => Hash::make('password'),
                 'user_type' => 'admin_desa',
                 'desa_id' => $desa1->id,
             ]
         );
 
-        User::firstOrCreate(
-            ['email' => 'admin.srumpit@tatadesa.id'],
-            [
-                'name' => 'Admin Desa Srumpit',
-                'password' => Hash::make('password'),
-                'user_type' => 'admin_desa',
-                'desa_id' => $desa2->id,
-            ]
-        );
-
+        $jumlahRW = 3;
+        $jumlahRTPerRW = 3;
         // Buat RW/RT + User RW/RT
-        foreach ([$desa1, $desa2] as $desa) {
+        foreach ([$desa1] as $desa) {
             $slugDesa = Str::slug($desa->nama_desa);
-            for ($i = 1; $i <= $desa->jumlah_rw; $i++) {
+            for ($i = 1; $i <= $jumlahRW; $i++) {
                 $rwNomor = str_pad($i, 2, '0', STR_PAD_LEFT);
                 $rw = RW::firstOrCreate(
                     ['desa_id' => $desa->id, 'nomor_rw' => $rwNomor],
@@ -93,7 +66,7 @@ class UserSeeder extends Seeder
 
                 // Buat User untuk RW
                 User::firstOrCreate(
-                    ['email' => "rw{$rwNomor}_{$slugDesa}@tatadesa.id"],
+                    ['email' => "rw{$rwNomor}.{$slugDesa}@datacerdas.com"],
                     [
                         'name' => "Ketua RW {$rwNomor}",
                         'password' => Hash::make('password'),
@@ -103,7 +76,7 @@ class UserSeeder extends Seeder
                     ]
                 );
 
-                for ($j = 1; $j <= $desa->jumlah_rt; $j++) {
+                for ($j = 1; $j <= $jumlahRTPerRW; $j++) {
                     $rtNomor = str_pad($j, 2, '0', STR_PAD_LEFT);
                     $rt = RT::firstOrCreate(
                         ['desa_id' => $desa->id, 'rw_id' => $rw->id, 'nomor_rt' => $rtNomor],
@@ -112,7 +85,7 @@ class UserSeeder extends Seeder
 
                     // Buat User untuk RT
                     User::firstOrCreate(
-                        ['email' => "{$rwNomor}{$rtNomor}_{$slugDesa}@tatadesa.id"],
+                        ['email' => "rt{$rtNomor}{$rwNomor}.{$slugDesa}@datacerdas.com"],
                         [
                             'name' => "Ketua RT {$rtNomor} RW {$rwNomor}",
                             'password' => Hash::make('password'),
