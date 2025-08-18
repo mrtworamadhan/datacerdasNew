@@ -16,27 +16,23 @@ class KkController extends Controller
     {
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+       
         $kartuKeluarga = KartuKeluarga::with('kepalaKeluarga', 'rw', 'rt')->get();
-        return view('portal.keluarga.index', compact('kartuKeluarga','desa','logo'));
+        return view('portal.keluarga.index', compact('kartuKeluarga','desa'));
     }
 
     public function edit(string $subdomain, KartuKeluarga $kartuKeluarga)
     {
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-        
+                
         $rws = RW::all();
         $rts = RT::where('rw_id', $kartuKeluarga->rw_id)->get(); 
 
         $klasifikasiOptions = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
         
         return view('portal.keluarga.edit', compact(
-            'kartuKeluarga', 'rws', 'rts', 'klasifikasiOptions', 'desa', 'logo'
+            'kartuKeluarga', 'rws', 'rts', 'klasifikasiOptions', 'desa'
         ));
     }
 

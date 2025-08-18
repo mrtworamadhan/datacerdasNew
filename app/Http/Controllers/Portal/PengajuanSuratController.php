@@ -8,6 +8,7 @@ use App\Models\Warga;
 use App\Models\PengajuanSurat;
 use App\Models\SuratSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -17,27 +18,23 @@ class PengajuanSuratController extends Controller
     {
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+        
         $pengajuans = PengajuanSurat::where('diajukan_oleh_user_id', Auth::id())
                                   ->with('warga', 'jenisSurat')
                                   ->latest()
                                   ->paginate(10);
 
-        return view('portal.surat.index', compact('pengajuans', 'desa', 'logo'));
+        return view('portal.surat.index', compact('pengajuans', 'desa'));
     }
     public function create(string $subdomain)
     {
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-        
+                
         $jenisSurats = JenisSurat::orderBy('nama_surat')->get();
         $wargas = Warga::with('kartuKeluarga', 'rt', 'rw')->get();
 
-        return view('portal.surat.pilih_warga', compact('jenisSurats', 'wargas','desa', 'logo'));
+        return view('portal.surat.pilih_warga', compact('jenisSurats', 'wargas','desa'));
     }
 
 
@@ -52,8 +49,6 @@ class PengajuanSuratController extends Controller
         
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
 
         // Di sini nanti kita akan tambahkan logika Middleware Subdomain
         // Untuk sementara, kita filter manual berdasarkan desa pertama
@@ -76,9 +71,7 @@ class PengajuanSuratController extends Controller
         ]);
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+        
         // Ambil data warga yang dipilih
         $warga = Warga::findOrFail($validated['warga_id']);
 
@@ -86,7 +79,7 @@ class PengajuanSuratController extends Controller
         $jenisSurats = JenisSurat::orderBy('nama_surat')->get();
 
         // Kirim data ke view baru
-        return view('portal.surat.pilih_jenis_surat', compact('warga', 'jenisSurats','desa', 'logo'));
+        return view('portal.surat.pilih_jenis_surat', compact('warga', 'jenisSurats','desa'));
     }
 
     public function isiDetail(Request $request, string $subdomain)
@@ -125,13 +118,11 @@ class PengajuanSuratController extends Controller
         }
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+        
         $warga = Warga::findOrFail($request->session()->get('warga_id_mandiri'));
 
         // Kirim data warga dan jenis surat ke view
-        return view('portal.surat.buat_surat', compact('warga', 'jenisSurat', 'desa', 'logo'));
+        return view('portal.surat.buat_surat', compact('warga', 'jenisSurat', 'desa'));
     }
 
     public function store(Request $request, string $subdomain)
@@ -170,6 +161,56 @@ class PengajuanSuratController extends Controller
         // 5. Kembalikan ke halaman riwayat di portal dengan pesan sukses
         return redirect()->route('portal.surat.index', ['subdomain' => $subdomain])
                         ->with('success', 'Pengajuan surat berhasil dibuat dan telah diteruskan ke Admin Desa untuk diproses.');
+    }
+
+    public function buatPengantar(string $subdomain)
+    {
+        $user = Auth::user();
+        $desa = $user->desa; // Ambil desa yang terkait dengan user
+        $wargas = Warga::with('kartuKeluarga', 'rt', 'rw')->get();
+
+        return view('portal.surat.buat_pengantar', compact( 'wargas','desa'));
+    }
+
+    public function generatePengantar(Request $request, string $subdomain)
+    {
+        $data = $request->validate([
+            'warga_id' => 'required|exists:wargas,id',
+            'keperluan' => 'required|string|max:255',
+        ]);
+
+        $user = Auth::user();
+        $warga = Warga::findOrFail($data['warga_id']);
+
+        // Otorisasi: Pastikan RT/RW hanya bisa membuat surat untuk warganya
+        if ($user->isAdminRt() && $warga->rt_id !== $user->rt_id) {
+            abort(403);
+        }
+        if ($user->isAdminRw() && $warga->rw_id !== $user->rw_id) {
+            abort(403);
+        }
+
+        // Kita tidak perlu menyimpan ke database, cukup siapkan data untuk dicetak
+        $pengajuan = new PengajuanSurat($data);
+        $pengajuan->warga = $warga; // Lampirkan data warga ke objek
+        $desa = $warga->desa;
+        $suratSetting = SuratSetting::where('desa_id', $desa->id)->first();
+        $kopSuratBase64 = null;
+        if (!empty($suratSetting->path_logo_pemerintah)) {
+            $imagePath = storage_path('app/public/' . $suratSetting->path_logo_pemerintah);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
+        // Buat nama file yang dinamis agar tidak selalu sama
+        $namaFile = 'Surat-Pengantar-' . Str::slug($warga->nama_lengkap) . '-' . now()->format('Y-m-d') . '.pdf';
+
+        // Generate PDF
+        $pdf = Pdf::loadView('admin_desa.pengajuan_surat.cetak_pengantar', compact('pengajuan', 'desa', 'suratSetting', 'kopSuratBase64'));
+
+        return $pdf->download($namaFile);
     }
 
 }

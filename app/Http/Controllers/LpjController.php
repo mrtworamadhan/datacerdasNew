@@ -169,6 +169,17 @@ class LpjController extends Controller
         $totalRealisasi = $kegiatan->pengeluarans->sum('jumlah');
         $sisaAnggaran = $kegiatan->anggaran_biaya - $totalRealisasi;
 
+        // Buat kop surat base64
+        $kopSuratBase64 = null;
+        if (!empty($penyelenggara->path_kop_surat)) {
+            $imagePath = storage_path('app/public/' . $penyelenggara->path_kop_surat);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
+
         // 4. Siapkan semua data yang akan dikirim ke "cetakan" PDF
         $data = [
             'desa' => $desa,
@@ -180,6 +191,7 @@ class LpjController extends Controller
             'sisaAnggaran' => $sisaAnggaran,
             'terbilangRealisasi' => Terbilang::make($totalRealisasi),
             'tanggalCetak' => now(),
+            'kopSuratBase64' => $kopSuratBase64
         ];
         $data['ketua'] = $penyelenggara->pengurus()->where('jabatan', 'Ketua')->first();
 

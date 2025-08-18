@@ -286,52 +286,7 @@
             allowClear: true
         });
 
-        const rwSelect = $('#rw_id');
-        const rtSelect = $('#rt_id');
-        const initialRwId = rwSelect.val();
-        const initialRtId = "{{ old('rt_id') }}";
-
-        function loadRts(rwId, selectedRtId = null) {
-            rtSelect.empty().append('<option value="">-- Pilih RT --</option>');
-            rtSelect.prop('disabled', true);
-
-            if (rwId) {
-                $.ajax({
-                    url: "{{ route('api.rts-by-rw') }}",
-                    type: 'GET',
-                    data: {
-                        rw_id: rwId
-                    },
-                    success: function(rts) {
-                        rtSelect.html('<option value="">-- Pilih RT --</option>');
-                        $.each(rts, function(key, value) {
-                            rtSelect.append('<option value="' + value.id + '">' + 'RT ' + value.nomor_rt + '</option>');
-                        });
-                        // Pilih RT yang sebelumnya terpilih (dari old input)
-                        if (selectedRtId) {
-                            rtSelect.val(selectedRtId);
-                        }
-                        rtSelect.prop('disabled', false);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error loading RTs:", error);
-                        alert('Gagal memuat data RT. Silakan coba lagi.');
-                        rtSelect.html('<option value="">Gagal memuat RT</option>').prop('disabled', true);
-                    }
-                });
-            } else {
-                rtSelect.html('<option value="">-- Pilih RW Terlebih Dahulu --</option>').prop('disabled', true);
-            }
-        }
-
-        if (initialRwId) {
-            loadRts(initialRwId, initialRtId);
-        }
-
-        rwSelect.on('change', function() {
-            loadRts($(this).val());
-        });
-
+        
         let cropper;
         let rawImageFile;
 

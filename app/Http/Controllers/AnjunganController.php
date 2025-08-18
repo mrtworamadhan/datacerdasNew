@@ -18,7 +18,9 @@ class AnjunganController extends Controller
      */
     public function index(string $subdomain,)
     {
-        return view('anjungan.index');
+        $desa = app('tenant');
+        
+        return view('anjungan.index', compact('desa'));
     }
 
     /**
@@ -185,6 +187,15 @@ class AnjunganController extends Controller
                 $kopSuratBase64 = "data:$type;base64,$data";
             }
         }
+        $ttdBase64 = null;
+        if ($suratSetting->path_ttd) {
+            $path = public_path('storage/' . $suratSetting->path_ttd);
+            if (file_exists($path)) {
+                $type = mime_content_type($path);
+                $data = base64_encode(file_get_contents($path));
+                $ttdBase64 = "data:$type;base64,$data";
+            }
+        }
         
         $ahliWarisData = $pengajuanSurat->detail_tambahan['tabel ahli waris'] ?? [];
         if (!empty($ahliWarisData)) {
@@ -221,6 +232,7 @@ class AnjunganController extends Controller
             'suratSetting' => $suratSetting,
             'desa' => $desa,
             'kopSuratBase64' => $kopSuratBase64,
+            'ttdBase64' => $ttdBase64,
         ]);
     }
 

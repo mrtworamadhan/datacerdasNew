@@ -6,6 +6,14 @@ use App\Models\KartuKeluarga;
 use App\Models\Warga; // Perbaikan: dari App->Models->Warga menjadi App\Models\Warga
 use App\Models\RW;
 use App\Models\RT;
+use App\Models\Agama;
+use App\Models\StatusPerkawinan;
+use App\Models\Pekerjaan;
+use App\Models\Pendidikan;
+use App\Models\GolonganDarah;
+use App\Models\HubunganKeluarga;
+use App\Models\StatusKependudukan;
+use App\Models\StatusKhusus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +24,7 @@ class KartuKeluargaController extends Controller
     /**
      * Display a listing of the Kartu Keluarga for the current desa.
      */
-    public function index(string $subdomain)
+    public function index(Request $request, string $subdomain)
     {
         $user = Auth::user();
         // Check if user has permission to access this module at all
@@ -25,7 +33,36 @@ class KartuKeluargaController extends Controller
         }
         // Global scope 'desa_id_and_area' akan otomatis memfilter berdasarkan user yang login
         // Tidak perlu where() manual di sini karena scope sudah menanganinya
-        $kartuKeluargas = KartuKeluarga::with('kepalaKeluarga', 'rw', 'rt')->get();
+        $search = $request->query('search'); // Ambil query pencarian dari parameter 'search'
+
+        $desaId = $user->desa_id;
+
+        $query = KartuKeluarga::where('desa_id', $desaId)
+                            ->with('kepalaKeluarga'); // Eager load kepalaKeluarga
+
+        // Apply RW/RT filtering if user is Admin RW/RT  
+        if ($user->isAdminRw() && $user->rw_id) {
+            $query->where('rw_id', $user->rw_id);
+        }
+        if ($user->isAdminRt() && $user->rt_id) {
+            $query->where('rt_id', $user->rt_id);
+        }
+
+        // Perbaiki logika pencarian
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($search) {
+                $q->where('nomor_kk', 'like', '%' . $search . '%')
+                ->orWhereHas('kepalaKeluarga', function($q2) use ($search) {
+                    $q2->where('nama_lengkap', 'like', '%' . $search . '%');
+                });
+            });
+        }
+
+        // Ambil semua hasil tanpa limit jika ini untuk halaman index, bukan Select2
+        $kartuKeluargas = $query->paginate(15); // Pakai paginate untuk halaman index
+        // Jika ini untuk Select2, pakai limit seperti sebelumnya
+        // $kartuKeluargas = $query->limit(15)->get();
+
         return view('admin_desa.kartu_keluarga.index', compact('kartuKeluargas'));
     }
 
@@ -45,36 +82,15 @@ class KartuKeluargaController extends Controller
 
         $klasifikasiOptions = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
         $jenisKelaminOptions = ['Laki-laki', 'Perempuan'];
-        $agamaOptions = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
-        $statusPerkawinanOptions = ['BELUM KAWIN', 'KAWIN TERCATAT', 'KAWIN BLM TERCATAT', 'CERAI MATI', 'CERAI HIDUP', 'CERAI BLM TERCATAT'];
-        $pekerjaanOptions = [
-            'BLm Bekerja', 'Mengurus Rumah Tangga', 'Pelajar / Mahasiswa', 'Pensiunan',
-            'Pegawai Negeri Sipil', 'Tentara Nasional Indonesia', 'Kepolisian RI', 'Perdagangan',
-            'Petani / Pekebun', 'Peternak', 'Nelayan / Perikanan', 'Industri', 'Konstruksi',
-            'Transportasi', 'Karyawan Swasta', 'Karyawan BUMN', 'Karyawan BUMD', 'Karyawan Honorer',
-            'Buruh Harian Lepas', 'Buruh Tani / Perkebunan', 'Buruh Nelayan / Perikanan',
-            'Buruh Peternakan', 'Pembantu Rumah Tangga', 'Tukang Cukur', 'Tukang Listrik',
-            'Tukang Batu', 'Tukang Kayu', 'Tukang Sol Sepatu', 'Tukang Las / Pandai Besi',
-            'Tukang Jahit', 'Penata Rambut', 'Penata Rias', 'Penata Busana', 'Mekanik', 'Tukang Gigi',
-            'Seniman', 'Tabib', 'Paraji', 'Perancang Busana', 'Penerjemah', 'Imam Masjid',
-            'Pendeta', 'Pastur', 'Wartawan', 'Ustadz / Mubaligh', 'Juru Masak', 'Promotor Acara',
-            'Anggota DPR-RI', 'Anggota DPD', 'Anggota BPK', 'Presiden', 'Wakil Presiden',
-            'Anggota Mahkamah Konstitusi', 'Anggota Kabinet / Kementerian', 'Duta Besar', 'Gubernur',
-            'Wakil Gubernur', 'Bupati', 'Wakil Bupati', 'Walikota', 'Wakil Walikota',
-            'Anggota DPRD Provinsi', 'Anggota DPRD Kabupaten', 'Dosen', 'Guru', 'Pilot',
-            'Pengacara', 'Notaris', 'Arsitek', 'Akuntan', 'Konsultan', 'Dokter', 'Bidan', 'Perawat',
-            'Apoteker', 'Psikiater / Psikolog', 'Penyiar Televisi', 'Penyiar Radio', 'Pelaut',
-            'Peneliti', 'Sopir', 'Pialang', 'Paranormal', 'Pedagang', 'Perangkat Desa',
-            'Kepala Desa', 'Biarawati', 'Wiraswasta', 'Anggota Lembaga Tinggi', 'Artis', 'Atlit',
-            'Chef', 'Manajer', 'Tenaga Tata Usaha', 'Operator', 'Pekerja Pengolahan, Kerajinan',
-            'Teknisi', 'Asisten Ahli', 'Lainnya'
-        ];
-        $pendidikanOptions = ['BLM SEKOLAH','BLM TAMAT SD', 'SD', 'SLTP', 'SLTA', 'DIPLOMA I/II', 'DIPLOMA IV/STRATA I', 'STRATA II', 'STRATA III'];
-        $kewarganegaraanOptions = ['WNI', 'WNA'];
-        $golonganDarahOptions = ['A', 'B', 'AB', 'O', '-'];
-        $hubunganKeluargaOptions = ['Kepala Keluarga','Anak', 'Cucu', 'Istri', 'Menantu', 'Suami', 'Saudara', 'Kakak', 'Adik', 'Lainnya'];
-        $statusKependudukanOptions = ['Warga Asli', 'Pendatang', 'Sementara', 'Pindah', 'Meninggal'];
-        $statusKhususOptions = ['Disabilitas', 'Lansia', 'Ibu Hamil', 'Balita', 'Penerima PKH', 'Penerima BPNT', 'Lainnya'];
+        $agamaOptions              = Agama::pluck('nama', 'id');
+        $statusPerkawinanOptions   = StatusPerkawinan::pluck('nama', 'id');
+        $pekerjaanOptions          = Pekerjaan::pluck('nama', 'id');
+        $pendidikanOptions         = Pendidikan::pluck('nama', 'id');
+        $kewarganegaraanOptions     = ['WNI', 'WNA'];
+        $golonganDarahOptions      = GolonganDarah::pluck('nama', 'id');
+        $hubunganKeluargaOptions   = HubunganKeluarga::pluck('nama', 'id');
+        $statusKependudukanOptions = StatusKependudukan::pluck('nama', 'id');
+        $statusKhususOptions       = StatusKhusus::pluck('nama', 'id');
 
         return view('admin_desa.kartu_keluarga.create', compact(
             'rws', 'rts', 'klasifikasiOptions', 'jenisKelaminOptions', 'agamaOptions',

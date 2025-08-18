@@ -53,6 +53,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests::class,
             \App\Http\Middleware\RedirectIfAuthenticated::class,
+            \App\Http\Middleware\RedirectPortalUsers::class,
+
         ]);
         $middleware->redirectGuestsTo(function ($request) {
             // Coba dapatkan instance 'tenant' (desa) yang sudah diatur
@@ -61,7 +63,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // Jika ada tenant (desa) yang aktif dari subdomain
             if ($desa) {
                 // Arahkan ke route login DENGAN nama 'tenant.login'
-                return route('tenant.login', ['subdomain' => $desa->subdomain]);
+                return route('login', ['subdomain' => $desa->subdomain]);
             }
             
             // Jika tidak ada subdomain, arahkan ke route login GLOBAL

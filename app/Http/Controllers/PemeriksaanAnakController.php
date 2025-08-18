@@ -61,7 +61,7 @@ class PemeriksaanAnakController extends Controller
             'dapat_obat_cacing'     => $request->boolean('dapat_obat_cacing'),
             'dapat_imunisasi_polio' => $request->boolean('dapat_imunisasi_polio'),
             'catatan_kader'         => $validated['catatan_kader'] ?? null,
-            'usia_saat_periksa'     => $usiaFormatted,
+            'usia_saat_periksa'     => $umurDalamHari,
         ]);
         
         return back()->with('status', 'Data pemeriksaan berhasil disimpan!');
@@ -129,24 +129,24 @@ class PemeriksaanAnakController extends Controller
     // --- FUNGSI BANTUAN UNTUK MENENTUKAN STATUS (AGAR KODE TIDAK BERULANG) ---
     private function getStatusStunting($zscore) {
         if ($zscore === null) return 'N/A';
-        if ($zscore < -3) return 'Sangat Pendek (Stunting Berat)';
-        if ($zscore < -2) return 'Pendek (Stunting)';
+        if ($zscore < -3) return 'Stunting Berat';
+        if ($zscore < -2) return 'Stunting';
         return 'Normal';
     }
 
     private function getStatusUnderweight($zscore) {
         if ($zscore === null) return 'N/A';
-        if ($zscore < -3) return 'Berat Badan Sangat Kurang';
-        if ($zscore < -2) return 'Berat Badan Kurang';
-        return 'Berat Badan Normal';
+        if ($zscore < -3) return 'BB SangatKurang';
+        if ($zscore < -2) return 'BB Kurang';
+        return 'BB Normal';
     }
 
     private function getStatusWasting($zscore) {
         if ($zscore === null) return 'N/A';
-        if ($zscore < -3) return 'Gizi Buruk (Sangat Kurus)';
-        if ($zscore < -2) return 'Gizi Kurang (Kurus)';
-        if ($zscore > 2) return 'Gizi Lebih (Overweight)';
+        if ($zscore < -3) return 'Gizi Buruk';
+        if ($zscore < -2) return 'Gizi Kurang';
+        if ($zscore > 2) return 'Gizi Lebih';
         if ($zscore > 3) return 'Obesitas';
-        return 'Gizi Baik (Normal)';
+        return 'Gizi Baik';
     }
 }

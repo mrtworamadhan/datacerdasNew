@@ -10,45 +10,50 @@ class RolesAndPermissionsSeeder extends Seeder
 {
     public function run(): void
     {
-        // Reset cache roles dan permissions agar tidak ada error duplikasi
+        // Reset cache agar tidak ada error duplikasi permission/role
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // --- BUAT DAFTAR TUGAS (PERMISSIONS) ---
-        // Format: Permission::create(['name' => 'aksi-objek']);
-        Permission::create(['name' => 'kelola kegiatan']); // Untuk CRUD universal
-        Permission::create(['name' => 'buat proposal']);
-        Permission::create(['name' => 'setujui proposal']);
-        Permission::create(['name' => 'buat lpj']);
-        Permission::create(['name' => 'kelola aset']);
-        Permission::create(['name' => 'kelola fasum']);
-        Permission::create(['name' => 'kelola surat']);
-        Permission::create(['name' => 'kelola warga']);
-        Permission::create(['name' => 'kelola kesehatan']);
-        Permission::create(['name' => 'kelola pengguna']);
+        // --- PERMISSIONS ---
+        $permissions = [
+            'kelola kegiatan',
+            'buat proposal',
+            'setujui proposal',
+            'buat lpj',
+            'kelola aset',
+            'kelola fasum',
+            'kelola profil',
+            'kelola surat',
+            'kelola warga',
+            'kelola bantuan',
+            'kelola kesehatan',
+            'kelola pengguna',
+        ];
 
-        // --- BUAT JABATAN (ROLES) DAN BERIKAN TUGASNYA ---
+        foreach ($permissions as $perm) {
+            Permission::firstOrCreate(['name' => $perm]);
+        }
 
-        // Role untuk Kader Posyandu
-        $roleKader = Role::firstOrCreate(['name' => 'kader_posyandu']);
-        $roleKader->givePermissionTo('kelola kesehatan');
+        // --- ROLES ---
+        $roles = [
+            'kader_posyandu' => ['kelola kesehatan'],
 
-        // Role untuk Admin RT & RW (bisa kita kembangkan nanti)
-        $roleRt = Role::firstOrCreate(['name' => 'admin_rt']);
-        $roleRt->givePermissionTo(['kelola fasum', 'kelola surat', 'kelola warga' ]);
+            'admin_rt' => ['kelola fasum', 'kelola surat', 'kelola warga'],
+            'admin_rw' => ['kelola fasum', 'kelola surat', 'kelola warga'],
 
-        $roleRw = Role::firstOrCreate(['name' => 'admin_rw']);
-        $roleRw->givePermissionTo(['kelola fasum', 'kelola surat', 'kelola warga' ]);
-        
-        // Role untuk Ketua Lembaga & Kelompok (jabatan baru)
-        $roleKetua = Role::firstOrCreate(['name' => 'ketua_organisasi']);
-        $roleKetua->givePermissionTo(['buat proposal', 'buat lpj']);
+            'lembaga' => ['buat proposal', 'buat lpj'],
 
-        // Role untuk Admin Desa
-        $roleAdminDesa = Role::firstOrCreate(['name' => 'admin_desa']);
-        $roleAdminDesa->givePermissionTo(Permission::all()); // Admin bisa melakukan semuanya
+            'operator_desa' => ['kelola profil', 'kelola pengguna'],
+            'bendahara_desa' => ['buat proposal', 'buat lpj', 'kelola kegiatan'],
+            'admin_pelayanan' => ['kelola aset', 'kelola fasum', 'kelola surat', 'kelola warga'],
+            'admin_kesra' => ['kelola bantuan', 'kelola kesehatan'],
 
-        // Role untuk Super Admin (jika ada)
-        $roleSuperAdmin = Role::firstOrCreate(['name' => 'superadmin']);
-        $roleSuperAdmin->givePermissionTo(Permission::all());
+            'admin_desa' => Permission::all()->pluck('name')->toArray(),
+            'superadmin' => Permission::all()->pluck('name')->toArray(),
+        ];
+
+        foreach ($roles as $roleName => $rolePermissions) {
+            $role = Role::firstOrCreate(['name' => $roleName]);
+            $role->syncPermissions($rolePermissions);
+        }
     }
 }

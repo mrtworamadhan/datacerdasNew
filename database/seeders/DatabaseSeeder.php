@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesAndPermissionsSeeder::class,
             AsetCodificationSeeder::class,
-            UserSeeder::class,
-            WargaDummySeeder::class, 
+            AdminSeeder::class,
+            DesaSeeder::class,
+            MasterDataSeeder::class,
+            // WargaDummySeeder::class, 
             KlasifikasiSuratSeeder::class,
         ]);
     }

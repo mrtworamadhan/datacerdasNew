@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Desa;
 use App\Models\User;
 use Illuminate\View\View;
-use App\Models\Warga; 
-use App\Models\KartuKeluarga; 
-use App\Models\PengajuanSurat; 
-use App\Models\Lembaga; 
-use App\Models\Kegiatan; 
-use App\Models\Fasum; 
-use App\Models\PerangkatDesa; 
-use App\Models\KategoriBantuan; 
-use App\Models\DataIbuHamil; 
-use App\Models\DataKesehatanAnak; 
+use App\Models\Warga;
+use App\Models\KartuKeluarga;
+use App\Models\PengajuanSurat;
+use App\Models\Lembaga;
+use App\Models\Kegiatan;
+use App\Models\Fasum;
+use App\Models\PerangkatDesa;
+use App\Models\KategoriBantuan;
+use App\Models\DataIbuHamil;
+use App\Models\DataKesehatanAnak;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -34,15 +34,19 @@ class DashboardController extends Controller
             $totalAdminDesa = User::where('user_type', 'admin_desa')->count();
             $totalActiveSubscriptions = Desa::where('subscription_status', 'active')->count();
             $totalInactiveSubscriptions = Desa::where('subscription_status', 'inactive')->count();
-            
+
             $usersByType = User::select('user_type', DB::raw('count(*) as total'))
-                               ->groupBy('user_type')
-                               ->get()
-                               ->pluck('total', 'user_type')
-                               ->toArray();
+                ->groupBy('user_type')
+                ->get()
+                ->pluck('total', 'user_type')
+                ->toArray();
 
             return view('superadmin.dashboard', compact(
-                'totalDesa', 'totalAdminDesa', 'totalActiveSubscriptions', 'totalInactiveSubscriptions', 'usersByType'
+                'totalDesa',
+                'totalAdminDesa',
+                'totalActiveSubscriptions',
+                'totalInactiveSubscriptions',
+                'usersByType'
             ));
 
         } else {
@@ -82,22 +86,47 @@ class DashboardController extends Controller
             $stats['tataWarga'] = [
                 'jumlah_rw' => $desa->rws()->count(),
                 'jumlah_rt' => $desa->rts()->count(),
-                'total_warga' => Warga::count(), // Global scope akan memfilter per desa/rw/rt user
-                'total_kk' => KartuKeluarga::count(), // Global scope akan memfilter per desa/rw/rt user
-                'total_laki' => Warga::where('jenis_kelamin', 'Laki-laki')->count(), // Perbaikan: 'Laki-laki'
-                'total_perempuan' => Warga::where('jenis_kelamin', 'Perempuan')->count(), // Perbaikan: 'Perempuan'
+                'total_warga' => Warga::count(),
+                'total_kk' => KartuKeluarga::count(),
+
+                // Jenis kelamin
+                'total_laki' => Warga::where('jenis_kelamin', 'Laki-laki')->count(),
+                'total_perempuan' => Warga::where('jenis_kelamin', 'Perempuan')->count(),
+
+                // Usia
                 'usia_balita' => Warga::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) <= 5')->count(),
                 'usia_anak' => Warga::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 6 AND 12')->count(),
                 'usia_remaja' => Warga::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 13 AND 17')->count(),
                 'usia_muda' => Warga::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 18 AND 35')->count(),
                 'usia_lansia' => Warga::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) >= 60')->count(),
-                'status_janda' => KartuKeluarga::whereHas('kepalaKeluarga', fn($q) => $q->where('jenis_kelamin', 'Perempuan')->whereIn('status_perkawinan', ['Cerai Hidup', 'Cerai Mati']))->count(), // Perbaikan: 'Perempuan' dan status
-                'status_duda' => KartuKeluarga::whereHas('kepalaKeluarga', fn($q) => $q->where('jenis_kelamin', 'Laki-laki')->whereIn('status_perkawinan', ['Cerai Hidup', 'Cerai Mati']))->count(), // Perbaikan: 'Laki-laki' dan status
-                'status_yatim' => Warga::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) < 17')->where(fn($q) => $q->whereNull('nama_ayah_kandung')->orWhere('nama_ayah_kandung', ''))->count(),
-                'domisili_asli' => Warga::where('status_kependudukan', 'Warga Asli')->count(),
-                'domisili_pendatang' => Warga::whereIn('status_kependudukan', ['Pendatang', 'Sementara'])->count(), // Perbaikan: 'Sementara'
-                'pengangguran' => Warga::whereIn('pekerjaan', ['Tidak Bekerja', 'Belum / Tidak Bekerja'])->count(), // Perbaikan: 'Belum / Tidak Bekerja'
-                'bantuan' => KategoriBantuan::withCount('penerimaBantuans')->get(), // Global scope akan memfilter per desa user
+
+                // Status janda/duda
+                'status_janda' => KartuKeluarga::whereHas('kepalaKeluarga', function ($q) {
+                    $q->where('jenis_kelamin', 'Perempuan')
+                    ->whereHas('statusPerkawinan', fn($sp) => $sp->whereIn('nama', ['Cerai Hidup', 'Cerai Mati']));
+                })->count(),
+
+
+                'status_duda' => KartuKeluarga::whereHas('kepalaKeluarga', function ($q) {
+                    $q->where('jenis_kelamin', 'Laki-laki')
+                    ->whereHas('statusPerkawinan', fn($sp) => $sp->whereIn('nama', ['Cerai Hidup', 'Cerai Mati']));
+                })->count(),
+
+
+                // Yatim
+                'status_yatim' => Warga::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) < 17')
+                    ->where(fn($q) => $q->whereNull('nama_ayah_kandung')->orWhere('nama_ayah_kandung', ''))
+                    ->count(),
+
+                // Domisili
+                'domisili_asli' => Warga::whereHas('statusKependudukan', fn($sk) => $sk->where('nama', 'Warga Asli'))->count(),
+                'domisili_pendatang' => Warga::whereHas('statusKependudukan', fn($sk) => $sk->whereIn('nama', ['Pendatang', 'Sementara']))->count(),
+
+                // Pekerjaan
+                'pengangguran' => Warga::whereHas('pekerjaan', fn($p) => $p->whereIn('nama', ['Tidak Bekerja', 'Belum / Tidak Bekerja']))->count(),
+
+                // Bantuan
+                'bantuan' => KategoriBantuan::withCount('penerimaBantuans')->get(),
             ];
 
             // 5. tataSurat

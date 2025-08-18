@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RW;
+use App\Models\RT;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\WargaImport;
-use Maatwebsite\Excel\Validators\ValidationException; // <-- Tambahkan ini
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class WargaImportController extends Controller
 {
@@ -14,58 +17,136 @@ class WargaImportController extends Controller
      */
     public function showImportForm()
     {
-        return view('admin_desa.warga.import');
+        $user = Auth::user();
+        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
+            abort(403, 'Anda tidak memiliki hak akses untuk mengelola Kartu Keluarga.');
+        }
+
+        // Ambil RW dan RT sesuai scope user yang login
+        $rws = RW::all(); // Global scope akan memfilter RW sesuai desa/RW user
+        $rts = RT::all(); // Global scope akan memfilter RT sesuai desa/RW/RT user
+        return view('admin_desa.warga.import', compact('rws', 'rts'));
     }
 
     /**
      * Memproses file Excel/CSV yang diunggah.
+     * Mode bisa 'validate' (cek error) atau 'save' (simpan ke DB).
      */
     public function import(Request $request)
     {
-        $request->validate([ 'file_warga' => 'required|mimes:xlsx,csv' ]);
+        $request->validate([
+            'rw_id'      => 'required|exists:rws,id',
+            'rt_id'      => 'required|exists:rts,id',
+            'file_warga' => 'required|mimes:xlsx,csv',
+        ]);
 
-        // Buat instance dari "mesin" impor kita
-        $importer = new WargaImport();
-        
+        // Ambil mode dari request, default = validasi
+        $mode = $request->input('mode', 'validate');
+        $validateOnly = ($mode === 'validate');
+
+        // Kirim RW & RT ke importer
+        $importer = new WargaImport(
+            $validateOnly,
+            $request->rw_id,
+            $request->rt_id
+        );
+
         try {
-            // Jalankan proses impor
             Excel::import($importer, $request->file('file_warga'));
 
-            // Siapkan laporan ringkas untuk ditampilkan
             $summary = [
+                'mode'    => $mode,
                 'success' => $importer->successRowCount,
-                'errors' => $importer->getErrors(),
+                'errors'  => $importer->getErrors(),
             ];
-            
-            return redirect()->route('warga.import.form')
-                            ->with('import_summary', $summary);
+
+            // Kalau mode validasi → simpan file sementara untuk proses simpan berikutnya
+            if ($validateOnly && count($summary['errors']) === 0) {
+                $tempPath = $request->file('file_warga')->storeAs(
+                    'temp_imports',
+                    'warga_import_' . time() . '.' . $request->file('file_warga')->getClientOriginalExtension()
+                );
+                $summary['temp_file'] = $tempPath;
+            }
+
+            return redirect()
+                ->route('warga.import.form')
+                ->with('import_summary', $summary);
 
         } catch (ValidationException $e) {
-            // Tangkap error dari validasi Maatwebsite dan format agar mudah dibaca
             $errors = [];
             foreach ($e->failures() as $failure) {
                 $errors[] = "Baris {$failure->row()}: Kolom '{$failure->attribute()}' -> " . implode(', ', $failure->errors());
             }
-            $summary = ['success' => 0, 'errors' => $errors];
-            return redirect()->route('warga.import.form')
-                            ->with('import_summary', $summary);
+            $summary = [
+                'mode'    => $mode,
+                'success' => 0,
+                'errors'  => $errors
+            ];
+            return redirect()
+                ->route('warga.import.form')
+                ->with('import_summary', $summary);
+        }
+    }
+
+
+    /**
+     * Menyimpan data warga dari file yang sudah divalidasi.
+     */
+    public function saveFromTemp(Request $request)
+    {
+        $request->validate([
+            'temp_file' => 'required|string',
+        ]);
+
+        $tempPath = storage_path('app/public/' . $request->temp_file);
+        
+        if (!file_exists($tempPath)) {
+            return back()->with('error', 'File sementara tidak ditemukan. Silakan ulangi proses impor.');
+        }
+
+        $importer = new WargaImport(false); // Mode simpan data
+
+        try {
+            Excel::import($importer, $tempPath);
+
+            $summary = [
+                'mode'    => 'save',
+                'success' => $importer->successRowCount,
+                'errors'  => $importer->getErrors(),
+            ];
+
+            // Hapus file temp setelah selesai
+            unlink($tempPath);
+
+            return redirect()
+                ->route('warga.import.form')
+                ->with('import_summary', $summary);
+
+        } catch (ValidationException $e) {
+            $errors = [];
+            foreach ($e->failures() as $failure) {
+                $errors[] = "Baris {$failure->row()}: Kolom '{$failure->attribute()}' -> " . implode(', ', $failure->errors());
+            }
+            return redirect()
+                ->route('warga.import.form')
+                ->with('import_summary', [
+                    'mode'    => 'save',
+                    'success' => 0,
+                    'errors'  => $errors
+                ]);
         }
     }
 
     public function downloadTemplate()
     {
-        // Path ke file template di dalam folder public
         $filePath = public_path('templates/template_warga.xlsx');
 
-        // Cek jika file ada untuk menghindari error
         if (!file_exists($filePath)) {
             return back()->with('error', 'File template tidak ditemukan.');
         }
 
-        // Siapkan nama file yang akan diunduh oleh pengguna
         $fileName = 'Template Impor Data Warga - ' . now()->format('Y-m-d') . '.xlsx';
-
-        // Kembalikan file sebagai respons unduhan
         return response()->download($filePath, $fileName);
     }
 }

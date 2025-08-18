@@ -4,6 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\KartuKeluarga;
 use App\Models\Warga;
+use App\Models\Agama;
+use App\Models\StatusPerkawinan;
+use App\Models\Pekerjaan;
+use App\Models\Pendidikan;
+use App\Models\GolonganDarah;
+use App\Models\HubunganKeluarga;
+use App\Models\StatusKependudukan;
+use App\Models\StatusKhusus;
 use App\Models\RW;
 use App\Models\RT;
 use Illuminate\Http\Request;
@@ -33,8 +41,10 @@ class AnggotaKeluargaController extends Controller
         // Super Admin can access any desa's KK, so no desa_id check here for them.
 
         // Ambil semua anggota keluarga dari KK ini, termasuk Kepala Keluarga
-        $anggotaKeluargas = $kartuKeluarga->wargas()->orderBy('hubungan_keluarga')->get();
-
+        $anggotaKeluargas = $kartuKeluarga->wargas()
+            ->whereHas('statusKependudukan', fn($q) => $q->where('nama', '!=', 'Meninggal'))
+            ->get();
+        
         return view('admin_desa.anggota_keluarga.index', compact('kartuKeluarga', 'anggotaKeluargas'));
     }
 
@@ -64,115 +74,15 @@ class AnggotaKeluargaController extends Controller
         // Opsi dropdown untuk Warga
         $klasifikasiOptions = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
         $jenisKelaminOptions = ['Laki-laki', 'Perempuan'];
-        $agamaOptions = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
-        $statusPerkawinanOptions = ['BELUM KAWIN', 'KAWIN TERCATAT', 'KAWIN BLM TERCATAT', 'CERAI MATI', 'CERAI HIDUP', 'CERAI BLM TERCATAT'];
-        $pekerjaanOptions = [
-            'BLm Bekerja',
-            'Mengurus Rumah Tangga',
-            'Pelajar / Mahasiswa',
-            'Pensiunan',
-            'Pegawai Negeri Sipil',
-            'Tentara Nasional Indonesia',
-            'Kepolisian RI',
-            'Perdagangan',
-            'Petani / Pekebun',
-            'Peternak',
-            'Nelayan / Perikanan',
-            'Industri',
-            'Konstruksi',
-            'Transportasi',
-            'Karyawan Swasta',
-            'Karyawan BUMN',
-            'Karyawan BUMD',
-            'Karyawan Honorer',
-            'Buruh Harian Lepas',
-            'Buruh Tani / Perkebunan',
-            'Buruh Nelayan / Perikanan',
-            'Buruh Peternakan',
-            'Pembantu Rumah Tangga',
-            'Tukang Cukur',
-            'Tukang Listrik',
-            'Tukang Batu',
-            'Tukang Kayu',
-            'Tukang Sol Sepatu',
-            'Tukang Las / Pandai Besi',
-            'Tukang Jahit',
-            'Penata Rambut',
-            'Penata Rias',
-            'Penata Busana',
-            'Mekanik',
-            'Tukang Gigi',
-            'Seniman',
-            'Tabib',
-            'Paraji',
-            'Perancang Busana',
-            'Penerjemah',
-            'Imam Masjid',
-            'Pendeta',
-            'Pastur',
-            'Wartawan',
-            'Ustadz / Mubaligh',
-            'Juru Masak',
-            'Promotor Acara',
-            'Anggota DPR-RI',
-            'Anggota DPD',
-            'Anggota BPK',
-            'Presiden',
-            'Wakil Presiden',
-            'Anggota Mahkamah Konstitusi',
-            'Anggota Kabinet / Kementerian',
-            'Duta Besar',
-            'Gubernur',
-            'Wakil Gubernur',
-            'Bupati',
-            'Wakil Bupati',
-            'Walikota',
-            'Wakil Walikota',
-            'Anggota DPRD Provinsi',
-            'Anggota DPRD Kabupaten',
-            'Dosen',
-            'Guru',
-            'Pilot',
-            'Pengacara',
-            'Notaris',
-            'Arsitek',
-            'Akuntan',
-            'Konsultan',
-            'Dokter',
-            'Bidan',
-            'Perawat',
-            'Apoteker',
-            'Psikiater / Psikolog',
-            'Penyiar Televisi',
-            'Penyiar Radio',
-            'Pelaut',
-            'Peneliti',
-            'Sopir',
-            'Pialang',
-            'Paranormal',
-            'Pedagang',
-            'Perangkat Desa',
-            'Kepala Desa',
-            'Biarawati',
-            'Wiraswasta',
-            'Anggota Lembaga Tinggi',
-            'Artis',
-            'Atlit',
-            'Chef',
-            'Manajer',
-            'Tenaga Tata Usaha',
-            'Operator',
-            'Pekerja Pengolahan, Kerajinan',
-            'Teknisi',
-            'Asisten Ahli',
-            'Lainnya'
-        ];
-        $pendidikanOptions = ['BLM SEKOLAH', 'BLM TAMAT SD', 'SD', 'SLTP', 'SLTA', 'DIPLOMA I/II', 'DIPLOMA IV/STRATA I', 'STRATA II', 'STRATA III'];
-        $kewarganegaraanOptions = ['WNI', 'WNA'];
-        $golonganDarahOptions = ['A', 'B', 'AB', 'O', '-'];
-        $hubunganKeluargaOptions = ['Kepala Keluarga', 'Anak', 'Cucu', 'Istri', 'Menantu', 'Suami', 'Saudara', 'Kakak', 'Adik', 'Lainnya'];
-        $statusKependudukanOptions = ['Warga Asli', 'Pendatang', 'Sementara', 'Pindah', 'Meninggal'];
-        $statusKhususOptions = ['Disabilitas', 'Lansia', 'Ibu Hamil', 'Balita', 'Penerima PKH', 'Penerima BPNT', 'Lainnya'];
+        $agamaOptions              = Agama::pluck('nama', 'id');
+        $statusPerkawinanOptions   = StatusPerkawinan::pluck('nama', 'id');
+        $pekerjaanOptions          = Pekerjaan::pluck('nama', 'id');
+        $pendidikanOptions         = Pendidikan::pluck('nama', 'id');
+        $kewarganegaraanOptions     = ['WNI', 'WNA'];
+        $golonganDarahOptions      = GolonganDarah::pluck('nama', 'id');
+        $hubunganKeluargaOptions   = HubunganKeluarga::pluck('nama', 'id');
+        $statusKependudukanOptions = StatusKependudukan::pluck('nama', 'id');
+        $statusKhususOptions       = StatusKhusus::pluck('nama', 'id');
 
         return view('admin_desa.anggota_keluarga.create', compact(
             'kartuKeluarga',
@@ -216,16 +126,18 @@ class AnggotaKeluargaController extends Controller
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'agama' => 'required|string|max:50',
-            'status_perkawinan' => 'required|in:Belum Kawin,Kawin,Cerai Hidup,Cerai Mati',
-            'pekerjaan' => 'required|string|max:100',
-            'pendidikan' => 'nullable|in:Tidak/Belum Sekolah,SD,SMP,SMA,S1,S2,S3', // Tambahkan validasi ini
+            'agama_id' => 'nullable|exists:agamas,id',
+            'pekerjaan_id' => 'nullable|exists:pekerjaans,id',
+            'pendidikan_id' => 'nullable|exists:pendidikans,id',
+            'status_perkawinan_id' => 'nullable|exists:status_perkawinans,id',
+            'golongan_darah_id' => 'nullable|exists:golongan_darahs,id',
+            'hubungan_keluarga_id' => 'nullable|exists:hubungan_keluargas,id',
+            'status_kependudukan_id' => 'nullable|exists:status_kependudukans,id',
             'kewarganegaraan' => 'required|string|max:50',
-            'golongan_darah' => 'nullable|string|max:5',
-            'alamat_lengkap' => 'required|string|max:255',
-            'hubungan_keluarga' => 'required|in:Anak,Cucu,Istri,Menantu,Suami,Saudara,Kakak,Adik,Lainnya',
-            'status_kependudukan' => 'required|in:Warga Asli,Pendatang,Sementara,Pindah,Meninggal', // Fixed: 'Meninggal' added back
-            'status_khusus' => 'nullable|array', // Untuk checkbox multiple
+            'alamat_lengkap' => 'required|string|max:255',            
+            'nama_ayah_kandung' => 'nullable|string|max:255',
+            'nama_ibu_kandung' => 'nullable|string|max:255',            
+            'status_khusus' => 'nullable|exists:status_khusus,id',
         ]);
 
         DB::beginTransaction();
@@ -240,15 +152,17 @@ class AnggotaKeluargaController extends Controller
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'jenis_kelamin' => $request->jenis_kelamin,
-                'agama' => $request->agama,
-                'status_perkawinan' => $request->status_perkawinan,
-                'pekerjaan' => $request->pekerjaan,
-                'pendidikan' => $request->pendidikan, // Tambahkan ini
+                'agama_id' => $request->agama_id,
+                'status_perkawinan_id' => $request->status_perkawinan,
+                'pekerjaan_id' => $request->pekerjaan,
+                'pendidikan_id' => $request->pendidikan, // Tambahkan ini
                 'kewarganegaraan' => $request->kewarganegaraan,
-                'golongan_darah' => $request->golongan_darah,
+                'golongan_darah_id' => $request->golongan_darah,
                 'alamat_lengkap' => $request->alamat_lengkap,
-                'hubungan_keluarga' => $request->hubungan_keluarga,
-                'status_kependudukan' => $request->status_kependudukan,
+                'hubungan_keluarga_id' => $request->hubungan_keluarga,
+                'nama_ayah_kandung' => $request->nama_ayah_kandung,
+                'nama_ibu_kandung' => $request->nama_ibu_kandung,
+                'status_kependudukan_id' => $request->status_kependudukan,
                 'status_khusus' => $request->status_khusus ? json_encode($request->status_khusus) : null,
             ]);
 
@@ -301,118 +215,17 @@ class AnggotaKeluargaController extends Controller
 
 
         // Opsi dropdown untuk Warga
-        $klasifikasiOptions = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
-        $jenisKelaminOptions = ['Laki-laki', 'Perempuan'];
-        $agamaOptions = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
-        $statusPerkawinanOptions = ['BELUM KAWIN', 'KAWIN TERCATAT', 'KAWIN BLM TERCATAT', 'CERAI MATI', 'CERAI HIDUP', 'CERAI BLM TERCATAT'];
-        $pekerjaanOptions = [
-            'BLm Bekerja',
-            'Mengurus Rumah Tangga',
-            'Pelajar',
-            'Pelajar / Mahasiswa',
-            'Pensiunan',
-            'Pegawai Negeri Sipil',
-            'Tentara Nasional Indonesia',
-            'Kepolisian RI',
-            'Perdagangan',
-            'Petani / Pekebun',
-            'Peternak',
-            'Nelayan / Perikanan',
-            'Industri',
-            'Konstruksi',
-            'Transportasi',
-            'Karyawan Swasta',
-            'Karyawan BUMN',
-            'Karyawan BUMD',
-            'Karyawan Honorer',
-            'Buruh Harian Lepas',
-            'Buruh Tani / Perkebunan',
-            'Buruh Nelayan / Perikanan',
-            'Buruh Peternakan',
-            'Pembantu Rumah Tangga',
-            'Tukang Cukur',
-            'Tukang Listrik',
-            'Tukang Batu',
-            'Tukang Kayu',
-            'Tukang Sol Sepatu',
-            'Tukang Las / Pandai Besi',
-            'Tukang Jahit',
-            'Penata Rambut',
-            'Penata Rias',
-            'Penata Busana',
-            'Mekanik',
-            'Tukang Gigi',
-            'Seniman',
-            'Tabib',
-            'Paraji',
-            'Perancang Busana',
-            'Penerjemah',
-            'Imam Masjid',
-            'Pendeta',
-            'Pastur',
-            'Wartawan',
-            'Ustadz / Mubaligh',
-            'Juru Masak',
-            'Promotor Acara',
-            'Anggota DPR-RI',
-            'Anggota DPD',
-            'Anggota BPK',
-            'Presiden',
-            'Wakil Presiden',
-            'Anggota Mahkamah Konstitusi',
-            'Anggota Kabinet / Kementerian',
-            'Duta Besar',
-            'Gubernur',
-            'Wakil Gubernur',
-            'Bupati',
-            'Wakil Bupati',
-            'Walikota',
-            'Wakil Walikota',
-            'Anggota DPRD Provinsi',
-            'Anggota DPRD Kabupaten',
-            'Dosen',
-            'Guru',
-            'Pilot',
-            'Pengacara',
-            'Notaris',
-            'Arsitek',
-            'Akuntan',
-            'Konsultan',
-            'Dokter',
-            'Bidan',
-            'Perawat',
-            'Apoteker',
-            'Psikiater / Psikolog',
-            'Penyiar Televisi',
-            'Penyiar Radio',
-            'Pelaut',
-            'Peneliti',
-            'Sopir',
-            'Pialang',
-            'Paranormal',
-            'Pedagang',
-            'Perangkat Desa',
-            'Kepala Desa',
-            'Biarawati',
-            'Wiraswasta',
-            'Anggota Lembaga Tinggi',
-            'Artis',
-            'Atlit',
-            'Chef',
-            'Manajer',
-            'Tenaga Tata Usaha',
-            'Operator',
-            'Pekerja Pengolahan, Kerajinan',
-            'Teknisi',
-            'Asisten Ahli',
-            'Lainnya'
-        ];
-        $pendidikanOptions = ['BLM SEKOLAH', 'BLM TAMAT SD', 'SD', 'SLTP', 'SLTA', 'DIPLOMA I/II', 'DIPLOMA IV/STRATA I', 'STRATA II', 'STRATA III'];
-        $kewarganegaraanOptions = ['WNI', 'WNA'];
-        $golonganDarahOptions = ['A', 'B', 'AB', 'O', '-'];
-        $hubunganKeluargaOptions = ['Kepala Keluarga', 'Anak', 'Cucu', 'Istri', 'Menantu', 'Suami', 'Saudara', 'Kakak', 'Adik', 'Lainnya'];
-        $statusKependudukanOptions = ['Warga Asli', 'Pendatang', 'Sementara', 'Pindah', 'Meninggal'];
-        $statusKhususOptions = ['Disabilitas', 'Lansia', 'Ibu Hamil', 'Balita', 'Penerima PKH', 'Penerima BPNT', 'Lainnya'];
+        $klasifikasiOptions         = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
+        $jenisKelaminOptions        = ['Laki-laki', 'Perempuan'];
+        $agamaOptions              = Agama::pluck('nama', 'id');
+        $statusPerkawinanOptions   = StatusPerkawinan::pluck('nama', 'id');
+        $pekerjaanOptions          = Pekerjaan::pluck('nama', 'id');
+        $pendidikanOptions         = Pendidikan::pluck('nama', 'id');
+        $kewarganegaraanOptions     = ['WNI', 'WNA'];
+        $golonganDarahOptions      = GolonganDarah::pluck('nama', 'id');
+        $hubunganKeluargaOptions   = HubunganKeluarga::pluck('nama', 'id');
+        $statusKependudukanOptions = StatusKependudukan::pluck('nama', 'id');
+        $statusKhususOptions       = StatusKhusus::pluck('nama', 'id');
 
         return view('admin_desa.anggota_keluarga.edit', compact(
             'kartuKeluarga',
@@ -468,16 +281,18 @@ class AnggotaKeluargaController extends Controller
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'agama' => 'required|string|max:50',
-            'status_perkawinan' => 'required|in:Belum Kawin,Kawin,Cerai Hidup,Cerai Mati',
-            'pekerjaan' => 'required|string|max:100',
-            'pendidikan' => 'nullable|in:Tidak/Belum Sekolah,SD,SMP,SMA,S1,S2,S3', // Tambahkan validasi ini
+            'agama_id' => 'nullable|exists:agamas,id',
+            'pekerjaan_id' => 'nullable|exists:pekerjaans,id',
+            'pendidikan_id' => 'nullable|exists:pendidikans,id',
+            'status_perkawinan_id' => 'nullable|exists:status_perkawinans,id',
+            'golongan_darah_id' => 'nullable|exists:golongan_darahs,id',
+            'hubungan_keluarga_id' => 'nullable|exists:hubungan_keluargas,id',
+            'status_kependudukan_id' => 'nullable|exists:status_kependudukans,id',
             'kewarganegaraan' => 'required|string|max:50',
-            'golongan_darah' => 'nullable|string|max:5',
-            'alamat_lengkap' => 'required|string|max:255',
-            'hubungan_keluarga' => 'required|in:Anak,Cucu,Istri,Menantu,Suami,Saudara,Kakak,Adik,Lainnya',
-            'status_kependudukan' => 'required|in:Warga Asli,Pendatang,Sementara,Pindah,Meninggal', // Fixed: 'Meninggal' added back
-            'status_khusus' => 'nullable|array',
+            'alamat_lengkap' => 'required|string|max:255',            
+            'nama_ayah_kandung' => 'nullable|string|max:255',
+            'nama_ibu_kandung' => 'nullable|string|max:255',            
+            'status_khusus' => 'nullable|exists:status_khusus,id',
         ]);
 
         DB::beginTransaction();
@@ -488,15 +303,17 @@ class AnggotaKeluargaController extends Controller
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'jenis_kelamin' => $request->jenis_kelamin,
-                'agama' => $request->agama,
-                'status_perkawinan' => $request->status_perkawinan,
-                'pekerjaan' => $request->pekerjaan,
-                'pendidikan' => $request->pendidikan, // Tambahkan ini
+                'agama_id' => $request->agama_id,
+                'status_perkawinan_id' => $request->status_perkawinan,
+                'pekerjaan_id' => $request->pekerjaan,
+                'pendidikan_id' => $request->pendidikan, // Tambahkan ini
                 'kewarganegaraan' => $request->kewarganegaraan,
-                'golongan_darah' => $request->golongan_darah,
+                'golongan_darah_id' => $request->golongan_darah,
                 'alamat_lengkap' => $request->alamat_lengkap,
-                'hubungan_keluarga' => $request->hubungan_keluarga,
-                'status_kependudukan' => $request->status_kependudukan,
+                'hubungan_keluarga_id' => $request->hubungan_keluarga,
+                'nama_ayah_kandung' => $request->nama_ayah_kandung,
+                'nama_ibu_kandung' => $request->nama_ibu_kandung,
+                'status_kependudukan_id' => $request->status_kependudukan,
                 'status_khusus' => $request->status_khusus ? json_encode($request->status_khusus) : null,
             ]);
 

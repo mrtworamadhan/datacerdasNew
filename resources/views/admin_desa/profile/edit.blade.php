@@ -127,7 +127,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="path_logo">Upload Foto Kepala Desa</label>
+                    <label for="path_logo">Upload Logo Desa</label>
                     <div class="input-group">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="path_logo" name="path_logo">

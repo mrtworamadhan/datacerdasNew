@@ -55,7 +55,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header border-0">
-                <h3 class="card-title"><i class="fas fa-users mr-1"></i> tataWarga - Statistik Kependudukan</h3>
+                <h3 class="card-title"><i class="fas fa-users mr-1"></i> Data Warga Cerdas - Statistik Kependudukan</h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -94,7 +94,7 @@
     {{-- Kolom Kanan (Lebih Kecil) --}}
     <div class="col-lg-4">
         <div class="card">
-            <div class="card-header"><h3 class="card-title"><i class="fas fa-landmark mr-1"></i> tataAdministrasi</h3></div>
+            <div class="card-header"><h3 class="card-title"><i class="fas fa-landmark mr-1"></i> Administrasi Cerdas</h3></div>
             <div class="card-body">
                 <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item"><b>Nama Desa</b> <a class="float-right">{{ $stats['tataAdministrasi']['nama_desa'] }}</a></li>
@@ -105,7 +105,7 @@
         </div>
         
         <div class="card">
-            <div class="card-header"><h3 class="card-title"><i class="fas fa-hands-helping mr-1"></i> tataBantuan</h3></div>
+            <div class="card-header"><h3 class="card-title"><i class="fas fa-hands-helping mr-1"></i> Bantuan Cerdas </h3></div>
             <div class="card-body" style="max-height: 250px; overflow-y: auto;">
                  @forelse($stats['tataWarga']['bantuan'] as $bantuan)
                     <div class="info-box mb-2">
@@ -126,7 +126,7 @@
 <div class="row">
     {{-- tataSurat --}}
     <div class="col-md-4">
-        <div class="card"><div class="card-header"><h3 class="card-title"><i class="fas fa-envelope-open-text mr-1"></i> tataSurat</h3></div>
+        <div class="card"><div class="card-header"><h3 class="card-title"><i class="fas fa-envelope-open-text mr-1"></i> Pelayanan Cerdas </h3></div>
         <div class="card-body">
             <div class="info-box"><span class="info-box-icon bg-secondary"><i class="fas fa-file-alt"></i></span><div class="info-box-content"><span class="info-box-text">Total Pengajuan</span><span class="info-box-number">{{ $stats['tataSurat']['total'] }}</span></div></div>
             <div class="info-box"><span class="info-box-icon bg-warning"><i class="fas fa-hourglass-half"></i></span><div class="info-box-content"><span class="info-box-text">Perlu Diproses</span><span class="info-box-number">{{ $stats['tataSurat']['diproses'] }}</span></div></div>
@@ -134,7 +134,7 @@
     </div>
      {{-- tataLembaga --}}
     <div class="col-md-4">
-        <div class="card"><div class="card-header"><h3 class="card-title"><i class="fas fa-sitemap mr-1"></i> tataLembaga</h3></div>
+        <div class="card"><div class="card-header"><h3 class="card-title"><i class="fas fa-sitemap mr-1"></i> Lembaga Cerdas </h3></div>
         <div class="card-body">
             <div class="info-box"><span class="info-box-icon bg-purple"><i class="fas fa-university"></i></span><div class="info-box-content"><span class="info-box-text">Total Lembaga</span><span class="info-box-number">{{ $stats['tataLembaga']['total'] }}</span></div></div>
             <div class="info-box"><span class="info-box-icon bg-secondary"><i class="fas fa-calendar-check"></i></span><div class="info-box-content"><span class="info-box-text">Total Kegiatan</span><span class="info-box-number">{{ $stats['tataLembaga']['kegiatan'] }}</span></div></div>
@@ -142,14 +142,14 @@
     </div>
      {{-- tataFasum --}}
     <div class="col-md-4">
-        <div class="card"><div class="card-header"><h3 class="card-title"><i class="fas fa-hospital-alt mr-1"></i> tataFasum</h3></div>
+        <div class="card"><div class="card-header"><h3 class="card-title"><i class="fas fa-hospital-alt mr-1"></i> Fasum Cerdas </h3></div>
         <div class="card-body">
             <div class="info-box"><span class="info-box-icon bg-primary"><i class="fas fa-building"></i></span><div class="info-box-content"><span class="info-box-text">Total Fasilitas</span><span class="info-box-number">{{ $stats['tataFasum']['total'] }}</span></div></div>
             <div class="info-box"><span class="info-box-icon bg-success"><i class="fas fa-thumbs-up"></i></span><div class="info-box-content"><span class="info-box-text">Kondisi Baik</span><span class="info-box-number">{{ $stats['tataFasum']['baik'] }}</span></div></div>
         </div></div>
     </div>
     <div class="col-md-4">
-        <div class="card"><div class="card-header"><h3 class="card-title"><i class="fas fa-hospital-alt mr-1"></i> tataFasum & tataKesehatan</h3></div>
+        <div class="card"><div class="card-header"><h3 class="card-title"><i class="fas fa-hospital-alt mr-1"></i> Posyandu Cerdas </h3></div>
         <div class="card-body">
             <div class="info-box"><span class="info-box-icon bg-primary"><i class="fas fa-building"></i></span><div class="info-box-content"><span class="info-box-text">Total Fasilitas</span><span class="info-box-number">{{ $stats['tataFasum']['total'] }}</span></div></div>
             <div class="info-box"><span class="info-box-icon bg-pink"><i class="fas fa-heartbeat"></i></span><div class="info-box-content"><span class="info-box-text">Ibu Hamil</span><span class="info-box-number">{{ $stats['tataKesehatan']['total_bumil'] }}</span></div></div>

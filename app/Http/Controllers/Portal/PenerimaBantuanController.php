@@ -24,22 +24,18 @@ class PenerimaBantuanController extends Controller
     {
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+        
         // Trait/Scope desa akan otomatis memfilter kategori bantuan
         $kategoriBantuans = KategoriBantuan::where('is_active_for_submission', 1)->get();
 
-        return view('portal.bantuan.pilih_bantuan', compact('kategoriBantuans', 'desa', 'logo'));
+        return view('portal.bantuan.pilih_bantuan', compact('kategoriBantuans', 'desa'));
     }
 
     public function pilihWarga(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+        
         $stats = [
             'total' => PenerimaBantuan::where('kategori_bantuan_id', $kategoriBantuan->id)->count(),
             'diajukan' => PenerimaBantuan::where('kategori_bantuan_id', $kategoriBantuan->id)->where('status_permohonan', 'Diajukan')->count(),
@@ -81,7 +77,7 @@ class PenerimaBantuanController extends Controller
         // Kirim data Kategori Bantuan yang dipilih ke view
         $penerimaBantuans = $queryPenerima->latest()->get();
         
-        return view('portal.bantuan.pilih_warga', compact('kategoriBantuan', 'penerimaBantuans', 'stats','desa', 'logo', 'requiredAdditionalFields'));
+        return view('portal.bantuan.pilih_warga', compact('kategoriBantuan', 'penerimaBantuans', 'stats','desa','requiredAdditionalFields'));
     }
 
     public function create(string $subdomain, KategoriBantuan $kategoriBantuan)

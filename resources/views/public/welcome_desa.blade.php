@@ -3,54 +3,7 @@
 @section('title', 'Selamat Datang di Desa' . $desa->nama_desa)
 
 @section('content')
-    <!-- <section class="hero-section">
-                                                <div class="container">
-                                                    <div class="row align-items-center">
-
-                                                        {{-- Kolom Kiri: Teks & Statistik Desa --}}
-                                                        <div class="col-lg-6 text-white text-center text-lg-left">
-                                                            <h1 class="display-4 font-weight-bold">
-                                                                Selamat Datang di<br>{{ $desa->nama_desa }}
-                                                            </h1>
-                                                            <p class="lead my-4">
-                                                                Situs informasi publik resmi {{ $desa->nama_desa }}. Temukan data, layanan, dan informasi terkini
-                                                                tentang desa kami.
-                                                            </p>
-
-                                                            {{-- Statistik Publik Desa --}}
-                                                            <div class="row text-center text-lg-left">
-                                                                <div class="col-6 col-md-4 mb-3">
-                                                                    <div class="stat-item">
-                                                                        <h3 class="font-weight-bold">{{ $jumlahWarga }}</h3>
-                                                                        <p>Jumlah Warga</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6 col-md-4 mb-3">
-                                                                    <div class="stat-item">
-                                                                        <h3 class="font-weight-bold">{{ $jumlahKk }}</h3>
-                                                                        <p>Jumlah Keluarga</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            {{-- Tombol Aksi --}}
-                                                            <div class="mt-4">
-                                                                <a href="{{ route('anjungan.index', ['subdomain' => $desa->subdomain]) }}"
-                                                                    class="btn btn-light btn-lg px-4 mr-2">Layanan Mandiri</a>
-                                                                <a href="{{ route('login', ['subdomain' => $desa->subdomain]) }}"
-                                                                    class="btn btn-outline-light btn-lg px-4">Login Staff</a>
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- Kolom Kanan: Gambar Desa --}}
-                                                        <div class="col-lg-6 mt-5 mt-lg-0 text-center">
-                                                            {{-- Ganti dengan path foto desa jika ada --}}
-                                                            <img src="{{ asset('images/welcome/78.png') }}" class="img-fluid" alt="Ilustrasi Desa">
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </section> -->
+    
     <section class="hero-section">
         <div class="container mx-auto px-4">
             <div class="flex flex-col lg:flex-row items-center">
@@ -64,17 +17,6 @@
                         Situs informasi publik resmi {{ $desa->nama_desa }}. Temukan data, layanan, dan informasi terkini
                         tentang desa kami.
                     </p>
-
-                    <!-- <div class="flex flex-wrap justify-center lg:justify-start mb-6">
-                                                                <span class="feature-capsule blue">Administrasi Cerdas</span>
-                                                                <span class="feature-capsule green">Lembaga Cerdas</span>
-                                                                <span class="feature-capsule purple">Aset Cerdas</span>
-                                                                <span class="feature-capsule red">Fasum Cerdas</span>
-                                                                <span class="feature-capsule orange">Data Warga Cerdas</span>
-                                                                <span class="feature-capsule blue">Pelayanan Cerdas</span>
-                                                                <span class="feature-capsule purple">Posyandu Cerdas</span>
-                                                                <span class="feature-capsule default">Anjungan Cerdas</span>
-                                                            </div> -->
 
                     <div>
                         <a href="{{ route('anjungan.index', ['subdomain' => $desa->subdomain]) }}" target="_blank"
@@ -109,7 +51,7 @@
             </div>
         </div>
     </section>
-    {{-- Di sini nanti kita bisa tambahkan section lain seperti Berita Desa, Daftar Fasum, dll. --}}
+    
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 text-center">

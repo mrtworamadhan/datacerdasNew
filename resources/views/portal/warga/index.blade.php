@@ -51,7 +51,7 @@
                 }
             }).on('select2:select', function (e) {
                 var wargaId = e.params.data.id;
-                var url = "{{ route('portal.warga.edit', ['subdomain' => app('tenant')->subdomain, 'warga' => ':id']) }}".replace(':id', wargaId);
+                var url = "{{ route('portal.warga.editStatus', ['subdomain' => app('tenant')->subdomain, 'warga' => ':id']) }}".replace(':id', wargaId);
 
                 // Ambil form edit via AJAX dan tampilkan
                 $('#edit-form-container').html('<p class="text-center">Memuat...</p>').load(url);

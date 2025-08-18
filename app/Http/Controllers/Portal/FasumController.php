@@ -53,9 +53,7 @@ class FasumController extends Controller
     {
         $user = Auth::user();
         $desa = $user->desa;
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+        
         $fasums = Fasum::query();
 
         if ($request->filled('q')) {
@@ -68,7 +66,7 @@ class FasumController extends Controller
 
         $fasums = $fasums->latest()->paginate(10)->withQueryString();
 
-        return view('portal.fasum.index', compact('fasums', 'desa', 'logo'));
+        return view('portal.fasum.index', compact('fasums', 'desa'));
     }
 
 
@@ -79,9 +77,7 @@ class FasumController extends Controller
     {
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+        
         $rws = collect(); // Inisialisasi koleksi kosong
         $jenisFasumOptions = $this->jenisFasumOptions;
         $kondisiOptions = $this->kondisiOptions;
@@ -97,7 +93,7 @@ class FasumController extends Controller
         }
         
         return view('portal.fasum.create', compact(
-            'rws', 'rts', 'desa', 'logo', 'jenisFasumOptions', 'kondisiOptions', 'statusKepemilikanOptions'))
+            'rws', 'rts', 'desa', 'jenisFasumOptions', 'kondisiOptions', 'statusKepemilikanOptions'))
             ->with('subdomain', $subdomain);
     }
 
@@ -204,9 +200,7 @@ class FasumController extends Controller
     {
         $user = Auth::user();
         $desa = $user->desa;
-        $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
+        
         $jenisFasumOptions = $this->jenisFasumOptions;
         $kondisiOptions = $this->kondisiOptions;
         $statusKepemilikanOptions = $this->statusKepemilikanOptions;
@@ -224,7 +218,7 @@ class FasumController extends Controller
         $detailSpesifikasi = $fasum->detail_spesifikasi ? json_decode($fasum->detail_spesifikasi, true) : [];
 
         return view('portal.fasum.edit', compact(
-            'fasum', 'rws', 'rts', 'desa', 'logo',
+            'fasum', 'rws', 'rts', 'desa',
             'jenisFasumOptions', 'kondisiOptions',
             'statusKepemilikanOptions', 'detailSpesifikasi'
         ));

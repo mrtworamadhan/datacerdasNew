@@ -14,7 +14,6 @@ class Desa extends Model
     protected $fillable = [
         'nama_desa',
         'subdomain',
-        'slug',
         'alamat_desa',
         'kecamatan',
         'kota',
@@ -46,6 +45,11 @@ class Desa extends Model
     public function rts()
     {
         return $this->hasMany(RT::class);
+    }
+
+    public function posyandu()
+    {
+        return $this->hasMany(Posyandu::class);
     }
 
     public function fasums()

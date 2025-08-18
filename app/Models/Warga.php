@@ -21,29 +21,61 @@ class Warga extends Model
         'nama_lengkap',
         'tempat_lahir',
         'tanggal_lahir',
-        'jenis_kelamin',
-        'agama',
-        'status_perkawinan',
-        'pekerjaan',
-        'pendidikan',
-        'kewarganegaraan',
+        'jenis_kelamin', // Tetap enum/string
+        'agama_id',
+        'status_perkawinan_id',
+        'pekerjaan_id',
+        'pendidikan_id',
+        'kewarganegaraan', // Bisa enum/string
         'nama_ayah_kandung',
         'nama_ibu_kandung',
-        'golongan_darah',
+        'golongan_darah_id',
         'alamat_lengkap',
-        'hubungan_keluarga',
-        'status_kependudukan',
-        'status_khusus', // Akan disimpan sebagai JSON
+        'hubungan_keluarga_id',
+        'status_kependudukan_id',
+        'status_khusus', // JSON, bisa simpan banyak ID
+        'status_data',
     ];
 
     protected $casts = [
         'tanggal_lahir' => 'date',
         'status_khusus' => 'array', // Otomatis cast ke array
         'jenis_kelamin' => 'string',
-        'status_perkawinan' => 'string',
-        'status_kependudukan' => 'string',
-        'pendidikan' => 'string',
     ];
+    public function agama()
+    {
+        return $this->belongsTo(Agama::class);
+    }
+
+    public function statusPerkawinan()
+    {
+        return $this->belongsTo(StatusPerkawinan::class);
+    }
+
+    public function pekerjaan()
+    {
+        return $this->belongsTo(Pekerjaan::class);
+    }
+
+    public function pendidikan()
+    {
+        return $this->belongsTo(Pendidikan::class);
+    }
+
+    public function golonganDarah()
+    {
+        return $this->belongsTo(GolonganDarah::class);
+    }
+
+    public function hubunganKeluarga()
+    {
+        return $this->belongsTo(HubunganKeluarga::class);
+    }
+
+    public function statusKependudukan()
+    {
+        return $this->belongsTo(StatusKependudukan::class);
+    }
 
     // Relasi ke Desa
     public function desa()
@@ -68,6 +100,7 @@ class Warga extends Model
     {
         return $this->belongsTo(RT::class);
     }
+
 
     // Relasi ke data kesehatan (nanti)
     public function dataKesehatanAnak()

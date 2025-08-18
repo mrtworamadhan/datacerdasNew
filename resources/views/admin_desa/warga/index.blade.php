@@ -57,8 +57,8 @@
                         <th>No.</th>
                         <th>NIK</th>
                         <th>Nama Lengkap</th>
-                        <th>Hubungan Keluarga</th>
                         <th>No. KK</th>
+                        <th>Hubungan Keluarga</th>
                         <th>RW/RT</th>
                         <th>Pendidikan</th>
                         <th>Pekerjaan</th>
@@ -72,12 +72,12 @@
                             <td>{{ $wargas->firstItem() + $index }}</td>
                             <td>{{ $warga->nik }}</td>
                             <td>{{ $warga->nama_lengkap }}</td>
-                            <td>{{ $warga->hubungan_keluarga ?? '-' }}</td>
                             <td>{{ $warga->kartuKeluarga->nomor_kk ?? '-' }}</td>
+                            <td>{{ $warga->hubunganKeluarga->nama ?? '-' }}</td>
                             <td>RW {{ $warga->rw->nomor_rw ?? '-' }}/RT {{ $warga->rt->nomor_rt ?? '-' }}</td>
-                            <td>{{ $warga->pendidikan ?? '-' }}</td>
-                            <td>{{ $warga->pekerjaan ?? '-' }}</td>
-                            <td><span class="badge badge-info">{{ $warga->status_kependudukan }}</span></td>
+                            <td>{{ $warga->pendidikan->nama ?? '-' }}</td>
+                            <td>{{ $warga->pekerjaan->nama ?? '-' }}</td>
+                            <td><span class="badge badge-info">{{ $warga->statusKependudukan->nama }}</span></td>
                             <td>
                                 {{-- Tombol Edit Warga (jika ada route edit) --}}
                                 {{-- <a href="{{ route('warga.edit', $warga) }}" class="btn btn-warning btn-xs">Edit</a> --}}

@@ -19,6 +19,8 @@ class DataKesehatanAnakController extends Controller
     public function index(Request $request, string $subdomain)
     {
         $user = Auth::user();
+        $desaId = auth()->user()->desa_id; // atau ambil dari subdomain
+
         $selectedPosyandu = null;
 
         // --- 1. MEMBUAT QUERY DASAR YANG "SADAR" HAK AKSES ---
@@ -117,7 +119,11 @@ class DataKesehatanAnakController extends Controller
         });
 
         // --- 6. KIRIM SEMUA DATA KE VIEW ---
-        $posyandus = Posyandu::all();
+        $posyandus = Posyandu::with('rws')
+            ->where('desa_id', $desaId)
+            ->latest()
+            ->get();
+            
         return view('admin_desa.kesehatan_anak.index', compact(
             'anakBaru',
             'anakTerpantau',

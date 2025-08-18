@@ -77,11 +77,13 @@ class PengajuanSuratController extends Controller
     public function reprint(string $subdomain, PengajuanSurat $pengajuanSurat)
     {        
         $user = Auth::user();
+
         // Cek hak akses untuk membuat pengajuan surat (Admin RT ke atas)
         if (!$user->isAdminDesa() && !$user->isSuperAdmin() ) {
             abort(403, 'Anda tidak memiliki hak akses untuk membuat pengajuan surat.');
         }
 
+        $this->authorize('admin_desa_access');
         // Pastikan hanya surat yang disetujui yang bisa dicetak ulang
         if ($pengajuanSurat->status_permohonan !== 'Disetujui') {
             return redirect()->back()->with('error', 'Hanya surat yang sudah disetujui yang bisa dicetak ulang.');
@@ -90,6 +92,7 @@ class PengajuanSuratController extends Controller
         $suratSetting = SuratSetting::firstOrCreate(['desa_id' => auth()->user()->desa_id]);
         $warga = $pengajuanSurat->warga;
         $desa = $warga->desa;
+
         $dataToReplace = [
             '[nama_warga]' => $warga->nama_lengkap,
             '[nik_warga]' => $warga->nik,
@@ -112,34 +115,71 @@ class PengajuanSuratController extends Controller
             '[nama_kota]' => $desa->kota ?? 'Nama Kota',
         ];
 
-        // Ganti juga variabel custom
-        if (is_array($pengajuanSurat->detail_tambahan)) {
-            foreach ($pengajuanSurat->detail_tambahan as $key => $value) {
-                $variableName = '[custom_' . strtolower($key) . ']';
-                $dataToReplace[$variableName] = $value;
+        $detailTambahan = $pengajuanSurat->detail_tambahan ?? [];
+            foreach ($detailTambahan as $key => $value) {
+                // Lewati array ahli_waris untuk ditangani secara khusus nanti
+                if ($key === 'ahli_waris' || !is_string($value)) continue;
+                
+                $variableName = '[custom_' . \Illuminate\Support\Str::slug($key, '_') . ']';
+                $dataToReplace[$variableName] = e($value);
             }
-        }
+        
         $processedContent = str_replace(array_keys($dataToReplace), array_values($dataToReplace), $pengajuanSurat->jenisSurat->isi_template);
+        
+        $ahliWarisData = $detailTambahan['ahli_waris'] ?? [];
+            if (!empty($ahliWarisData)) {
+                $tabelHtml = '<table style="width: 100%; border-collapse: collapse; margin-top: 10px;" border="1">';
+                $tabelHtml .= '<thead><tr style="background-color: #f2f2f2;"><th>No</th><th>Nama Lengkap</th><th>NIK</th><th>Hubungan Keluarga</th></tr></thead><tbody>';
+                
+                $nomor = 1;
+                foreach ($ahliWarisData as $waris) {
+                    $tabelHtml .= '<tr>';
+                    $tabelHtml .= '<td style="padding: 5px; text-align: center;">' . $nomor++ . '.</td>';
+                    $tabelHtml .= '<td style="padding: 5px;">' . e($waris['nama']) . '</td>';
+                    $tabelHtml .= '<td style="padding: 5px;">' . e($waris['nik']) . '</td>';
+                    $tabelHtml .= '<td style="padding: 5px;">' . e($waris['hubungan']) . '</td>';
+                    $tabelHtml .= '</tr>';
+                }
+                
+                $tabelHtml .= '</tbody></table>';
+
+                // Ganti placeholder [costum_table_ahli_waris] dengan tabel HTML yang sudah jadi
+                $processedContent = str_replace('[costum_table_ahli_waris]', $tabelHtml, $processedContent);
+            } else {
+                // Jika tidak ada data ahli waris, hapus saja placeholder-nya agar tidak muncul di surat
+                $processedContent = str_replace('[costum_table_ahli_waris]', '', $processedContent);
+            }
 
         $kopSuratBase64 = null;
+        if (!empty($suratSetting->path_kop_surat)) {
+            $imagePath = storage_path('app/public/' . $suratSetting->path_kop_surat);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
 
-        if ($suratSetting->path_kop_surat) {
-            $path = public_path('storage/' . $suratSetting->path_kop_surat);
-            if (file_exists($path)) {
-                $type = mime_content_type($path);
-                $data = base64_encode(file_get_contents($path));
-                $kopSuratBase64 = "data:$type;base64,$data";
-            }
-        }
         $ttdBase64 = null;
-        if ($suratSetting->path_ttd) {
-            $path = public_path('storage/' . $suratSetting->path_ttd);
-            if (file_exists($path)) {
-                $type = mime_content_type($path);
-                $data = base64_encode(file_get_contents($path));
-                $ttdBase64 = "data:$type;base64,$data";
+        if (!empty($suratSetting->path_ttd)) {
+            $imagePath = storage_path('app/public/' . $suratSetting->path_ttd);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $ttdBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             }
         }
+        
+        $logo = null;
+        if (!empty($suratSetting->path_logo_pemerintah)) {
+            $imagePath = storage_path('app/public/' . $suratSetting->path_logo_pemerintah);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
+        
         // 4. Generate PDF
         $pdf = Pdf::loadView('admin_desa.pengajuan_surat.cetak', [
             'suratSetting' => $suratSetting,
@@ -148,6 +188,7 @@ class PengajuanSuratController extends Controller
             'desa' => $desa,
             'kopSuratBase64' => $kopSuratBase64,
             'ttdBase64' => $ttdBase64,
+            'logo' => $logo,
             'isReprint' => true,
         ]);
 
@@ -158,16 +199,25 @@ class PengajuanSuratController extends Controller
     public function store(Request $request, string $subdomain)
     { 
         $validated = $request->validate([
-            'warga_id' => 'required|exists:wargas,id',
-            'jenis_surat_id' => 'required|exists:jenis_surats,id',
-            'persyaratan_terpenuhi' => 'nullable|array',
+            'warga_id' => 'required',
+            'jenis_surat_id' => 'required',
+            'keperluan' => 'nullable|string',
             'custom_fields' => 'nullable|array',
-            
+            'ahli_waris' => 'nullable|array',
+            'ahli_waris.*.nama' => 'sometimes|nullable|string',
+            'ahli_waris.*.nik' => 'sometimes|nullable|string',
+            'ahli_waris.*.hubungan' => 'sometimes|nullable|string',
+
         ]);
 
         // Tentukan jalur pengajuan berdasarkan role user
         $jalur = (Auth::user()->user_type == 'admin_desa') ? 'langsung_desa' : 'rt_rw';
         $status = ($jalur == 'langsung_desa') ? 'Diproses Desa' : 'Diajukan';
+        $detailTambahan = array_merge(
+            $validated['custom_fields'] ?? [], 
+            ['keperluan' => $validated['keperluan']],
+            ['tabel ahli waris' => $validated['ahli_waris'] ?? []] // <-- Simpan data ahli waris
+        );
 
         PengajuanSurat::create([
             'warga_id' => $validated['warga_id'],
@@ -177,7 +227,7 @@ class PengajuanSuratController extends Controller
             'jalur_pengajuan' => $jalur,
             'status_permohonan' => $status,
             'persyaratan_terpenuhi' => $validated['persyaratan_terpenuhi'] ?? null,
-            'detail_tambahan' => $validated['custom_fields'] ?? null,
+            'detail_tambahan' => $detailTambahan,
         ]);
 
         // Nanti kita akan arahkan ke halaman daftar pengajuan
@@ -188,8 +238,16 @@ class PengajuanSuratController extends Controller
     {
         // Eager load relasi yang dibutuhkan
         $pengajuanSurat->load(['warga', 'jenisSurat', 'diajukanOleh']);
+        $detailTambahan = $pengajuanSurat->detail_tambahan ?? [];
+            foreach ($detailTambahan as $key => $value) {
+                // Lewati array ahli_waris untuk ditangani secara khusus nanti
+                if ($key === 'ahli_waris' || !is_string($value)) continue;
+                
+                $variableName = '[custom_' . \Illuminate\Support\Str::slug($key, '_') . ']';
+                $dataToReplace[$variableName] = e($value);
+            }
 
-        return view('admin_desa.pengajuan_surat.show', compact('pengajuanSurat'));
+        return view('admin_desa.pengajuan_surat.show', compact('pengajuanSurat', 'detailTambahan'));
     }
     // Method untuk API
     public function getJenisSuratDetails(string $subdomain, JenisSurat $jenisSurat)
@@ -250,37 +308,68 @@ class PengajuanSuratController extends Controller
             '[nama_kota]' => $desa->kota ?? 'Nama Kota',
         ];
 
-        // Ganti juga variabel custom
-        if (is_array($pengajuanSurat->detail_tambahan)) {
-            foreach ($pengajuanSurat->detail_tambahan as $key => $value) {
-                $variableName = '[custom_' . strtolower($key) . ']';
-                $dataToReplace[$variableName] = $value;
+        $detailTambahan = $pengajuanSurat->detail_tambahan ?? [];
+            foreach ($detailTambahan as $key => $value) {
+                // Lewati array ahli_waris untuk ditangani secara khusus nanti
+                if ($key === 'ahli_waris' || !is_string($value)) continue;
+                
+                $variableName = '[custom_' . \Illuminate\Support\Str::slug($key, '_') . ']';
+                $dataToReplace[$variableName] = e($value);
             }
-        }
+        
+        $processedContent = str_replace(array_keys($dataToReplace), array_values($dataToReplace), $pengajuanSurat->jenisSurat->isi_template);
+        
+        $ahliWarisData = $detailTambahan['ahli_waris'] ?? [];
+            if (!empty($ahliWarisData)) {
+                $tabelHtml = '<table style="width: 100%; border-collapse: collapse; margin-top: 10px;" border="1">';
+                $tabelHtml .= '<thead><tr style="background-color: #f2f2f2;"><th>No</th><th>Nama Lengkap</th><th>NIK</th><th>Hubungan Keluarga</th></tr></thead><tbody>';
+                
+                $nomor = 1;
+                foreach ($ahliWarisData as $waris) {
+                    $tabelHtml .= '<tr>';
+                    $tabelHtml .= '<td style="padding: 5px; text-align: center;">' . $nomor++ . '.</td>';
+                    $tabelHtml .= '<td style="padding: 5px;">' . e($waris['nama']) . '</td>';
+                    $tabelHtml .= '<td style="padding: 5px;">' . e($waris['nik']) . '</td>';
+                    $tabelHtml .= '<td style="padding: 5px;">' . e($waris['hubungan']) . '</td>';
+                    $tabelHtml .= '</tr>';
+                }
+                
+                $tabelHtml .= '</tbody></table>';
 
-        $processedContent = $pengajuanSurat->jenisSurat->isi_template;
-        foreach ($dataToReplace as $variable => $value) {
-            $processedContent = str_replace($variable, "{$value}", $processedContent);
-        }
+                // Ganti placeholder [costum_table_ahli_waris] dengan tabel HTML yang sudah jadi
+                $processedContent = str_replace('[costum_table_ahli_waris]', $tabelHtml, $processedContent);
+            } else {
+                // Jika tidak ada data ahli waris, hapus saja placeholder-nya agar tidak muncul di surat
+                $processedContent = str_replace('[costum_table_ahli_waris]', '', $processedContent);
+            }
         
         $kopSuratBase64 = null;
-
-        if ($suratSetting->path_kop_surat) {
-            $path = public_path('storage/' . $suratSetting->path_kop_surat);
-            if (file_exists($path)) {
-                $type = mime_content_type($path);
-                $data = base64_encode(file_get_contents($path));
-                $kopSuratBase64 = "data:$type;base64,$data";
+        if (!empty($suratSetting->path_kop_surat)) {
+            $imagePath = storage_path('app/public/' . $suratSetting->path_kop_surat);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             }
         }
 
         $ttdBase64 = null;
-        if ($suratSetting->path_ttd) {
-            $path = public_path('storage/' . $suratSetting->path_ttd);
-            if (file_exists($path)) {
-                $type = mime_content_type($path);
-                $data = base64_encode(file_get_contents($path));
-                $ttdBase64 = "data:$type;base64,$data";
+        if (!empty($suratSetting->path_ttd)) {
+            $imagePath = storage_path('app/public/' . $suratSetting->path_ttd);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $ttdBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
+        
+        $logo = null;
+        if (!empty($suratSetting->path_logo_pemerintah)) {
+            $imagePath = storage_path('app/public/' . $suratSetting->path_logo_pemerintah);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
             }
         }
         // 4. Generate PDF
@@ -290,6 +379,7 @@ class PengajuanSuratController extends Controller
             'processedContent' => $processedContent,
             'desa' => $desa,
             'kopSuratBase64' => $kopSuratBase64,
+            'logo' => $logo,
             'ttdBase64' => $ttdBase64,
         ]);
 
@@ -342,8 +432,17 @@ class PengajuanSuratController extends Controller
         $pengajuan->warga = Warga::find($data['warga_id']);
         $desa = $pengajuan->warga->desa;
         $suratSetting = SuratSetting::firstOrCreate(['desa_id' => $desa->id]);
+        $kopSuratBase64 = null;
+        if (!empty($suratSetting->path_logo_pemerintah)) {
+            $imagePath = storage_path('app/public/' . $suratSetting->path_logo_pemerintah);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
 
-        $pdf = Pdf::loadView('admin_desa.pengajuan_surat.cetak_pengantar', compact('pengajuan', 'desa', 'suratSetting'));
+        $pdf = Pdf::loadView('admin_desa.pengajuan_surat.cetak_pengantar', compact('pengajuan', 'desa', 'suratSetting', 'kopSuratBase64'));
         return $pdf->stream('surat-pengantar.pdf');
     }
 

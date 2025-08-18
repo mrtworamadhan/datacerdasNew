@@ -17,8 +17,11 @@ class WargaController extends Controller
             abort(403, 'Anda tidak memiliki hak akses untuk melihat daftar warga.');
         }
 
-        // Query dasar untuk warga (Global scope akan otomatis memfilter sesuai user)
-        $query = Warga::with('kartuKeluarga.kepalaKeluarga', 'rw', 'rt');
+        // // Query dasar untuk warga (Global scope akan otomatis memfilter sesuai user)
+        // $query = Warga::with('kartuKeluarga.kepalaKeluarga', 'rw', 'rt')
+        //     ->where('wargas.status_kependudukan', '!=', 'Meninggal');
+        $query = Warga::with('kartuKeluarga.kepalaKeluarga', 'rw', 'rt', 'statusKependudukan')
+            ->whereHas('statusKependudukan', fn($q) => $q->where('nama', '!=', 'Meninggal'));
 
         // Terapkan filter pencarian
         if ($request->filled('search')) {

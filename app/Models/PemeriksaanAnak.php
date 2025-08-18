@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class PemeriksaanAnak extends Model
 {
@@ -56,6 +57,82 @@ class PemeriksaanAnak extends Model
             'data_kesehatan_anak_id', // Local key di tabel ini (pemeriksaan_anaks)
             'warga_id' // Local key di tabel perantara (data_kesehatan_anaks)
         );
+    }
+
+    public function getUsiaFormattedAttribute(): string
+    {
+        $totalHari = $this->usia_saat_periksa;
+
+        if (is_null($totalHari)) {
+            return 'N/A';
+        }
+
+        // Konversi total hari ke periode waktu (tahun, bulan, hari)
+        $interval = Carbon::now()->addDays($totalHari)->diffAsCarbonInterval(Carbon::now());
+        
+        $bagian = [];
+        if ($interval->y > 0) {
+            $bagian[] = $interval->y . ' tahun';
+        }
+        if ($interval->m > 0) {
+            $bagian[] = $interval->m . ' bulan';
+        }
+        if ($interval->d > 0) {
+            $bagian[] = $interval->d . ' hari';
+        }
+        
+        return implode(', ', $bagian) ?: '0 hari';
+    }
+
+    public function getRingkasanStatusGiziAttribute(): string
+    {
+        $abnormalStatuses = [];
+
+        // Cek Stunting: jika statusnya BUKAN 'Normal'
+        if ($this->status_stunting && !str_contains(strtolower($this->status_stunting), 'normal')) {
+            // Ambil kata pertama saja agar ringkas (misal: "Pendek" dari "Pendek (Stunting)")
+            $abnormalStatuses[] = explode(' ', $this->status_stunting)[0];
+        }
+
+        // Cek Wasting: jika statusnya BUKAN 'Gizi Baik'
+        if ($this->status_wasting && !str_contains(strtolower($this->status_wasting), 'baik')) {
+            $abnormalStatuses[] = $this->status_wasting;
+        }
+
+        // Cek Underweight: jika statusnya BUKAN 'Berat Badan Normal'
+        if ($this->status_underweight && !str_contains(strtolower($this->status_underweight), 'normal')) {
+            $abnormalStatuses[] = 'BB ' . explode(' ', $this->status_underweight)[1]; // Ambil kata ketiga, misal: "Kurang"
+        }
+
+        // Jika tidak ada yang bermasalah, kembalikan 'Normal'
+        if (empty($abnormalStatuses)) {
+            return 'Normal';
+        }
+
+        // Jika ada, gabungkan semua status bermasalah
+        return implode(' / ', $abnormalStatuses);
+    }
+
+    /**
+     * Accessor untuk menentukan warna badge berdasarkan ringkasan status.
+     *
+     * @return string
+     */
+    public function getRingkasanStatusGiziBadgeAttribute(): string
+    {
+        $summary = strtolower($this->ringkasan_status_gizi); // Panggil accessor di atas
+
+        if ($summary === 'normal') {
+            return 'success'; // Hijau
+        }
+
+        // Jika ada kata "berat" atau "buruk", warnanya merah
+        if (str_contains($summary, 'berat') || str_contains($summary, 'buruk')) {
+            return 'danger'; // Merah
+        }
+        
+        // Jika tidak, berarti hanya berisiko (kuning)
+        return 'warning';
     }
 }
 

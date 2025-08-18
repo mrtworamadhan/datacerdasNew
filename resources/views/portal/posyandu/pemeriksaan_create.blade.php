@@ -5,15 +5,15 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Pemeriksaan untuk: {{ $anak->warga->nama_lengkap }}</h4>
+            <h4 class="card-title">Pemeriksaan untuk: {{ $anak->nama_lengkap }}</h4>
         </div>
         <div class="card-body">
             <form action="{{ route('portal.posyandu.pemeriksaan.store', ['subdomain' => app('tenant')->subdomain]) }}" method="POST">
                 @csrf
                 <input type="hidden" name="data_kesehatan_anak_id" value="{{ $anak->id }}">
 
-                {{-- Di sini kita letakkan semua field input yang ada di pemeriksaan.blade.php lama --}}
-                {{-- Contoh: --}}
+                <input type="hidden" name="data_kesehatan_anak_id" value="{{ $dataKesehatanAnak->id }}">
+
                 <div class="mb-3">
                     <label for="tanggal_pemeriksaan" class="form-label">Tanggal Pemeriksaan</label>
                     <input type="date" name="tanggal_pemeriksaan" class="form-control" value="{{ date('Y-m-d') }}" required>
@@ -31,12 +31,8 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="lingkar_lengan_atas" class="form-label">Lingkar Lengan Atas (cm)</label>
-                        <input type="number" step="0.1" name="lingkar_lengan_atas" id="lingkar_lengan_atas" class="form-control" placeholder="(Opsional)">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="lingkar_kepala" class="form-label">Lingkar Kepala (cm)</label>
-                        <input type="number" step="0.1" name="lingkar_kepala" id="lingkar_kepala" class="form-control" placeholder="(Opsional)">
+                        <label for="lila" class="form-label">Lingkar Lengan Atas (cm)</label>
+                        <input type="number" step="0.1" name="lila" id="lila" class="form-control" placeholder="(Opsional)">
                     </div>
                 </div>
 

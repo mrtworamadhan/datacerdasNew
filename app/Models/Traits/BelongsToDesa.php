@@ -4,106 +4,61 @@ namespace App\Models\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Schema; // Tetap diperlukan untuk creating event
 
 trait BelongsToDesa
 {
-    /**
-     * The "booted" method of the trait.
-     *
-     * @return void
-     */
     protected static function bootBelongsToDesa()
     {
+        // Global Scope untuk memfilter data saat SELECT
         static::addGlobalScope('desa_id_and_area', function (Builder $builder) {
-            // Ambil nama tabel dari model yang sedang di-query
-            $tableName = $builder->getModel()->getTable(); // DIPINDAHKAN KE SINI
-
-            // Jika ada user yang login, terapkan filter sesuai peran
             if (Auth::check()) {
                 $user = Auth::user();
+                $tableName = $builder->getModel()->getTable();
 
-                // 1. Super Admin: Tidak perlu scope, bisa lihat semua
-                if ($user->user_type === 'super_admin') {
-                    return; // Jangan terapkan scope untuk super admin
+                // Bypass untuk Super Admin
+                if ($user->hasRole('super_admin')) { // Lebih baik cek pakai role dari spatie
+                    return;
                 }
 
-                // Mulai dengan filter desa_id (untuk semua user non-Super Admin)
+                // Terapkan scope dasar untuk semua user non-superadmin
                 if ($user->desa_id) {
-                    $builder->where($tableName . '.desa_id', $user->desa_id); // Kualifikasi kolom
+                    $builder->where($tableName . '.desa_id', $user->desa_id);
                 } else {
-                    // Jika user non-Super Admin tidak punya desa_id (seharusnya tidak terjadi), tampilkan kosong
-                    $builder->where($tableName . '.id', null); // Kualifikasi kolom
-                    return; // Hentikan penerapan scope lebih lanjut
+                    // Jika non-superadmin tapi tidak punya desa_id, blok akses data
+                    $builder->whereRaw('1 = 0'); // Cara aman untuk tidak menampilkan hasil
+                    return;
                 }
-
-                // 2. Admin RW: Tambah filter rw_id, HANYA JIKA tabel memiliki kolom 'rw_id'
-                if ($user->user_type === 'admin_rw') {
-                    if ($user->rw_id && Schema::hasColumn($tableName, 'rw_id')) {
-                        $builder->where($tableName . '.rw_id', $user->rw_id); // Kualifikasi kolom
-                    } else if (Schema::hasColumn($tableName, 'rw_id')) { // Jika kolom ada tapi user.rw_id null
-                        $builder->where($tableName . '.id', null); // Tampilkan kosong
-                    }
-                    return; // Hentikan penerapan scope lebih lanjut
-                }
-
-                // 3. Admin RT: Tambah filter rt_id, HANYA JIKA tabel memiliki kolom 'rt_id'
-                if ($user->user_type === 'admin_rt') {
-                    // Pastikan juga filter RW sudah diterapkan jika ada kolomnya
-                    if (Schema::hasColumn($tableName, 'rw_id') && $user->rw_id) { // Cek kolom sebelum pakai $user->rw_id
-                        $builder->where($tableName . '.rw_id', $user->rw_id); // Kualifikasi kolom
-                    }
-
-                    if ($user->rt_id && Schema::hasColumn($tableName, 'rt_id')) {
-                        $builder->where($tableName . '.rt_id', $user->rt_id); // Kualifikasi kolom
-                    } else if (Schema::hasColumn($tableName, 'rt_id')) { // Jika kolom ada tapi user.rt_id null
-                        $builder->where($tableName . '.id', null); // Kualifikasi kolom
-                    }
-                    return; // Hentikan penerapan scope lebih lanjut
-                }
-
-                // 4. Kader Posyandu: Tambah filter rw_id dan rt_id jika ada dan kolomnya ada
-                if ($user->user_type === 'kader_posyandu') {
-                    if ($user->rt_id && Schema::hasColumn($tableName, 'rt_id')) {
-                        $builder->where($tableName . '.rt_id', $user->rt_id); // Kualifikasi kolom
-                    } elseif ($user->rw_id && Schema::hasColumn($tableName, 'rw_id')) {
-                        $builder->where($tableName . '.rw_id', $user->rw_id); // Kualifikasi kolom
-                    }
-                    // Jika tidak ada RW/RT ID, hanya filter berdasarkan desa_id (yang sudah diterapkan di awal)
-                }
-
-            } else {
                 
-                if (Schema::hasColumn($tableName, 'desa_id')) {
-                    // Jika model punya desa_id, tapi tidak ada user login, kita bisa default ke null
-                    // atau biarkan PublicController@indexPublic yang memfilter desa_id
-                    // Untuk saat ini, biarkan saja tanpa filter tambahan jika tidak login.
+                // Tambahkan filter spesifik berdasarkan hierarki
+                // Admin RT adalah yang paling spesifik, kita cek duluan.
+                if ($user->hasRole('admin_rt') && $user->rt_id) {
+                    $builder->where($tableName . '.rt_id', $user->rt_id);
+                } 
+                // Jika bukan admin RT, mungkin dia admin RW.
+                elseif (($user->hasRole('admin_rw') || $user->hasRole('kader_posyandu')) && $user->rw_id) {
+                    $builder->where($tableName . '.rw_id', $user->rw_id);
                 }
+                // Jika tidak cocok, user tersebut (misal: admin desa) hanya difilter berdasarkan desa_id.
             }
         });
 
-        // Otomatis mengisi desa_id, rw_id, rt_id saat membuat data baru
+        // Otomatis mengisi foreign key saat INSERT
         static::creating(function ($model) {
-            if (Auth::check()) {
+            if (Auth::check() && !Auth::user()->hasRole('super_admin')) {
                 $user = Auth::user();
-                if ($user->user_type !== 'super_admin') {
-                    $model->desa_id = $user->desa_id;
-                    // Hanya isi rw_id/rt_id jika model memiliki kolom tersebut dan user memiliki rw_id/rt_id
-                    if (Schema::hasColumn($model->getTable(), 'rw_id') && $user->rw_id) {
-                        $model->rw_id = $user->rw_id;
-                    }
-                    if (Schema::hasColumn($model->getTable(), 'rt_id') && $user->rt_id) {
-                        $model->rt_id = $user->rt_id;
-                    }
+                
+                // Selalu isi desa_id
+                $model->desa_id = $user->desa_id;
+
+                // Cek kolom sebelum mengisi, ini tidak apa-apa karena hanya terjadi sekali saat INSERT
+                if ($user->rw_id && Schema::hasColumn($model->getTable(), 'rw_id')) {
+                    $model->rw_id = $user->rw_id;
                 }
-                // Jika super admin yang membuat data, desa_id/rw_id/rt_id harus diisi manual di form
+                if ($user->rt_id && Schema::hasColumn($model->getTable(), 'rt_id')) {
+                    $model->rt_id = $user->rt_id;
+                }
             }
         });
-    }
-
-    // Opsional: Method untuk nonaktifkan scope sementara
-    public static function withoutAreaScope()
-    {
-        return static::withoutGlobalScope('desa_id_and_area');
     }
 }

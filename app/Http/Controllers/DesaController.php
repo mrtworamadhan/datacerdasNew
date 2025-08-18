@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class DesaController extends Controller
 {
     // Definisikan opsi status langganan
-    private $subscriptionStatusOptions = ['active', 'trial', 'inactive'];
+    private $subscriptionStatusOptions = ['aktif', 'trial', 'nonaktif'];
 
     /**
      * Display a listing of the resource.
@@ -67,7 +67,7 @@ class DesaController extends Controller
             'provinsi' => 'nullable|string|max:100',
             'kode_pos' => 'nullable|string|max:10',
             'nama_kades' => 'nullable|string|max:255', // Validasi nama kades
-            'subscription_status' => 'required|in:active,trial,inactive',
+            'subscription_status' => 'required|in:aktif,trial,nonaktif',
             'subscription_ends_at' => 'nullable|date',
             'trial_ends_at' => 'nullable|date',
 
@@ -80,7 +80,7 @@ class DesaController extends Controller
         try {
             $desa = Desa::create([
                 'nama_desa' => $request->nama_desa,
-                'slug' => Str::slug($request->nama_desa),
+                'subdomain' => Str::slug($request->nama_desa),
                 'alamat_desa' => $request->alamat_desa,
                 'kecamatan' => $request->kecamatan,
                 'kota' => $request->kota,
@@ -150,7 +150,7 @@ class DesaController extends Controller
             'provinsi' => 'nullable|string|max:100',
             'kode_pos' => 'nullable|string|max:10',
             'nama_kades' => 'nullable|string|max:255', // Validasi nama kades
-            'subscription_status' => 'required|in:active,trial,inactive',
+            'subscription_status' => 'required|in:aktif,trial,nonaktif',
             'subscription_ends_at' => 'nullable|date',
             'trial_ends_at' => 'nullable|date',
         ]);
@@ -159,7 +159,7 @@ class DesaController extends Controller
         try {
             $desa->update([
                 'nama_desa' => $request->nama_desa,
-                'slug' => Str::slug($request->nama_desa),
+                'subdomain' => Str::slug($request->nama_desa),
                 'alamat_desa' => $request->alamat_desa,
                 'kecamatan' => $request->kecamatan,
                 'kota' => $request->kota,

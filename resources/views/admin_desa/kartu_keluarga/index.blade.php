@@ -27,9 +27,23 @@
                     {{ session('error') }}
                 </div>
             @endif
+            <form action="{{ route('kartu-keluarga.index') }}" method="GET" class="p-3">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Cari Nomor KK..." value="{{ request('search') }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-info" type="submit">
+                            <i class="fas fa-search"></i> Cari
+                        </button>
+                        @if(request('search'))
+                            <a href="{{ route('kartu-keluarga.index') }}" class="btn btn-secondary">Reset</a>
+                        @endif
+                    </div>
+                </div>
+            </form>
             <table class="table table-striped table-valign-middle">
                 <thead>
                     <tr>
+
                         <th>Nomor KK</th>
                         <th>Kepala Keluarga</th>
                         <th>RW/RT</th>
@@ -40,8 +54,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($kartuKeluargas as $kk)
+                    @forelse ($kartuKeluargas as $index => $kk)
                         <tr>
+            
                             <td>{{ $kk->nomor_kk }}</td>
                             <td>{{ $kk->kepalaKeluarga->nama_lengkap ?? '-' }}</td>
                             <td>RW {{ $kk->rw->nomor_rw ?? '-' }}/RT {{ $kk->rt->nomor_rt ?? '-' }}</td>

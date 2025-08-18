@@ -66,7 +66,7 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/')->with('error', 'Akun Anda tidak terkonfigurasi dengan benar atau tidak memiliki hak akses yang sesuai.');
+        return redirect('/login')->with('error', 'Akun Anda tidak terkonfigurasi dengan benar atau tidak memiliki hak akses yang sesuai.');
         // =================================================================
     }
 
@@ -83,9 +83,9 @@ class AuthenticatedSessionController extends Controller
 
         // Arahkan ke login yang sesuai setelah logout
         if ($isSuperAdmin) {
-            return redirect('/');
+            return redirect('/login');
         }
         // Untuk tenant, idealnya kita tahu subdomainnya, tapi redirect ke root juga aman
-        return redirect('/');
+        return redirect('/login');
     }
 }

@@ -19,21 +19,53 @@
                 <input type="hidden" name="jenis_surat_id" value="{{ $jenisSurat->id }}">
 
                 {{-- Menampilkan field dinamis --}}
-                @if($jenisSurat->custom_fields && count($jenisSurat->custom_fields) > 0)
-                    <div class="mb-3">
-                        <label class="form-label"><strong>Isian Tambahan yang Diperlukan:</strong></label>
-                        @foreach($jenisSurat->custom_fields as $field)
-                            @php
-                                $fieldName = 'custom_fields[' . Str::slug($field, '_') . ']';
-                            @endphp
-                            <div class="form-group">
-                                <label for="{{ $fieldName }}">{{ $field }}</label>
-                                <input type="text" name="{{ $fieldName }}" class="form-control" placeholder="Masukkan {{ $field }}..." required>
+                <div id="dynamic-fields-container" class="mt-4">
+                    {{-- Checklist Persyaratan --}}
+                    @if($jenisSurat->persyaratan && count($jenisSurat->persyaratan) > 0)
+                        <div class="form-group">
+                            <label>Mohon Siapkan dan Bawa Dokumen Berikut:</label>
+                            @foreach($jenisSurat->persyaratan as $syarat)
+                            <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="syarat_{{ $loop->index }}" required>
+                            <label class="custom-control-label" for="syarat_{{ $loop->index }}">{{ $syarat }}</label>
                             </div>
-                        @endforeach
-                    </div>
-                @endif
+                            @endforeach
+                        </div>
+                    @endif
 
+                    {{-- Field Kustom --}}
+                    @if($jenisSurat->custom_fields && count($jenisSurat->custom_fields) > 0)
+                        <div class="form-group mt-3">
+                            <label>Isian Tambahan yang Diperlukan:</label>
+                            @foreach($jenisSurat->custom_fields as $field)
+                                @if($field !== 'tabel ahli waris')
+                                    @php
+                                        $fieldName = 'custom_fields[' . Str::slug($field, '_') . ']';
+                                    @endphp
+                                    <div class="form-group">
+                                        <label for="{{ $fieldName }}">{{ $field }}</label>
+                                        <input type="text" name="{{ $fieldName }}" class="form-control form-control-lg" placeholder="Masukkan {{ $field }}..." required>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                @if(Str::contains(strtolower($jenisSurat->nama_surat), 'ahli waris'))
+                <div id="ahli-waris-section" class="card card-outline card-info mt-4">
+                    <div class="card-header"><h3 class="card-title">Data Ahli Waris</h3></div>
+                    <div class="card-body">
+                        <div id="ahli-waris-wrapper">
+                            <div class="row ahli-waris-item mb-2 align-items-center">
+                                <div class="col-md-4"><input type="text" name="ahli_waris[0][nama]" class="form-control form-control-lg" placeholder="Nama Lengkap"></div>
+                                <div class="col-md-4"><input type="text" name="ahli_waris[0][nik]" class="form-control form-control-lg" placeholder="NIK"></div>
+                                <div class="col-md-4"><input type="text" name="ahli_waris[0][hubungan]" class="form-control form-control-lg" placeholder="Hubungan Keluarga"></div>
+                            </div>
+                        </div>
+                        <button type="button" id="tambah-ahli-waris-btn" class="btn btn-secondary mt-2"><i class="fas fa-plus"></i> Tambah Ahli Waris</button>
+                    </div>
+                </div>
+                @endif
                 <div class="mb-3">
                     <label for="keperluan" class="form-label">Keperluan</label>
                     <textarea name="keperluan" id="keperluan" class="form-control" rows="3" placeholder="Contoh: Untuk melamar pekerjaan" required></textarea>

@@ -10,20 +10,20 @@ use App\Models\RT;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class UserSeeder extends Seeder
+class DesaSeeder extends Seeder
 {
     public function run(): void
     {
         // Super Admin
-        User::firstOrCreate(
-            ['email' => 'admin@datacerdas.com'],
-            [
-                'name' => 'Super Admin DataCerdas',
-                'password' => Hash::make('password'),
-                'user_type' => 'super_admin',
-                'desa_id' => null,
-            ]
-        );
+        // User::firstOrCreate(
+        //     ['email' => 'admin@datacerdas.com'],
+        //     [
+        //         'name' => 'Super Admin DataCerdas',
+        //         'password' => Hash::make('password'),
+        //         'user_type' => 'super_admin',
+        //         'desa_id' => null,
+        //     ]
+        // );
 
         // Desa Dummy
         $desa1 = Desa::firstOrCreate(
@@ -34,8 +34,8 @@ class UserSeeder extends Seeder
                 'kota' => 'Kab Bogor',
                 'provinsi' => 'Jawa Barat',
                 'kode_pos' => '12345',
-                'alamat_desa' => 'Jl. Raya Maju Jaya No. 1',
-                'nama_kades' => 'Ir. Suganda',
+                'alamat_desa' => 'Jl. Raya Cerdas Maju Jaya No. 1',
+                'nama_kades' => 'Arunika Larasati, MM',
                 'subscription_status' => 'aktif',
                 'subscription_ends_at' => now()->addYear(),
             ]

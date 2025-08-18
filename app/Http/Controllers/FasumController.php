@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Fasum;
 use App\Models\FasumPhoto;
 use App\Models\Desa;
-use App\Models\Rw;
-use App\Models\Rt;
+use App\Models\RW;
+use App\Models\RT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -127,8 +127,8 @@ class FasumController extends Controller
             }
         }
 
-        $rws = Rw::all();
-        $rts = Rt::all();
+        $rws = RW::all();
+        $rts = RT::all();
 
         $jenisFasumOptions = $this->jenisFasumOptions;
         $kondisiOptions = $this->kondisiOptions;

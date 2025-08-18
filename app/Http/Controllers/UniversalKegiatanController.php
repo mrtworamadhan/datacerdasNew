@@ -145,6 +145,15 @@ class UniversalKegiatanController extends Controller
         // 2. Load relasi yang dibutuhkan agar tidak terjadi N+1 query
         $kegiatan->load('kegiatanable');
         $penyelenggara = $kegiatan->kegiatanable;
+        $kopSuratBase64 = null;
+        if (!empty($penyelenggara->path_kop_surat)) {
+            $imagePath = storage_path('app/public/' . $penyelenggara->path_kop_surat);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
 
         // 3. Siapkan data untuk dikirim ke "cetakan" PDF
         $data = [
@@ -152,6 +161,7 @@ class UniversalKegiatanController extends Controller
             'kegiatan' => $kegiatan,
             'penyelenggara' => $kegiatan->kegiatanable,
             'tanggalCetak' => now(),
+            'kopSuratBase64' => $kopSuratBase64
         ];
         $data['ketua'] = $penyelenggara->pengurus()->where('jabatan', 'Ketua')->first();
         // 4. Load view, kirim data, dan buat PDF

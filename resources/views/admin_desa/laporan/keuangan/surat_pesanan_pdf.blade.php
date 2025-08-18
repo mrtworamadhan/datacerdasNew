@@ -39,7 +39,7 @@
             <tr>
                 <td class="logo">
                     @if($penyelenggara->path_kop_surat)
-                        <img src="{{ public_path('storage/' . $penyelenggara->path_kop_surat) }}" alt="Logo" >
+                        <img src="{{ asset('storage/' . $penyelenggara->path_kop_surat) }}" alt="Logo" >
                     @else
                         <img src="https://placehold.co/80x80?text=Logo" alt="Logo">
                     @endif

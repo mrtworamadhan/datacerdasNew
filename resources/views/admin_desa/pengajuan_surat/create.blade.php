@@ -128,17 +128,31 @@
                         }
 
                         if (data.custom_fields && data.custom_fields.length > 0) {
-                            var customFieldsHtml = '<div class="form-group"><label>Isian Tambahan</label>';
+                            var customFieldsHtml = '<div class="form-group mt-3"><label>Isian Tambahan yang Diperlukan:</label>';
+
                             $.each(data.custom_fields, function (index, item) {
-                                var fieldName = 'custom_fields[' + item.replace(/\s+/g, '_').toLowerCase() + ']';
-                                customFieldsHtml += `<div class="form-group">
-                                                            <label for="${fieldName}">${item}</label>
-                                                            <input type="text" name="${fieldName}" class="form-control" placeholder="Masukkan ${item}...">
-                                                         </div>`;
+                                // Lewati kalau field adalah "tabel ahli waris" (case insensitive)
+                                if (item.trim().toLowerCase() === 'tabel ahli waris') {
+                                    return; // skip loop
+                                }
+
+                                // Ubah spasi jadi underscore, lowercase
+                                var slugField = item.trim().toLowerCase().replace(/\s+/g, '_');
+
+                                var fieldName = 'custom_fields[' + slugField + ']';
+
+                                customFieldsHtml += `
+                                    <div class="form-group">
+                                        <label for="${fieldName}">${item}</label>
+                                        <input type="text" name="${fieldName}" class="form-control form-control-lg" placeholder="Masukkan ${item}..." required>
+                                    </div>
+                                `;
                             });
+
                             customFieldsHtml += '</div>';
                             customFieldsContainer.html(customFieldsHtml);
                         }
+
                     });
                 }
             });

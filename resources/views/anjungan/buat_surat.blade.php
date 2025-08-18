@@ -12,9 +12,7 @@
             <p class="mb-0">Data Anda sebagai <strong>{{ $warga->nama_lengkap }}</strong> akan digunakan secara otomatis. Silakan lengkapi isian di bawah ini.</p>
         </div>
 
-        {{-- ====================================================== --}}
         {{-- === INI ADALAH "MESIN" DINAMIS DARI FORM ADMIN === --}}
-        {{-- ====================================================== --}}
         <div id="dynamic-fields-container" class="mt-4">
             {{-- Checklist Persyaratan --}}
             @if($jenisSurat->persyaratan && count($jenisSurat->persyaratan) > 0)

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
 class AdminDesaUserManagementController extends Controller
 {
@@ -68,8 +69,9 @@ class AdminDesaUserManagementController extends Controller
             })
             ->get();
 
+        $roles = Role::whereNotIn('name', ['superadmin', 'admin_desa'])->get();
         $rws = Rw::where('desa_id', $user->desa_id)->get(); // Semua RW di desa
-        $posyandus = Posyandu::all();
+        $posyandus = Posyandu::where('desa_id', $user->desa_id)->get();
         $posyandusWithKader = User::where('user_type', 'kader_posyandu')
             ->whereNotNull('posyandu_id')
             ->pluck('posyandu_id');
@@ -83,7 +85,8 @@ class AdminDesaUserManagementController extends Controller
             'rwsWithKader',
             'rws',
             'posyandus',
-            'posyandusWithKader'
+            'posyandusWithKader',
+            'roles'
         ));
     }
 

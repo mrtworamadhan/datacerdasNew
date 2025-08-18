@@ -47,6 +47,11 @@ class RW extends Model
         return $this->hasMany(User::class, 'rw_id');
     }
 
+    public function posyandu()
+    {
+        return $this->hasMany(Posyandu::class, 'rw_id');
+    }
+
     // Relasi Kartu Keluarga (sudah ada)
     public function kartuKeluargas()
     {

@@ -6,6 +6,7 @@ use App\Models\Posyandu;
 use App\Models\Warga;
 use App\Models\PemeriksaanAnak;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class PosyanduReportController extends Controller
@@ -13,11 +14,14 @@ class PosyanduReportController extends Controller
     public function generatePdf(string $subdomain, Posyandu $posyandu, $bulan, $tahun)
     {
         // 1. DATA DASAR & PROFIL
+        $user = Auth::user();
+        $desa = $user->desa;
+
         $posyandu->load('rws', 'kaders');
         $periode = Carbon::createFromDate($tahun, $bulan)->isoFormat('MMMM YYYY');
 
         // 2. DATA PARTISIPASI
-        $totalBalitaDiWilayah = Warga::where('rw_id', $posyandu->id_rw)
+        $totalBalitaDiWilayah = Warga::where('rw_id', $posyandu->rw_id)
                                 ->whereRaw('TIMESTAMPDIFF(MONTH, tanggal_lahir, CURDATE()) < 60')
                                 ->count();
         
@@ -31,8 +35,8 @@ class PosyanduReportController extends Controller
         $jumlahTidakHadir = $totalBalitaDiWilayah - $jumlahHadir;
 
         // 3. DAFTAR ANAK DENGAN PERHATIAN KHUSUS (dari anak yang hadir)
-        $daftarAnakStunting = $pemeriksaanBulanIni->filter(fn($p) => str_contains($p->status_stunting, 'Pendek'));
-        $daftarAnakWasting = $pemeriksaanBulanIni->filter(fn($p) => str_contains($p->status_wasting, 'Kurus'));
+        $daftarAnakStunting = $pemeriksaanBulanIni->filter(fn($p) => str_contains($p->status_stunting, 'Stunting'));
+        $daftarAnakWasting = $pemeriksaanBulanIni->filter(fn($p) => str_contains($p->status_wasting, 'Kurang'));
         $daftarAnakUnderweight = $pemeriksaanBulanIni->filter(fn($p) => str_contains($p->status_underweight, 'Kurang'));
         
         // 4. STATISTIK KESELURUHAN (dihitung dari daftar di atas)
@@ -46,6 +50,7 @@ class PosyanduReportController extends Controller
         
         // 5. GABUNGKAN SEMUA DATA UNTUK DIKIRIM KE VIEW
         $data = [
+            'desa' => $desa,
             'posyandu' => $posyandu,
             'periode' => $periode,
             'tanggalCetak' => now()->isoFormat('D MMMM YYYY'),
@@ -63,6 +68,6 @@ class PosyanduReportController extends Controller
 
         $pdf = Pdf::loadView('admin_desa.posyandu.laporan', $data);
         $namaFile = "Laporan Bulanan Posyandu {$posyandu->nama_posyandu} - {$periode}.pdf";
-        return $pdf->stream($namaFile);
+        return $pdf->download($namaFile);
     }
 }

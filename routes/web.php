@@ -48,6 +48,7 @@ use App\Http\Controllers\Portal\WargaController as PortalWargaController;
 use App\Http\Controllers\Portal\PosyanduController as PortalPosyanduController;
 use App\Http\Controllers\Portal\PenerimaBantuanController as PortalPenerimaBantuanController;
 use App\Http\Controllers\Portal\KkController as PortalKkController;
+use \App\Http\Controllers\Portal\ProfileController as PortalProfileController;
 
 
 Route::domain('{subdomain}.' . config('app.url'))->group(function () {
@@ -95,6 +96,8 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
         Route::get('/warga/impor', [WargaImportController::class, 'showImportForm'])->name('warga.import.form');
         Route::post('/warga/impor', [WargaImportController::class, 'import'])->name('warga.import.process');
         Route::get('/warga/impor/download-template', [WargaImportController::class, 'downloadTemplate'])->name('warga.import.template');
+        Route::post('/warga/import/save', [WargaImportController::class, 'saveFromTemp'])->name('warga.import.save');
+
 
         Route::get('/kategori-bantuan/{kategori_bantuan}/penerima/export-pdf', [PenerimaBantuanController::class, 'exportPdf'])->name('kategori-bantuan.penerima.exportPdf')->middleware('can:admin_desa_access');
         Route::get('/kategori-bantuan/{kategori_bantuan}/penerima/export-excel', [PenerimaBantuanController::class, 'exportExcel'])->name('kategori-bantuan.penerima.exportExcel')->middleware('can:admin_desa_access');
@@ -200,8 +203,17 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
             Route::get('/surat/pilih-warga', [PortalPengajuanSuratController::class, 'create'])->name('surat.create');
             Route::get('/surat/pilih-jenis', [PortalPengajuanSuratController::class, 'pilihJenisSurat'])->name('surat.pilihJenis');
             Route::get('/surat/isi-detail', [PortalPengajuanSuratController::class, 'isiDetail'])->name('surat.isiDetail');
+            Route::get('/surat/pengantar', [PortalPengajuanSuratController::class, 'buatPengantar'])->name('buat.pengantar');
+            Route::post('/surat/pengantar', [PortalPengajuanSuratController::class, 'generatePengantar'])->name('surat.pengantar');
+
+            Route::get('/warga', [PortalWargaController::class, 'index'])->name('warga.index');
+            Route::get('/warga/{warga}/edit', [PortalWargaController::class, 'edit'])->name('warga.edit');
+            Route::put('/warga/{warga}', [PortalWargaController::class, 'update'])->name('warga.update');
+            Route::get('/warga/{warga}/editstatus', [PortalWargaController::class, 'editStatus'])->name('warga.editStatus');
+            Route::put('/warga/{warga}', [PortalWargaController::class, 'updateStatus'])->name('warga.updateStatus');
 
             Route::resource('warga', PortalWargaController::class)->only(['index', 'edit', 'update']);
+            
             Route::resource('kartuKeluarga', PortalKkController::class)->only(['index', 'edit', 'update']);
 
             Route::prefix('posyandu')->name('posyandu.')->middleware('can:kader_posyandu_access')->group(function() {
@@ -212,6 +224,13 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
                 Route::post('/pemeriksaan', [PortalPosyanduController::class, 'storePemeriksaan'])->name('pemeriksaan.store');
                 Route::get('/laporan', [PortalPosyanduController::class, 'laporan'])->name('laporan.index');
                 Route::get('/laporan/generate/{tahun}/{bulan}', [PortalPosyanduController::class, 'generateLaporan'])->name('laporan.generate');
+                Route::get('/find-anak', [PortalPosyanduController::class, 'findAnak'])->name('findAnak');
+                Route::get('/sesi/{tahun}/{bulan}/find-anak', [PortalPosyanduController::class, 'findAnakBySesi'])->name('findAnakBySesi');
+                Route::post('/store-anak-baru', [PortalPosyanduController::class, 'storeAnakBaru'])->name('store_anak_baru');
+                Route::get('/rekam-medis', [PortalPosyanduController::class, 'showRekamMedisSearch'])->name('rekam_medis.search');
+                Route::get('/rekam-medis/{kesehatanAnak}', [PortalPosyanduController::class, 'showRekamMedisDetail'])->name('rekam_medis.show');
+                Route::get('/pemeriksaan/{pemeriksaan}/edit', [PortalPosyanduController::class, 'editPemeriksaan'])->name('pemeriksaan.edit');
+                Route::put('/pemeriksaan/{pemeriksaan}', [PortalPosyanduController::class, 'updatePemeriksaan'])->name('pemeriksaan.update');
             });
 
             Route::prefix('bantuan')->name('bantuan.')->group(function() {
@@ -219,8 +238,18 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
                 Route::get('/', [PortalPenerimaBantuanController::class, 'pilihBantuan'])->name('pilihBantuan');
                 Route::get('/{kategoriBantuan}/pilih-warga', [PortalPenerimaBantuanController::class, 'pilihWarga'])->name('pilihWarga');
                 Route::post('/{kategoriBantuan}/store', [PortalPenerimaBantuanController::class, 'store'])->name('store');
-
             });
+
+            Route::get('/profile', [PortalProfileController::class, 'edit'])->name('profile.edit');
+            Route::patch('/profile/update-info', [PortalProfileController::class, 'update'])->name('profile.update');
+            Route::put('/profile/update-password', [PortalProfileController::class, 'updatePassword'])->name('password.update');
+            Route::delete('/profile/delete-account', [PortalProfileController::class, 'destroy'])->name('profile.destroy');
+            
+            Route::get('/laporan/kesejahteraan/{klasifikasi}', [\App\Http\Controllers\Portal\LaporanController::class, 'showByKesejahteraan'])->name('laporan.kesejahteraan');
+            Route::get('/laporan/bantuan/{nama_kategori}', [\App\Http\Controllers\Portal\LaporanController::class, 'showByBantuan'])->name('laporan.bantuan');
+            Route::get('/portal/laporan/belum-verifikasi', [\App\Http\Controllers\Portal\LaporanController::class, 'showBelumVerifikasi'])->name('laporan.belum_verifikasi');
+            Route::get('/portal/laporan/tidak-lengkap', [\App\Http\Controllers\Portal\LaporanController::class, 'showTidakLengkap'])->name('laporan.tidak_lengkap');
+
         });
 
     });
@@ -258,6 +287,11 @@ Route::get('/desa-public', [PublicController::class, 'indexDesa'])->name('public
 Route::get('/fasum-public', [PublicController::class, 'indexPublic'])->name('public.fasum.index');
 Route::get('/fasilitas/{fasum}', [PublicController::class, 'showFasum'])->name('public.fasum.show');
 Route::post('/api/ocr/ktp', [OcrController::class, 'scanKtpOcr'])->name('api.ocr.ktp'); // Admin RT ke atas bisa scan
+
+Route::get('/get-provinces', [WilayahController::class, 'getProvinces']);
+Route::get('/get-cities/{province_id}', [WilayahController::class, 'getCities']);
+Route::get('/get-subdistricts/{city_id}', [WilayahController::class, 'getSubdistricts']);
+Route::get('/get-villages/{subdistrict_id}', [WilayahController::class, 'getVillages']);
 
 // --- Rute Super Admin ---
 Route::middleware(['auth', 'is_super_admin'])->group(function () { // Kita akan buat middleware 'is_super_admin' nanti

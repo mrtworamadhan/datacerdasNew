@@ -27,7 +27,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
         </div>
     @endif
-
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">Daftar Fasilitas Umum</h4>
         <a href="{{ route('portal.fasum.create', ['subdomain' => app('tenant')->subdomain]) }}" class="btn btn-primary">

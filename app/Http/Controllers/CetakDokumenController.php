@@ -40,20 +40,27 @@ class CetakDokumenController extends Controller
 
         $desa = app('tenant');
         // Eager load relasi yang dibutuhkan
-        $pengeluaran->load('kegiatan.kegiatanable', 'detailBarangs');
+        $penyelenggara = $pengeluaran->kegiatan->kegiatanable;
 
-        $data = $this->getCommonData($pengeluaran);
-        // Siapkan data untuk dikirim ke "cetakan" PDF
+        // Buat kop surat base64
+        $kopSuratBase64 = null;
+        if (!empty($penyelenggara->path_kop_surat)) {
+            $imagePath = storage_path('app/public/' . $penyelenggara->path_kop_surat);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
+    
         $data = [
             'desa' => $desa,
             'pengeluaran' => $pengeluaran,
             'kegiatan' => $pengeluaran->kegiatan,
-            'penyelenggara' => $pengeluaran->kegiatan->kegiatanable,
+            'penyelenggara' => $penyelenggara,
             'detailBarangs' => $pengeluaran->detailBarangs,
+            'kopSuratBase64' => $kopSuratBase64,
         ];
-        
-        $data['penyelenggara'] = $pengeluaran->kegiatan->kegiatanable;
-
         // Load view, kirim data, dan buat PDF
         $pdf = Pdf::loadView('admin_desa.laporan.keuangan.surat_pesanan_pdf', $data);
         
@@ -104,6 +111,19 @@ class CetakDokumenController extends Controller
         Carbon::setLocale('id');
         $desa = app('tenant');
         $pengeluaran->load('kegiatan', 'detailBarangs');
+        
+        $penyelenggara = $pengeluaran->kegiatan->kegiatanable;
+
+        // Buat kop surat base64
+        $kopSuratBase64 = null;
+        if (!empty($penyelenggara->path_kop_surat)) {
+            $imagePath = storage_path('app/public/' . $penyelenggara->path_kop_surat);
+            if (file_exists($imagePath)) {
+                $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                $data = file_get_contents($imagePath);
+                $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+        }
 
         $data = $this->getCommonData($pengeluaran);
         $data = [
@@ -114,6 +134,7 @@ class CetakDokumenController extends Controller
             'tanggalBeritaAcara' => now(), // Tanggal saat dokumen dicetak
             'terbilangHari' => Terbilang::make(now()->day),
             'terbilangTahun' => Terbilang::make(now()->year),
+            'kopSuratBase64' => $kopSuratBase64,
         ];
         $data['penyelenggara'] = $pengeluaran->kegiatan->kegiatanable;
         

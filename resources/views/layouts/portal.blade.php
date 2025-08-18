@@ -11,30 +11,64 @@
 
     {{-- CSS Kustom untuk Portal --}}
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
+        /* CSS Kustom untuk Portal (SUDAH DIPERBAIKI) */
         body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
             background-color: #f4f6f9;
+            /* Beri ruang di bawah agar konten terakhir tidak tertutup bottom nav */
+            padding-bottom: 80px; 
         }
-        .content-wrapper {
-            flex: 1; /* Biar area konten ngedorong footer ke bawah */
-        }
+        
         .navbar {
             background: linear-gradient(90deg, #0d7e7eff 0%, #2ededeff 100%);
         }
+
         .navbar-brand img {
             height: 30px;
         }
+
         .card-title {
             font-weight: 600;
         }
-        .main-footer {
-            font-size: 0.9rem;
+
+        .bottom-nav {
+            position: fixed; /* Kunci utamanya di sini, ia akan menempel di layar */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding-top: 8px; /* Sedikit padding atas */
+            padding-bottom: 8px; /* Sedikit padding bawah */
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.75rem;
+            flex-grow: 1; /* Biar tiap item lebarnya sama */
+        }
+
+        .bottom-nav-item.active {
+            color: #0d7e7eff; /* Warna utama portalmu */
+        }
+
+        .bottom-nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+        .feature-coming-soon {
+            opacity: 0.6; /* Membuatnya sedikit transparan */
+            cursor: not-allowed; /* Mengubah kursor menjadi tanda "dilarang" */
+        }
+
+        .feature-coming-soon a {
+            pointer-events: none; /* Membuat link di dalamnya tidak bisa diklik */
         }
     </style>
     @stack('css')
@@ -45,7 +79,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <a href="{{ route('portal.dashboard') }}" class="navbar-brand">
-                    <img src="{{ $logo }}" alt="Logo" class="brand-image">
+                    <img src="{{ asset('storage/' . $desa->path_logo) }}" alt="Logo DATA CERDAS" class="navbar-logo">
                     <span class="brand-text font-weight-light">Portal Desa {{ $desa->nama_desa }}</span>
                 </a>
 
@@ -55,16 +89,28 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
+                        {{-- Kita bungkus semua item user dalam satu <li> dengan display flex --}}
+                        <li class="nav-item d-flex align-items-center">
+
+                            {{-- 1. Teks Selamat Datang --}}
                             <span class="navbar-text me-3">
-                                Selamat datang, {{ Auth::user()->name }}!
+                                {{ Auth::user()->name }}
                             </span>
-                        </li>
-                        <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}">
+
+                            {{-- 2. Tombol Profil --}}
+                            <a href="{{ route('portal.profile.edit') }}" class="btn btn-outline-light btn-sm me-2" title="Edit Profil">
+                                <i class="fas fa-user-edit"></i>
+                                <span class="d-none d-sm-inline ms-1">Profil</span> {{-- Teks ini hanya muncul di layar lebar --}}
+                            </a>
+
+                            {{-- 3. Tombol Logout --}}
+                            <form method="POST" action="{{ route('logout') }}" class="d-flex">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+                                <button type="submit" class="btn btn-danger btn-sm" title="Logout">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
                             </form>
+                            
                         </li>
                     </ul>
                 </div>
@@ -76,12 +122,73 @@
             </div>
         </main>
 
-        <footer class="main-footer bg-white">
-            <div class="container text-center">
-                <strong>Copyright &copy; {{ date('Y') }} <a href="#">DATA CERDAS</a>.</strong> All rights reserved.
-            </div>
-        </footer>
+        <div class="bottom-nav d-flex d-md-none">
+
+            {{-- MENU KHUSUS UNTUK KADER POSYANDU --}}
+            @if(Auth::user()->isKaderPosyandu())
+
+                <a href="{{ route('portal.dashboard') }}"
+                class="bottom-nav-item {{ request()->routeIs('portal.dashboard') ? 'active' : '' }}">
+                    <i class="fas fa-home"></i>
+                    <span>Beranda</span>
+                </a>
+                {{-- 1. Tombol Dashboard/Sesi Posyandu --}}
+                <a href="{{ route('portal.posyandu.index', ['subdomain' => $subdomain]) }}"
+                class="bottom-nav-item {{ request()->routeIs('portal.posyandu.index', 'portal.posyandu.sesi.show') ? 'active' : '' }}">
+                    <i class="fas fa-tasks"></i>
+                    <span>Sesi</span>
+                </a>
+
+                {{-- 2. Tombol Laporan --}}
+                <a href="{{ route('portal.posyandu.laporan.index', ['subdomain' => $subdomain]) }}"
+                class="bottom-nav-item {{ request()->routeIs('portal.posyandu.laporan.*') ? 'active' : '' }}">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Laporan</span>
+                </a>
+
+                {{-- 3. Tombol Rekam Medis --}}
+                <a href="{{ route('portal.posyandu.rekam_medis.search', ['subdomain' => $subdomain]) }}"
+                class="bottom-nav-item {{ request()->routeIs('portal.posyandu.rekam_medis.*') ? 'active' : '' }}">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Rekam Medis</span>
+                </a>
+
+            {{-- MENU UNTUK PERAN LAIN (RT, RW, DLL) --}}
+            @else
+
+                {{-- 1. Tombol Beranda --}}
+                <a href="{{ route('portal.dashboard') }}"
+                class="bottom-nav-item {{ request()->routeIs('portal.dashboard') ? 'active' : '' }}">
+                    <i class="fas fa-home"></i>
+                    <span>Beranda</span>
+                </a>
+
+                {{-- 2. Tombol Warga --}}
+                <a href="{{ route('portal.warga.index') }}"
+                class="bottom-nav-item {{ request()->routeIs('portal.warga.*') ? 'active' : '' }}">
+                    <i class="fas fa-users"></i>
+                    <span>Warga</span>
+                </a>
+
+                {{-- 3. Tombol Surat --}}
+                <a href="{{ route('portal.surat.index') }}"
+                class="bottom-nav-item {{ request()->routeIs('portal.surat.*') ? 'active' : '' }}">
+                    <i class="fas fa-envelope"></i>
+                    <span>Surat</span>
+                </a>
+
+                {{-- 4. Tombol Bantuan --}}
+                <a href="{{ route('portal.bantuan.pilihBantuan') }}"
+                class="bottom-nav-item {{ request()->routeIs('portal.bantuan.*') ? 'active' : '' }}">
+                    <i class="fas fa-hand-holding-dollar"></i>
+                    <span>Bantuan</span>
+                </a>
+
+            @endif
+
+        </div>
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     @stack('js')

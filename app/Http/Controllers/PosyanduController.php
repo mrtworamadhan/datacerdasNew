@@ -15,8 +15,13 @@ class PosyanduController extends Controller
      */
     public function index(string $subdomain)
     {
-        $posyandu = Posyandu::with('rws')->latest()->get();
+        $desaId = auth()->user()->desa_id; // atau ambil dari subdomain
 
+        $posyandu = Posyandu::with('rws')
+            ->where('desa_id', $desaId)
+            ->latest()
+            ->get();
+    
         return view('admin_desa.posyandu.index', compact('posyandu'));
     }
 
