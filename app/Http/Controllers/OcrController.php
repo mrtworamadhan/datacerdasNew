@@ -39,10 +39,6 @@ class OcrController extends Controller
     {
         $user = Auth::user();
 
-        if (! $user->isAdminDesa() && ! $user->isSuperAdmin() && ! $user->isAdminRw() && ! $user->isAdminRt()) {
-            return response()->json(['error' => 'Unauthorized access.'], 403);
-        }
-
         $request->validate([
             'ktp_image' => 'required|image|max:5120',
         ]);

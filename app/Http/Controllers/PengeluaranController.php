@@ -97,8 +97,6 @@ class PengeluaranController extends Controller
         // Muat relasi detailBarangs untuk diinspeksi
         $pengeluaran->load('detailBarangs');
 
-        // Dump and die: Tampilkan isi relasi lalu hentikan eksekusi
-        // dd($pengeluaran->detailBarangs);
 
         // Kode di bawah ini tidak akan berjalan untuk sementara
         return view('admin_desa.kegiatan.partials.edit_pengeluaran_modal', compact('pengeluaran'))->render();
@@ -166,7 +164,6 @@ class PengeluaranController extends Controller
      */
     public function destroy(string $subdomain, Pengeluaran $pengeluaran)
     {
-        // $this->authorize('delete', $pengeluaran->kegiatan);
 
         // Hapus file terkait jika ada
         if ($pengeluaran->tanda_tangan_path) {

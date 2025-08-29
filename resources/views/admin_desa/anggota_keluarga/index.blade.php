@@ -36,7 +36,6 @@
                         <th>Jenis Kelamin</th>
                         <th>Tanggal Lahir</th>
                         <th>Pekerjaan</th>
-                        <th>Status Kependudukan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -50,13 +49,15 @@
                                     <span class="badge badge-primary">Kepala Keluarga</span>
                                 @endif
                             </td>
-                            <td>{{ $anggota->hubungan_keluarga }}</td>
+                            <td>{{ $anggota->hubunganKeluarga->nama ?? '-' }}</td>
                             <td>{{ $anggota->jenis_kelamin }}</td>
                             <td>{{ $anggota->tanggal_lahir->format('d M Y') }}</td>
-                            <td>{{ $anggota->pekerjaan }}</td>
-                            <td><span class="badge badge-info">{{ $anggota->status_kependudukan }}</span></td>
+                            <td>{{ $anggota->pekerjaan->nama ?? '-' }}</td>
                             <td>
-                                <a href="{{ route('kartu-keluarga.anggota.edit', [$kartuKeluarga, $anggota]) }}" class="btn btn-warning btn-xs">Edit</a>
+                            <a href="{{ route('warga.show', ['subdomain' => request()->subdomain, 'warga' => $anggota->id]) }}" class="btn btn-info btn-xs">
+                                <i class="fas fa-eye"></i> Detail
+                            </a>    
+                            <a href="{{ route('kartu-keluarga.anggota.edit', [$kartuKeluarga, $anggota]) }}" class="btn btn-warning btn-xs">Edit</a>
                                 <form action="{{ route('kartu-keluarga.anggota.destroy', [$kartuKeluarga, $anggota]) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')

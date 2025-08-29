@@ -13,6 +13,9 @@
             <div class="card-header">
                 <h3 class="card-title">Daftar Warga</h3>
                 <div class="card-tools">
+                    <a href="{{ route('warga.export.per_rt', $rt) }}" class="btn btn-success btn-sm mr-2">
+                        <i class="fas fa-file-excel"></i> Export Warga RT Ini
+                    </a>
                     <a href="{{ route('wilayah.showRw', $rt->rw) }}" class="btn btn-sm btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali ke Daftar RT
                     </a>

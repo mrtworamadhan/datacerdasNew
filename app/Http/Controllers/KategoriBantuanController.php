@@ -17,10 +17,6 @@ class KategoriBantuanController extends Controller
     public function index(string $subdomain)
     {
         $user = Auth::user();
-        // Cek hak akses: Admin Desa, Super Admin, Admin RW, Admin RT bisa melihat index
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melihat kategori bantuan.');
-        }
 
         // Global scope 'desa_id_and_area' akan otomatis memfilter kategori bantuan berdasarkan user yang login
         $kategoriBantuans = KategoriBantuan::all();
@@ -34,10 +30,6 @@ class KategoriBantuanController extends Controller
     public function create(string $subdomain)
     {
         $user = Auth::user();
-        // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa membuat kategori
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk membuat kategori bantuan.');
-        }
 
         $klasifikasiOptions = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
         $statusKhususOptions = ['Disabilitas', 'Lansia', 'Ibu Hamil', 'Balita', 'Penerima PKH', 'Penerima BPNT', 'Lainnya'];
@@ -57,10 +49,6 @@ class KategoriBantuanController extends Controller
     public function store(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa menyimpan kategori
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melakukan aksi ini.');
-        }
 
         $request->validate([
             'nama_kategori' => 'required|string|max:255|unique:kategori_bantuans,nama_kategori,NULL,id,desa_id,'.$user->desa_id, // Unique per desa
@@ -147,14 +135,6 @@ class KategoriBantuanController extends Controller
     public function edit(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa mengedit kategori
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengedit kategori bantuan.');
-        }
-        // Pastikan kategori bantuan milik desa user yang login
-        if ($kategoriBantuan->desa_id !== $user->desa_id) {
-            abort(403, 'Kategori bantuan ini bukan milik desa Anda.');
-        }
 
         $klasifikasiOptions = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
         $statusKhususOptions = ['Disabilitas', 'Lansia', 'Ibu Hamil', 'Balita', 'Penerima PKH', 'Penerima BPNT', 'Lainnya'];
@@ -174,20 +154,12 @@ class KategoriBantuanController extends Controller
     public function update(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa memperbarui kategori
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk memperbarui data ini.');
-        }
-        // Pastikan kategori bantuan milik desa user yang login
-        if ($kategoriBantuan->desa_id !== $user->desa_id) {
-            abort(403, 'Kategori bantuan ini bukan milik desa Anda.');
-        }
 
         $request->validate([
             'nama_kategori' => 'required|string|max:255|unique:kategori_bantuans,nama_kategori,'.$kategoriBantuan->id.',id,desa_id,'.$user->desa_id, // Unique per desa, kecuali dirinya sendiri
             'deskripsi' => 'nullable|string',
             'allow_multiple_recipients_per_kk' => 'boolean',
-            'is_active_for_submission' => 'boolean', // Validasi untuk kolom baru
+            'is_active_for_submission' => 'boolean',
             // Validasi kriteria
             'kriteria_status_keluarga' => 'nullable|array',
             'kriteria_status_keluarga.*' => 'in:Pra-Sejahtera,Sejahtera I,Sejahtera II,Sejahtera III,Sejahtera III Plus',
@@ -266,14 +238,6 @@ class KategoriBantuanController extends Controller
     public function destroy(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses: Hanya Admin Desa dan Super Admin yang bisa menghapus kategori
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk menghapus data ini.');
-        }
-        // Pastikan kategori bantuan milik desa user yang login
-        if ($kategoriBantuan->desa_id !== $user->desa_id) {
-            abort(403, 'Kategori bantuan ini bukan milik desa Anda.');
-        }
 
         DB::beginTransaction();
         try {

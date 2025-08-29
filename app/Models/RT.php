@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Traits\BelongsToDesa; // Tambahkan ini
+use App\Models\Traits\BelongsToDesa;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

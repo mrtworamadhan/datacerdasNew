@@ -162,6 +162,17 @@
                     </select>
                     @error('status_kepemilikan') <span class="invalid-feedback">{{ $message }}</span> @enderror
                 </div>
+                <div class="form-group">
+                    <label for="path_dokumen_legal">Legal Dokumen</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" name="path_dokumen_legal" class="custom-file-input @error('path_dokumen_legal') is-invalid @enderror" id="path_dokumen_legal" accept="application/pdf">
+                            <label class="custom-file-label" for="path_dokumen_legal">Pilih file PDF</label>
+                        </div>
+                    </div>
+                    @error('path_dokumen_legal') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
+                    <small class="form-text text-muted">Ukuran maksimal 2MB, format PDF.</small>
+                </div>
 
                 <div class="form-group">
                     <label for="photos">Foto Fasilitas Umum (Opsional, Multiple)</label>
@@ -250,6 +261,16 @@
                 } else {
                     $(this).next('.custom-file-label').html('Pilih beberapa file gambar');
                 }
+            });
+            
+            document.getElementById('path_dokumen_legal').addEventListener('change', function() {
+                var fileName = this.files[0] ? this.files[0].name : 'Pilih file PDF';
+                this.nextElementSibling.innerText = fileName;
+            });
+
+            $('.custom-file-input').on('change', function() {
+                let fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
             });
         });
     </script>

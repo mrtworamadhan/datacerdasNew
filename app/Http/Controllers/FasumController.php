@@ -54,12 +54,9 @@ class FasumController extends Controller
     public function index(Request $request,string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola fasilitas umum.');
-        }
-
+        //  dd($user);
         $query = Fasum::with('desa', 'rw', 'rt', 'photos');
-
+       
         if ($request->filled('search')) {
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
@@ -77,7 +74,7 @@ class FasumController extends Controller
         if ($request->filled('jenis_fasum')) {
             $query->where('kategori', $request->jenis_fasum);
         }
-        if ($user->isAdminDesa() || $user->isSuperAdmin()) {
+        if ($user->hasAnyRole('admin_desa', 'admin_umum')) {
             if ($request->filled('rw_id')) {
                 $query->where('rw_id', $request->rw_id);
             }
@@ -96,7 +93,7 @@ class FasumController extends Controller
             ->get();
 
         $rwWithoutSpecificFasum = [];
-        if ($user->isAdminDesa() || $user->isSuperAdmin()) {
+        if ($user->hasAnyRole('admin_desa', 'admin_umum')) {
             $allRwsInDesa = Rw::where('desa_id', $user->desa_id)->with('fasums')->get();
 
             $fasumTypesToCheck = [
@@ -127,8 +124,8 @@ class FasumController extends Controller
             }
         }
 
-        $rws = RW::all();
-        $rts = RT::all();
+        $rws = RW::where('desa_id', $user->desa_id)->get();
+        $rts = RT::where('desa_id', $user->desa_id)->get();
 
         $jenisFasumOptions = $this->jenisFasumOptions;
         $kondisiOptions = $this->kondisiOptions;
@@ -151,12 +148,9 @@ class FasumController extends Controller
     public function create(string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk menambah fasilitas umum.');
-        }
 
-        $rws = Rw::all();
-        $rts = Rt::all();
+        $rws = RW::all();
+        $rts = RT::all();
 
         return view('admin_desa.fasum.create', [
             'jenisFasumOptions' => $this->jenisFasumOptions,
@@ -170,9 +164,6 @@ class FasumController extends Controller
     public function store(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melakukan aksi ini.');
-        }
 
         $request->validate([
             'kategori' => 'required|string',
@@ -196,7 +187,8 @@ class FasumController extends Controller
             'rw_id' => 'required|exists:rws,id',
             'rt_id' => 'required|exists:rts,id',
             'photos' => 'nullable|array',
-            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'path_dokumen_legal' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
         $detailSpesifikasi = [
@@ -206,6 +198,10 @@ class FasumController extends Controller
         $detailSpesifikasi = array_filter($detailSpesifikasi, function ($value) {
             return !is_null($value);
         });
+
+        if ($request->hasFile('path_dokumen_legal')) {
+                $path_sk = $request->file('path_dokumen_legal')->store('dokumen_legal_fasum', 'public');
+            }
 
         DB::beginTransaction();
         try {
@@ -228,6 +224,7 @@ class FasumController extends Controller
                 'kapasitas' => $request->kapasitas,
                 'kontak_pengelola' => $request->kontak_pengelola,
                 'status_kepemilikan' => $request->status_kepemilikan,
+                'path_dokumen_legal' => $path_sk ?? '',
                 'detail_spesifikasi' => !empty($detailSpesifikasi) ? json_encode($detailSpesifikasi) : null,
             ]);
             Log::info('Fasum store: Fasum created with ID ' . $fasum->id); // Log Fasum ID
@@ -268,9 +265,6 @@ class FasumController extends Controller
     public function show(string $subdomain,Fasum $fasum)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melihat fasilitas umum.');
-        }
 
         $fasum->load('desa', 'rw', 'rt', 'photos');
 
@@ -280,12 +274,9 @@ class FasumController extends Controller
     public function edit(string $subdomain,Fasum $fasum)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengedit fasilitas umum.');
-        }
 
-        $rws = Rw::all();
-        $rts = Rt::all();
+        $rws = RW::all();
+        $rts = RT::all();
 
         return view('admin_desa.fasum.edit', [
             'fasum' => $fasum,
@@ -300,9 +291,6 @@ class FasumController extends Controller
     public function update(Request $request, string $subdomain, Fasum $fasum)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk memperbarui fasilitas umum.');
-        }
 
         $request->validate([
             'kategori' => 'required|string',
@@ -328,6 +316,7 @@ class FasumController extends Controller
             'photos' => 'nullable|array',
             'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'existing_photos_to_keep' => 'nullable|array',
+            'path_dokumen_legal' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
         $detailSpesifikasi = [
@@ -340,7 +329,7 @@ class FasumController extends Controller
 
         DB::beginTransaction();
         try {
-            $fasum->update([
+            $dataToUpdate = [
                 'kategori' => $request->kategori,
                 'nama_fasum' => $request->nama_fasum,
                 'deskripsi' => $request->deskripsi,
@@ -357,7 +346,21 @@ class FasumController extends Controller
                 'detail_spesifikasi' => !empty($detailSpesifikasi) ? json_encode($detailSpesifikasi) : null,
                 'rw_id' => $request->rw_id,
                 'rt_id' => $request->rt_id,
-            ]);
+            ];
+
+            // 2. Cek jika ada file baru, baru proses dan masukkan ke "keranjang"
+            if ($request->hasFile('path_dokumen_legal')) {
+                // Hapus file lama jika ada
+                if ($fasum->path_dokumen_legal) {
+                    Storage::disk('public')->delete($fasum->path_dokumen_legal);
+                }
+                // Simpan file baru dan tambahkan path-nya ke data update
+                $path_sk = $request->file('path_dokumen_legal')->store('dokumen_legal_fasum', 'public');
+                $dataToUpdate['path_dokumen_legal'] = $path_sk;
+            }
+
+            // 3. Update model dengan data dari "keranjang"
+            $fasum->update($dataToUpdate);
 
             $existingPhotosToKeep = $request->existing_photos_to_keep ?? [];
             foreach ($fasum->photos as $photo) {
@@ -405,14 +408,14 @@ class FasumController extends Controller
     public function destroy(string $subdomain,Fasum $fasum)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk menghapus fasilitas umum.');
-        }
 
         DB::beginTransaction();
         try {
             foreach ($fasum->photos as $photo) {
                 Storage::disk('public')->delete($photo->path);
+            }
+            if ($fasum->path_dokumen_legal) {
+                Storage::delete(str_replace('/storage/', 'public/', $fasum->path_dokumen_legal));
             }
             $fasum->delete();
             return redirect()->route('fasum.index')->with('success', 'Fasilitas umum berhasil dihapus.');
@@ -426,9 +429,6 @@ class FasumController extends Controller
     public function destroyPhoto(string $subdomain,FasumPhoto $photo)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk menghapus foto fasilitas umum.');
-        }
 
         if ($photo->fasum->desa_id !== $user->desa_id) {
             abort(403, 'Foto ini bukan milik desa Anda.');
@@ -450,9 +450,6 @@ class FasumController extends Controller
     public function getRtsByRw(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            return response()->json([], 403);
-        }
 
         $rwId = $request->query('rw_id');
         if (!$rwId) {

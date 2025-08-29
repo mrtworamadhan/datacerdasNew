@@ -37,10 +37,10 @@ class WargaController extends Controller
         $desa = $user->desa;
 
         // Otorisasi: Pastikan RT/RW hanya bisa mengedit warganya sendiri
-        if ($user->isAdminRt() && $warga->rt_id !== $user->rt_id) {
+        if ($user->hasRole('admin_rt') && $warga->rt_id !== $user->rt_id) {
             abort(403, 'Anda tidak berhak mengakses data warga ini.');
         }
-        if ($user->isAdminRw() && $warga->rw_id !== $user->rw_id) {
+        if ($user->hasRole('admin_rw') && $warga->rw_id !== $user->rw_id) {
             abort(403, 'Anda tidak berhak mengakses data warga ini.');
         }
 
@@ -139,8 +139,11 @@ class WargaController extends Controller
         // Otorisasi sederhana: pastikan RT/RW hanya bisa mengedit warga di wilayahnya
         // (Nanti bisa disempurnakan dengan Gate/Policy)
         $user = auth()->user();
-        if (($user->isAdminRw() && $user->rw_id != $warga->rw_id) || ($user->isAdminRt() && $user->rt_id != $warga->rt_id)) {
-            abort(403, 'Anda tidak berhak mengubah data warga ini.');
+        if ($user->hasRole('admin_rt') && $warga->rt_id !== $user->rt_id) {
+            abort(403, 'Anda tidak berhak mengakses data warga ini.');
+        }
+        if ($user->hasRole('admin_rw') && $warga->rw_id !== $user->rw_id) {
+            abort(403, 'Anda tidak berhak mengakses data warga ini.');
         }
         $user = Auth::user();
         $desa = $user->desa; // Ambil desa yang terkait dengan user

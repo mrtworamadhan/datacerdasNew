@@ -28,12 +28,6 @@ class PenerimaBantuanController extends Controller
     public function index(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses umum untuk modul ini
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola penerima bantuan.');
-        }
-        // Global scope pada KategoriBantuan sudah memastikan $kategoriBantuan milik desa user.
-        // Jika tidak, Route Model Binding akan 404.
 
         // Statistik untuk Info Card (Global scope akan otomatis memfilter data)
         $stats = [
@@ -48,14 +42,14 @@ class PenerimaBantuanController extends Controller
             ->with('warga.kartuKeluarga.kepalaKeluarga', 'kartuKeluarga.kepalaKeluarga', 'diajukanOleh', 'disetujuiOleh');
 
         // Filter berdasarkan peran pengguna (untuk daftar yang ditampilkan)
-        if ($user->isAdminRw()) {
+        if ($user->hasRole('admin_rw')) {
             $queryPenerima->where(function ($q) use ($user) {
                 $q->where('diajukan_oleh_user_id', $user->id)
                     ->orWhereHas('diajukanOleh', function ($q2) use ($user) {
                         $q2->where('user_type', 'admin_rt')->where('rw_id', $user->rw_id);
                     });
             });
-        } elseif ($user->isAdminRt()) {
+        } elseif ($user->hasRole('admin_rt')) {
             $queryPenerima->where('diajukan_oleh_user_id', $user->id);
         }
 
@@ -71,10 +65,6 @@ class PenerimaBantuanController extends Controller
     public function create(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses: Admin Desa, Admin RW, Admin RT bisa mengajukan
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengajukan penerima bantuan.');
-        }
         // Global scope pada KategoriBantuan sudah memastikan $kategoriBantuan milik desa user.
 
         // Pastikan kategori ini aktif untuk pengajuan
@@ -108,10 +98,7 @@ class PenerimaBantuanController extends Controller
     public function store(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses untuk menyimpan pengajuan penerima bantuan
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melakukan aksi ini.');
-        }
+
         // Global scope pada KategoriBantuan sudah memastikan $kategoriBantuan milik desa user.
 
         // Pastikan kategori ini aktif untuk pengajuan
@@ -162,10 +149,10 @@ class PenerimaBantuanController extends Controller
                     return redirect()->back()->with('error', "File '{$fieldConfig['name']}' wajib diunggah.")->withInput();
                 }
                 if ($request->hasFile($fieldName)) {
-                    $path = $request->file($fieldName)->store('public/penerima_bantuan_files');
+                    $path = $request->file($fieldName)->store('penerima_bantuan_files', 'public');
                     $uploadedFiles[] = [
                         'photo_name' => $fieldConfig['name'],
-                        'file_path' => Storage::url($path),
+                        'file_path' => $path,
                     ];
                 }
             } else {
@@ -254,20 +241,16 @@ class PenerimaBantuanController extends Controller
     public function edit(string $subdomain, KategoriBantuan $kategoriBantuan, PenerimaBantuan $penerimaBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses: Admin Desa, Super Admin, Admin RW, Admin RT bisa mengedit detail
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengedit penerima bantuan.');
-        }
 
         // Pengecekan integritas data: Pastikan penerima bantuan ini benar-benar terhubung dengan kategori yang dimaksud.
         if ($penerimaBantuan->kategori_bantuan_id !== $kategoriBantuan->id) {
             abort(403, 'Penerima bantuan ini tidak terhubung dengan kategori yang dimaksud.');
         }
         // Cek wilayah RW/RT untuk Admin RW/RT
-        if ($user->isAdminRw() && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
+        if ($user->hasRole('admin_rw') && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
             abort(403, 'Data penerima bantuan ini bukan milik wilayah RW Anda.');
         }
-        if ($user->isAdminRt() && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
+        if ($user->hasRole('admin_rt') && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
             abort(403, 'Data penerima bantuan ini bukan milik wilayah RT Anda.');
         }
         // Super Admin has full access.
@@ -303,20 +286,16 @@ class PenerimaBantuanController extends Controller
     public function update(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan, PenerimaBantuan $penerimaBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses: Admin Desa, Super Admin, Admin RW, Admin RT bisa mengupdate
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk memperbarui penerima bantuan.');
-        }
 
         // Pengecekan integritas data: Pastikan penerima bantuan ini benar-benar terhubung dengan kategori yang dimaksud.
         if ($penerimaBantuan->kategori_bantuan_id !== $kategoriBantuan->id) {
             abort(403, 'Penerima bantuan ini tidak terhubung dengan kategori yang dimaksud.');
         }
         // Cek wilayah RW/RT untuk Admin RW/RT
-        if ($user->isAdminRw() && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
+        if ($user->hasRole('admin_rw') && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
             abort(403, 'Data penerima bantuan ini bukan milik wilayah RW Anda.');
         }
-        if ($user->isAdminRt() && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
+        if ($user->hasRole('admin_rt') && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
             abort(403, 'Data penerima bantuan ini bukan milik wilayah RT Anda.');
         }
         // Super Admin has full access.
@@ -341,10 +320,10 @@ class PenerimaBantuanController extends Controller
                     return redirect()->back()->with('error', "File '{$fieldConfig['name']}' wajib diunggah.")->withInput();
                 }
                 if ($request->hasFile($fieldName)) {
-                    $path = $request->file($fieldName)->store('public/penerima_bantuan_files');
+                    $path = $request->file($fieldName)->store('penerima_bantuan_files', 'public');
                     $uploadedFiles[] = [
                         'photo_name' => $fieldConfig['name'],
-                        'file_path' => Storage::url($path),
+                        'file_path' => $path,
                     ];
                 }
             } else {
@@ -394,10 +373,6 @@ class PenerimaBantuanController extends Controller
     public function show(string $subdomain, KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
     {
         $user = Auth::user();
-        // Cek hak akses: Admin Desa, Super Admin, Admin RW, Admin RT bisa melihat detail
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melihat detail verifikasi penerima bantuan.');
-        }
 
         // Ambil PenerimaBantuan tanpa global scope, lalu filter manual
         $penerimaBantuan = PenerimaBantuan::withoutGlobalScopes()
@@ -409,16 +384,16 @@ class PenerimaBantuanController extends Controller
             abort(403, 'Penerima bantuan ini tidak terhubung dengan kategori yang dimaksud.');
         }
         // Cek wilayah RW/RT untuk Admin RW/RT
-        if ($user->isAdminRw() && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
+        if ($user->hasRole('admin_rw') && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
             abort(403, 'Data penerima bantuan ini bukan milik wilayah RW Anda.');
         }
-        if ($user->isAdminRt() && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
+        if ($user->hasRole('admin_rt') && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
             abort(403, 'Data penerima bantuan ini bukan milik wilayah RT Anda.');
         }
         // Super Admin has full access.
 
         $penerimaBantuan->load('warga.kartuKeluarga.kepalaKeluarga', 'kartuKeluarga.kepalaKeluarga', 'diajukanOleh', 'photos'); // Load photos
-
+        // dd($penerimaBantuan->photos);        
         return view('admin_desa.penerima_bantuan.show', compact('kategoriBantuan', 'penerimaBantuan'));
     }
 
@@ -426,65 +401,43 @@ class PenerimaBantuanController extends Controller
      * Update the status of a recipient (Approve/Reject).
      * Accessible by Admin Desa, Admin RW, Admin RT.
      */
-    public function updateStatus(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
+    public function updateStatus(Request $request, string $subdomain, KategoriBantuan $kategoriBantuan, $penerimaBantuanId)
     {
-        $user = Auth::user();
-        // Cek hak akses: Admin Desa (approve/reject), Admin RW (verifikasi RW), Admin RT (verifikasi RT)
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk memperbarui status penerima bantuan.');
-        }
+        // 1. Otorisasi: Cek apakah user punya "kunci" untuk verifikasi.
+        // Jika tidak, Laravel akan otomatis menampilkan error 403 Forbidden.
+        $this->authorize('verifikasi bantuan');
 
-        // Ambil PenerimaBantuan tanpa global scope, lalu filter manual
-        $penerimaBantuan = PenerimaBantuan::withoutGlobalScopes()
-            ->where('id', $penerimaBantuanId)
-            ->firstOrFail();
-
-        // Pengecekan integritas data: Pastikan penerima bantuan ini benar-benar terhubung dengan kategori yang dimaksud.
-        if ($penerimaBantuan->kategori_bantuan_id !== $kategoriBantuan->id) {
-            abort(403, 'Penerima bantuan ini tidak terhubung dengan kategori yang dimaksud.');
-        }
-        // Cek wilayah RW/RT untuk Admin RW/RT
-        if ($user->isAdminRw() && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
-            abort(403, 'Data penerima bantuan ini bukan milik wilayah RW Anda.');
-        }
-        if ($user->isAdminRt() && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
-            abort(403, 'Data penerima bantuan ini bukan milik wilayah RT Anda.');
-        }
-        // Super Admin has full access.
-
+        // 2. Validasi: Pastikan status yang dikirim hanya 'Disetujui' atau 'Ditolak'.
         $request->validate([
-            'status' => 'required|in:Diajukan,Diverifikasi RT,Diverifikasi RW,Disetujui,Ditolak',
+            'status' => 'required|in:Disetujui,Ditolak',
             'catatan' => 'nullable|string|max:500',
         ]);
 
+        $penerimaBantuan = PenerimaBantuan::findOrFail($penerimaBantuanId);
+
+        // Keamanan tambahan: Pastikan penerima ini milik kategori yang benar.
+        if ($penerimaBantuan->kategori_bantuan_id !== $kategoriBantuan->id) {
+            abort(403, 'Penerima bantuan ini tidak terhubung dengan kategori yang dimaksud.');
+        }
+
+        // 3. Update data
         DB::beginTransaction();
         try {
-            $updateData = [
+            $penerimaBantuan->update([
+                'status_permohonan' => $request->status,
                 'catatan_persetujuan_penolakan' => $request->catatan,
-            ];
+                'disetujui_oleh_user_id' => Auth::id(), // Catat siapa yang memverifikasi
+                'tanggal_verifikasi' => now(), // Catat kapan diverifikasi
+            ]);
 
-            if ($request->status === 'Diverifikasi RT' && $user->isAdminRt()) {
-                $updateData['status_permohonan'] = 'Diverifikasi RT';
-                $updateData['disetujui_oleh_user_id'] = Auth::id();
-                $updateData['tanggal_verifikasi'] = Carbon::now();
-            } elseif ($request->status === 'Diverifikasi RW' && $user->isAdminRw()) {
-                $updateData['status_permohonan'] = 'Diverifikasi RW';
-                $updateData['disetujui_oleh_user_id'] = Auth::id();
-                $updateData['tanggal_verifikasi'] = Carbon::now();
-            } elseif (($request->status === 'Disetujui' || $request->status === 'Ditolak') && $user->isAdminDesa()) {
-                $updateData['status_permohonan'] = $request->status;
-                $updateData['disetujui_oleh_user_id'] = Auth::id();
-                $updateData['tanggal_verifikasi'] = Carbon::now();
-            } else {
-                abort(403, 'Anda tidak diizinkan untuk mengubah status ke tahap ini.');
-            }
-
-            $penerimaBantuan->update($updateData);
             DB::commit();
-            return redirect()->route('kategori-bantuan.penerima.index', $kategoriBantuan)->with('success', 'Status penerima bantuan berhasil diperbarui!');
+            return redirect()->route('kategori-bantuan.penerima.index', $kategoriBantuan)
+                            ->with('success', 'Status penerima bantuan berhasil diperbarui!');
+
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal memperbarui status penerima bantuan: ' . $e->getMessage());
+            return redirect()->back()
+                            ->with('error', 'Gagal memperbarui status: ' . $e->getMessage());
         }
     }
 
@@ -495,9 +448,6 @@ class PenerimaBantuanController extends Controller
     public function destroy(string $subdomain, KategoriBantuan $kategoriBantuan, $penerimaBantuanId) // Ubah parameter menjadi ID
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk menghapus penerima bantuan.');
-        }
 
         // Ambil PenerimaBantuan tanpa global scope, lalu filter manual
         $penerimaBantuan = PenerimaBantuan::withoutGlobalScopes()
@@ -509,10 +459,10 @@ class PenerimaBantuanController extends Controller
             abort(403, 'Penerima bantuan ini tidak terhubung dengan kategori yang dimaksud.');
         }
         // Cek wilayah RW/RT untuk Admin RW/RT
-        if ($user->isAdminRw() && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
+        if ($user->hasRole('admin_rw') && ($penerimaBantuan->warga->rw_id ?? null) !== $user->rw_id) {
             abort(403, 'Data penerima bantuan ini bukan milik wilayah RW Anda.');
         }
-        if ($user->isAdminRt() && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
+        if ($user->hasRole('admin_rt') && ($penerimaBantuan->warga->rt_id ?? null) !== $user->rt_id) {
             abort(403, 'Data penerima bantuan ini bukan milik wilayah RT Anda.');
         }
         // Super Admin has full access.
@@ -539,9 +489,6 @@ class PenerimaBantuanController extends Controller
     public function exportPdf(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengunduh PDF.');
-        }
         // Global scope pada KategoriBantuan sudah memastikan $kategoriBantuan milik desa user.
 
         // Ambil semua data penerima untuk kategori ini (Global scope akan memfilter)
@@ -576,9 +523,6 @@ class PenerimaBantuanController extends Controller
     public function exportExcel(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengunduh Excel.');
-        }
         // Global scope pada KategoriBantuan sudah memastikan $kategoriBantuan milik desa user.
 
         $fileName = 'daftar-penerima-' . Str::slug($kategoriBantuan->nama_kategori) . '.xlsx';
@@ -589,10 +533,6 @@ class PenerimaBantuanController extends Controller
     public function searchWarga(Request $request, string $subdomain)
     {
         $user = Auth::user();
-
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            return response()->json(['results' => []], 403);
-        }
 
         $searchTerm = $request->query('term');
         $kategoriBantuanId = $request->query('kategori_id');
@@ -696,9 +636,6 @@ class PenerimaBantuanController extends Controller
     public function searchKK(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            return response()->json(['results' => []], 403);
-        }
 
         $searchTerm = $request->input('q');
         $kategoriBantuanId = $request->input('kategori_id');

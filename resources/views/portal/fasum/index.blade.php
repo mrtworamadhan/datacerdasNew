@@ -29,9 +29,11 @@
     @endif
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">Daftar Fasilitas Umum</h4>
-        <a href="{{ route('portal.fasum.create', ['subdomain' => app('tenant')->subdomain]) }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Tambah Baru
-        </a>
+        @unless(Auth::user()->hasRole('kepala_desa'))
+            <a href="{{ route('portal.fasum.create', ['subdomain' => app('tenant')->subdomain]) }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Tambah Baru
+            </a>
+        @endunless
     </div>
     <form method="GET" class="row mb-3">
         <div class="col-md-6 mb-2">
@@ -79,18 +81,20 @@
                 <h5 class="card-title">{{ $fasum->nama_fasum }}</h5>
                 <p class="card-text text-muted">{{ $fasum->kategori }} - Kondisi: {{ $fasum->status_kondisi }}</p>
                 <a href="#" class="btn btn-sm btn-outline-info">Detail</a>
-                <a href="{{ route('portal.fasum.edit', ['subdomain' => app('tenant')->subdomain, $fasum->id]) }}" class="btn btn-sm btn-outline-warning">Edit</a>
-                <form method="POST" action="{{ route('portal.fasum.updateStatus', ['subdomain' => app('tenant')->subdomain, $fasum->id]) }}">
-                    @csrf
-                    @method('PATCH')
-                    <div class="input-group mt-2">
-                        <select name="status_kondisi" class="form-select form-select-sm" onchange="this.form.submit()">
-                            <option value="Baik" {{ $fasum->status_kondisi == 'Baik' ? 'selected' : '' }}>Baik</option>
-                            <option value="Rusak Ringan" {{ $fasum->status_kondisi == 'Rusak Ringan' ? 'selected' : '' }}>Rusak Ringan</option>
-                            <option value="Rusak Berat" {{ $fasum->status_kondisi == 'Rusak Berat' ? 'selected' : '' }}>Rusak Berat</option>
-                        </select>
-                    </div>
-                </form>
+                @unless(Auth::user()->hasRole('kepala_desa'))
+                    <a href="{{ route('portal.fasum.edit', ['subdomain' => app('tenant')->subdomain, $fasum->id]) }}" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <form method="POST" action="{{ route('portal.fasum.updateStatus', ['subdomain' => app('tenant')->subdomain, $fasum->id]) }}">
+                        @csrf
+                        @method('PATCH')
+                        <div class="input-group mt-2">
+                            <select name="status_kondisi" class="form-select form-select-sm" onchange="this.form.submit()">
+                                <option value="Baik" {{ $fasum->status_kondisi == 'Baik' ? 'selected' : '' }}>Baik</option>
+                                <option value="Sedang" {{ $fasum->status_kondisi == 'Sedang' ? 'selected' : '' }}>Rusak Ringan</option>
+                                <option value="Rusak" {{ $fasum->status_kondisi == 'Rusak' ? 'selected' : '' }}>Rusak Berat</option>
+                            </select>
+                        </div>
+                    </form>
+                @endunless
             </div>
         </div>
     @empty

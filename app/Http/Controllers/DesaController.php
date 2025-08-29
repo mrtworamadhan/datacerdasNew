@@ -25,9 +25,6 @@ class DesaController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if (!$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola desa.');
-        }
 
         $desas = Desa::latest()->paginate(10);
         return view('superadmin.desas.index', compact('desas'));
@@ -40,9 +37,6 @@ class DesaController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if (!$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk membuat desa baru.');
-        }
 
         $subscriptionStatusOptions = $this->subscriptionStatusOptions;
         return view('superadmin.desas.create', compact('subscriptionStatusOptions'));
@@ -55,9 +49,6 @@ class DesaController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if (!$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melakukan aksi ini.');
-        }
 
         $request->validate([
             'nama_desa' => 'required|string|max:255|unique:desas,nama_desa',
@@ -123,9 +114,6 @@ class DesaController extends Controller
     public function edit(Desa $desa)
     {
         $user = Auth::user();
-        if (!$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengedit desa.');
-        }
 
         $subscriptionStatusOptions = $this->subscriptionStatusOptions;
         return view('superadmin.desas.edit', compact('desa', 'subscriptionStatusOptions'));
@@ -138,9 +126,6 @@ class DesaController extends Controller
     public function update(Request $request, Desa $desa)
     {
         $user = Auth::user();
-        if (!$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk memperbarui desa.');
-        }
 
         $request->validate([
             'nama_desa' => 'required|string|max:255|unique:desas,nama_desa,'.$desa->id,
@@ -187,9 +172,6 @@ class DesaController extends Controller
     public function destroy(Desa $desa)
     {
         $user = Auth::user();
-        if (!$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk menghapus desa.');
-        }
 
         DB::beginTransaction();
         try {

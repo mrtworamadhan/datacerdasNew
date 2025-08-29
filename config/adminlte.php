@@ -313,174 +313,188 @@ return [
         // Sidebar items:
         [
             'header' => 'SUPER ADMIN', 
-            'role' => 'superadmin',
-            'can' => 'is_super_admin',
+            'context' => 'superadmin',
+            'can' => 'view superadmin menu',
         ],
         [
             'text' => 'Dashboard',
             'url' => 'dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
-            'can' => 'is_super_admin',
-            'role' => 'superadmin',
+            'can' => 'view superadmin menu',
+            'context' => 'superadmin',
         ],
         [
             'text' => 'Manajemen Desa',
             'url' => 'desas',
             'icon' => 'fas fa-fw fa-building',
-            'can' => 'is_super_admin',
-            'role' => 'superadmin',
+            'can' => 'view superadmin menu',
+
         ],
         [
             'text' => 'Manajemen Pengguna',
             'url' => 'admin/users',
             'icon' => 'fas fa-fw fa-users-cog',
-            'can' => 'is_super_admin',
-            'role' => 'superadmin',
+            'can' => 'view superadmin menu',
+            'context' => 'superadmin',
         ],
         [
             'text' => 'Pengaturan Perusahaan', // Tambahkan menu ini
             'url' => 'company-settings',      // Rute baru
             'icon' => 'fas fa-fw fa-cogs',    // Icon yang sesuai
-            'can' => 'is_super_admin',
-            'role' => 'superadmin',
+            'can' => 'view superadmin menu',
+            'context' => 'superadmin',
         ],
         
 
         // --- GRUP MENU ADMIN DESA ---
         [
             'header' => 'MENU UTAMA',
-            'role' => 'tenant', // "Tanda Pengenal" untuk filter
+            'context' => 'tenant', // "Tanda Pengenal" untuk filter
         ],
         [
             'text' => 'Dashboard',
             'url' => 'dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
-            'role' => 'tenant',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Profil & Kelembagaan',
             'icon' => 'fas fa-fw fa-university',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola profil',
+            'context' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Profil Desa',
                     'url' => 'profil-desa',
                     'icon' => 'fas fa-fw fa-building',
+                    'context' => 'tenant',
                 ],
                 [
                     'text' => 'Manajemen Perangkat Desa',
                     'url' => 'perangkat-desa',
                     'icon' => 'fas fa-fw fa-user-tie',
+                    'context' => 'tenant',
                 ],
             ],
         ],
         [
             'text' => 'Administrasi Sistem',
             'icon' => 'fas fa-fw fa-cogs',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola profil',
+            'context' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Manajemen Pengguna Desa',
                     'url' => 'manajemen-pengguna-desa',
                     'icon' => 'fas fa-fw fa-user-friends',
+                    'context' => 'tenant',
+                ],
+                [
+                    'text' => 'Manajemen Hak Akses',
+                    'route'  => 'permissions.index',
+                    'icon' => 'fas fa-fw fa-key',
+                    'context' => 'tenant',
                 ],
                 [
                     'text' => 'Profil Pengguna',
                     'url' => 'profil-pengguna',
                     'icon' => 'fas fa-fw fa-address-book',
+                    'context' => 'tenant',
                 ],
             ],
         ],
         [
             'header' => 'CERDAS tata Lembaga',
-            'role' => 'tenant',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Lembaga Desa',
             'url' => 'lembaga',
             'icon' => 'fas fa-fw fa-handshake',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola kegiatan',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Kelompok Desa',
             'url' => 'kelompok',
             'icon' => 'fas fa-fw fa-people-group',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola kegiatan',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Kegiatan & LPJ',
             'url' => 'kegiatans',
             'icon' => 'fas fa-fw fa-file-pen',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola kegiatan',
+            'context' => 'tenant',
         ],
 
         [
             'header' => 'Aset CERDAS',
-            'role' => 'tenant',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Manajemen Aset',
             'icon' => 'fas fa-fw fa-cubes',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola aset',
+            'context' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Daftar Aset',
                     'route'  => 'asets.index',
-                    'can' => 'admin_desa_access',
+                    'can' => 'kelola aset',
+                    'context' => 'tenant',
                     'icon' => 'fas fa-fw fa-list',
                 ],
                 [
                     'text' => 'Tambah Aset Baru',
                     'route'  => 'asets.create',
-                    'can' => 'admin_desa_access',
+                    'can' => 'kelola aset',
+                    'context' => 'tenant',
                     'icon' => 'fas fa-fw fa-plus-circle',
                 ],
             ],
         ],
         [
             'header' => 'CERDAS tata FASUM',
-            'role' => 'tenant',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Data Fasum',
             'url' => 'fasum',
             'icon' => 'fas fa-fw fa-hospital',
-            'can' => 'admin_rt_access',
-            'role' => 'tenant',
+            'can' => 'kelola fasum',
+            'context' => 'tenant',
         ],
 
         [
             'header' => 'CERDAS tata Warga',
-            'role' => 'tenant',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Data Wilayah', // MENU BARU
             'url' => 'wilayah',
             'icon' => 'fas fa-fw fa-map-marker-alt',
-            'can' => 'admin_rt_access',
-            'role' => 'tenant',
+            'can' => 'kelola warga',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Data Kependudukan',
             'icon' => 'fas fa-fw fa-users',
-            'can' => 'admin_rt_access',
-            'role' => 'tenant',
+            'can' => 'kelola warga',
+            'context' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Data Kartu Keluarga',
                     'url' => 'kartu-keluarga',
                     'icon' => 'fas fa-fw fa-id-card',
+                    'context' => 'tenant',
                 ],
                 [
                     'text' => 'Daftar Semua Warga',
                     'url' => 'warga',
                     'icon' => 'fas fa-fw fa-user-friends',
+                    'context' => 'tenant',
                 ],
             ],
         ],
@@ -488,71 +502,66 @@ return [
             'text' => 'Kategori Bantuan',
             'url' => 'kategori-bantuan',
             'icon' => 'fas fa-fw fa-tags',
-            'can' => 'admin_rt_access',
-            'role' => 'tenant',
-        ],
-        [
-            'text' => 'Daftar Penerima',
-            'url' => 'penerima-bantuan', // Arahkan ke halaman daftar penerima jika ada
-            'icon' => 'fas fa-fw fa-stream',
-            'can' => 'admin_rt_access',
-            'role' => 'tenant',
+            'can' => 'kelola bantuan',
+            'context' => 'tenant',
         ],
 
         [
             'header' => 'CERDAS Pelayanan',
-            'role' => 'tenant',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Buat Pengajuan Surat',
             'url' => 'pengajuan-surat/create',
             'icon' => 'fas fa-fw fa-pen-square',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola surat',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Daftar Pengajuan',
             'url' => 'pengajuan-surat',
             'icon' => 'fas fa-fw fa-inbox',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola surat',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Pengaturan Surat',
             'icon' => 'fas fa-fw fa-cogs',
-            'can' => 'admin_desa_access',
-            'role' => 'tenant',
+            'can' => 'kelola surat',
+            'context' => 'tenant',
             'submenu' => [
                 [
                     'text' => 'Setting Kop & TTD',
                     'url' => 'pengaturan-surat',
                     'icon' => 'fas fa-fw fa-signature',
+                    'context' => 'tenant',
                 ],
                 [
                     'text' => 'Template Surat',
                     'url' => 'jenis-surat',
                     'icon' => 'fas fa-fw fa-file-alt',
+                    'context' => 'tenant',
                 ],
             ],
         ],
         [
             'header' => 'CERDAS tata POSYANDU', 
-            'can' => 'kader_posyandu_access',
-            'role' => 'tenant',
+            'can' => 'kelola kesehatan',
+            'context' => 'tenant',
         ], // Nanti kita buat Gate-nya
         [
             'text' => 'Data Posyandu',
             'url' => 'posyandu',
             'icon' => 'fas fa-fw fa-user-nurse',
-            'can' => 'kader_posyandu_access',
-            'role' => 'tenant',
+            'can' => 'kelola kesehatan',
+            'context' => 'tenant',
         ],
         [
             'text' => 'Data Kesehatan Anak',
             'url' => 'kesehatan-anak',
             'icon' => 'fas fa-fw fa-child',
-            'can' => 'kader_posyandu_access',
-            'role' => 'tenant',
+            'can' => 'kelola kesehatan',
+            'context' => 'tenant',
         ],
 
         // --- GRUP MENU PENGATURAN AKUN ---
@@ -577,7 +586,7 @@ return [
     */
 
     'filters' => [
-        \App\Filters\MenuFilter::class,
+        \App\Filters\ContextFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,

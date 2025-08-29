@@ -122,7 +122,7 @@
                     <select name="agama_id" id="agama_id" class="form-control" required>
                         <option value="">-- Pilih Agama --</option>
                         @foreach($agamaOptions as $id => $nama)
-                            <option value="{{ $id }}" {{ old('agama_id', $warga->agama_id) == $id ? 'selected' : '' }}>
+                            <option value="{{ $id }}" {{ old('agama_id', $anggotaKeluarga->agama_id) == $id ? 'selected' : '' }}>
                                 {{ $nama }}
                             </option>
                         @endforeach
@@ -133,7 +133,7 @@
                     <select name="status_perkawinan_id" id="status_perkawinan_id" class="form-control" required>
                         <option value="">-- Pilih Status Perkawinan --</option>
                         @foreach($statusPerkawinanOptions as $id => $nama)
-                            <option value="{{ $id }}" {{ old('status_perkawinan_id', $warga->status_perkawinan_id) == $id ? 'selected' : '' }}>
+                            <option value="{{ $id }}" {{ old('status_perkawinan_id', $anggotaKeluarga->status_perkawinan_id) == $id ? 'selected' : '' }}>
                                 {{ $nama }}
                             </option>
                         @endforeach
@@ -144,7 +144,7 @@
                     <select name="pekerjaan_id" id="pekerjaan_id" class="form-control" required>
                         <option value="">-- Pilih Pekerjaan --</option>
                         @foreach($pekerjaanOptions as $id => $nama)
-                            <option value="{{ $id }}" {{ old('pekerjaan_id', $warga->pekerjaan_id) == $id ? 'selected' : '' }}>
+                            <option value="{{ $id }}" {{ old('pekerjaan_id', $anggotaKeluarga->pekerjaan_id) == $id ? 'selected' : '' }}>
                                 {{ $nama }}
                             </option>
                         @endforeach
@@ -155,7 +155,7 @@
                     <select name="pendidikan_id" id="pendidikan_id" class="form-control" required>
                         <option value="">-- Pilih Pendidikan --</option>
                         @foreach($pendidikanOptions as $id => $nama)
-                            <option value="{{ $id }}" {{ old('pendidikan_id', $warga->pendidikan_id) == $id ? 'selected' : '' }}>
+                            <option value="{{ $id }}" {{ old('pendidikan_id', $anggotaKeluarga->pendidikan_id) == $id ? 'selected' : '' }}>
                                 {{ $nama }}
                             </option>
                         @endforeach
@@ -177,7 +177,7 @@
                     <select name="golongan_darah_id" id="golongan_darah_id" class="form-control">
                         <option value="">-- Pilih Golongan Darah --</option>
                         @foreach($golonganDarahOptions as $id => $nama)
-                            <option value="{{ $id }}" {{ old('golongan_darah_id', $warga->golongan_darah_id) == $id ? 'selected' : '' }}>
+                            <option value="{{ $id }}" {{ old('golongan_darah_id', $anggotaKeluarga->golongan_darah_id) == $id ? 'selected' : '' }}>
                                 {{ $nama }}
                             </option>
                         @endforeach
@@ -195,7 +195,7 @@
                     <select name="hubungan_keluarga_id" id="hubungan_keluarga_id" class="form-control" required>
                         <option value="">-- Pilih Hubungan --</option>
                         @foreach($hubunganKeluargaOptions as $id => $nama)
-                            <option value="{{ $id }}" {{ old('hubungan_keluarga_id', $warga->hubungan_keluarga_id) == $id ? 'selected' : '' }}>
+                            <option value="{{ $id }}" {{ old('hubungan_keluarga_id', $anggotaKeluarga->hubungan_keluarga_id) == $id ? 'selected' : '' }}>
                                 {{ $nama }}
                             </option>
                         @endforeach

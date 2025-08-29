@@ -126,7 +126,6 @@
                 }
             });
 
-            // Untuk menampilkan nama file yang dipilih di input file
             document.getElementById('sk_kepala_desa').addEventListener('change', function() {
                 var fileName = this.files[0] ? this.files[0].name : 'Pilih file PDF';
                 this.nextElementSibling.innerText = fileName;

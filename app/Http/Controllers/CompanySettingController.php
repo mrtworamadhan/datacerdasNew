@@ -18,14 +18,8 @@ class CompanySettingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if (!$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola pengaturan perusahaan.');
-        }
-
-        // Ambil semua pengaturan yang ada. Jika belum ada, buat default.
         $settings = CompanySetting::all()->keyBy('key');
 
-        // Definisikan pengaturan yang diharapkan dan nilai default-nya
         $defaultSettings = [
             'whatsapp_number' => [
                 'value' => '6281234567890',
@@ -86,25 +80,15 @@ class CompanySettingController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
-        if (!$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk memperbarui pengaturan perusahaan.');
-        }
 
-        // Ambil semua pengaturan dari request yang diawali dengan 'setting_'
-        $settingsData = $request->except('_token', '_method'); // Kecualikan token dan method spoofing
+        $settingsData = $request->except('_token', '_method'); 
 
         DB::beginTransaction();
         try {
             foreach ($settingsData as $key => $value) {
-                // Hapus prefix 'setting_' untuk mendapatkan kunci asli
                 $originalKey = Str::after($key, 'setting_');
-
-                // Cari pengaturan berdasarkan kunci, atau buat baru jika tidak ada
                 $setting = CompanySetting::firstOrNew(['key' => $originalKey]);
-                
-                // Update nilai dan simpan
                 $setting->value = $value;
-                // Description tidak diupdate dari form, hanya dari defaultSettings di index()
                 $setting->save();
             }
 

@@ -34,12 +34,14 @@ return Application::configure(basePath: dirname(__DIR__))
             // \App\Http\Middleware\IsSuperAdmin::class, 
             \App\Http\Middleware\TenantMiddleware::class,
             \App\Http\Middleware\CheckSubscriptionStatus::class,
+            // \App\Http\Middleware\ForbidAdminDashboardAccess::class,
         ]);
         $middleware->alias([
             'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
             'tenant'=> \App\Http\Middleware\TenantMiddleware::class,
             'is_super_admin' => \App\Http\Middleware\IsSuperAdmin::class, 
             'check.subscription' => \App\Http\Middleware\CheckSubscriptionStatus::class,
+            'forbid_admin_dashboard' => \App\Http\Middleware\ForbidAdminDashboardAccess::class,
             'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         ]);
@@ -53,8 +55,6 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests::class,
             \App\Http\Middleware\RedirectIfAuthenticated::class,
-            \App\Http\Middleware\RedirectPortalUsers::class,
-
         ]);
         $middleware->redirectGuestsTo(function ($request) {
             // Coba dapatkan instance 'tenant' (desa) yang sudah diatur

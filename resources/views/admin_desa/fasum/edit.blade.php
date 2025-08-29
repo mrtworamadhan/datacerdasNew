@@ -168,6 +168,30 @@
                     </select>
                     @error('status_kepemilikan') <span class="invalid-feedback">{{ $message }}</span> @enderror
                 </div>
+                <div class="form-group">
+                    <label for="path_dokumen_legal">Dokumen Legal (PDF, max 5MB)</label>
+                    
+                    {{-- Tampilkan link ke file yang sudah ada --}}
+                    @if ($fasum->path_dokumen_legal)
+                        <div class="mb-2">
+                            <a href="{{ Storage::url($fasum->path_dokumen_legal) }}" target="_blank" class="btn btn-sm btn-info">
+                                <i class="fas fa-file-pdf"></i> Lihat Dokumen Saat Ini
+                            </a>
+                            <small class="text-muted ml-2">(Upload file baru untuk mengganti)</small>
+                        </div>
+                    @endif
+
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('path_dokumen_legal') is-invalid @enderror" 
+                                id="path_dokumen_legal" name="path_dokumen_legal" accept=".pdf">
+                            <label class="custom-file-label" for="path_dokumen_legal">Pilih file baru...</label>
+                        </div>
+                    </div>
+                    @error('path_dokumen_legal')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
                 <div class="form-group">
                     <label>Foto Fasilitas Umum (Opsional, Multiple)</label>
@@ -283,6 +307,16 @@
                 // Hapus hidden input yang menandai foto ini untuk dipertahankan
                 $('input[name="existing_photos_to_keep[]"][value="' + photoId + '"]').remove();
                 $(this).closest('.col-md-3').remove(); // Remove the photo container from display
+            });
+
+            document.getElementById('path_dokumen_legal').addEventListener('change', function() {
+                var fileName = this.files[0] ? this.files[0].name : 'Pilih file PDF';
+                this.nextElementSibling.innerText = fileName;
+            });
+
+            $('.custom-file-input').on('change', function() {
+                let fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
             });
         });
     </script>

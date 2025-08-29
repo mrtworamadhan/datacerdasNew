@@ -29,6 +29,7 @@ class Fasum extends Model
         'kapasitas', 
         'kontak_pengelola', 
         'status_kepemilikan', 
+        'path_dokumen_legal', 
     ];
 
     protected $casts = [

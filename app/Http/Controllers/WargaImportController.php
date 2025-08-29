@@ -18,9 +18,6 @@ class WargaImportController extends Controller
     public function showImportForm()
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola Kartu Keluarga.');
-        }
 
         // Ambil RW dan RT sesuai scope user yang login
         $rws = RW::all(); // Global scope akan memfilter RW sesuai desa/RW user

@@ -107,7 +107,7 @@ class LpjController extends Controller
      */
     public function edit(string $subdomain, Lpj $lpj)
     {
-        // Kita gunakan $lpj->kegiatan untuk mengirim data kegiatan induknya juga
+        // gunakan $lpj->kegiatan untuk mengirim data kegiatan induknya
         return view('admin_desa.lpj.edit', [
             'lpj' => $lpj,
             'kegiatan' => $lpj->kegiatan 
@@ -148,8 +148,6 @@ class LpjController extends Controller
 
     public function generateLpj(string $subdomain, Kegiatan $kegiatan)
     {
-        // 1. Otorisasi (bisa disempurnakan dengan Spatie nanti)
-        // $this->authorize('view', $kegiatan);
 
         $desa = app('tenant');
         // 2. Eager load semua relasi yang kita butuhkan untuk laporan

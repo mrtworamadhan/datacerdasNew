@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use Illuminate\Console\Command;
+use Spatie\Permission\Models\Role;
 
 class SyncUserRoles extends Command
 {
@@ -11,37 +13,53 @@ class SyncUserRoles extends Command
      *
      * @var string
      */
-    protected $signature = 'app:sync-user-roles';
+    protected $signature = 'users:sync-roles';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Sync user roles from user_type column to Spatie roles table for existing users';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $this->info('Menyinkronkan role untuk semua user...');
-        $users = \App\Models\User::all();
+        $this->info('Starting user role synchronization...');
+
+        $users = User::all();
+        $syncedCount = 0;
+        $skippedCount = 0;
+
+        // Buat progress bar agar terlihat keren dan informatif
+        $bar = $this->output->createProgressBar($users->count());
+        $bar->start();
 
         foreach ($users as $user) {
-            // Cek user_type dan berikan role Spatie yang sesuai
-            // syncRoles akan menghapus role lama dan memberi yang baru, jadi aman dijalankan berkali-kali
-            if ($user->user_type === 'admin_desa') {
-                $user->syncRoles('admin_desa');
-            } elseif ($user->user_type === 'kader_posyandu') {
-                $user->syncRoles('kader_posyandu');
-            } elseif ($user->user_type === 'admin_rw') {
-                $user->syncRoles('admin_rw');
-            } elseif ($user->user_type === 'admin_rt') {
-                $user->syncRoles('admin_rt');
+            $userType = $user->user_type;
+
+            // Pastikan user_type tidak kosong dan role-nya ada di database
+            if ($userType && Role::where('name', $userType)->exists()) {
+                // syncRoles akan menghapus role lama (jika ada) dan menerapkan yang baru.
+                // Ini aman untuk dijalankan berkali-kali.
+                $user->syncRoles([$userType]);
+                $syncedCount++;
+            } else {
+                $this->warn("\nSkipping user {$user->email} - Role '{$userType}' not found or empty.");
+                $skippedCount++;
             }
-            // Tambahkan user type lain jika ada
+            
+            $bar->advance();
         }
-        $this->info('✅ Sinkronisasi role selesai!');
+
+        $bar->finish();
+        $this->info("\n"); // Baris baru setelah progress bar
+        $this->info('Synchronization complete!');
+        $this->info("{$syncedCount} users have been synchronized.");
+        $this->info("{$skippedCount} users were skipped.");
+
+        return 0;
     }
 }

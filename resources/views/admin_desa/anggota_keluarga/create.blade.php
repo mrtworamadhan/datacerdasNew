@@ -72,8 +72,15 @@
                         </div>
                     </div>
                 </div>
-
-
+                <div class="form-group">
+                    <label for="jenis_pendaftaran">Jenis Pendaftaran</label>
+                    <select name="jenis_pendaftaran" id="jenis_pendaftaran" class="form-control" required>
+                        <option value="" disabled selected>-- Pilih Jenis Pendaftaran --</option>
+                        <option value="kelahiran">Kelahiran Baru</option>
+                        <option value="pendataan_lama">Pendataan Warga Lama</option>
+                        <option value="pendatang">Warga Pendatang</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="nik">NIK</label>
                     <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="nik"

@@ -54,21 +54,31 @@ class FasumController extends Controller
         $user = Auth::user();
         $desa = $user->desa;
         
-        $fasums = Fasum::query();
+        $fasumsQuery = Fasum::query();
 
+        if ($user->hasRole('kepala_desa')) {
+            $fasumsQuery->where('desa_id', $desa->id);
+        }
+
+        elseif ($user->hasRole('admin_rw')) {
+            $fasumsQuery->where('rw_id', $user->rw_id);
+        }
+
+        elseif ($user->hasRole('admin_rt')) {
+            $fasumsQuery->where('rt_id', $user->rt_id);
+        }
+ 
         if ($request->filled('q')) {
-            $fasums->where('nama_fasum', 'like', '%' . $request->q . '%');
+            $fasumsQuery->where('nama_fasum', 'like', '%' . $request->q . '%');
         }
-
         if ($request->filled('status_kondisi')) {
-            $fasums->where('status_kondisi', $request->status_kondisi);
+            $fasumsQuery->where('status_kondisi', $request->status_kondisi);
         }
 
-        $fasums = $fasums->latest()->paginate(10)->withQueryString();
+        $fasums = $fasumsQuery->with('photos')->latest()->paginate(10)->withQueryString();
 
         return view('portal.fasum.index', compact('fasums', 'desa'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -319,7 +329,7 @@ class FasumController extends Controller
     public function updateStatus(string $subdomain, Request $request, Fasum $fasum)
     {
         $request->validate([
-            'status_kondisi' => ['required', Rule::in(['Baik', 'Rusak Ringan', 'Rusak Berat'])],
+            'status_kondisi' => ['required', Rule::in(['Baik', 'Sedang', 'Rusak'])],
         ]);
 
         $fasum->status_kondisi = $request->status_kondisi;

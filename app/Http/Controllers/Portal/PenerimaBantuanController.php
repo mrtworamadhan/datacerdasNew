@@ -26,7 +26,10 @@ class PenerimaBantuanController extends Controller
         $desa = $user->desa; // Ambil desa yang terkait dengan user
         
         // Trait/Scope desa akan otomatis memfilter kategori bantuan
-        $kategoriBantuans = KategoriBantuan::where('is_active_for_submission', 1)->get();
+        $kategoriBantuans = KategoriBantuan::withoutGlobalScopes()
+                                           ->where('desa_id', $desa->id) // Tambahkan filter desa_id secara manual
+                                           ->where('is_active_for_submission', 1)
+                                           ->get();
 
         return view('portal.bantuan.pilih_bantuan', compact('kategoriBantuans', 'desa'));
     }
@@ -48,14 +51,14 @@ class PenerimaBantuanController extends Controller
                                           ->with('warga.kartuKeluarga.kepalaKeluarga', 'kartuKeluarga.kepalaKeluarga', 'diajukanOleh', 'disetujuiOleh');
 
         // Filter berdasarkan peran pengguna (untuk daftar yang ditampilkan)
-        if ($user->isAdminRw()) {
+        if ($user->hasRole('admin_rw')) {
             $queryPenerima->where(function($q) use ($user) {
                 $q->where('diajukan_oleh_user_id', $user->id)
                   ->orWhereHas('diajukanOleh', function($q2) use ($user) {
                       $q2->where('user_type', 'admin_rt')->where('rw_id', $user->rw_id);
                   });
             });
-        } elseif ($user->isAdminRt()) {
+        } elseif ($user->hasRole('admin_rt')) {
             $queryPenerima->where('diajukan_oleh_user_id', $user->id);
         }
 
@@ -83,10 +86,6 @@ class PenerimaBantuanController extends Controller
     public function create(string $subdomain, KategoriBantuan $kategoriBantuan)
     {
         $user = Auth::user();
-        // Cek hak akses: Admin Desa, Admin RW, Admin RT bisa mengajukan
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengajukan penerima bantuan.');
-        }
 
         $kriteria = $kategoriBantuan->kriteria_json;
         $kriteria = is_string($kriteria) ? json_decode($kriteria, true) : ($kriteria ?? []);
@@ -231,7 +230,7 @@ class PenerimaBantuanController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('portal.bantuan.index', $kategoriBantuan)->with('success', 'Penerima bantuan berhasil diajukan untuk verifikasi!');
+            return redirect()->back()->with('success', 'Penerima bantuan berhasil diajukan untuk verifikasi!');
 
         } catch (\Exception $e) {
             DB::rollBack();

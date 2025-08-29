@@ -12,6 +12,11 @@
             <h3 class="card-title">Generate Akun untuk {{ $desa->nama_desa }}</h3>
         </div>
         <div class="card-body">
+            @if (session('success_perangkat'))
+                <div class="alert alert-success">
+                    {{ session('success_rw') }}
+                </div>
+            @endif
             @if (session('success_rw'))
                 <div class="alert alert-success">
                     {{ session('success_rw') }}
@@ -37,6 +42,38 @@
             <hr>
 
             <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-purple card-outline">
+                        <div class="card-header">
+                            <h5 class="card-title">Generate Akun Perangkat Desa</h5>
+                        </div>
+                        <form action="{{ route('admin_desa.user_management.generate_perangkat_desa') }}" method="POST">
+                            @csrf
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="name">Nama Pengguna <span class="text-danger">*</span></label>
+                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
+                                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="role">Jabatan / Peran <span class="text-danger">*</span></label>
+                                        <select name="role" class="form-control @error('role') is-invalid @enderror" required>
+                                            <option value="">-- Pilih Jabatan --</option>
+                                            @foreach($perangkatDesaRoles as $role)
+                                                <option value="{{ $role->name }}">{{ Str::title(str_replace('_', ' ', $role->name)) }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('role') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Generate Akun Perangkat Desa</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 {{-- Form Generate Akun RW --}}
                 <div class="col-md-6">
                     <div class="card card-primary card-outline">
@@ -55,6 +92,42 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Generate / Update Akun RW</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h5 class="card-title">Generate Akun RT per RW</h5>
+                        </div>
+                        <form action="{{ route('admin_desa.user_management.generate_rts') }}" method="POST">
+                            @csrf
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="rw_id_for_rt">Pilih RW</label>
+                                    <select name="rw_id_for_rt" class="form-control @error('rw_id_for_rt') is-invalid @enderror" id="rw_id_for_rt" required>
+                                        <option value="">-- Pilih RW --</option>
+                                        @forelse($rws as $rw)
+                                            <option value="{{ $rw->id }}" {{ old('rw_id_for_rt') == $rw->id ? 'selected' : '' }}>
+                                                RW {{ $rw->nomor_rw }} ({{ $rw->rts->count() }} RT terdaftar)
+                                            </option>
+                                        @empty
+                                            <option value="" disabled>Belum ada RW yang terdaftar.</option>
+                                        @endforelse
+                                    </select>
+                                    @error('rw_id_for_rt') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="jumlah_rt">Jumlah RT yang Akan Digenerate untuk RW ini</label>
+                                    <input type="number" name="jumlah_rt" class="form-control @error('jumlah_rt') is-invalid @enderror" id="jumlah_rt" value="{{ old('jumlah_rt', 0) }}" min="0" required>
+                                    @error('jumlah_rt') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                    <small class="form-text text-muted">Akan membuat RT dari 01 sampai jumlah yang dimasukkan untuk RW yang dipilih.</small>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-info">Generate / Update Akun RT</button>
                             </div>
                         </form>
                     </div>
@@ -104,42 +177,11 @@
                         </form>
                     </div>
                 </div>
+                
             </div>
 
             {{-- Form Generate Akun RT --}}
-            <div class="card card-info card-outline mt-4">
-                <div class="card-header">
-                    <h5 class="card-title">Generate Akun RT per RW</h5>
-                </div>
-                <form action="{{ route('admin_desa.user_management.generate_rts') }}" method="POST">
-                    @csrf
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="rw_id_for_rt">Pilih RW</label>
-                            <select name="rw_id_for_rt" class="form-control @error('rw_id_for_rt') is-invalid @enderror" id="rw_id_for_rt" required>
-                                <option value="">-- Pilih RW --</option>
-                                @forelse($rws as $rw)
-                                    <option value="{{ $rw->id }}" {{ old('rw_id_for_rt') == $rw->id ? 'selected' : '' }}>
-                                        RW {{ $rw->nomor_rw }} ({{ $rw->rts->count() }} RT terdaftar)
-                                    </option>
-                                @empty
-                                    <option value="" disabled>Belum ada RW yang terdaftar.</option>
-                                @endforelse
-                            </select>
-                            @error('rw_id_for_rt') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="jumlah_rt">Jumlah RT yang Akan Digenerate untuk RW ini</label>
-                            <input type="number" name="jumlah_rt" class="form-control @error('jumlah_rt') is-invalid @enderror" id="jumlah_rt" value="{{ old('jumlah_rt', 0) }}" min="0" required>
-                            @error('jumlah_rt') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                            <small class="form-text text-muted">Akan membuat RT dari 01 sampai jumlah yang dimasukkan untuk RW yang dipilih.</small>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-info">Generate / Update Akun RT</button>
-                    </div>
-                </form>
-            </div>
+            
 
             @if (session('generated_accounts'))
                 <div class="card mt-4">

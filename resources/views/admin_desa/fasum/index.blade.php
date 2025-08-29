@@ -57,7 +57,7 @@
     </div>
 
     {{-- Card Khusus Admin Desa: RW Tanpa Fasum Spesifik --}}
-    @if (Auth::user()->isAdminDesa() || Auth::user()->isSuperAdmin())
+    @if (Auth::user()->hasAnyRole('admin_desa', 'admin_umum'))
         @if (!empty($rwWithoutSpecificFasum))
             <div class="card card-warning card-outline">
                 <div class="card-header">
@@ -88,11 +88,9 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Fasilitas Umum</h3>
             <div class="card-tools">
-                @if (Auth::user()->isAdminDesa() || Auth::user()->isAdminRw() || Auth::user()->isAdminRt())
                     <a href="{{ route('fasum.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-plus"></i> Tambah Fasum
                     </a>
-                @endif
             </div>
         </div>
         <div class="card-body p-0">
@@ -140,7 +138,7 @@
                         </select>
                     </div>
                     {{-- Filter RW/RT hanya untuk Admin Desa/Super Admin --}}
-                    @if (Auth::user()->isAdminDesa() || Auth::user()->isSuperAdmin())
+                    @if (Auth::user()->hasAnyRole('admin_desa', 'admin_umum'))
                         <div class="col-md-2 form-group">
                             <select name="rw_id" id="filter_rw_id" class="form-control">
                                 <option value="">-- Filter RW --</option>
@@ -209,14 +207,12 @@
                             <td>{{ $fasum->status_kepemilikan ?? '-' }}</td>
                             <td>
                                 <a href="{{ route('fasum.show', $fasum) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>
-                                @if (Auth::user()->isAdminDesa() || Auth::user()->isAdminRw() || Auth::user()->isAdminRt())
-                                    <a href="{{ route('fasum.edit', $fasum) }}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('fasum.destroy', $fasum) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Yakin ingin menghapus Fasilitas Umum ini?')"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                @endif
+                                <a href="{{ route('fasum.edit', $fasum) }}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+                                <form action="{{ route('fasum.destroy', $fasum) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Yakin ingin menghapus Fasilitas Umum ini?')"><i class="fas fa-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                     @empty

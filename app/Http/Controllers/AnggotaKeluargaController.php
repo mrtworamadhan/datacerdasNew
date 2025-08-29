@@ -14,6 +14,7 @@ use App\Models\StatusKependudukan;
 use App\Models\StatusKhusus;
 use App\Models\RW;
 use App\Models\RT;
+use App\Models\LogKependudukan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,22 +26,9 @@ class AnggotaKeluargaController extends Controller
      */
     public function index(string $subdomain, KartuKeluarga $kartuKeluarga)
     {
+        
         $user = Auth::user();
-        // Check if user has permission to access this module at all
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola data anggota keluarga.');
-        }
-
-        // If user is Admin Desa, ensure the KK belongs to their desa
-        // This check is often redundant due to global scope but acts as a safeguard.
-        if ($user->isAdminDesa()) {
-            if ($kartuKeluarga->desa_id !== $user->desa_id) {
-                abort(403, 'Kartu Keluarga ini bukan milik desa Anda.');
-            }
-        }
-        // Super Admin can access any desa's KK, so no desa_id check here for them.
-
-        // Ambil semua anggota keluarga dari KK ini, termasuk Kepala Keluarga
+        
         $anggotaKeluargas = $kartuKeluarga->wargas()
             ->whereHas('statusKependudukan', fn($q) => $q->where('nama', '!=', 'Meninggal'))
             ->get();
@@ -54,18 +42,6 @@ class AnggotaKeluargaController extends Controller
     public function create(string $subdomain, KartuKeluarga $kartuKeluarga)
     {
         $user = Auth::user();
-        // Check if user has permission to access this module at all
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola data anggota keluarga.');
-        }
-
-        // If user is Admin Desa, ensure the KK belongs to their desa
-        if ($user->isAdminDesa()) {
-            if ($kartuKeluarga->desa_id !== $user->desa_id) {
-                abort(403, 'Kartu Keluarga ini bukan milik desa Anda.');
-            }
-        }
-        // Super Admin can access any desa's KK.
 
         // Ambil RW dan RT dari KK yang bersangkutan
         $rw = $kartuKeluarga->rw;
@@ -93,7 +69,7 @@ class AnggotaKeluargaController extends Controller
             'statusPerkawinanOptions',
             'pekerjaanOptions',
             'pendidikanOptions',
-            'kewarganegaraanOptions', // Tambahkan pendidikanOptions
+            'kewarganegaraanOptions',
             'golonganDarahOptions',
             'hubunganKeluargaOptions',
             'statusKependudukanOptions',
@@ -107,18 +83,6 @@ class AnggotaKeluargaController extends Controller
     public function store(Request $request, string $subdomain, KartuKeluarga $kartuKeluarga)
     {
         $user = Auth::user();
-        // Check if user has permission to access this module at all
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola data anggota keluarga.');
-        }
-
-        // If user is Admin Desa, ensure the KK belongs to their desa
-        if ($user->isAdminDesa()) {
-            if ($kartuKeluarga->desa_id !== $user->desa_id) {
-                abort(403, 'Kartu Keluarga ini bukan milik desa Anda.');
-            }
-        }
-        // Super Admin can access any desa's KK.
 
         $request->validate([
             'nik' => 'required|string|digits:16|unique:wargas,nik,NULL,id,desa_id,' . $user->desa_id, // NIK unik per desa
@@ -138,11 +102,13 @@ class AnggotaKeluargaController extends Controller
             'nama_ayah_kandung' => 'nullable|string|max:255',
             'nama_ibu_kandung' => 'nullable|string|max:255',            
             'status_khusus' => 'nullable|exists:status_khusus,id',
+            'jenis_pendaftaran' => 'required|string|in:kelahiran,pendataan_lama,pendatang', // <-- Tambahkan validasi
+
         ]);
 
         DB::beginTransaction();
         try {
-            Warga::create([
+            $warga = Warga::create([
                 'desa_id' => $user->desa_id,
                 'kartu_keluarga_id' => $kartuKeluarga->id, // Tautkan ke KK yang sedang aktif
                 'rw_id' => $kartuKeluarga->rw_id, // Ambil dari KK
@@ -153,19 +119,48 @@ class AnggotaKeluargaController extends Controller
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'agama_id' => $request->agama_id,
-                'status_perkawinan_id' => $request->status_perkawinan,
-                'pekerjaan_id' => $request->pekerjaan,
-                'pendidikan_id' => $request->pendidikan, // Tambahkan ini
+                'status_perkawinan_id' => $request->status_perkawinan_id,
+                'pekerjaan_id' => $request->pekerjaan_id,
+                'pendidikan_id' => $request->pendidikan_id,
                 'kewarganegaraan' => $request->kewarganegaraan,
-                'golongan_darah_id' => $request->golongan_darah,
+                'golongan_darah_id' => $request->golongan_darah_id,
                 'alamat_lengkap' => $request->alamat_lengkap,
-                'hubungan_keluarga_id' => $request->hubungan_keluarga,
+                'hubungan_keluarga_id' => $request->hubungan_keluarga_id,
                 'nama_ayah_kandung' => $request->nama_ayah_kandung,
                 'nama_ibu_kandung' => $request->nama_ibu_kandung,
-                'status_kependudukan_id' => $request->status_kependudukan,
+                'status_kependudukan_id' => $request->status_kependudukan_id,
                 'status_khusus' => $request->status_khusus ? json_encode($request->status_khusus) : null,
             ]);
+            $jenisPeristiwa = '';
+            $keterangan = '';
 
+            switch ($request->jenis_pendaftaran) {
+                case 'kelahiran':
+                    $jenisPeristiwa = 'Lahir';
+                    $keterangan = "Warga '{$warga->nama_lengkap}' tercatat sebagai kelahiran baru.";
+                    break;
+                case 'pendataan_lama':
+                    $jenisPeristiwa = 'Data Baru';
+                    $keterangan = "Warga lama '{$warga->nama_lengkap}' berhasil didata untuk pertama kali.";
+                    break;
+                case 'pendatang':
+                    $jenisPeristiwa = 'Datang';
+                    $keterangan = "Warga '{$warga->nama_lengkap}' tercatat sebagai pendatang baru.";
+                    break;
+            }
+
+            // 3. Buat Log Kependudukan secara manual
+            if ($jenisPeristiwa) {
+                LogKependudukan::create([
+                    'desa_id' => $warga->desa_id,
+                    'warga_id' => $warga->id,
+                    'jenis_peristiwa' => $jenisPeristiwa,
+                    'tanggal_peristiwa' => now()->toDateString(),
+                    'keterangan' => $keterangan,
+                    'dicatat_oleh_user_id' => Auth::id(),
+                ]);
+            }
+            
             DB::commit();
             return redirect()->route('kartu-keluarga.anggota.index', $kartuKeluarga)->with('success', 'Anggota keluarga berhasil ditambahkan!');
 
@@ -181,34 +176,16 @@ class AnggotaKeluargaController extends Controller
     public function edit(string $subdomain, KartuKeluarga $kartuKeluarga, $anggotaId) // Menggunakan $anggotaId
     {
         $user = Auth::user();
-        // Check if user has permission to access this module at all
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola data anggota keluarga.');
-        }
 
         // Retrieve Warga without global scope, then apply manual checks
         $anggotaKeluarga = Warga::withoutGlobalScopes()
             ->where('id', $anggotaId)
             ->firstOrFail();
 
-        // Manual check for desa_id for Admin Desa
-        if ($user->isAdminDesa()) {
-            if ($anggotaKeluarga->desa_id !== $user->desa_id) {
-                abort(403, 'Anggota keluarga ini tidak milik desa Anda.');
-            }
-            if ($kartuKeluarga->desa_id !== $user->desa_id) { // Also check KK desa_id
-                abort(403, 'Kartu Keluarga ini tidak milik desa Anda.');
-            }
-        }
-        // Super Admin can access any desa's data.
-
-        // Pengecekan integritas data: Pastikan anggota keluarga ini benar-benar terhubung dengan Kartu Keluarga yang dimaksud.
         if ($anggotaKeluarga->kartu_keluarga_id !== $kartuKeluarga->id) {
             abort(403, 'Anggota keluarga ini tidak terhubung dengan Kartu Keluarga yang dimaksud.');
         }
 
-        // Ensure status_khusus is an array for the view
-        // If it's a string (JSON), decode it. Otherwise, use as is or default to empty array.
         $anggotaKeluarga->status_khusus = is_string($anggotaKeluarga->status_khusus)
             ? json_decode($anggotaKeluarga->status_khusus, true)
             : ($anggotaKeluarga->status_khusus ?? []);
@@ -235,13 +212,35 @@ class AnggotaKeluargaController extends Controller
             'statusPerkawinanOptions',
             'pekerjaanOptions',
             'pendidikanOptions',
-            'kewarganegaraanOptions', // Tambahkan pendidikanOptions
+            'kewarganegaraanOptions',
             'golonganDarahOptions',
             'hubunganKeluargaOptions',
             'statusKependudukanOptions',
             'statusKhususOptions'
         ));
     }
+    // public function show(string $subdomain, KartuKeluarga $kartuKeluarga, Warga $anggota)
+    // {
+    //     // Pastikan anggota yang diakses benar-benar milik KK tersebut
+    //     if ($anggota->kartu_keluarga_id !== $kartuKeluarga->id) {
+    //         abort(404);
+    //     }
+
+    //     // Eager load semua relasi yang dibutuhkan untuk efisiensi
+    //     $anggota->load(
+    //         'rw', 
+    //         'rt', 
+    //         'statusKependudukan',
+    //         'agama',
+    //         'pendidikan',
+    //         'pekerjaan',
+    //         'hubunganKeluarga',
+    //         'logKependudukan.pencatat' // Memuat log dan siapa user yang mencatatnya
+    //     );
+
+    //     // Kirim data KK dan anggota ke view
+    //     return view('admin_desa.anggota_keluarga.show', compact('kartuKeluarga', 'anggota'));
+    // }
 
     /**
      * Update the specified family member in storage.
@@ -249,28 +248,10 @@ class AnggotaKeluargaController extends Controller
     public function update(Request $request, string $subdomain, KartuKeluarga $kartuKeluarga, $anggotaId) // Menggunakan $anggotaId
     {
         $user = Auth::user();
-        // Check if user has permission to access this module at all
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola data anggota keluarga.');
-        }
 
-        // Retrieve Warga without global scope, then apply manual checks
         $anggotaKeluarga = Warga::withoutGlobalScopes()
             ->where('id', $anggotaId)
             ->firstOrFail();
-
-        // Manual check for desa_id for Admin Desa
-        if ($user->isAdminDesa()) {
-            if ($anggotaKeluarga->desa_id !== $user->desa_id) {
-                abort(403, 'Anggota keluarga ini tidak milik desa Anda.');
-            }
-            if ($kartuKeluarga->desa_id !== $user->desa_id) { // Also check KK desa_id
-                abort(403, 'Kartu Keluarga ini tidak milik desa Anda.');
-            }
-        }
-        // Super Admin can access any desa's data.
-
-        // Pengecekan integritas data: Pastikan anggota keluarga ini benar-benar terhubung dengan Kartu Keluarga yang dimaksud.
         if ($anggotaKeluarga->kartu_keluarga_id !== $kartuKeluarga->id) {
             abort(403, 'Anggota keluarga ini tidak terhubung dengan Kartu Keluarga yang dimaksud.');
         }
@@ -304,23 +285,23 @@ class AnggotaKeluargaController extends Controller
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'agama_id' => $request->agama_id,
-                'status_perkawinan_id' => $request->status_perkawinan,
-                'pekerjaan_id' => $request->pekerjaan,
-                'pendidikan_id' => $request->pendidikan, // Tambahkan ini
+                'status_perkawinan_id' => $request->status_perkawinan_id,
+                'pekerjaan_id' => $request->pekerjaan_id,
+                'pendidikan_id' => $request->pendidikan_id,
                 'kewarganegaraan' => $request->kewarganegaraan,
-                'golongan_darah_id' => $request->golongan_darah,
+                'golongan_darah_id' => $request->golongan_darah_id,
                 'alamat_lengkap' => $request->alamat_lengkap,
-                'hubungan_keluarga_id' => $request->hubungan_keluarga,
+                'hubungan_keluarga_id' => $request->hubungan_keluarga_id,
                 'nama_ayah_kandung' => $request->nama_ayah_kandung,
                 'nama_ibu_kandung' => $request->nama_ibu_kandung,
-                'status_kependudukan_id' => $request->status_kependudukan,
+                'status_kependudukan_id' => $request->status_kependudukan_id,
                 'status_khusus' => $request->status_khusus ? json_encode($request->status_khusus) : null,
             ]);
 
             DB::commit();
             return redirect()->route('kartu-keluarga.anggota.index', $kartuKeluarga)->with('success', 'Anggota keluarga berhasil diperbarui!');
 
-        } catch (\Exception | \Throwable $e) { // Catch Throwable for broader error handling
+        } catch (\Exception | \Throwable $e) { 
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal memperbarui anggota keluarga: ' . $e->getMessage())->withInput();
         }
@@ -332,39 +313,16 @@ class AnggotaKeluargaController extends Controller
     public function destroy(string $subdomain, KartuKeluarga $kartuKeluarga, $anggotaId) // Menggunakan $anggotaId
     {
         $user = Auth::user();
-        // Check if user has permission to access this module at all
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk mengelola data anggota keluarga.');
-        }
 
-        // Retrieve Warga without global scope, then apply manual checks
         $anggotaKeluarga = Warga::withoutGlobalScopes()
             ->where('id', $anggotaId)
             ->firstOrFail();
 
-        // Manual check for desa_id for Admin Desa
-        if ($user->isAdminDesa()) {
-            if ($anggotaKeluarga->desa_id !== $user->desa_id) {
-                abort(403, 'Anggota keluarga ini tidak milik desa Anda.');
-            }
-            if ($kartuKeluarga->desa_id !== $user->desa_id) { // Also check KK desa_id
-                abort(403, 'Kartu Keluarga ini tidak milik desa Anda.');
-            }
-        }
-        // Super Admin can access any desa's data.
-
-        // Pengecekan integritas data: Pastikan anggota keluarga ini benar-benar terhubung dengan Kartu Keluarga yang dimaksud.
         if ($anggotaKeluarga->kartu_keluarga_id !== $kartuKeluarga->id) {
             abort(403, 'Anggota keluarga ini tidak terhubung dengan Kartu Keluarga yang dimaksud.');
         }
 
-        // Pastikan tidak menghapus Kepala Keluarga jika dia satu-satunya anggota
-        // Atau jika KK ini masih memiliki anggota lain
         if ($kartuKeluarga->kepalaKeluarga && $kartuKeluarga->kepalaKeluarga->id === $anggotaKeluarga->id) {
-            // Jika yang dihapus adalah Kepala Keluarga, dan ada anggota lain,
-            // kita harus minta user untuk menunjuk Kepala Keluarga baru terlebih dahulu.
-            // Untuk kesederhanaan, saat ini kita tidak izinkan hapus KK jika dia adalah kepala keluarga
-            // dan ada anggota lain.
             if ($kartuKeluarga->wargas()->count() > 1) {
                 return redirect()->back()->with('error', 'Tidak dapat menghapus Kepala Keluarga jika masih ada anggota keluarga lain. Harap tentukan Kepala Keluarga baru terlebih dahulu atau hapus semua anggota lain terlebih dahulu.');
             }
@@ -406,7 +364,6 @@ class AnggotaKeluargaController extends Controller
         } elseif ($user->user_type === 'admin_rw' && $user->rw_id) {
             $query->where('rw_id', $user->rw_id);
         }
-        // Untuk admin_desa, tidak perlu filter tambahan karena sudah dihandle Global Scope
 
         // Lanjutkan dengan query pencarian NIK atau Nama
         $wargas = $query->where(function ($q) use ($searchTerm) {

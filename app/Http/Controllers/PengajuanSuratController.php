@@ -61,10 +61,6 @@ class PengajuanSuratController extends Controller
     {
         $user = Auth::user();
         
-        // Cek hak akses untuk membuat pengajuan surat (Admin RT ke atas)
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() && !$user->isAdminRw() && !$user->isAdminRt()) {
-            abort(403, 'Anda tidak memiliki hak akses untuk membuat pengajuan surat.');
-        }
         // Ambil jenis surat yang aktif untuk desa ini (Global scope akan memfilter)
         $jenisSurats = JenisSurat::orderBy('nama_surat')->get();
 
@@ -78,12 +74,6 @@ class PengajuanSuratController extends Controller
     {        
         $user = Auth::user();
 
-        // Cek hak akses untuk membuat pengajuan surat (Admin RT ke atas)
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() ) {
-            abort(403, 'Anda tidak memiliki hak akses untuk membuat pengajuan surat.');
-        }
-
-        $this->authorize('admin_desa_access');
         // Pastikan hanya surat yang disetujui yang bisa dicetak ulang
         if ($pengajuanSurat->status_permohonan !== 'Disetujui') {
             return redirect()->back()->with('error', 'Hanya surat yang sudah disetujui yang bisa dicetak ulang.');

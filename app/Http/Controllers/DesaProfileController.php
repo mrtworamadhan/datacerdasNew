@@ -19,10 +19,6 @@ class DesaProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        // Pastikan user adalah admin_desa atau super_admin dan punya desa_id
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses ke halaman ini.');
-        }
 
         // Load relasi RWS dan RTS untuk menghitung jumlah terdaftar
         $desa = Desa::with('rws', 'rts')->findOrFail($user->desa_id);
@@ -35,9 +31,6 @@ class DesaProfileController extends Controller
     public function update(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses untuk memperbarui profil ini.');
-        }
 
         $desa = Desa::findOrFail($user->desa_id);
 

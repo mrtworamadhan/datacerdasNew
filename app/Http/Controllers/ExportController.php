@@ -60,20 +60,11 @@ class ExportController extends Controller
 
     public function exportAsetsExcel(string $subdomain)
     {
-        // Otorisasi sederhana, pastikan hanya admin desa yang bisa
-        if (!auth()->user()->isAdminDesa()) {
-            abort(403);
-        }
-
         $namaFile = 'Laporan Aset Desa - ' . now()->format('d-m-Y') . '.xlsx';
         return Excel::download(new AsetsExport(), $namaFile);
     }
     public function exportAsetsPdf(string $subdomain)
     {
-        if (!auth()->user()->isAdminDesa()) {
-            abort(403);
-        }
-
         $asets = Aset::with('subSubKelompok.subKelompok.kelompok.bidang.golongan')->get();
         $tanggalCetak = now();
 

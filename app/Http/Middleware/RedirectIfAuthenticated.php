@@ -17,34 +17,25 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 $user = Auth::user();
 
-                // 1. Cek Super Admin menggunakan user_type
-                if ($user->user_type === 'super_admin') {
+                if ($user->hasRole('superadmin')) {
                     return redirect(route('superadmin.dashboard'));
                 }
 
-                // 2. Cek role Portal (RT, RW, Kader) menggunakan user_type
-                if (in_array($user->user_type, ['admin_rt', 'admin_rw', 'kader_posyandu'])) {
-                    // Pastikan user punya desa dan subdomain
+                if ($user->hasAnyRole(['kepala_desa', 'admin_rt', 'admin_rw', 'kader_posyandu'])) {
                     if ($user->desa && $user->desa->subdomain) {
-                        // Ambil subdomain dari data user, BUKAN dari request
                         return redirect()->route('portal.dashboard', ['subdomain' => $user->desa->subdomain]);
                     }
                 }
                 
-                // 3. Cek Admin Desa menggunakan user_type
-                if ($user->user_type === 'admin_desa') {
+                $adminLteRoles = ['admin_desa', 'operator_desa', 'bendahara_desa', 'admin_pelayanan', 'admin_kesra', 'admin_umum'];
+                if ($user->hasAnyRole($adminLteRoles)) {
                      if ($user->desa && $user->desa->subdomain) {
                         return redirect()->route('tenant.dashboard', ['subdomain' => $user->desa->subdomain]);
                      }
                 }
 
-                // 4. Fallback default jika tidak ada yang cocok
-                // Jika user punya desa, arahkan ke dashboard tenant, jika tidak, ke root
-                if ($user->desa && $user->desa->subdomain) {
-                    return redirect()->route('tenant.dashboard', ['subdomain' => $user->desa->subdomain]);
-                } else {
-                    return redirect('/dashboard'); // Fallback paling akhir
-                }
+                // Fallback paling akhir
+                return redirect('/dashboard');
             }
         }
 

@@ -10,45 +10,37 @@ class RolesAndPermissionsSeeder extends Seeder
 {
     public function run(): void
     {
-        // Reset cache agar tidak ada error duplikasi permission/role
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // --- PERMISSIONS ---
+        // --- PERMISSIONS (Disederhanakan) ---
         $permissions = [
-            'kelola kegiatan',
-            'buat proposal',
-            'setujui proposal',
-            'buat lpj',
-            'kelola aset',
-            'kelola fasum',
-            'kelola profil',
-            'kelola surat',
-            'kelola warga',
-            'kelola bantuan',
-            'kelola kesehatan',
-            'kelola pengguna',
+            'view superadmin menu',
+            'kelola kegiatan', 'kelola aset', 'kelola fasum',
+            'kelola profil', 'kelola surat', 'kelola warga',
+            'kelola bantuan', // Untuk membuat pengajuan
+            'verifikasi bantuan', // Untuk menyetujui/menolak
+            'hapus bantuan',
+            'kelola kesehatan', 'kelola pengguna', 'view laporan desa',
         ];
-
         foreach ($permissions as $perm) {
             Permission::firstOrCreate(['name' => $perm]);
         }
 
-        // --- ROLES ---
+        // --- ROLES (Disesuaikan) ---
         $roles = [
+            'admin_umum'     => ['kelola fasum', 'kelola aset'],
+            'bendahara_desa' => ['kelola kegiatan'],
+            'operator_desa'  => ['kelola profil', 'kelola pengguna'],
+            'admin_pelayanan'=> ['kelola warga', 'kelola surat'],
+            // Admin Kesra bisa kelola, verifikasi, dan hapus
+            'admin_kesra'    => ['kelola bantuan', 'verifikasi bantuan', 'hapus bantuan', 'kelola kesehatan'],
+            'kepala_desa'    => ['view laporan desa'],
+            // RT & RW hanya bisa 'kelola' (mengajukan), tidak bisa verifikasi
+            'admin_rt'       => ['kelola surat', 'kelola warga', 'kelola bantuan'],
+            'admin_rw'       => ['kelola surat', 'kelola warga', 'kelola bantuan'],
             'kader_posyandu' => ['kelola kesehatan'],
-
-            'admin_rt' => ['kelola fasum', 'kelola surat', 'kelola warga'],
-            'admin_rw' => ['kelola fasum', 'kelola surat', 'kelola warga'],
-
-            'lembaga' => ['buat proposal', 'buat lpj'],
-
-            'operator_desa' => ['kelola profil', 'kelola pengguna'],
-            'bendahara_desa' => ['buat proposal', 'buat lpj', 'kelola kegiatan'],
-            'admin_pelayanan' => ['kelola aset', 'kelola fasum', 'kelola surat', 'kelola warga'],
-            'admin_kesra' => ['kelola bantuan', 'kelola kesehatan'],
-
-            'admin_desa' => Permission::all()->pluck('name')->toArray(),
-            'superadmin' => Permission::all()->pluck('name')->toArray(),
+            'admin_desa'     => Permission::where('name', '!=', 'view superadmin menu')->pluck('name')->toArray(),
+            'superadmin'     => Permission::all()->pluck('name')->toArray(),
         ];
 
         foreach ($roles as $roleName => $rolePermissions) {

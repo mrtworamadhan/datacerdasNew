@@ -3,7 +3,7 @@
 @section('title', 'Penerima Bantuan ' . $kategoriBantuan->nama_kategori . ' - TataDesa')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Penerima Bantuan: {{ $kategoriBantuan->nama_kategori }}</h1>
+<h1 class="m-0 text-dark">Penerima Bantuan: {{ $kategoriBantuan->nama_kategori }}</h1>
 @stop
 
 @section('content_main')
@@ -63,24 +63,22 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Penerima Bantuan</h3>
             <div class="card-tools">
-                {{-- Tombol Ajukan Penerima hanya untuk Admin Desa, RW, RT jika kategori aktif --}}
-                @if ($kategoriBantuan->is_active_for_submission && (Auth::user()->isAdminDesa() || Auth::user()->isAdminRw() || Auth::user()->isAdminRt()))
-                    <a href="{{ route('kategori-bantuan.penerima.create', $kategoriBantuan) }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Ajukan Penerima
-                    </a>
-                @endif
+                <a href="{{ route('kategori-bantuan.penerima.create', $kategoriBantuan) }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> Ajukan Penerima
+                </a>
                 {{-- Tombol Export hanya untuk Admin Desa/Super Admin --}}
-                @if (Auth::user()->isAdminDesa() || Auth::user()->isSuperAdmin())
-                    <div class="btn-group ml-2">
-                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Export
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{ route('kategori-bantuan.penerima.exportPdf', $kategoriBantuan) }}">PDF</a>
-                            <a class="dropdown-item" href="{{ route('kategori-bantuan.penerima.exportExcel', $kategoriBantuan) }}">Excel</a>
-                        </div>
+                <div class="btn-group ml-2">
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Export
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item"
+                            href="{{ route('kategori-bantuan.penerima.exportPdf', $kategoriBantuan) }}">PDF</a>
+                        <a class="dropdown-item"
+                            href="{{ route('kategori-bantuan.penerima.exportExcel', $kategoriBantuan) }}">Excel</a>
                     </div>
-                @endif
+                </div>
             </div>
         </div>
         <div class="card-body p-0">
@@ -113,7 +111,8 @@
                                 @if ($penerima->warga)
                                     {{ $penerima->warga->nama_lengkap }}
                                 @elseif ($penerima->kartuKeluarga)
-                                    KK: {{ $penerima->kartuKeluarga->nomor_kk }} (Kepala: {{ $penerima->kartuKeluarga->kepalaKeluarga->nama_lengkap ?? '-' }})
+                                    KK: {{ $penerima->kartuKeluarga->nomor_kk }} (Kepala:
+                                    {{ $penerima->kartuKeluarga->kepalaKeluarga->nama_lengkap ?? '-' }})
                                 @else
                                     -
                                 @endif
@@ -131,40 +130,55 @@
                                 @if ($penerima->warga)
                                     RW {{ $penerima->warga->rw->nomor_rw ?? '-' }}/RT {{ $penerima->warga->rt->nomor_rt ?? '-' }}
                                 @elseif ($penerima->kartuKeluarga)
-                                    RW {{ $penerima->kartuKeluarga->rw->nomor_rw ?? '-' }}/RT {{ $penerima->kartuKeluarga->rt->nomor_rt ?? '-' }}
+                                    RW {{ $penerima->kartuKeluarga->rw->nomor_rw ?? '-' }}/RT
+                                    {{ $penerima->kartuKeluarga->rt->nomor_rt ?? '-' }}
                                 @else
                                     -
                                 @endif
                             </td>
-                            <td>{{ $penerima->diajukanOleh->name ?? '-' }} ({{ ucfirst(str_replace('_', ' ', $penerima->diajukanOleh->user_type ?? '-')) }})</td>
+                            <td>{{ $penerima->diajukanOleh->name ?? '-' }}
+                                ({{ ucfirst(str_replace('_', ' ', $penerima->diajukanOleh->user_type ?? '-')) }})</td>
                             <td>{{ $penerima->tanggal_menerima->format('d M Y') }}</td>
                             <td>
                                 @php
                                     $badgeClass = 'secondary';
-                                    if ($penerima->status_permohonan == 'Diajukan') $badgeClass = 'warning';
-                                    elseif ($penerima->status_permohonan == 'Disetujui') $badgeClass = 'success';
-                                    elseif ($penerima->status_permohonan == 'Ditolak') $badgeClass = 'danger';
-                                    elseif ($penerima->status_permohonan == 'Diverifikasi RT' || $penerima->status_permohonan == 'Diverifikasi RW') $badgeClass = 'info';
+                                    if ($penerima->status_permohonan == 'Diajukan')
+                                        $badgeClass = 'warning';
+                                    elseif ($penerima->status_permohonan == 'Disetujui')
+                                        $badgeClass = 'success';
+                                    elseif ($penerima->status_permohonan == 'Ditolak')
+                                        $badgeClass = 'danger';
+                                    elseif ($penerima->status_permohonan == 'Diverifikasi RT' || $penerima->status_permohonan == 'Diverifikasi RW')
+                                        $badgeClass = 'info';
                                 @endphp
                                 <span class="badge badge-{{ $badgeClass }}">{{ $penerima->status_permohonan }}</span>
                             </td>
                             <td>
-                                {{-- Admin Desa bisa melihat detail untuk approve/reject --}}
-                                @if (Auth::user()->isAdminDesa())
-                                    <a href="{{ route('kategori-bantuan.penerima.show', [$kategoriBantuan, $penerima]) }}" class="btn btn-info btn-xs">Verifikasi</a>
+                                {{-- Tombol Detail/Verifikasi --}}
+                                @can('verifikasi bantuan')
+                                    {{-- Jika punya hak verifikasi, tombolnya "Verifikasi" --}}
+                                    <a href="{{ route('kategori-bantuan.penerima.show', [$kategoriBantuan, $penerima]) }}" class="btn btn-info btn-xs">
+                                        Verifikasi
+                                    </a>
                                 @else
-                                    {{-- Admin RW/RT hanya melihat detail --}}
-                                    <a href="{{ route('kategori-bantuan.penerima.show', [$kategoriBantuan, $penerima]) }}" class="btn btn-info btn-xs">Detail</a>
-                                @endif
+                                    {{-- Jika tidak, tombolnya hanya "Detail" --}}
+                                    <a href="{{ route('kategori-bantuan.penerima.show', [$kategoriBantuan, $penerima]) }}" class="btn btn-secondary btn-xs">
+                                        Detail
+                                    </a>
+                                @endcan
 
-                                {{-- Hanya Admin Desa/Super Admin yang bisa menghapus --}}
-                                @if (Auth::user()->isAdminDesa() || Auth::user()->isSuperAdmin())
-                                    <form action="{{ route('kategori-bantuan.penerima.destroy', [$kategoriBantuan, $penerima]) }}" method="POST" style="display:inline-block;">
+                                {{-- Tombol Hapus (Hanya muncul jika punya hak hapus) --}}
+                                @can('hapus bantuan')
+                                    <form action="{{ route('kategori-bantuan.penerima.destroy', [$kategoriBantuan, $penerima]) }}"
+                                        method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Yakin ingin menghapus penerima bantuan ini?')">Hapus</button>
+                                        <button type="submit" class="btn btn-danger btn-xs"
+                                                onclick="return confirm('Yakin ingin menghapus penerima bantuan ini?')">
+                                            Hapus
+                                        </button>
                                     </form>
-                                @endif
+                                @endcan
                             </td>
                         </tr>
                     @empty

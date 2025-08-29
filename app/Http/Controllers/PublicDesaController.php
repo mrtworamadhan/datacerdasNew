@@ -19,23 +19,26 @@ class PublicDesaController extends Controller
      */
     public function welcome()
     {
-        // Ambil data desa yang aktif dari instance 'tenant'
-        // yang sudah disiapkan oleh TenantMiddleware kita.
         $desa = app('tenant');
 
+        // Gunakan ID desa untuk memfilter semua query
+        $desaId = $desa->id;
+
         // Hitung data statistik publik yang relevan untuk desa ini
-        $jumlahWarga = Warga::count(); // Trait/Scope akan otomatis memfilter
         $stats = [
-            'jumlah_warga' => Warga::count(), // Trait/Scope akan otomatis memfilter
-            'jumlah_kk' => KartuKeluarga::count(),
-            'jumlah_rw' => Rw::count(),
-            'jumlah_rt' => Rt::count(),
+            'jumlah_warga' => Warga::where('desa_id', $desaId)->count(),
+            'jumlah_kk' => KartuKeluarga::where('desa_id', $desaId)->count(),
+            'jumlah_rw' => Rw::where('desa_id', $desaId)->count(),
+            'jumlah_rt' => Rt::where('desa_id', $desaId)->count(),
         ];
-        $jumlahKk = KartuKeluarga::count(); // Trait/Scope akan otomatis memfilter
-        $fasums = Fasum::latest()->take(3)->get();
-        $perangkatDesa = PerangkatDesa::get();
-        $lembagas = Lembaga::whereNotNull('path_kop_surat')->get();
-        $kelompoks = Kelompok::whereNotNull('path_kop_surat')->get();
+        
+        // Ambil data lain dengan filter desa_id
+        $jumlahWarga = $stats['jumlah_warga'];
+        $jumlahKk = $stats['jumlah_kk'];
+        $fasums = Fasum::where('desa_id', $desaId)->latest()->take(3)->get();
+        $perangkatDesa = PerangkatDesa::where('desa_id', $desaId)->get();
+        $lembagas = Lembaga::where('desa_id', $desaId)->whereNotNull('path_kop_surat')->get();
+        $kelompoks = Kelompok::where('desa_id', $desaId)->whereNotNull('path_kop_surat')->get();
         
         $mitraDesa = $lembagas->concat($kelompoks);
 

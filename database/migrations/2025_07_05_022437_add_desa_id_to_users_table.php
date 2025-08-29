@@ -16,7 +16,7 @@ return new class extends Migration
            $table->foreignId('desa_id')->nullable()->after('password')->constrained('desas');
 
             // Tambahkan kolom user_type
-            $table->string('user_type')->default('warga')->after('email'); // Default ke 'warga'
+            $table->string('user_type')->after('email'); // Default ke 'warga'
         });
     }
 

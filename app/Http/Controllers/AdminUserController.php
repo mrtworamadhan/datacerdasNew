@@ -3,80 +3,92 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Desa; // Penting: untuk memilih desa
+use App\Models\Desa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; // Untuk hash password
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminUserController extends Controller
 {
-    public function index(string $subdomain)
+    public function index(Request $request) 
     {
-        // Ambil semua user kecuali super_admin, bisa difilter nanti
-        $users = User::where('user_type', '!=', 'super_admin')->get();
-        return view('superadmin.users.index', compact('users'));
+        $query = User::whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'superadmin');
+        })->with('desa'); 
+
+
+        if ($request->filled('desa_id')) {
+            $query->where('desa_id', $request->desa_id);
+        }
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('name', 'like', '%' . $searchTerm . '%')
+                ->orWhere('email', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        $users = $query->latest()->paginate(15)->withQueryString();
+
+        $desas = Desa::orderBy('nama_desa')->get();
+
+        return view('superadmin.users.index', compact('users', 'desas'));
     }
 
-    public function create(string $subdomain)
+    public function create() 
     {
-        $desas = Desa::all(); // Ambil semua desa untuk dropdown
-        $userTypes = ['admin_desa', 'admin_rw', 'admin_rt', 'kader_posyandu']; // Tipe user yang bisa dibuat Super Admin
-        return view('superadmin.users.create', compact('desas', 'userTypes'));
+        $desas = Desa::orderBy('nama_desa')->get();
+        $roles = Role::whereNotIn('name', ['superadmin'])->pluck('name', 'name');
+
+        return view('superadmin.users.create', compact('desas', 'roles'));
     }
 
-    public function store(Request $request, string $subdomain)
+    public function store(Request $request) 
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'user_type' => 'required|in:admin_desa,admin_rw,admin_rt,kader_posyandu',
-            'desa_id' => 'nullable|exists:desas,id', // desa_id opsional jika user_type tertentu
+            'role' => 'required|exists:roles,name', 
+            'desa_id' => 'required|exists:desas,id',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
-            'subdomain' => $request->name,
-            'slug' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_type' => $request->user_type,
+            'user_type' => $request->role, 
             'desa_id' => $request->desa_id,
         ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'Pengguna berhasil ditambahkan!');
+        $user->assignRole($request->role);
+
+        return redirect()->route('admin.users.index')->with('success', 'Pengguna baru berhasil ditambahkan!');
     }
 
-    public function edit(string $subdomain, User $user)
+    public function edit(User $user) 
     {
-        if ($user->isSuperAdmin()) {
-            // Super Admin tidak boleh mengedit dirinya sendiri atau sesama super admin dari sini
-            return redirect()->route('admin.users.index')->with('error', 'Tidak bisa mengedit Super Admin dari halaman ini.');
-        }
-        $desas = Desa::all();
-        $userTypes = ['admin_desa', 'admin_rw', 'admin_rt', 'kader_posyandu'];
-        return view('superadmin.users.edit', compact('user', 'desas', 'userTypes'));
+        $desas = Desa::orderBy('nama_desa')->get();
+        $roles = Role::whereNotIn('name', ['superadmin'])->pluck('name', 'name');
+
+        return view('superadmin.users.edit', compact('user', 'desas', 'roles'));
     }
 
-    public function update(Request $request,string $subdomain, User $user)
+    public function update(Request $request, User $user)
     {
-        if ($user->isSuperAdmin()) {
-            return redirect()->route('admin.users.index')->with('error', 'Tidak bisa mengedit Super Admin.');
-        }
-
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'user_type' => 'required|in:admin_desa,admin_rw,admin_rt,kader_posyandu',
-            'desa_id' => 'nullable|exists:desas,id',
+            'role' => 'required|exists:roles,name', // <-- 4. Validasi berdasarkan role
+            'desa_id' => 'required|exists:desas,id',
         ]);
 
         $userData = [
             'name' => $request->name,
-            'subdomain' => $request->name,
-            'slug' => $request->name,
             'email' => $request->email,
-            'user_type' => $request->user_type,
+            'user_type' => $request->role,
             'desa_id' => $request->desa_id,
         ];
 
@@ -86,14 +98,14 @@ class AdminUserController extends Controller
 
         $user->update($userData);
 
+        // <-- 5. Sinkronkan role. syncRoles akan menghapus role lama dan menerapkan yang baru.
+        $user->syncRoles([$request->role]);
+
         return redirect()->route('admin.users.index')->with('success', 'Data pengguna berhasil diperbarui!');
     }
 
-    public function destroy(string $subdomain,User $user)
+    public function destroy(User $user) // Hapus parameter $subdomain
     {
-        if ($user->isSuperAdmin()) {
-            return redirect()->route('admin.users.index')->with('error', 'Tidak bisa menghapus Super Admin.');
-        }
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'Pengguna berhasil dihapus!');
     }

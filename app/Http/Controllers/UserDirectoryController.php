@@ -17,9 +17,6 @@ class UserDirectoryController extends Controller
     public function index(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses ke halaman ini.');
-        }
 
         $query = User::where('desa_id', $user->desa_id)
                          ->whereIn('user_type', ['admin_desa', 'admin_rw', 'admin_rt', 'kader_posyandu'])
@@ -51,9 +48,6 @@ class UserDirectoryController extends Controller
     public function updateBatch(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses untuk melakukan aksi ini.');
-        }
 
         $request->validate([
             'nama_ketua_rw.*' => 'nullable|string|max:255', // Validasi array untuk nama ketua RW

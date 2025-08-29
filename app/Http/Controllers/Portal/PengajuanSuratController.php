@@ -182,19 +182,19 @@ class PengajuanSuratController extends Controller
         $user = Auth::user();
         $warga = Warga::findOrFail($data['warga_id']);
 
-        // Otorisasi: Pastikan RT/RW hanya bisa membuat surat untuk warganya
-        if ($user->isAdminRt() && $warga->rt_id !== $user->rt_id) {
+        if ($user->hasROle('admin_rt') && $warga->rt_id !== $user->rt_id) {
             abort(403);
         }
-        if ($user->isAdminRw() && $warga->rw_id !== $user->rw_id) {
+        if ($user->hasRole('admin_rw') && $warga->rw_id !== $user->rw_id) {
             abort(403);
         }
 
-        // Kita tidak perlu menyimpan ke database, cukup siapkan data untuk dicetak
         $pengajuan = new PengajuanSurat($data);
-        $pengajuan->warga = $warga; // Lampirkan data warga ke objek
+        $pengajuan->warga = $warga;
         $desa = $warga->desa;
-        $suratSetting = SuratSetting::where('desa_id', $desa->id)->first();
+        $suratSetting = SuratSetting::withoutGlobalScopes()
+                            ->where('desa_id', $desa->id)
+                            ->first();
         $kopSuratBase64 = null;
         if (!empty($suratSetting->path_logo_pemerintah)) {
             $imagePath = storage_path('app/public/' . $suratSetting->path_logo_pemerintah);
@@ -204,10 +204,9 @@ class PengajuanSuratController extends Controller
                 $kopSuratBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             }
         }
-        // Buat nama file yang dinamis agar tidak selalu sama
+
         $namaFile = 'Surat-Pengantar-' . Str::slug($warga->nama_lengkap) . '-' . now()->format('Y-m-d') . '.pdf';
 
-        // Generate PDF
         $pdf = Pdf::loadView('admin_desa.pengajuan_surat.cetak_pengantar', compact('pengajuan', 'desa', 'suratSetting', 'kopSuratBase64'));
 
         return $pdf->download($namaFile);

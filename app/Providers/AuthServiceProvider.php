@@ -22,30 +22,36 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        
+        Gate::before(function (User $user, string $ability) {
+            if ($user->hasRole('superadmin')) {
+                return true;
+            }
+        });
         // Gate ini sekarang HANYA untuk Super Admin. Sangat jelas.
-        Gate::define('is_super_admin', function (User $user) {
-            return $user->isSuperAdmin();
-        });
+        // Gate::define('is_super_admin', function (User $user) {
+        //     return $user->isSuperAdmin();
+        // });
 
-        // Gate ini sekarang HANYA untuk Admin Desa. Tidak ada lagi || super_admin.
-        Gate::define('admin_desa_access', function (User $user) {
-            return $user->isAdminDesa();
-        });
+        // // Gate ini sekarang HANYA untuk Admin Desa. Tidak ada lagi || super_admin.
+        // Gate::define('admin_desa_access', function (User $user) {
+        //     return $user->isAdminDesa();
+        // });
 
-        // Gate ini sekarang lebih sederhana.
-        Gate::define('admin_rw_access', function (User $user) {
-            return $user->isAdminDesa() || $user->isAdminRw();
-        });
+        // // Gate ini sekarang lebih sederhana.
+        // Gate::define('admin_rw_access', function (User $user) {
+        //     return $user->isAdminDesa() || $user->isAdminRw();
+        // });
 
-        // Gate ini juga menjadi lebih sederhana.
-        Gate::define('admin_rt_access', function (User $user) {
-            return $user->isAdminDesa() || $user->isAdminRw() || $user->isAdminRt();
-        });
+        // // Gate ini juga menjadi lebih sederhana.
+        // Gate::define('admin_rt_access', function (User $user) {
+        //     return $user->isAdminDesa() || $user->isAdminRw() || $user->isAdminRt();
+        // });
 
-        // Gate untuk Kader Posyandu
-        Gate::define('kader_posyandu_access', function (User $user) {
-            // Admin Desa kita anggap bisa mengakses menu kader juga
-            return $user->isKaderPosyandu() || $user->isAdminDesa();
-        });
+        // // Gate untuk Kader Posyandu
+        // Gate::define('kader_posyandu_access', function (User $user) {
+        //     // Admin Desa kita anggap bisa mengakses menu kader juga
+        //     return $user->isKaderPosyandu() || $user->isAdminDesa();
+        // });
     }
 }

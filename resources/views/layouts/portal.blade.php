@@ -125,7 +125,7 @@
         <div class="bottom-nav d-flex d-md-none">
 
             {{-- MENU KHUSUS UNTUK KADER POSYANDU --}}
-            @if(Auth::user()->isKaderPosyandu())
+            @if(Auth::user()->hasRole('kader_posyandu'))
 
                 <a href="{{ route('portal.dashboard') }}"
                 class="bottom-nav-item {{ request()->routeIs('portal.dashboard') ? 'active' : '' }}">
@@ -133,21 +133,21 @@
                     <span>Beranda</span>
                 </a>
                 {{-- 1. Tombol Dashboard/Sesi Posyandu --}}
-                <a href="{{ route('portal.posyandu.index', ['subdomain' => $subdomain]) }}"
+                <a href="{{ route('portal.posyandu.index', ['subdomain' => app('tenant')->subdomain]) }}"
                 class="bottom-nav-item {{ request()->routeIs('portal.posyandu.index', 'portal.posyandu.sesi.show') ? 'active' : '' }}">
                     <i class="fas fa-tasks"></i>
                     <span>Sesi</span>
                 </a>
 
                 {{-- 2. Tombol Laporan --}}
-                <a href="{{ route('portal.posyandu.laporan.index', ['subdomain' => $subdomain]) }}"
+                <a href="{{ route('portal.posyandu.laporan.index', ['subdomain' => app('tenant')->subdomain]) }}"
                 class="bottom-nav-item {{ request()->routeIs('portal.posyandu.laporan.*') ? 'active' : '' }}">
                     <i class="fas fa-file-alt"></i>
                     <span>Laporan</span>
                 </a>
 
                 {{-- 3. Tombol Rekam Medis --}}
-                <a href="{{ route('portal.posyandu.rekam_medis.search', ['subdomain' => $subdomain]) }}"
+                <a href="{{ route('portal.posyandu.rekam_medis.search', ['subdomain' => app('tenant')->subdomain]) }}"
                 class="bottom-nav-item {{ request()->routeIs('portal.posyandu.rekam_medis.*') ? 'active' : '' }}">
                     <i class="fas fa-chart-line"></i>
                     <span>Rekam Medis</span>

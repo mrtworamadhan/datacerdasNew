@@ -74,30 +74,5 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Posyandu::class, 'posyandu_id');
     }
-    // Contoh method untuk cek role (nanti bisa kita kembangkan)
-    public function isSuperAdmin()
-    {
-        return $this->user_type === 'super_admin';
-    }
-
-    public function isAdminDesa()
-    {
-        return $this->user_type === 'admin_desa';
-    }
-
-    public function isAdminRw()
-    {
-        return $this->user_type === 'admin_rw';
-    }
-
-    public function isAdminRt()
-    {
-        return $this->user_type === 'admin_rt';
-    }
-
-    public function isKaderPosyandu()
-    {
-        return $this->user_type === 'kader_posyandu';
-    }
     
 }

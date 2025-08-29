@@ -24,7 +24,6 @@ class DataKesehatanAnakController extends Controller
         $selectedPosyandu = null;
 
         // --- 1. MEMBUAT QUERY DASAR YANG "SADAR" HAK AKSES ---
-        // Ini adalah "otak" baru kita. Query ini akan menjadi dasar untuk semua perhitungan.
         $baseAnakTerpantauQuery = DataKesehatanAnak::query()->whereHas('warga'); // whereHas untuk memicu Trait/Scope
 
         if ($user->user_type === 'kader_posyandu' && $user->posyandu_id) {

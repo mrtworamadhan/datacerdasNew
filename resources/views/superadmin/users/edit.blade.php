@@ -6,7 +6,7 @@
     <h1 class="m-0 text-dark">Edit Pengguna</h1>
 @stop
 
-@section('content_main')
+@section('content')
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Form Edit Pengguna</h3>
@@ -15,6 +15,7 @@
             @csrf
             @method('PUT')
             <div class="card-body">
+                {{-- Input Nama, Email, Password (Tidak berubah) --}}
                 <div class="form-group">
                     <label for="name">Nama Pengguna</label>
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name', $user->name) }}" required>
@@ -34,19 +35,26 @@
                     <label for="password_confirmation">Konfirmasi Password</label>
                     <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
                 </div>
+
+                {{-- PERUBAHAN DI SINI: DARI user_type MENJADI role --}}
                 <div class="form-group">
-                    <label for="user_type">Tipe Pengguna</label>
-                    <select name="user_type" class="form-control @error('user_type') is-invalid @enderror" id="user_type" required>
-                        <option value="">Pilih Tipe Pengguna</option>
-                        @foreach($userTypes as $type)
-                            <option value="{{ $type }}" {{ old('user_type', $user->user_type) == $type ? 'selected' : '' }}>{{ ucfirst(str_replace('_', ' ', $type)) }}</option>
+                    <label for="role">Role Pengguna</label>
+                    <select name="role" class="form-control @error('role') is-invalid @enderror" id="role" required>
+                        <option value="">Pilih Role Pengguna</option>
+                        @foreach($roles as $role)
+                            {{-- Menggunakan method Spatie untuk mengecek role saat ini --}}
+                            <option value="{{ $role }}" {{ old('role', $user->getRoleNames()->first()) == $role ? 'selected' : '' }}>
+                                {{ ucfirst(str_replace('_', ' ', $role)) }}
+                            </option>
                         @endforeach
                     </select>
-                    @error('user_type') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                    @error('role') <span class="invalid-feedback">{{ $message }}</span> @enderror
                 </div>
+
+                {{-- Input Desa (Tidak berubah) --}}
                 <div class="form-group">
-                    <label for="desa_id">Desa (Opsional, tergantung Tipe Pengguna)</label>
-                    <select name="desa_id" class="form-control @error('desa_id') is-invalid @enderror" id="desa_id">
+                    <label for="desa_id">Desa</label>
+                    <select name="desa_id" class="form-control @error('desa_id') is-invalid @enderror" id="desa_id" required>
                         <option value="">Pilih Desa</option>
                         @foreach($desas as $desa)
                             <option value="{{ $desa->id }}" {{ old('desa_id', $user->desa_id) == $desa->id ? 'selected' : '' }}>{{ $desa->nama_desa }}</option>
@@ -61,4 +69,4 @@
             </div>
         </form>
     </div>
-@endsection
+@stop

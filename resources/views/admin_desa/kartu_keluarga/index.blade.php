@@ -66,7 +66,10 @@
                             <td>
                                 <a href="{{ route('kartu-keluarga.edit', $kk) }}" class="btn btn-warning btn-xs">Edit KK</a>
                                 {{-- Nanti akan ada tombol untuk kelola anggota --}}
-                                <a href="{{ route('kartu-keluarga.anggota.index', $kk) }}" class="btn btn-info btn-xs">Kelola Anggota ({{ $kk->wargas->count() }} Orang)</a>
+                                <a href="{{ route('kartu-keluarga.show', ['subdomain' => request()->subdomain, 'kartu_keluarga' => $kk->id]) }}" class="btn btn-primary btn-xs">
+                                    <i class="fas fa-eye"></i> Detail KK
+                                </a>
+                                <!-- <a href="{{ route('kartu-keluarga.anggota.index', $kk) }}" class="btn btn-info btn-xs">Lihat Anggota</a> -->
                                 <form action="{{ route('kartu-keluarga.destroy', $kk) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
@@ -83,8 +86,8 @@
             </table>
         </div>
         {{-- Tambahkan paginasi jika diperlukan, seperti di UserDirectoryController --}}
-        {{-- <div class="card-footer clearfix">
+        <div class="card-footer clearfix">
             {{ $kartuKeluargas->appends(request()->query())->links('pagination::bootstrap-4') }}
-        </div> --}}
+        </div>
     </div>
 @endsection

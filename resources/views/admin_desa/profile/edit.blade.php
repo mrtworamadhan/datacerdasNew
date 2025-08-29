@@ -88,7 +88,7 @@
                         <div class="form-group">
                             <label for="jumlah_rt_display">Jumlah RT Terdaftar per RW</label>
                             <input type="text" class="form-control" id="jumlah_rt_display"
-                                value="{{ $desa->rts->count() > 0 ? ($desa->rts->count() / $desa->rws->count()) : 0 }}"
+                                value="{{ $desa->rts->count() }}"
                                 disabled>
                             <small class="form-text text-muted">Jumlah ini berdasarkan akun RT yang sudah
                                 digenerate.</small>

@@ -39,16 +39,6 @@ class KkController extends Controller
     public function update(Request $request, string $subdomain, KartuKeluarga $kartuKeluarga)
     {
         $user = Auth::user();
-        // Global scope should handle filtering. This is a safeguard.
-        if ($user->isAdminDesa() && $kartuKeluarga->desa_id !== $user->desa_id) {
-            abort(403, 'Kartu Keluarga ini bukan milik desa Anda.');
-        } elseif ($user->isAdminRw() && ($kartuKeluarga->rw_id !== $user->rw_id || $kartuKeluarga->desa_id !== $user->desa_id)) {
-            abort(403, 'Kartu Keluarga ini bukan milik wilayah RW Anda.');
-        } elseif ($user->isAdminRt() && ($kartuKeluarga->rt_id !== $user->rt_id || $kartuKeluarga->rw_id !== $user->rw_id || $kartuKeluarga->desa_id !== $user->desa_id)) {
-            abort(403, 'Kartu Keluarga ini bukan milik wilayah RT Anda.');
-        }
-        // Super Admin has full access.
-
         $request->validate([
             'nomor_kk' => 'required|string|max:20|unique:kartu_keluargas,nomor_kk,'.$kartuKeluarga->id.',id,desa_id,'.$user->desa_id,
             'alamat_lengkap_kk' => 'required|string|max:255',

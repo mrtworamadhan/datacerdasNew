@@ -90,10 +90,18 @@
                     @foreach($penerimaBantuan->photos as $photo)
                         <div class="col-md-4 mb-3">
                             <div class="card">
-                                <img src="{{ Storage::url(str_replace('/storage/', 'public/', $photo->file_path)) }}" class="card-img-top" alt="{{ $photo->photo_name }}" style="max-height: 200px; object-fit: cover;">
+                                @if (Str::endsWith(strtolower($photo->file_path), ['.jpg', '.jpeg', '.png', '.gif']))
+                                    <img src="{{ Storage::url($photo->file_path) }}" class="card-img-top" alt="{{ $photo->photo_name }}" style="max-height: 200px; object-fit: cover;">
+                                @else
+                                    {{-- Jika bukan gambar (misal: PDF), tampilkan ikon --}}
+                                    <div class="text-center p-5">
+                                        <i class="fas fa-file-pdf fa-4x text-danger"></i>
+                                        <p class="mt-2">Dokumen PDF</p>
+                                    </div>
+                                @endif
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $photo->photo_name ?? 'Foto' }}</h5>
-                                    <a href="{{ Storage::url(str_replace('/storage/', 'public/', $photo->file_path)) }}" target="_blank" class="btn btn-sm btn-primary">Lihat Ukuran Penuh</a>
+                                    <a href="{{ Storage::url($photo->file_path) }}" target="_blank" class="btn btn-sm btn-primary">Lihat Ukuran Penuh</a>
                                 </div>
                             </div>
                         </div>
@@ -103,49 +111,37 @@
                 <p class="text-muted">Tidak ada foto terlampir untuk pengajuan ini.</p>
             @endif
 
+            @can('verifikasi bantuan')
+                @if (!in_array($penerimaBantuan->status_permohonan, ['Disetujui', 'Ditolak']))
+                    <hr>
+                    <h4>Verifikasi Penerima Bantuan</h4>
+                    <form action="{{ route('kategori-bantuan.penerima.update-status', [$kategoriBantuan, $penerimaBantuan]) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="status">Pilih Status</label>
+                            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" required>
+                                <option value="">-- Pilih Status --</option>
+                                <option value="Disetujui">Disetujui</option>
+                                <option value="Ditolak">Ditolak</option>
+                            </select>
+                            @error('status') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group" id="catatan_group" style="display: none;">
+                            <label for="catatan">Catatan (Opsional, Wajib jika Ditolak)</label>
+                            <textarea name="catatan" id="catatan" class="form-control @error('catatan') is-invalid @enderror" rows="3">{{ old('catatan') }}</textarea>
+                            @error('catatan') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    </form>
+                @endif
+            @endcan
 
-            @php
-                $canUpdateStatus = false;
-                $allowedStatuses = [];
-
-                if (Auth::user()->isAdminDesa() && $penerimaBantuan->status_permohonan !== 'Disetujui' && $penerimaBantuan->status_permohonan !== 'Ditolak') {
-                    $canUpdateStatus = true;
-                    $allowedStatuses = ['Disetujui', 'Ditolak'];
-                } elseif (Auth::user()->isAdminRw() && ($penerimaBantuan->status_permohonan === 'Diajukan' || $penerimaBantuan->status_permohonan === 'Diverifikasi RT')) {
-                    // Admin RW bisa verifikasi jika statusnya Diajukan atau Diverifikasi RT
-                    $canUpdateStatus = true;
-                    $allowedStatuses = ['Diverifikasi RW'];
-                } elseif (Auth::user()->isAdminRt() && $penerimaBantuan->status_permohonan === 'Diajukan') {
-                    // Admin RT hanya bisa verifikasi jika statusnya Diajukan
-                    $canUpdateStatus = true;
-                    $allowedStatuses = ['Diverifikasi RT'];
-                }
-            @endphp
-
-            @if ($canUpdateStatus)
-                <hr>
-                <h4>Verifikasi Penerima Bantuan</h4>
-                <form action="{{ route('kategori-bantuan.penerima.update-status', [$kategoriBantuan, $penerimaBantuan]) }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="status">Pilih Status</label>
-                        <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" required>
-                            <option value="">-- Pilih Status --</option>
-                            @foreach($allowedStatuses as $statusOption)
-                                <option value="{{ $statusOption }}" {{ old('status') == $statusOption ? 'selected' : '' }}>{{ $statusOption }}</option>
-                            @endforeach
-                        </select>
-                        @error('status') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group" id="catatan_group" style="display: {{ old('status') == 'Ditolak' ? 'block' : 'none' }};">
-                        <label for="catatan">Catatan (Opsional, Wajib jika Ditolak)</label>
-                        <textarea name="catatan" id="catatan" class="form-control @error('catatan') is-invalid @enderror" rows="3">{{ old('catatan') }}</textarea>
-                        @error('catatan') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary">Update Status</button>
-                </form>
-            @else
-                <p class="text-muted mt-4">Penerima bantuan ini sudah diverifikasi atau Anda tidak memiliki hak akses untuk memperbarui status.</p>
+            {{-- Pesan ini akan muncul untuk user yang tidak punya hak verifikasi, ATAU jika statusnya sudah final --}}
+            @cannot('verifikasi bantuan')
+                 <p class="text-muted mt-4">Anda tidak memiliki hak akses untuk memperbarui status.</p>
+            @endcan
+            @if (in_array($penerimaBantuan->status_permohonan, ['Disetujui', 'Ditolak']))
+                 <p class="text-muted mt-4">Pengajuan ini sudah final dan tidak dapat diubah lagi.</p>
             @endif
 
         </div>

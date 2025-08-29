@@ -24,12 +24,9 @@ class AdminDesaUserManagementController extends Controller
     public function index(string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses ke halaman ini.');
-        }
 
         $users = User::where('desa_id', $user->desa_id)
-            ->whereIn('user_type', ['admin_rw', 'admin_rt', 'kader_posyandu'])
+            // ->whereIn('user_type', ['admin_rw', 'admin_rt', 'kader_posyandu'])
             ->with('rw', 'rt') // Load relasi RW dan RT
             ->get();
 
@@ -42,9 +39,6 @@ class AdminDesaUserManagementController extends Controller
     public function showGenerationForm(string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses untuk melakukan aksi ini.');
-        }
 
         $desa = Desa::findOrFail($user->desa_id);
 
@@ -69,7 +63,14 @@ class AdminDesaUserManagementController extends Controller
             })
             ->get();
 
-        $roles = Role::whereNotIn('name', ['superadmin', 'admin_desa'])->get();
+        $perangkatDesaRoles = Role::whereIn('name', [
+            'operator_desa', 
+            'bendahara_desa', 
+            'admin_pelayanan', 
+            'admin_kesra',
+            'kepala_desa',
+            'admin_umum'
+        ])->get();
         $rws = Rw::where('desa_id', $user->desa_id)->get(); // Semua RW di desa
         $posyandus = Posyandu::where('desa_id', $user->desa_id)->get();
         $posyandusWithKader = User::where('user_type', 'kader_posyandu')
@@ -86,9 +87,62 @@ class AdminDesaUserManagementController extends Controller
             'rws',
             'posyandus',
             'posyandusWithKader',
-            'roles'
+            'perangkatDesaRoles'
         ));
     }
+
+    // Di dalam class AdminDesaUserManagementController
+
+    public function generatePerangkatDesa(Request $request, string $subdomain)
+    {
+        $user = Auth::user();
+        $desa = $user->desa;
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => [
+                'required',
+                'string',
+                // Pastikan role yang dipilih adalah salah satu dari yang diizinkan
+                Rule::in(['operator_desa', 'bendahara_desa', 'admin_pelayanan', 'admin_kesra', 'kepala_desa', 'admin_umum']),
+            ],
+        ]);
+
+        $roleName = $request->role;
+        $desaSlug = str_replace('-', '', Str::slug($desa->nama_desa));
+        
+        // Buat email otomatis: bendahara.namadesa@datacerdas.com
+        $email = str_replace('_desa', '', $roleName) . ".{$desaSlug}@datacerdas.com";
+
+        // Cek jika email sudah ada
+        if (User::where('email', $email)->exists()) {
+            return redirect()->back()
+                ->with('error', "Akun untuk peran ini sudah ada dengan email: {$email}. Silakan edit atau hapus akun yang ada terlebih dahulu.")
+                ->withInput();
+        }
+
+        $newUser = User::create([
+            'name' => $request->name,
+            'email' => $email,
+            'password' => Hash::make('password123'),
+            'desa_id' => $desa->id,
+            'user_type' => $roleName, // Tetap isi user_type untuk kompatibilitas
+        ]);
+
+        $newUser->assignRole($roleName);
+
+        $generatedAccount = [
+            'tipe' => Str::title(str_replace('_', ' ', $roleName)),
+            'nomor' => '-',
+            'email' => $newUser->email,
+            'password' => 'password123',
+        ];
+
+        return redirect()->route('admin_desa.user_management.show_generation_form', ['subdomain' => $subdomain])
+                        ->with('success_perangkat', "Akun untuk {$newUser->name} berhasil dibuat!")
+                        ->with('generated_accounts', [$generatedAccount]);
+    }
+
 
     /**
      * Generate or update RW accounts.
@@ -96,9 +150,6 @@ class AdminDesaUserManagementController extends Controller
     public function generateRws( Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses untuk melakukan aksi ini.');
-        }
 
         $desa = Desa::findOrFail($user->desa_id);
 
@@ -152,9 +203,6 @@ class AdminDesaUserManagementController extends Controller
     public function generateRts(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses untuk melakukan aksi ini.');
-        }
 
         $request->validate([
             'rw_id_for_rt' => 'required|exists:rws,id',
@@ -209,9 +257,6 @@ class AdminDesaUserManagementController extends Controller
     public function generateKaders(Request $request, string $subdomain)
     {
         $user = Auth::user();
-        if (!$user->isAdminDesa() && !$user->isSuperAdmin() || !$user->desa_id) {
-            abort(403, 'Anda tidak memiliki akses untuk melakukan aksi ini.');
-        }
 
         $desa = Desa::findOrFail($user->desa_id);
 
@@ -277,7 +322,7 @@ class AdminDesaUserManagementController extends Controller
     public function edit(string $subdomain,User $user)
     {
         $loggedInUser = Auth::user();
-        if ($user->desa_id !== $loggedInUser->desa_id || $user->isSuperAdmin()) {
+        if ($user->desa_id !== $loggedInUser->desa_id) {
             abort(403, 'Anda tidak memiliki akses untuk mengedit pengguna ini.');
         }
 
@@ -291,7 +336,7 @@ class AdminDesaUserManagementController extends Controller
     public function update(Request $request, string $subdomain,User $user)
     {
         $loggedInUser = Auth::user();
-        if ($user->desa_id !== $loggedInUser->desa_id || $user->isSuperAdmin()) {
+        if ($user->desa_id !== $loggedInUser->desa_id) {
             abort(403, 'Anda tidak memiliki akses untuk memperbarui pengguna ini.');
         }
 
@@ -324,7 +369,7 @@ class AdminDesaUserManagementController extends Controller
     public function destroy(string $subdomain, User $user)
     {
         $loggedInUser = Auth::user();
-        if ($user->desa_id !== $loggedInUser->desa_id || $user->isSuperAdmin()) {
+        if ($user->desa_id !== $loggedInUser->desa_id) {
             abort(403, 'Anda tidak memiliki akses untuk menghapus pengguna ini.');
         }
 

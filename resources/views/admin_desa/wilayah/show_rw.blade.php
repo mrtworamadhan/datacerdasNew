@@ -13,6 +13,9 @@
             <div class="card-header">
                 <h3 class="card-title">Daftar Rukun Tetangga (RT) di RW {{ $rw->nomor_rw }}</h3>
                 <div class="card-tools">
+                    <a href="{{ route('warga.export.per_rw', $rw) }}" class="btn btn-success btn-sm mr-2">
+                        <i class="fas fa-file-excel"></i> Export Warga RW Ini
+                    </a>
                     <a href="{{ route('wilayah.index') }}" class="btn btn-sm btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali ke Daftar RW
                     </a>

@@ -112,4 +112,9 @@ class Warga extends Model
     {
         return $this->hasMany(DataIbuHamil::class);
     }
+
+    public function logKependudukan()
+    {
+        return $this->hasMany(LogKependudukan::class)->latest();
+    }
 }

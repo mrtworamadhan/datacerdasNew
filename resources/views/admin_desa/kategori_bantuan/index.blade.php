@@ -11,11 +11,11 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Kategori Bantuan</h3>
             <div class="card-tools">
-                @if (Auth::user()->isAdminDesa() || Auth::user()->isSuperAdmin())
+                @can('kelola bantuan')
                     <a href="{{ route('kategori-bantuan.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-plus"></i> Tambah Kategori Bantuan
                     </a>
-                @endif
+                @endcan
             </div>
         </div>
         <div class="card-body p-0">
@@ -87,14 +87,13 @@
                             </td>
                             <td>
                                 <a href="{{ route('kategori-bantuan.penerima.index', $kategori) }}" class="btn btn-info btn-xs">Lihat Pengajuan</a> {{-- Tombol baru --}}
-                                @if (Auth::user()->isAdminDesa() || Auth::user()->isSuperAdmin())
-                                    <a href="{{ route('kategori-bantuan.edit', $kategori) }}" class="btn btn-warning btn-xs">Edit</a>
+                                @can('kelola bantuan')                                    <a href="{{ route('kategori-bantuan.edit', $kategori) }}" class="btn btn-warning btn-xs">Edit</a>
                                     <form action="{{ route('kategori-bantuan.destroy', $kategori) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Yakin ingin menghapus kategori bantuan ini? Semua penerima bantuan di bawah kategori ini juga akan terhapus.')">Hapus</button>
                                     </form>
-                                @endif
+                                @endcan
                             </td>
                         </tr>
                     @empty

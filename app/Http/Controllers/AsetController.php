@@ -20,8 +20,6 @@ class AsetController extends Controller
      */
     public function index(string $subdomain)
     {
-        // Ambil semua data aset, urutkan dari yang terbaru
-        // Eager load relasi untuk efisiensi
         $asets = Aset::with('subSubKelompok.subKelompok.kelompok.bidang.golongan')
                     ->latest()
                     ->paginate(20); // Gunakan paginasi agar tidak berat
@@ -71,10 +69,12 @@ class AsetController extends Controller
             $subSubKelompok->kode_sub_sub_kelompok,
         ]);
 
-        // Cari nomor urut terakhir untuk kode ini
-        $nomorTerakhir = Aset::where('kode_aset', 'like', $kodeBagianDepan . '%')->count();
+        $nomorTerakhir = Aset::where('desa_id', auth()->user()->desa_id) // <-- TAMBAHKAN KONDISI INI
+                       ->where('kode_aset', 'like', $kodeBagianDepan . '%')
+                       ->count();
+                       
         $nomorUrutBaru = str_pad($nomorTerakhir + 1, 4, '0', STR_PAD_LEFT);
-        
+
         $validated['kode_aset'] = "{$kodeBagianDepan}.{$nomorUrutBaru}";
 
         // 3. Logika untuk menangani upload foto
@@ -94,8 +94,6 @@ class AsetController extends Controller
      */
     public function show(string $subdomain, Aset $aset)
     {
-        // dd($aset);
-        // Eager load semua relasi hirarki kodifikasi untuk ditampilkan
         $aset->load('subSubKelompok.subKelompok.kelompok.bidang.golongan');
         return view('admin_desa.asets.show', compact('aset'));
     }

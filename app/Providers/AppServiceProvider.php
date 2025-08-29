@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
 use Riskihajar\Terbilang\Facades\Terbilang;
 use App\Models\CompanySetting; 
+use App\Models\Warga; 
+use App\Observers\WargaObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
         config(['app.locale' => 'id', 'terbilang.locale' => 'id']);
         Carbon::setLocale('id');
+        Warga::observe(WargaObserver::class);
         
         View::composer([
             'welcome', // Halaman welcome

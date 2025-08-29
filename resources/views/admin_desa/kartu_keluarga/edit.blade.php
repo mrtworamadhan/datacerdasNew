@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Edit Kartu Keluarga - TataDesa')
+@section('title', 'Edit Kartu Keluarga - DataCerdas')
 
 @section('content_header')
     <h1 class="m-0 text-dark">Edit Kartu Keluarga</h1>
@@ -77,11 +77,6 @@
     </div>
 @endsection
 
-@section('css')
-    {{-- Select2 CSS --}}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.0.0/select2-bootstrap4.min.css" rel="stylesheet" />
-@stop
 
 @section('js')
     {{-- Select2 JS --}}
