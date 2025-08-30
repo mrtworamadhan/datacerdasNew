@@ -13,7 +13,6 @@
                 Daftar Warga dengan Status: <strong>{{ $judul }}</strong>
             </h3>
             <div class="card-tools">
-                {{-- Tombol Export akan kita fungsikan nanti --}}
                 <button class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Excel</button>
             </div>
         </div>

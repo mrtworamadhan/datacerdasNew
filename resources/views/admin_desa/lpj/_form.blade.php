@@ -65,9 +65,7 @@
                 <i class="fas fa-magic"></i> Tulis Ulang untuk LPJ dengan AI
             </button>
         </div>
-        
-        {{-- ... (lanjutkan untuk Evaluasi, Rekomendasi, dll.) ... --}}
-        
+                
         <div class="form-group">
             <label for="tanggal_pelaporan">Tanggal Pelaporan</label>
             <input type="date" name="tanggal_pelaporan" class="form-control" value="{{ old('tanggal_pelaporan', ($lpj->tanggal_pelaporan ?? now())->format('Y-m-d')) }}" required>

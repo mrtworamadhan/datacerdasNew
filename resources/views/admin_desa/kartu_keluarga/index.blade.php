@@ -85,7 +85,6 @@
                 </tbody>
             </table>
         </div>
-        {{-- Tambahkan paginasi jika diperlukan, seperti di UserDirectoryController --}}
         <div class="card-footer clearfix">
             {{ $kartuKeluargas->appends(request()->query())->links('pagination::bootstrap-4') }}
         </div>

@@ -205,7 +205,7 @@ class FasumController extends Controller
 
         DB::beginTransaction();
         try {
-            Log::info('Fasum store: Starting transaction.'); // Log awal transaksi
+            Log::info('Fasum store: Starting transaction.'); 
 
             $fasum = Fasum::create([
                 'desa_id' => $user->desa_id,
@@ -230,34 +230,26 @@ class FasumController extends Controller
             Log::info('Fasum store: Fasum created with ID ' . $fasum->id); // Log Fasum ID
 
             if ($request->hasFile('photos')) {
-                // Inisialisasi ImageManager dengan driver yang Anda inginkan
-                $manager = new ImageManager(new ImagickDriver()); // Atau new GdDriver()
-
+                $manager = new ImageManager(new ImagickDriver());
                 foreach ($request->file('photos') as $photo) {
-                    Log::info('Fasum store: Processing photo ' . $photo->getClientOriginalName()); // Log nama foto
                     $image = $manager->read($photo->getRealPath());
-                    
-                    $fileName = uniqid('fasum_') . '.jpg'; // Simpan semua sebagai jpg
-                    $manager = new ImageManager(new Driver());
-                    $resizedImage = $manager->read($image)->scale(width: 800);
+                    if ($image->width() > 800) {
+                        $image->scale(width: 800);
+                    }
+                    $fileName = uniqid('fasum_') . '.jpg';
                     $path = 'fasum_photos/' . $fileName;
-
-                    Storage::disk('public')->put($path, (string) $resizedImage->toJpeg(80)); // Cast ke string sebelum simpan // Encode dengan kualitas
-                    Log::info('Fasum store: Photo saved to storage: ' . $path); // Log path penyimpanan
-
+                    Storage::disk('public')->put($path, (string) $image->toJpeg());
                     $fasum->photos()->create(['path' => $path]);
-                    Log::info('Fasum store: Photo record created in DB for ' . $fileName); // Log record foto
                 }
             }
-            Log::info('Fasum store: Committing transaction.'); // Log sebelum commit
+            Log::info('Fasum store: Committing transaction.'); 
             DB::commit();
-            Log::info('Fasum store: Transaction committed successfully.'); // Log setelah commit
+            Log::info('Fasum store: Transaction committed successfully.');
 
             return redirect()->route('fasum.index')->with('success', 'Fasilitas umum berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error storing Fasum: ' . $e->getMessage() . ' Trace: ' . $e->getTraceAsString());
-            // dd($e->getMessage()); // Tetap aktifkan dd() untuk debugging langsung
             return redirect()->back()->with('error', 'Gagal menambahkan Fasilitas Umum: ' . $e->getMessage())->withInput();
         }
     }

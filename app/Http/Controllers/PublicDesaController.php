@@ -7,8 +7,8 @@ use App\Models\Warga;
 use App\Models\Fasum;
 use App\Models\KartuKeluarga;
 use App\Models\PerangkatDesa;
-use App\Models\Rw;
-use App\Models\Rt;
+use App\Models\RW;
+use App\Models\RT;
 use App\Models\Lembaga;
 use App\Models\Kelompok;
 
@@ -28,8 +28,8 @@ class PublicDesaController extends Controller
         $stats = [
             'jumlah_warga' => Warga::where('desa_id', $desaId)->count(),
             'jumlah_kk' => KartuKeluarga::where('desa_id', $desaId)->count(),
-            'jumlah_rw' => Rw::where('desa_id', $desaId)->count(),
-            'jumlah_rt' => Rt::where('desa_id', $desaId)->count(),
+            'jumlah_rw' => RW::where('desa_id', $desaId)->count(),
+            'jumlah_rt' => RT::where('desa_id', $desaId)->count(),
         ];
         
         // Ambil data lain dengan filter desa_id

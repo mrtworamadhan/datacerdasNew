@@ -9,6 +9,7 @@ use App\Models\DataKesehatanAnak;
 use App\Exports\AsetsExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+use Illmuninate\Support\Facades\Auth;
 
 
 class ExportController extends Controller
@@ -65,11 +66,11 @@ class ExportController extends Controller
     }
     public function exportAsetsPdf(string $subdomain)
     {
+        $desa = app('tenant');
         $asets = Aset::with('subSubKelompok.subKelompok.kelompok.bidang.golongan')->get();
         $tanggalCetak = now();
 
-        $pdf = Pdf::loadView('admin_desa.laporan.asets_pdf', compact('asets', 'tanggalCetak'));
-        // Atur orientasi kertas menjadi landscape agar muat banyak kolom
+        $pdf = Pdf::loadView('admin_desa.laporan.asets_pdf', compact('desa','asets', 'tanggalCetak'));
         $pdf->setPaper('a4', 'landscape'); 
 
         $namaFile = 'Laporan Aset Desa - ' . now()->format('d-m-Y') . '.pdf';

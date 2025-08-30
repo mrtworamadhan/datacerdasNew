@@ -62,6 +62,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="card-footer clearfix">
+                    {{ $users->appends(request()->query())->links('pagination::bootstrap-4') }}
+                </div>
             </div>
         </div>
     @endsection

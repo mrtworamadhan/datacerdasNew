@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-hover">
+        <table class="table table-hover table-responsive">
             <thead>
                 <tr>
                     <th>Tanggal</th>

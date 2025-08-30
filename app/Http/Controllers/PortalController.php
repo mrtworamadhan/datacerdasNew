@@ -12,6 +12,7 @@ use App\Models\SuratSetting;
 use App\Models\Warga;
 use App\Models\PengajuanSurat;
 use App\Models\Lembaga;
+use App\Models\LogKependudukan;
 use App\Models\Kegiatan;
 use App\Models\Fasum;
 use App\Models\Aset;
@@ -43,18 +44,16 @@ class PortalController extends Controller
             $baseWargaQuery = Warga::withoutGlobalScopes()->where('desa_id', $desa->id);
             $baseKkQuery = KartuKeluarga::withoutGlobalScopes()->where('desa_id', $desa->id);
             $baseWargaHidupQuery = Warga::query()
-            ->whereHas('statusKependudukan', fn($q) => $q->where('nama', '!=', 'Meninggal'));
-
+                ->whereHas('statusKependudukan', function ($q) {
+                    $q->whereNotIn('nama', ['Meninggal', 'Pindah']);
+                });
             $viewData['stats'] = [
                 'jumlahWarga' => (clone $baseWargaHidupQuery)->count(),
                 'jumlahKk' => KartuKeluarga::whereIn('id', (clone $baseWargaHidupQuery)->pluck('kartu_keluarga_id'))->count(),
-                // Rekap Aset
                 'total_aset' => Aset::withoutGlobalScopes()->where('desa_id', $desa->id)->count(),
-                // Rekap Fasum
                 'fasum_baik' => Fasum::withoutGlobalScopes()->where('desa_id', $desa->id)->where('status_kondisi', 'Baik')->count(),
                 'fasum_sedang' => Fasum::withoutGlobalScopes()->where('desa_id', $desa->id)->where('status_kondisi', 'Sedang')->count(),
                 'fasum_rusak' => Fasum::withoutGlobalScopes()->where('desa_id', $desa->id)->where('status_kondisi', 'Rusak')->count(),
-                // Rekap Kesehatan Anak
                 'anak_stunting' => PemeriksaanAnak::whereHas('warga', function($q) use ($desa) {
                     $q->where('desa_id', $desa->id);
                 })->where('status_stunting', 'like', '%Stunting%')->distinct('data_kesehatan_anak_id')->count(),
@@ -66,13 +65,11 @@ class PortalController extends Controller
                 'anak_underweight' => PemeriksaanAnak::whereHas('warga', function($q) use ($desa) {
                     $q->where('desa_id', $desa->id);
                 })->where('status_underweight', 'like', '%Kurang%')->distinct('data_kesehatan_anak_id')->count(),
-                // Rekap Demografi Bulan Ini
                 'warga_lahir_bulan_ini' => (clone $baseWargaQuery)->whereMonth('tanggal_lahir', $bulanIni)->whereYear('tanggal_lahir', $tahunIni)->count(),
                 'warga_meninggal_bulan_ini' => (clone $baseWargaQuery)->whereHas('statusKependudukan', fn($q) => $q->where('nama', 'Meninggal'))->whereMonth('updated_at', $bulanIni)->whereYear('updated_at', $tahunIni)->count(),
                 'warga_pindah_bulan_ini' => (clone $baseWargaQuery)->whereHas('statusKependudukan', fn($q) => $q->where('nama', 'Pindah'))->whereMonth('updated_at', $bulanIni)->whereYear('updated_at', $tahunIni)->count(),
                 'warga_datang_bulan_ini' => (clone $baseWargaQuery)->whereHas('statusKependudukan', fn($q) => $q->where('nama', 'Pendatang'))->whereMonth('created_at', $bulanIni)->whereYear('created_at', $tahunIni)->count(),
                 'warga_sementara' => (clone $baseWargaQuery)->whereHas('statusKependudukan', fn($q) => $q->where('nama', 'Sementara'))->count(),
-                // --- AKHIR PERBAIKAN & PENAMBAHAN ---                // Rekap Bantuan
                 'total_penerima_bantuan' => PenerimaBantuan::withoutGlobalScopes()->where('desa_id', $desa->id)->where('status_permohonan', 'Disetujui')->count(),
                 'jumlah_janda' => (clone $baseKkQuery)->whereHas('kepalaKeluarga', function ($q) {
                     $q->where('jenis_kelamin', 'Perempuan')->whereHas('statusPerkawinan', fn($sp) => $sp->whereIn('nama', ['Cerai Hidup', 'Cerai Mati']));
@@ -85,7 +82,6 @@ class PortalController extends Controller
                                         ->whereHas('kartuKeluarga.kepalaKeluarga', function($q) {
                                             $q->where('jenis_kelamin', 'Laki-laki')->whereHas('statusPerkawinan', fn($sp) => $sp->where('nama', 'Cerai Mati'));
                                         })->count(),
-                // Rekap Klasifikasi Keluarga
                 'klasifikasi_keluarga' => KartuKeluarga::withoutGlobalScopes()->where('desa_id', $desa->id)
                     ->select('klasifikasi', DB::raw('count(*) as total'))
                     ->groupBy('klasifikasi')
@@ -94,14 +90,12 @@ class PortalController extends Controller
         }
 
         if ($user->hasRole('kader_posyandu')) {
-            // Ambil ID semua warga yang dipantau di posyandu ini
             $anakIds = DataKesehatanAnak::where('posyandu_id', Auth::user()->posyandu_id)->pluck('warga_id');
             
             $viewData['jumlahAnakBalita'] = Warga::whereIn('id', $anakIds)
                 ->where('tanggal_lahir', '>=', now()->subYears(5))
                 ->count();
 
-            // Siapkan data untuk grafik tren gizi
             $trendData = ['labels' => [], 'stunting' => [], 'wasting' => [], 'underweight' => []];
             for ($i = 11; $i >= 0; $i--) {
                 $date = Carbon::now()->subMonths($i);
@@ -120,13 +114,14 @@ class PortalController extends Controller
             $viewData['trendData'] = $trendData;
         }
 
-        // =======================================================
-        // SIAPKAN DATA UNTUK RT / RW
-        // =======================================================
         if ($user->hasRole('admin_rw') || $user->hasRole('admin_rt')) {
             
             // 1. BUAT QUERY DASAR YANG BERSIH UNTUK SEMUA WARGA HIDUP DI WILAYAHNYA
-            $baseWargaHidupQuery = Warga::query()->whereHas('statusKependudukan', fn($q) => $q->where('nama', '!=', 'Meninggal'|'Pindah'));
+            $baseWargaHidupQuery = Warga::query()
+                ->whereHas('statusKependudukan', function ($q) {
+                    $q->whereNotIn('nama', ['Meninggal', 'Pindah']);
+                });
+
             if ($user->hasRole('admin_rt')) {
                 $baseWargaHidupQuery->where('rt_id', $user->rt_id);
             } else { // admin_rw
@@ -156,8 +151,21 @@ class PortalController extends Controller
             $viewData['anak_wasting_wilayah'] = (clone $basePemeriksaanQuery)->where('status_wasting', 'like', '%Kurang%')->distinct('data_kesehatan_anak_id')->count();
             $viewData['anak_underweight_wilayah'] = (clone $basePemeriksaanQuery)->where('status_underweight', 'like', '%Kurang%')->distinct('data_kesehatan_anak_id')->count();
 
-            $viewData['warga_lahir_bulan_ini'] = (clone $baseWargaHidupQuery)->whereMonth('tanggal_lahir', $bulanIni)->whereYear('tanggal_lahir', $tahunIni)->count();
-            $viewData['warga_meninggal_bulan_ini'] = (clone $baseWargaHidupQuery)->whereHas('statusKependudukan', fn($q) => $q->where('nama', 'Meninggal'))->whereMonth('updated_at', $bulanIni)->whereYear('updated_at', $tahunIni)->count();
+            $logQuery = LogKependudukan::whereMonth('updated_at', $bulanIni)
+                ->whereYear('updated_at', $tahunIni)
+                ->whereHas('warga', function ($q) use ($user) {
+                    if ($user->hasRole('admin_rt')) {
+                        $q->where('rt_id', $user->rt_id);
+                    } else { // admin_rw
+                        $q->where('rw_id', $user->rw_id);
+                    }
+                });
+            
+            $viewData['warga_lahir_bulan_ini'] = (clone $logQuery)->where('jenis_peristiwa', 'Lahir')->count();
+            $viewData['warga_meninggal_bulan_ini'] = (clone $logQuery)->where('jenis_peristiwa', 'Meninggal')->count();
+            $viewData['warga_datang_bulan_ini'] = (clone $logQuery)->where('jenis_peristiwa', 'Datang')->count();
+            $viewData['warga_pindah_bulan_ini'] = (clone $logQuery)->where('jenis_peristiwa', 'Pindah')->count();
+
             $viewData['jumlah_janda'] = (clone $baseKkQuery)->whereHas('kepalaKeluarga', fn($q) => $q->where('jenis_kelamin', 'Perempuan')->whereHas('statusPerkawinan', fn($sp) => $sp->whereIn('nama', ['Cerai Hidup', 'Cerai Mati'])))->count();
             $viewData['jumlah_yatim'] = (clone $baseWargaHidupQuery)->whereHas('hubunganKeluarga', fn($q) => $q->where('nama', 'Anak'))->whereHas('kartuKeluarga.kepalaKeluarga', fn($q) => $q->where('jenis_kelamin', 'Perempuan')->whereHas('statusPerkawinan', fn($sp) => $sp->where('nama', 'Cerai Mati')))->count();
             $viewData['jumlah_piatu'] = (clone $baseWargaHidupQuery)->whereHas('hubunganKeluarga', fn($q) => $q->where('nama', 'Anak'))->whereHas('kartuKeluarga.kepalaKeluarga', fn($q) => $q->where('jenis_kelamin', 'Laki-laki')->whereHas('statusPerkawinan', fn($sp) => $sp->where('nama', 'Cerai Mati')))->count();
@@ -169,13 +177,11 @@ class PortalController extends Controller
                                            ->get();
 
             $penerimaBantuanData = PenerimaBantuan::withoutGlobalScopes()
-                // 2. Tambahkan filter desa_id secara manual karena scope-nya kita matikan
                 ->where('desa_id', $desa->id)
-                // 3. Terapkan filter yang benar melalui relasi
                 ->where('status_permohonan', 'disetujui')
                 ->where(function ($query) use ($wargaIdsInArea, $kkIdsInArea) {
-                    $query->whereIn('warga_id', $wargaIdsInArea) // Filter berdasarkan warga di wilayah
-                        ->orWhereIn('kartu_keluarga_id', $kkIdsInArea); // ATAU filter berdasarkan KK di wilayah
+                    $query->whereIn('warga_id', $wargaIdsInArea)
+                        ->orWhereIn('kartu_keluarga_id', $kkIdsInArea);
                 })
                 // 4. Eager load relasi TANPA global scope-nya
                 ->with(['kategoriBantuan' => function ($query) {
@@ -184,11 +190,10 @@ class PortalController extends Controller
                 ->get()
                 ->groupBy('kategoriBantuan.nama_kategori')
                 ->map(fn ($group) => $group->count());
-            // --- AKHIR PERBAIKAN ---
 
             $viewData['penerimaBantuan'] = $penerimaBantuanData; 
             $viewData['bantuanDibuka'] = KategoriBantuan::withoutGlobalScopes()
-                                           ->where('desa_id', $desa->id) // Tambahkan filter desa_id secara manual
+                                           ->where('desa_id', $desa->id) 
                                            ->where('is_active_for_submission', 1)
                                            ->get();
         }

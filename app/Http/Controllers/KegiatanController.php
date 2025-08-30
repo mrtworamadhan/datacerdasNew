@@ -63,10 +63,16 @@ class KegiatanController extends Controller
         return view('admin_desa.kegiatan.show', compact('lembaga', 'kegiatan'));
     }
 
-    public function edit(string $subdomain, Lembaga $lembaga, Kegiatan $kegiatan)
+    public function edit(string $subdomain, Kegiatan $kegiatan)
     {
-        return view('admin_desa.kegiatan.edit', compact('lembaga', 'kegiatan'));
+        $kegiatan->load('kegiatanable'); 
+
+        $lembagas = Lembaga::all();
+        $kelompoks = Kelompok::all();
+
+        return view('admin_desa.kegiatan.edit', compact('kegiatan', 'lembagas', 'kelompoks'));
     }
+
 
     public function update(Request $request, string $subdomain, Lembaga $lembaga, Kegiatan $kegiatan)
     {
@@ -116,13 +122,10 @@ class KegiatanController extends Controller
 
     public function cetakLaporan(string $subdomain, Lembaga $lembaga, Kegiatan $kegiatan)
     {
-        // Load view khusus untuk PDF dan passing datanya
         $pdf = Pdf::loadView('admin_desa.kegiatan.cetak_laporan', compact('lembaga', 'kegiatan'));
 
-        // Buat nama file yang dinamis
         $fileName = 'lpj-' . \Illuminate\Support\Str::slug($kegiatan->nama_kegiatan) . '.pdf';
 
-        // Tampilkan PDF di browser
         return $pdf->stream($fileName);
     }
 }

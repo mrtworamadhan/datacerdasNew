@@ -52,9 +52,7 @@
                         <select name="rw_id" id="rw_id" class="form-select" required>
                             <option value="">-- Pilih RW --</option>
                             @foreach($rws as $rw)
-                                <option value="{{ $rw->id }}" {{ Auth::user()->rw_id == $rw->id ? 'selected' : '' }}>
-                                    {{ $rw->nomor_rw }}
-                                </option>
+                                <option value="{{ $rw->id }}" {{ old('rw_id') == $rw->id ? 'selected' : '' }}>RW {{ $rw->nomor_rw }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -63,9 +61,7 @@
                         <select name="rt_id" id="rt_id" class="form-select" required>
                             <option value="">-- Pilih RW Terlebih Dahulu --</option>
                             @foreach($rts as $rt)
-                                <option value="{{ $rt->id }}" {{ Auth::user()->rt_id == $rt->id ? 'selected' : '' }}>
-                                    {{ $rt->nomor_rt }}
-                                </option>
+                                <option value="{{ $rt->id }}" {{ old('rt_id') == $rt->id ? 'selected' : '' }}>RT {{ $rt->nomor_rt }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -177,37 +173,37 @@
 <script>
     $(document).ready(function () {
         // Logika dropdown RT dinamis berdasarkan RW
-        function getRtByRw(rwId) {
-            if (!rwId) {
-                $('#rt_id').html('<option value="">-- Pilih RW Terlebih Dahulu --</option>');
-                return;
-            }
-            // URL ini perlu kita buat di routes/web.php
-            let url = `{{ route('api.rts-by-rw', ['subdomain' => app('tenant')->subdomain]) }}?rw_id=${rwId}`;
+        // function getRtByRw(rwId) {
+        //     if (!rwId) {
+        //         $('#rt_id').html('<option value="">-- Pilih RW Terlebih Dahulu --</option>');
+        //         return;
+        //     }
+        //     // URL ini perlu kita buat di routes/web.php
+        //     let url = `{{ route('api.rts-by-rw', ['subdomain' => app('tenant')->subdomain]) }}?rw_id=${rwId}`;
 
-            $.get(url, function (data) {
-                let rtSelect = $('#rt_id');
-                rtSelect.empty().append('<option value="">-- Pilih RT --</option>');
-                $.each(data, function (index, rt) {
-                    rtSelect.append(new Option(rt.nomor_rt, rt.id));
-                });
+        //     $.get(url, function (data) {
+        //         let rtSelect = $('#rt_id');
+        //         rtSelect.empty().append('<option value="">-- Pilih RT --</option>');
+        //         $.each(data, function (index, rt) {
+        //             rtSelect.append(new Option(rt.nomor_rt, rt.id));
+        //         });
 
-                // Jika user adalah admin RT, otomatis pilih RT-nya
-                let userRtId = "{{ Auth::user()->rt_id }}";
-                if (userRtId) {
-                    rtSelect.val(userRtId);
-                }
-            });
-        }
+        //         // Jika user adalah admin RT, otomatis pilih RT-nya
+        //         let userRtId = "{{ Auth::user()->rt_id }}";
+        //         if (userRtId) {
+        //             rtSelect.val(userRtId);
+        //         }
+        //     });
+        // }
 
-        $('#rw_id').on('change', function () {
-            getRtByRw($(this).val());
-        });
+        // $('#rw_id').on('change', function () {
+        //     getRtByRw($(this).val());
+        // });
 
-        // Panggil saat halaman dimuat untuk mengisi RT jika RW sudah terpilih
-        if ($('#rw_id').val()) {
-            getRtByRw($('#rw_id').val());
-        }
+        // // Panggil saat halaman dimuat untuk mengisi RT jika RW sudah terpilih
+        // if ($('#rw_id').val()) {
+        //     getRtByRw($('#rw_id').val());
+        // }
 
         $('#photos').on('change', function () {
             const previewContainer = $('#photos_preview');

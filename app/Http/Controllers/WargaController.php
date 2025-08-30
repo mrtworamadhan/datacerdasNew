@@ -102,6 +102,15 @@ class WargaController extends Controller
         return view('admin_desa.warga.index', compact('wargas', 'statistik', 'bulan', 'tahun'));
     }
 
+    public function showImportForm()
+    {
+        $user = Auth::user();
+
+        $rws = RW::all();
+        $rts = RT::all();
+        return view('admin_desa.warga.import', compact('rws', 'rts'));
+    }
+    
     public function show(string $subdomain, Warga $warga)
     {
         // Menggunakan eager loading untuk memuat relasi sekaligus, ini lebih efisien

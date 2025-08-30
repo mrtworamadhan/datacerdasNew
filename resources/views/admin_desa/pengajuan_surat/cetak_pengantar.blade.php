@@ -26,8 +26,8 @@
     <table class="kop-table">
         <tr>
             <td class="logo">
-                @if($suratSetting->path_logo_pemerintah)
-                    <img src="{{ public_path('storage/' . $suratSetting->path_logo_pemerintah) }}" alt="Logo">
+                @if($kopSuratBase64)
+                    <img src="{{ $kopSuratBase64 }}" alt="Kop Surat" style="max-width: 100%; height: auto;">
                 @else
                     <img src="[https://placehold.co/80x80?text=Logo](https://placehold.co/80x80?text=Logo)" alt="Logo">
                 @endif
@@ -50,11 +50,11 @@
         <tr><td>Nama</td><td>:</td><td>{{ $pengajuan->warga->nama_lengkap }}</td></tr>
         <tr><td>Tempat & Tanggal Lahir</td><td>:</td><td>{{ $pengajuan->warga->tempat_lahir }}, {{ $pengajuan->warga->tanggal_lahir->translatedFormat('d F Y') }}</td></tr>
         <tr><td>Jenis Kelamin</td><td>:</td><td>{{ $pengajuan->warga->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td></tr>
-        <tr><td>Status Perkawinan</td><td>:</td><td>{{ $pengajuan->warga->status_perkawinan }}</td></tr>
+        <tr><td>Status Perkawinan</td><td>:</td><td>{{ $pengajuan->warga->statusPerkawinan->nama ?? '-' }}</td></tr>
         <tr><td>No. KTP / KK</td><td>:</td><td>{{ $pengajuan->warga->nik }} / {{ $pengajuan->warga->kartuKeluarga->nomor_kk ?? '-' }}</td></tr>
         <tr><td>Kewarganegaraan</td><td>:</td><td>{{ $pengajuan->warga->kewarganegaraan }}</td></tr>
-        <tr><td>Agama</td><td>:</td><td>{{ $pengajuan->warga->agama }}</td></tr>
-        <tr><td>Pekerjaan</td><td>:</td><td>{{ $pengajuan->warga->pekerjaan }}</td></tr>
+        <tr><td>Agama</td><td>:</td><td>{{ $pengajuan->warga->agama->nama ?? '-' }}</td></tr>
+        <tr><td>Pekerjaan</td><td>:</td><td>{{ $pengajuan->warga->pekerjaan->nama ?? '-' }}</td></tr>
         <tr><td>Alamat</td><td>:</td><td>{{ $pengajuan->warga->alamat_lengkap }}</td></tr>
         <tr><td>Keperluan</td><td>:</td><td>{{ $pengajuan->keperluan }}</td></tr>
     </table>

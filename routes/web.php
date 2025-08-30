@@ -89,11 +89,10 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
             Route::get('/warga/{warga}', [WargaController::class, 'show'])->name('warga.show');
             Route::post('/warga/{warga}/update-status', [WargaController::class, 'updateStatus'])->name('warga.update-status');
 
-            // --- ROUTE BARU UNTUK IMPOR WARGA ---
-            Route::get('/warga/impor', [WargaImportController::class, 'showImportForm'])->name('warga.import.form');
-            Route::post('/warga/impor', [WargaImportController::class, 'import'])->name('warga.import.process');
-            Route::get('/warga/impor/download-template', [WargaImportController::class, 'downloadTemplate'])->name('warga.import.template');
-            Route::post('/warga/import/save', [WargaImportController::class, 'saveFromTemp'])->name('warga.import.save'); 
+            Route::get('/import/warga', [WargaImportController::class, 'showImportForm'])->name('warga.import.form');
+            Route::post('/import/warga', [WargaImportController::class, 'import'])->name('warga.import.process');
+            Route::get('/import/warga/download-template', [WargaImportController::class, 'downloadTemplate'])->name('warga.import.template');
+            Route::post('/import/warga/save', [WargaImportController::class, 'saveFromTemp'])->name('warga.import.save'); 
 
             Route::get('/wilayah', [WilayahController::class, 'index'])->name('wilayah.index');
             Route::get('/wilayah/rw/{rw}', [WilayahController::class, 'showRw'])->name('wilayah.showRw');
@@ -124,7 +123,6 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
             Route::get('/lpj/{lpj}/edit', [LpjController::class, 'edit'])->name('lpjs.edit');
             Route::put('/lpj/{lpj}', [LpjController::class, 'update'])->name('lpjs.update');
             Route::get('/lpj/kegiatan/{kegiatan}/cetak', [LpjController::class, 'generateLpj'])->name('lpj.generate');
-            // Route::resource('lpjs', LpjController::class);
             Route::resource('pengeluarans', PengeluaranController::class)->only(['store', 'edit', 'update', 'destroy']);
         });
 
@@ -165,27 +163,21 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
             Route::get('/kategori-bantuan/{kategori_bantuan}/penerima/export-pdf', [PenerimaBantuanController::class, 'exportPdf'])->name('kategori-bantuan.penerima.exportPdf');
             Route::get('/kategori-bantuan/{kategori_bantuan}/penerima/export-excel', [PenerimaBantuanController::class, 'exportExcel'])->name('kategori-bantuan.penerima.exportExcel');
             Route::get('kategori-bantuan', [KategoriBantuanController::class, 'index'])->name('kategori-bantuan.index');
-            // Hanya Admin Desa/Super Admin yang bisa CRUD kategori
             Route::post('kategori-bantuan', [KategoriBantuanController::class, 'store'])->name('kategori-bantuan.store');
             Route::get('kategori-bantuan/create', [KategoriBantuanController::class, 'create'])->name('kategori-bantuan.create');
             Route::get('kategori-bantuan/{kategori_bantuan}/edit', [KategoriBantuanController::class, 'edit'])->name('kategori-bantuan.edit');
             Route::put('kategori-bantuan/{kategori_bantuan}', [KategoriBantuanController::class, 'update'])->name('kategori-bantuan.update');
             Route::delete('kategori-bantuan/{kategori_bantuan}', [KategoriBantuanController::class, 'destroy'])->name('kategori-bantuan.destroy');
-
-            // Rute untuk Manajemen Penerima Bantuan (Nested Resource di bawah Kategori Bantuan)
-            // Admin RT ke atas bisa mengajukan dan melihat pengajuan/detail
             Route::get('kategori-bantuan/{kategori_bantuan}/penerima', [PenerimaBantuanController::class, 'index'])->name('kategori-bantuan.penerima.index');
             Route::get('kategori-bantuan/{kategori_bantuan}/penerima/create', [PenerimaBantuanController::class, 'create'])->name('kategori-bantuan.penerima.create');
             Route::post('kategori-bantuan/{kategori_bantuan}/penerima', [PenerimaBantuanController::class, 'store'])->name('kategori-bantuan.penerima.store');
             Route::get('kategori-bantuan/{kategori_bantuan}/penerima/{penerima}', [PenerimaBantuanController::class, 'show'])->name('kategori-bantuan.penerima.show');
-            // Rute khusus untuk update status (Admin Desa, RW, RT)
             Route::post('kategori-bantuan/{kategori_bantuan}/penerima/{penerima}/update-status', [PenerimaBantuanController::class, 'updateStatus'])->name('kategori-bantuan.penerima.update-status'); // Admin RT ke atas bisa update status
             Route::delete('kategori-bantuan/{kategori_bantuan}/penerima/{penerima}', [PenerimaBantuanController::class, 'destroy'])->name('kategori-bantuan.penerima.destroy');
  
         });
         Route::middleware('can:kelola kesehatan')->group(function () {
             Route::get('/sesi-posyandu/{posyandu}/create', [SesiPosyanduController::class, 'create'])->name('sesi-posyandu.create');
-            // Route untuk menandai anak sebagai "hadir"
             Route::post('/sesi-posyandu/hadir', [SesiPosyanduController::class, 'store'])->name('sesi-posyandu.store');
             Route::get('/export/posyandu/{posyandu}/anak-bermasalah/{tipeMasalah}', [ExportController::class, 'exportAnakBermasalah'])
                 ->name('export.anak-bermasalah');
@@ -246,7 +238,7 @@ Route::domain('{subdomain}.' . config('app.url'))->group(function () {
         Route::get('/warga/{warga}/edit', [PortalWargaController::class, 'edit'])->name('warga.edit');
         Route::put('/warga/{warga}', [PortalWargaController::class, 'update'])->name('warga.update');
         Route::get('/warga/{warga}/editstatus', [PortalWargaController::class, 'editStatus'])->name('warga.editStatus');
-        Route::put('/warga/{warga}', [PortalWargaController::class, 'updateStatus'])->name('warga.updateStatus');
+        Route::put('/warga/{warga}/editstatus', [PortalWargaController::class, 'updateStatus'])->name('warga.updateStatus');
 
         Route::resource('warga', PortalWargaController::class)->only(['index', 'edit', 'update']);
 

@@ -10,7 +10,6 @@ class SuratSettingController extends Controller
 {
     public function edit(string $subdomain)
     {
-        // Ambil data setting untuk desa yang aktif, atau buat baru jika belum ada
         $setting = SuratSetting::firstOrCreate(['desa_id' => auth()->user()->desa_id]);
         return view('admin_desa.surat_setting.edit', compact('setting'));
     }
@@ -28,27 +27,21 @@ class SuratSettingController extends Controller
         ]);
 
         if ($request->hasFile('path_kop_surat')) {
-            // Hapus kop surat lama jika ada
             if ($setting->path_kop_surat) {
                 Storage::disk('public')->delete($setting->path_kop_surat);
             }
-            // Simpan yang baru
             $validated['path_kop_surat'] = $request->file('path_kop_surat')->store('kop-surat', 'public');
         }
         if ($request->hasFile('path_logo_pemerintah')) {
-            // Hapus kop surat lama jika ada
             if ($setting->path_kop_surat) {
                 Storage::disk('public')->delete($setting->path_logo_pemerintah);
             }
-            // Simpan yang baru
             $validated['path_logo_pemerintah'] = $request->file('path_logo_pemerintah')->store('logo_pemerintah', 'public');
         }
         if ($request->hasFile('path_ttd')) {
-            // Hapus kop surat lama jika ada
             if ($setting->path_ttd) {
                 Storage::disk('public')->delete($setting->path_ttd);
             }
-            // Simpan yang baru
             $validated['path_ttd'] = $request->file('path_ttd')->store('path_ttd', 'public');
         }
 

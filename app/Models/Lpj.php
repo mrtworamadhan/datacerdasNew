@@ -11,6 +11,10 @@ class Lpj extends Model
     protected $table = 'lpjs';
     protected $guarded = [];
 
+    protected $casts = [
+        'tanggal_pelaporan' => 'date',
+    ];
+
     public function kegiatan()
     {
         return $this->belongsTo(Kegiatan::class);

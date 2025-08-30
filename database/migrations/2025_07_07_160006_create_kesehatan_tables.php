@@ -25,10 +25,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('data_kesehatan_anak_id')->constrained('data_kesehatan_anaks')->onDelete('cascade');
             $table->date('tanggal_pemeriksaan');
-            $table->integer('usia_saat_periksa'); // Usia dalam bulan
+            $table->integer('usia_saat_periksa');
             $table->float('berat_badan');
             $table->float('tinggi_badan');
-            $table->string('status_gizi'); // Contoh: Naik, Turun, Tetap, BGM
+            $table->string('status_gizi')->nullable();
             $table->string('imunisasi_diterima')->nullable();
             $table->boolean('vitamin_a_diterima')->default(false);
             $table->boolean('obat_cacing_diterima')->default(false);

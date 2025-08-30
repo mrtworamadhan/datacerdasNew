@@ -12,11 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
-            // =================================================================
-            // === INI ADALAH "PERINTAH EKSPLISIT" FINAL UNTUK LARAVEL 12 ===
-            // =================================================================
-            // Format: Route::model('nama_parameter_di_route', NamaClassModel::class);
-
+            
             Route::model('aset', \App\Models\Aset::class);
             Route::model('fasum', \App\Models\Fasum::class);
             Route::model('kegiatan', \App\Models\Kegiatan::class);
@@ -25,8 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::model('pengeluaran', \App\Models\Pengeluaran::class);
             Route::model('pengajuanSurat', \App\Models\PengajuanSurat::class);
             Route::model('jenisSurat', \App\Models\JenisSurat::class);
-            // ... (tambahkan untuk model lain jika ada)
-            // =================================================================
+            
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
@@ -57,16 +52,12 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\RedirectIfAuthenticated::class,
         ]);
         $middleware->redirectGuestsTo(function ($request) {
-            // Coba dapatkan instance 'tenant' (desa) yang sudah diatur
             $desa = app('tenant');
 
-            // Jika ada tenant (desa) yang aktif dari subdomain
             if ($desa) {
-                // Arahkan ke route login DENGAN nama 'tenant.login'
                 return route('login', ['subdomain' => $desa->subdomain]);
             }
             
-            // Jika tidak ada subdomain, arahkan ke route login GLOBAL
             return route('login'); 
         });
     })

@@ -47,8 +47,9 @@ class PosyanduReportController extends Controller
             'dapat_vitamin_a' => $pemeriksaanBulanIni->where('dapat_vitamin_a', true)->count(),
             'dapat_obat_cacing' => $pemeriksaanBulanIni->where('dapat_obat_cacing', true)->count(),
         ];
+
+        $logo = storage_path('app/public/logoposyandu.jpg');
         
-        // 5. GABUNGKAN SEMUA DATA UNTUK DIKIRIM KE VIEW
         $data = [
             'desa' => $desa,
             'posyandu' => $posyandu,
@@ -64,6 +65,7 @@ class PosyanduReportController extends Controller
             'daftarAnakWasting' => $daftarAnakWasting,
             'daftarAnakUnderweight' => $daftarAnakUnderweight,
             'semuaPemeriksaan' => $pemeriksaanBulanIni,
+            'logo' => $logo,
         ];
 
         $pdf = Pdf::loadView('admin_desa.posyandu.laporan', $data);

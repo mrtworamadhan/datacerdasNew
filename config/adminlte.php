@@ -472,7 +472,7 @@ return [
             'context' => 'tenant',
         ],
         [
-            'text' => 'Data Wilayah', // MENU BARU
+            'text' => 'Data Wilayah',
             'url' => 'wilayah',
             'icon' => 'fas fa-fw fa-map-marker-alt',
             'can' => 'kelola warga',
@@ -496,6 +496,13 @@ return [
                     'icon' => 'fas fa-fw fa-user-friends',
                     'context' => 'tenant',
                 ],
+                [
+                    'text' => 'Import Warga',
+                    'route'  => 'warga.import.form',
+                    'can' => 'kelola aset',
+                    'context' => 'tenant',
+                    'icon' => 'fas fa-fw fa-list',
+                ]
             ],
         ],
         [

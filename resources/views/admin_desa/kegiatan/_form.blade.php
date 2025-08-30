@@ -45,11 +45,9 @@
                         </div>
                     </div>
                 </div>
-                {{-- TAMBAHAN: Textarea untuk Rincian Anggaran --}}
                 <div class="form-group">
                     <label>Rencana Anggaran (Gunakan format Markdown)</label>
                     <div class="input-group">
-                        {{-- PERBAIKAN: Ganti nama input dari 'rab' menjadi 'laporan_dana' --}}
                         <textarea name="laporan_dana" id="laporan_dana" class="form-control"
                             rows="6">{{ old('laporan_dana', $kegiatan->laporan_dana ?? '') }}</textarea>
                         <div class="input-group-append">
@@ -77,35 +75,41 @@
         <div class="card card-purple card-outline">
             <div class="card-body">
                 <div class="form-group">
-                    <label>Pilih Jenis Penyelenggara</label>
-                    <select name="penyelenggara_type" id="penyelenggara_type"
-                        class="form-control @error('penyelenggara_type') is-invalid @enderror" required>
+                    <label for="penyelenggara_type">Jenis Penyelenggara</label>
+                    <select name="penyelenggara_type" id="penyelenggara_type" class="form-control" required>
                         <option value="">-- Pilih Jenis --</option>
-                        <option value="lembaga" @if(old('penyelenggara_type') == 'lembaga') selected @endif>Lembaga
-                        </option>
-                        <option value="kelompok" @if(old('penyelenggara_type') == 'kelompok') selected @endif>Kelompok
-                        </option>
+                        <option value="lembaga" {{ old('penyelenggara_type', $penyelenggaraType ?? '') == 'lembaga' ? 'selected' : '' }}>Lembaga Desa</option>
+                        <option value="kelompok" {{ old('penyelenggara_type', $penyelenggaraType ?? '') == 'kelompok' ? 'selected' : '' }}>Kelompok Masyarakat</option>
                     </select>
-                    @error('penyelenggara_type') <span class="invalid-feedback">{{ $message }}</span> @enderror
                 </div>
-                <div class="form-group" id="penyelenggara_id_wrapper" style="display: none;">
-                    <label for="penyelenggara_id">Pilih Nama Penyelenggara</label>
-                    <select name="penyelenggara_id" id="penyelenggara_id"
-                        class="form-control @error('penyelenggara_id') is-invalid @enderror" required>
+
+                {{-- Dropdown kedua SEKARANG SELALU TERLIHAT --}}
+                <div class="form-group" id="penyelenggara_id_wrapper">
+                    <label for="penyelenggara_id">Nama Penyelenggara</label>
+                    <select name="penyelenggara_id" id="penyelenggara_id" class="form-control" required>
                         {{-- Opsi akan diisi oleh JavaScript --}}
+                        <option value="">-- Pilih Jenis Penyelenggara Dulu --</option>
                     </select>
-                    @error('penyelenggara_id') <span class="invalid-feedback">{{ $message }}</span> @enderror
                 </div>
+
+                <input type="hidden" id="penyelenggara_id_default"
+                    value="{{ old('penyelenggara_id', $kegiatan->penyelenggara_id ?? '') }}">
+
                 <div class="form-group">
                     <label for="tipe_kegiatan">Pilih Tipe Kegiatan</label>
                     <select name="tipe_kegiatan" id="tipe_kegiatan"
                         class="form-control @error('tipe_kegiatan') is-invalid @enderror" required>
                         <option value="">-- Pilih Tipe --</option>
-                        <option value="Acara" {{ old('tipe_kegiatan') == 'Acara' ? 'selected' : '' }}>Acara</option>
-                        <option value="Pembangunan" {{ old('tipe_kegiatan') == 'Pembangunan' ? 'selected' : '' }}>Pembangunan</option>
+                        <option value="Acara" @if(old('tipe_kegiatan', $kegiatan->tipe_kegiatan ?? '') == 'Acara')
+                        selected @endif>
+                            Acara
+                        </option>
+                        <option value="Pembangunan" @if(old('tipe_kegiatan', $kegiatan->tipe_kegiatan ?? '') == 'Pembangunan') selected @endif>
+                            Pembangunan
+                        </option>
                     </select>
-                    @error('tipe_kegiatan') 
-                        <span class="invalid-feedback">{{ $message }}</span> 
+                    @error('tipe_kegiatan')
+                        <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
 

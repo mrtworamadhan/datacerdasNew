@@ -24,11 +24,10 @@ class PosyanduController extends Controller
         $user = Auth::user();
         $posyandu = $user->posyandu;
 
-        $desa = $user->desa; // Ambil desa yang terkait dengan user
+        $desa = $user->desa; 
         $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
         $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
 
-        // Siapkan daftar 6 bulan terakhir untuk pilihan sesi
         $daftarBulan = [];
         for ($i = 0; $i < 6; $i++) {
             $date = Carbon::now()->subMonths($i);
@@ -46,23 +45,20 @@ class PosyanduController extends Controller
     {
         $user = Auth::user();
         $posyandu = $user->posyandu;
-        $desa = $user->desa; // Ambil desa yang terkait dengan user
+        $desa = $user->desa; 
         
         $tanggalSesi = Carbon::createFromDate($tahun, $bulan);
         $isSesiSaatIni = $tanggalSesi->isCurrentMonth();
 
-        // Ambil ID dari data kesehatan anak yang sudah diperiksa di sesi ini
         $idAnakSudahDiperiksa = PemeriksaanAnak::where('posyandu_id', $posyandu->id)
             ->whereMonth('tanggal_pemeriksaan', $bulan)
             ->whereYear('tanggal_pemeriksaan', $tahun)
             ->pluck('data_kesehatan_anak_id');
 
-        // Ambil semua anak yang terpantau di posyandu ini
         $semuaAnakTerpantau = DataKesehatanAnak::where('posyandu_id', $posyandu->id)
                                              ->with('warga')
                                              ->get();
         
-        // Pisahkan mana yang sudah dan belum
         $anakBelumDiperiksa = $semuaAnakTerpantau->whereNotIn('id', $idAnakSudahDiperiksa);
         $pemeriksaanBulanIni = PemeriksaanAnak::with('warga')->whereIn('data_kesehatan_anak_id', $idAnakSudahDiperiksa)->get();
         $totalAnakTerdata = DataKesehatanAnak::where('posyandu_id', $posyandu->id)->count();
@@ -76,21 +72,16 @@ class PosyanduController extends Controller
         ));
     }
 
-    // app/Http/Controllers/Portal/PosyanduController.php
-
     public function createPemeriksaan(string $subdomain, Warga $anak)
     {
         $user = Auth::user();
 
-        // 1. Otorisasi dasar: Pastikan anak ini dari desa yang sama
         if ($anak->desa_id != $user->desa_id) {
             abort(403, 'Akses tidak diizinkan.');
         }
 
-        // 2. Cek apakah anak sudah terdaftar untuk dipantau di posyandu mana pun
         $dataKesehatanAnak = DataKesehatanAnak::where('warga_id', $anak->id)->first();
         
-        // 3. JIKA BELUM, BUAT OTOMATIS!
         if (!$dataKesehatanAnak) {
             $dataKesehatanAnak = DataKesehatanAnak::create([
                 'warga_id' => $anak->id,
@@ -99,9 +90,7 @@ class PosyanduController extends Controller
             ]);
         }
 
-        // 4. Otorisasi kedua: Pastikan data kesehatan ini milik posyandu kader
         if ($dataKesehatanAnak->posyandu_id != $user->posyandu_id) {
-            // Ini terjadi jika anak terdaftar di posyandu lain
             return redirect()->back()->with('error', 'Anak ini terdaftar di posyandu lain.');
         }
 
@@ -122,9 +111,8 @@ class PosyanduController extends Controller
     public function pemeriksaan(string $subdomain)
     {
         $user = Auth::user();
-        $desa = $user->desa; // Ambil desa yang terkait dengan user
+        $desa = $user->desa; 
     
-        // Ambil daftar anak yang terdaftar di posyandu kader ini
         $anakDiPosyandu = DataKesehatanAnak::where('posyandu_id', $user->posyandu_id)
                                           ->with('warga')
                                           ->get();
@@ -148,7 +136,7 @@ class PosyanduController extends Controller
 
         $dataKesehatanAnak = DataKesehatanAnak::with('warga')->find($validated['data_kesehatan_anak_id']);
         
-        $warga = $dataKesehatanAnak->warga; // Relasi ini aman karena diambil dari data induk
+        $warga = $dataKesehatanAnak->warga; 
         $jenisKelamin = $warga->jenis_kelamin;
         $tanggalLahir = Carbon::parse($warga->tanggal_lahir);
         $tanggalPengukuran = Carbon::parse($validated['tanggal_pemeriksaan']);
@@ -156,12 +144,10 @@ class PosyanduController extends Controller
         $beratBadan = $validated['berat_badan'];
         $tinggiBadan = $validated['tinggi_badan'];
 
-        // --- PANGGIL SEMUA KALKULATOR ---
         $zscore_tb_u = $calculator->calculateHaz($jenisKelamin, $umurDalamHari, $tinggiBadan);
         $zscore_bb_u = $calculator->calculateWaz($jenisKelamin, $umurDalamHari, $beratBadan);
         $zscore_bb_tb = $calculator->calculateWhz($jenisKelamin, $tinggiBadan, $beratBadan);
 
-        // --- TENTUKAN SEMUA STATUS GIZI ---
         $status_stunting = $this->getStatusStunting($zscore_tb_u);
         $status_underweight = $this->getStatusUnderweight($zscore_bb_u);
         $status_wasting = $this->getStatusWasting($zscore_bb_tb);
@@ -170,7 +156,6 @@ class PosyanduController extends Controller
         $usiaBulan = $age->y * 12 + $age->m;
         $usiaHari = $age->d;
         $usiaFormatted = "{$usiaBulan} bulan, {$usiaHari} hari";
-        // Buat record pemeriksaan baru dengan semua data lengkap
         $dataKesehatanAnak->riwayatPemeriksaan()->create([
             'tanggal_pemeriksaan'   => $validated['tanggal_pemeriksaan'],
             'posyandu_id'           => $dataKesehatanAnak->posyandu_id,
@@ -192,18 +177,20 @@ class PosyanduController extends Controller
             'usia_saat_periksa'     => $umurDalamHari,
         ]);
 
-        return redirect()->route('portal.posyandu.index', ['subdomain' => $subdomain])
-                         ->with('success', 'Data pemeriksaan untuk ' . $dataKesehatanAnak->warga->nama_lengkap . ' berhasil disimpan!');
+        return redirect()->route('portal.posyandu.sesi.show', [
+                'subdomain' => $subdomain,
+                'tahun' => $tanggalPengukuran->year,
+                'bulan' => $tanggalPengukuran->month,
+            ])
+            ->with('success', 'Data pemeriksaan untuk ' . $dataKesehatanAnak->warga->nama_lengkap . ' berhasil disimpan!');
     }
 
-    // app/Http/Controllers/Portal/PosyanduController.php
 
     /**
      * Menampilkan form untuk mengedit data pemeriksaan.
      */
     public function editPemeriksaan(string $subdomain, PemeriksaanAnak $pemeriksaan)
     {
-        // Otorisasi: Pastikan kader hanya bisa mengedit data dari posyandunya
         if ($pemeriksaan->posyandu_id !== Auth::user()->posyandu_id) {
             abort(403);
         }
@@ -225,12 +212,10 @@ class PosyanduController extends Controller
      */
     public function updatePemeriksaan(Request $request, string $subdomain, PemeriksaanAnak $pemeriksaan, StuntingCalculatorService $stuntingCalculator)
     {
-        // Otorisasi: Pastikan kader hanya bisa mengupdate data dari posyandunya
         if ($pemeriksaan->posyandu_id !== Auth::user()->posyandu_id) {
             abort(403);
         }
 
-        // Validasi input dari form
         $validated = $request->validate([
             'tanggal_pemeriksaan' => 'required|date',
             'berat_badan' => 'required|numeric|min:0',
@@ -241,12 +226,10 @@ class PosyanduController extends Controller
             'catatan' => 'nullable|string',
         ]);
 
-        // Ambil data anak untuk perhitungan ulang
         $warga = $pemeriksaan->dataAnak->warga;
         $tanggalLahir = Carbon::parse($warga->tanggal_lahir);
         $tanggalPengukuran = Carbon::parse($validated['tanggal_pemeriksaan']);
 
-        // Hitung ulang semua Z-Score dan status gizi
         $usiaDalamHari = $tanggalLahir->diffInDays($tanggalPengukuran);
         $zscore_tb_u = $stuntingCalculator->calculateHaz($warga->jenis_kelamin, $usiaDalamHari, $validated['tinggi_badan']);
         $zscore_bb_u = $stuntingCalculator->calculateWaz($warga->jenis_kelamin, $usiaDalamHari, $validated['berat_badan']);
@@ -255,7 +238,6 @@ class PosyanduController extends Controller
         $status_underweight = $this->getStatusUnderweight($zscore_bb_u);
         $status_wasting = $this->getStatusWasting($zscore_bb_tb);
 
-        // Update record pemeriksaan dengan semua data lengkap yang baru
         $pemeriksaan->update([
             'tanggal_pemeriksaan'  => $validated['tanggal_pemeriksaan'],
             'berat_badan'          => $validated['berat_badan'],
@@ -275,7 +257,6 @@ class PosyanduController extends Controller
             'usia_saat_periksa_hari' => $usiaDalamHari,
         ]);
 
-        // Redirect kembali ke halaman sesi agar kader bisa lihat hasilnya
         return redirect()->route('portal.posyandu.sesi.show', [
             'subdomain' => $subdomain,
             'tahun' => $tanggalPengukuran->year,
@@ -286,11 +267,10 @@ class PosyanduController extends Controller
     public function laporan(string $subdomain)
     {
         $user = Auth::user();
-        $desa = $user->desa; // Ambil desa yang terkait dengan user
+        $desa = $user->desa; 
         $suratSetting = $desa ? SuratSetting::where('desa_id', $desa->id)->first() : null;
-        $logo = $suratSetting ? asset('storage/' . $suratSetting->path_logo_pemerintah) : asset('images/logo/logo-putih-trp.png');
-
-        // Ambil semua data pemeriksaan unik berdasarkan bulan dan tahun
+        $logo = storage_path('app/public/logoposyandu.jpg');
+        
         $daftarLaporan = PemeriksaanAnak::where('posyandu_id', $user->posyandu_id)
             ->selectRaw('YEAR(tanggal_pemeriksaan) as tahun, MONTH(tanggal_pemeriksaan) as bulan')
             ->distinct()
@@ -306,7 +286,6 @@ class PosyanduController extends Controller
         $user = Auth::user();
         $posyandu = $user->posyandu;
 
-        // "Jembatani" request ke controller yang sudah ada
         return $reportController->generatePdf($subdomain, $posyandu, $bulan, $tahun);
     }
 
@@ -395,12 +374,12 @@ class PosyanduController extends Controller
             return redirect()->back()->with('error', 'Data Kartu Keluarga dari NIK Ibu tidak ditemukan.');
         }
 
-        // Buat record Warga baru dengan semua data yang dibutuhkan
+        // Buat record Warga baru
         $anakBaru = Warga::create([
             'nama_lengkap' => $validated['nama_lengkap'],
-            'tempat_lahir' => $validated['tempat_lahir'], // Data baru
+            'tempat_lahir' => $validated['tempat_lahir'],
             'tanggal_lahir' => $validated['tanggal_lahir'],
-            'jenis_kelamin' => $validated['jenis_kelamin'], // Data sudah sesuai enum
+            'jenis_kelamin' => $validated['jenis_kelamin'],
             
             'nama_ibu_kandung' => $ibu->nama_lengkap, 
             'nama_ayah_kandung' => $validated['nama_ayah_kandung'] ?? null,
@@ -412,20 +391,16 @@ class PosyanduController extends Controller
             
             'nik' => null,
             'status_data' => 'Data Sementara',
-            
-            // Mengambil data dari ibu untuk mengisi kolom wajib lainnya
-            'agama' => $ibu->agama,
+            'agama' => $ibu->agama_id,
             'kewarganegaraan' => $ibu->kewarganegaraan,
-            'alamat_lengkap' => $kartuKeluarga->alamat_lengkap, // Ambil alamat dari KK
-            
-            // Nilai default
-            'status_perkawinan' => 'Belum Kawin',
-            'pekerjaan' => 'Belum/Tidak Bekerja',
-            'pendidikan' => 'Tidak/Belum Sekolah',
-            'hubungan_keluarga' => 'Anak',
+            'alamat_lengkap' => $kartuKeluarga->alamat_lengkap,
+            'status_perkawinan' => 1,
+            'status_kependudukan' => 1,
+            'pekerjaan' => null,
+            'pendidikan' => null,
+            'hubungan_keluarga' => 2,
         ]);
 
-        // Redirect ke halaman input pemeriksaan untuk anak yang baru saja dibuat
         return redirect()->route('portal.posyandu.pemeriksaan.create', [
             'subdomain' => $subdomain,
             'anak' => $anakBaru->id,

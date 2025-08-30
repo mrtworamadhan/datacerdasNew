@@ -46,10 +46,8 @@
                     <small class="form-text text-muted">Contoh: Nama Usaha, Alamat Tujuan, dll. Akan menjadi isian
                         tambahan saat pengajuan.</small>
                 </div>
-                {{-- Contoh di dalam form create.blade.php --}}
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
-                        {{-- PERBAIKAN: Gunakan old() dengan default dari $jenisSurat --}}
                         <input type="checkbox" class="custom-control-input" id="is_mandiri" name="is_mandiri" value="1"
                             {{ old('is_mandiri', $jenisSurat->is_mandiri ?? false) ? 'checked' : '' }}>
                         <label class="custom-control-label" for="is_mandiri">Izinkan Akses di Anjungan Mandiri</label>
@@ -93,7 +91,7 @@
                                 </div>
                                 <div style="flex: 1;">
                                     <p style="margin: 0; font-size: 9pt; font-weight: normal;">PEMERINTAH KABUPATEN BOGOR</p>
-                                    <p style="margin: 0; font-size: 9pt; font-weight: bold;">KECAMATAN CIOMAS</p>
+                                    <p style="margin: 0; font-size: 9pt; font-weight: bold;">KECAMATAN {{ strtoupper($desa->kecamatan) }}</p>
                                     <p style="margin: 0; font-size: 12pt; font-weight: bold;">DESA {{ strtoupper($desa->nama_desa) }}</p>
                                     <p style="margin: 0; font-size: 6pt;">Alamat : {{ $desa->alamat_desa }} website: {{ strtolower($desa->nama_desa) }}.datacerdas.com </p>
                                 </div>

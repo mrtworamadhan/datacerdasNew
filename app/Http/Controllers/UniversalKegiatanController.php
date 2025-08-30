@@ -19,13 +19,10 @@ class UniversalKegiatanController extends Controller
      */
     public function index(Request $request, string $subdomain)
     {
-        // Query dasar untuk semua kegiatan
         $kegiatansQuery = Kegiatan::with('kegiatanable')->latest();
 
-        // Variabel untuk menyimpan nama penyelenggara spesifik (jika ada)
         $penyelenggaraSpesifik = null;
 
-        // --- LOGIKA PINTAR: Cek apakah ada permintaan filter ---
         if ($request->has('lembaga_id')) {
             $lembaga = Lembaga::findOrFail($request->lembaga_id);
             $kegiatansQuery->where('kegiatanable_type', Lembaga::class)
@@ -37,9 +34,7 @@ class UniversalKegiatanController extends Controller
                         ->where('kegiatanable_id', $kelompok->id);
             $penyelenggaraSpesifik = $kelompok->nama_kelompok;
         }
-        // --- AKHIR DARI LOGIKA PINTAR ---
 
-        // Eksekusi query dengan paginasi
         $kegiatans = $kegiatansQuery->paginate(20)->withQueryString();
 
         return view('admin_desa.kegiatan.index', compact('kegiatans', 'penyelenggaraSpesifik'));
@@ -63,7 +58,6 @@ class UniversalKegiatanController extends Controller
 
     public function store(StoreProposalRequest $request, string $subdomain)
     {
-        // dd($request->all());
         $validated = $request->validated();
 
         $penyelenggaraType = $validated['penyelenggara_type'];
@@ -73,7 +67,6 @@ class UniversalKegiatanController extends Controller
             ? Lembaga::findOrFail($penyelenggaraId) 
             : Kelompok::findOrFail($penyelenggaraId);
 
-        // Laravel akan otomatis mengisi 'kegiatanable_id' dan 'kegiatanable_type'
         $kegiatan = $modelPenyelenggara->kegiatans()->create([
             'desa_id' => auth()->user()->desa_id,
             'nama_kegiatan' => $validated['nama_kegiatan'],
@@ -97,7 +90,7 @@ class UniversalKegiatanController extends Controller
      */
     public function show(string $subdomain, Kegiatan $kegiatan)
     {
-        $kegiatan->load('kegiatanable', 'pengeluarans'); // Muat relasi yang dibutuhkan
+        $kegiatan->load('kegiatanable', 'pengeluarans'); 
         return view('admin_desa.kegiatan.show', compact('kegiatan'));
     }
 
@@ -106,9 +99,19 @@ class UniversalKegiatanController extends Controller
      */
     public function edit(string $subdomain, Kegiatan $kegiatan)
     {
+        $kegiatan->load('kegiatanable');
+
+        $penyelenggaraType = '';
+        if ($kegiatan->kegiatanable_type === Lembaga::class) {
+            $penyelenggaraType = 'lembaga';
+        } elseif ($kegiatan->kegiatanable_type === Kelompok::class) {
+            $penyelenggaraType = 'kelompok';
+        }
+
         $lembagas = Lembaga::all();
         $kelompoks = Kelompok::all();
-        return view('admin_desa.kegiatan.edit', compact('kegiatan', 'lembagas', 'kelompoks'));
+
+        return view('admin_desa.kegiatan.edit', compact('kegiatan', 'lembagas', 'kelompoks', 'penyelenggaraType'));
     }
 
     /**
@@ -118,8 +121,6 @@ class UniversalKegiatanController extends Controller
     {
         $validated = $request->validated();
         
-        // Logika update di sini akan mirip dengan store,
-        // termasuk menentukan ulang penyelenggara jika diizinkan untuk diubah.
         $kegiatan->update($validated);
 
         return redirect()->route('kegiatans.index')->with('success', 'Proposal kegiatan berhasil diperbarui.');
@@ -130,19 +131,14 @@ class UniversalKegiatanController extends Controller
      */
     public function destroy(string $subdomain, Kegiatan $kegiatan)
     {
-        // Logika untuk menghapus foto/file terkait jika ada
         $kegiatan->delete();
         return redirect()->route('kegiatans.index')->with('success', 'Proposal kegiatan berhasil dihapus.');
     }
 
     public function cetakProposal(string $subdomain, Kegiatan $kegiatan)
     {
-        // 1. Otorisasi sederhana: pastikan user punya akses ke data ini
-        // (Bisa disempurnakan dengan Gate atau Policy Spatie nanti)
-        // $this->authorize('view', $kegiatan); // Asumsi ada Policy
 
         $desa = app('tenant');
-        // 2. Load relasi yang dibutuhkan agar tidak terjadi N+1 query
         $kegiatan->load('kegiatanable');
         $penyelenggara = $kegiatan->kegiatanable;
         $kopSuratBase64 = null;
@@ -155,7 +151,6 @@ class UniversalKegiatanController extends Controller
             }
         }
 
-        // 3. Siapkan data untuk dikirim ke "cetakan" PDF
         $data = [
             'desa'=> $desa,
             'kegiatan' => $kegiatan,
@@ -164,10 +159,8 @@ class UniversalKegiatanController extends Controller
             'kopSuratBase64' => $kopSuratBase64
         ];
         $data['ketua'] = $penyelenggara->pengurus()->where('jabatan', 'Ketua')->first();
-        // 4. Load view, kirim data, dan buat PDF
         $pdf = Pdf::loadView('admin_desa.kegiatan.proposal_pdf', $data);
 
-        // 5. Buat nama file yang dinamis dan tampilkan PDF di browser
         $namaFile = 'Proposal-' . \Illuminate\Support\Str::slug($kegiatan->nama_kegiatan) . '.pdf';
         return $pdf->stream($namaFile);
     }

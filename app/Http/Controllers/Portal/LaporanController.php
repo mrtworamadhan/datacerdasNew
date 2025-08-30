@@ -70,11 +70,10 @@ class LaporanController extends Controller
         $kkIdsInArea = (clone $baseWargaQuery)->pluck('kartu_keluarga_id')->unique()->filter();
 
         // 3. Cari penerima bantuan yang cocok dengan kriteria
-        $penerimaBantuan = PenerimaBantuan::withoutGlobalScopes() // Nonaktifkan scope otomatis
-            ->where('desa_id', $desa->id) // Filter desa secara manual
+        $penerimaBantuan = PenerimaBantuan::withoutGlobalScopes()
+            ->where('desa_id', $desa->id)
             ->where('status_permohonan', 'disetujui')
             ->whereHas('kategoriBantuan', function ($q) use ($nama_kategori) {
-                // Nonaktifkan scope di relasi juga untuk keamanan
                 $q->withoutGlobalScopes()->where('nama_kategori', $nama_kategori);
             })
             ->where(function ($query) use ($wargaIdsInArea, $kkIdsInArea) {

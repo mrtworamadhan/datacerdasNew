@@ -90,8 +90,8 @@ class PengajuanSuratController extends Controller
             '[tanggal_lahir]' => $warga->tanggal_lahir->translatedFormat('d F Y'),
             '[jenis_kelamin]' => $warga->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan',
             '[alamat_lengkap]' => $warga->alamat_lengkap,
-            '[agama]' => $warga->agama,
-            '[status_perkawinan]' => $warga->status_perkawinan,
+            '[agama]' => $warga->agama->nama,
+            '[status_perkawinan]' => $warga->statusPerkawinan->nama,
             '[pekerjaan]' => $warga->pekerjaan,
             '[kewarganegaraan]' => $warga->kewarganegaraan,
             '[nama_kepala_keluarga]' => $warga->kartuKeluarga->kepalaKeluarga->nama_lengkap ?? '-',
@@ -226,17 +226,13 @@ class PengajuanSuratController extends Controller
 
     public function show(string $subdomain, PengajuanSurat $pengajuanSurat)
     {
-        // Eager load relasi yang dibutuhkan
         $pengajuanSurat->load(['warga', 'jenisSurat', 'diajukanOleh']);
         $detailTambahan = $pengajuanSurat->detail_tambahan ?? [];
             foreach ($detailTambahan as $key => $value) {
-                // Lewati array ahli_waris untuk ditangani secara khusus nanti
                 if ($key === 'ahli_waris' || !is_string($value)) continue;
-                
                 $variableName = '[custom_' . \Illuminate\Support\Str::slug($key, '_') . ']';
                 $dataToReplace[$variableName] = e($value);
             }
-
         return view('admin_desa.pengajuan_surat.show', compact('pengajuanSurat', 'detailTambahan'));
     }
     // Method untuk API

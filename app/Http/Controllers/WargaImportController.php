@@ -19,9 +19,8 @@ class WargaImportController extends Controller
     {
         $user = Auth::user();
 
-        // Ambil RW dan RT sesuai scope user yang login
-        $rws = RW::all(); // Global scope akan memfilter RW sesuai desa/RW user
-        $rts = RT::all(); // Global scope akan memfilter RT sesuai desa/RW/RT user
+        $rws = RW::all();
+        $rts = RT::all();
         return view('admin_desa.warga.import', compact('rws', 'rts'));
     }
 
@@ -102,7 +101,7 @@ class WargaImportController extends Controller
             return back()->with('error', 'File sementara tidak ditemukan. Silakan ulangi proses impor.');
         }
 
-        $importer = new WargaImport(false); // Mode simpan data
+        $importer = new WargaImport(false);
 
         try {
             Excel::import($importer, $tempPath);
@@ -113,7 +112,6 @@ class WargaImportController extends Controller
                 'errors'  => $importer->getErrors(),
             ];
 
-            // Hapus file temp setelah selesai
             unlink($tempPath);
 
             return redirect()

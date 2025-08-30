@@ -74,9 +74,8 @@
                         </div>
                     @endforelse
                 </div>
-                {{-- FIELD BARU UNTUK UPLOAD KOP SURAT --}}
                 <div class="form-group">
-                    <label for="path_kop_surat">Upload Kop Surat (Opsional)</label>
+                    <label for="path_kop_surat">Logo Kelompok</label>
                     <div class="input-group">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="path_kop_surat" name="path_kop_surat">
@@ -84,11 +83,9 @@
                         </div>
                     </div>
                     <small class="form-text text-muted">Gunakan gambar (JPG/PNG) dengan rasio landscape untuk hasil terbaik. Jika sudah ada, mengunggah file baru akan menggantikan yang lama.</small>
-
-                    {{-- Tampilkan kop surat yang sudah ada --}}
                     @if($kelompok->path_kop_surat)
                         <div class="mt-2">
-                            <p>Kop surat saat ini:</p>
+                            <p>Logo saat ini:</p>
                             <img src="{{ asset('storage/' . $kelompok->path_kop_surat) }}" alt="Kop Surat" class="img-thumbnail" style="max-width: 400px;">
                         </div>
                     @endif

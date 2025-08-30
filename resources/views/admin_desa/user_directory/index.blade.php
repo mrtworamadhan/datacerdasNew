@@ -55,7 +55,6 @@
                     </div>
                 </form>
 
-                {{-- Table for Batch Update --}}
                 <form action="{{ route('admin_desa.user_directory.update_batch') }}" method="POST">
                     @csrf
                     <table class="table table-striped table-valign-middle">

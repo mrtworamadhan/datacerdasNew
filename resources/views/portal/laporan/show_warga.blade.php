@@ -37,7 +37,7 @@
                                     KK. {{ optional($penerima->kartuKeluarga->kepalaKeluarga)->nama_lengkap ?? 'Tanpa Kepala KK' }}
                                 </h5>
                                 <p class="card-text text-muted">
-                                    No. KK: {{ $penerima->kartuKeluarga->no_kk }}
+                                    No. KK: {{ $penerima->kartuKeluarga->nomor_kk }}
                                 </p>
                                 <span class="badge bg-info">Per-Keluarga</span>
                             @endif

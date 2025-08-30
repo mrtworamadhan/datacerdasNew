@@ -27,7 +27,7 @@ class WargaController extends Controller
     public function index(string $subdomain)
     {
         $user = Auth::user();
-        $desa = $user->desa; // Ambil desa yang terkait dengan user
+        $desa = $user->desa;
        
         return view('portal.warga.index', compact('desa'));
     }
@@ -36,7 +36,6 @@ class WargaController extends Controller
         $user = Auth::user();
         $desa = $user->desa;
 
-        // Otorisasi: Pastikan RT/RW hanya bisa mengedit warganya sendiri
         if ($user->hasRole('admin_rt') && $warga->rt_id !== $user->rt_id) {
             abort(403, 'Anda tidak berhak mengakses data warga ini.');
         }
@@ -44,7 +43,6 @@ class WargaController extends Controller
             abort(403, 'Anda tidak berhak mengakses data warga ini.');
         }
 
-        // Siapkan data untuk dropdown, bisa ditaruh di helper atau di sini
         $klasifikasiOptions = ['Pra-Sejahtera', 'Sejahtera I', 'Sejahtera II', 'Sejahtera III', 'Sejahtera III Plus'];
         $jenisKelaminOptions = ['Laki-laki', 'Perempuan'];
         $agamaOptions              = Agama::pluck('nama', 'id');
@@ -66,7 +64,7 @@ class WargaController extends Controller
             'statusPerkawinanOptions',
             'pekerjaanOptions',
             'pendidikanOptions',
-            'kewarganegaraanOptions', // Tambahkan pendidikanOptions
+            'kewarganegaraanOptions',
             'golonganDarahOptions',
             'hubunganKeluargaOptions',
             'statusKependudukanOptions',
@@ -80,14 +78,10 @@ class WargaController extends Controller
     public function update(Request $request, string $subdomain, Warga $warga)
     {
         $user = Auth::user();
-        // Otorisasi (sama seperti di method edit)
-        if (($user->isAdminRt() && $warga->rt_id !== $user->rt_id) || ($user->isAdminRw() && $warga->rw_id !== $user->rw_id)) {
-            abort(403);
-        }
 
         $validated = $request->validate([
             'nik' => [
-                'nullable', // NIK boleh null untuk data sementara
+                'nullable', 
                 'string',
                 'digits:16',
                 Rule::unique('wargas')->ignore($warga->id)->where(function ($query) use ($user) {
@@ -111,7 +105,6 @@ class WargaController extends Controller
             'nama_ibu_kandung' => 'nullable|string|max:255',
         ]);
 
-        // Setelah di-update, ubah statusnya menjadi Terverifikasi jika sebelumnya sementara
         if ($warga->status_data === 'Data Sementara' && !empty($validated['nik'])) {
             $validated['status_data'] = 'Terverifikasi';
         }
@@ -126,9 +119,6 @@ class WargaController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal memperbarui Data Warga: ' . $e->getMessage())->withInput();
         }
-
-        // return redirect()->route('portal.laporan.tidak_lengkap', ['subdomain' => $subdomain])
-        //                  ->with('success', 'Data warga ' . $warga->nama_lengkap . ' berhasil diperbarui!');
     }
 
     /**
@@ -136,25 +126,19 @@ class WargaController extends Controller
      */
     public function editStatus(string $subdomain, Warga $warga)
     {
-        // Otorisasi sederhana: pastikan RT/RW hanya bisa mengedit warga di wilayahnya
-        // (Nanti bisa disempurnakan dengan Gate/Policy)
         $user = auth()->user();
-        if ($user->hasRole('admin_rt') && $warga->rt_id !== $user->rt_id) {
-            abort(403, 'Anda tidak berhak mengakses data warga ini.');
-        }
-        if ($user->hasRole('admin_rw') && $warga->rw_id !== $user->rw_id) {
-            abort(403, 'Anda tidak berhak mengakses data warga ini.');
-        }
-        $user = Auth::user();
-        $desa = $user->desa; // Ambil desa yang terkait dengan user
         
-        $statusKhususOptions       = StatusKhusus::pluck('nama', 'id');        
-
+        $user = Auth::user();
+        $desa = $user->desa;
+        
+        $statusKhususOptions = StatusKhusus::pluck('nama', 'id');        
+        $semuaStatus = StatusKependudukan::all();
+        
         $warga->status_khusus = is_array($warga->status_khusus)
         ? $warga->status_khusus
         : json_decode($warga->status_khusus, true) ?? [];
 
-        return view('portal.warga.edit_status', compact('warga', 'statusKhususOptions', 'desa'));
+        return view('portal.warga.edit_status', compact('warga', 'statusKhususOptions', 'desa', 'semuaStatus'));
     }
 
     /**
@@ -163,10 +147,10 @@ class WargaController extends Controller
     public function updateStatus(Request $request, string $subdomain, Warga $warga)
     {
         $validated = $request->validate([
-            'status_kependudukan' => 'required|string',
+            'status_kependudukan_id' => 'required|exists:status_kependudukans,id',
             'status_khusus' => 'nullable|array',
         ]);
-
+        // dd($validated);
         $warga->update($validated);
 
         return redirect()->route('portal.warga.index', ['subdomain' => $subdomain])

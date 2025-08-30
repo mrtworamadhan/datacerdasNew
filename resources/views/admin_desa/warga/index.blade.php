@@ -6,35 +6,52 @@
 @stop
 
 @section('content_main')
-
-    {{-- Filter Bulan dan Tahun --}}
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Filter Data</h3>
+    <div class="row">
+        <div class="card col-6 mr-2">
+            <div class="card-header">
+                <h3 class="card-title">Filter Data</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('warga.index', ['subdomain' => request()->subdomain]) }}" method="GET"
+                    class="form-inline">
+                    <div class="form-group mb-2">
+                        <label for="bulan" class="mr-2">Bulan</label>
+                        <select name="bulan" id="bulan" class="form-control">
+                            @for ($b = 1; $b <= 12; $b++)
+                                <option value="{{ $b }}" {{ $bulan == $b ? 'selected' : '' }}>
+                                    {{ \Carbon\Carbon::create()->month($b)->format('F') }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="tahun" class="mr-2">Tahun</label>
+                        <select name="tahun" id="tahun" class="form-control">
+                            @for ($t = now()->year; $t >= 2020; $t--)
+                                <option value="{{ $t }}" {{ $tahun == $t ? 'selected' : '' }}>{{ $t }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-filter"></i> Terapkan Filter</button>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="{{ route('warga.index', ['subdomain' => request()->subdomain]) }}" method="GET"
-                class="form-inline">
-                <div class="form-group mb-2">
-                    <label for="bulan" class="mr-2">Bulan</label>
-                    <select name="bulan" id="bulan" class="form-control">
-                        @for ($b = 1; $b <= 12; $b++)
-                            <option value="{{ $b }}" {{ $bulan == $b ? 'selected' : '' }}>
-                                {{ \Carbon\Carbon::create()->month($b)->format('F') }}
-                            </option>
-                        @endfor
-                    </select>
+        <div class="card col-4">
+            <div class="card-header">
+                <h3 class="card-title">Export/Import</h3>
+            </div>
+            <div class="card-body row">
+                <div class="col">
+                    <a href="{{ route('warga.export.semua') }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-file-import"></i> Export Data Warga
+                    </a>
                 </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="tahun" class="mr-2">Tahun</label>
-                    <select name="tahun" id="tahun" class="form-control">
-                        @for ($t = now()->year; $t >= 2020; $t--)
-                            <option value="{{ $t }}" {{ $tahun == $t ? 'selected' : '' }}>{{ $t }}</option>
-                        @endfor
-                    </select>
+                <div class="col">
+                    <a href="{{ route('warga.import.form') }}" class="btn btn-success btn-sm">
+                        <i class="fas fa-file-import"></i> Impor Data Warga
+                    </a>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-filter"></i> Terapkan Filter</button>
-            </form>
+            </div>
         </div>
     </div>
 

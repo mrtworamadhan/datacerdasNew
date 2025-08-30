@@ -54,21 +54,19 @@ class KategoriBantuanController extends Controller
             'nama_kategori' => 'required|string|max:255|unique:kategori_bantuans,nama_kategori,NULL,id,desa_id,'.$user->desa_id, // Unique per desa
             'deskripsi' => 'nullable|string',
             'allow_multiple_recipients_per_kk' => 'boolean',
-            'is_active_for_submission' => 'boolean', // Validasi untuk kolom baru
-            // Validasi kriteria
+            'is_active_for_submission' => 'boolean',
             'kriteria_status_keluarga' => 'nullable|array',
             'kriteria_status_keluarga.*' => 'in:Pra-Sejahtera,Sejahtera I,Sejahtera II,Sejahtera III,Sejahtera III Plus',
             'kriteria_memiliki_balita' => 'boolean',
             'kriteria_hubungan_keluarga' => 'nullable|array',
             'kriteria_hubungan_keluarga.*' => 'in:Kepala Keluarga,Anak,Cucu,Istri,Menantu,Suami,Saudara,Kakak,Adik,Lainnya',
             'kriteria_min_usia' => 'nullable|integer|min:0',
-            'kriteria_max_usia' => 'nullable|integer|min:0|gte:kriteria_min_usia',
+            'kriteria_max_usia' => 'nullable|integer|min:0|gte:kriteria_min_usia|required_with:kriteria_min_usia',
             'kriteria_jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
             'kriteria_status_khusus' => 'nullable|array',
             'kriteria_status_khusus.*' => 'in:Disabilitas,Lansia,Ibu Hamil,Balita,Penerima PKH,Penerima BPNT,Lainnya',
-            // Validasi untuk field tambahan
             'additional_fields.*.name' => 'required|string|max:255',
-            'additional_fields.*.type' => 'required|in:text,number,date,textarea,checkbox,file', // Menambahkan 'file'
+            'additional_fields.*.type' => 'required|in:text,number,date,textarea,checkbox,file', 
             'additional_fields.*.required' => 'boolean',
         ]);
 

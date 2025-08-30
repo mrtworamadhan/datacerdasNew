@@ -86,20 +86,19 @@ class FasumController extends Controller
     public function create(string $subdomain)
     {
         $user = Auth::user();
-        $desa = $user->desa; // Ambil desa yang terkait dengan user
+        $desa = $user->desa;
         
-        $rws = collect(); // Inisialisasi koleksi kosong
+        $rws = collect();
         $jenisFasumOptions = $this->jenisFasumOptions;
         $kondisiOptions = $this->kondisiOptions;
         $statusKepemilikanOptions = $this->statusKepemilikanOptions;
 
-        // Tentukan RW mana yang akan ditampilkan di dropdown
-        if ($user->isAdminRw()) {
-            $rws = Rw::where('id', $user->rw_id)->get();
-            $rts = Rt::where('rw_id', $user->rw_id)->get();
-        } elseif ($user->isAdminDesa()) {
-            $rws = Rw::all(); // Admin Desa bisa memilih semua RW
-            $rts = Rt::all();
+        if ($user->hasRole('admin_rw')) {
+            $rws = RW::where('id', $user->rw_id)->get();
+            $rts = RT::where('rw_id', $user->rw_id)->get();
+        } elseif ($user->hasRole('admin_rt')) {
+            $rws = RW::where('id', $user->rw_id)->get();
+            $rts = RT::where('id', $user->rt_id)->get();
         }
         
         return view('portal.fasum.create', compact(
@@ -216,12 +215,12 @@ class FasumController extends Controller
         $statusKepemilikanOptions = $this->statusKepemilikanOptions;
 
         // Ambil daftar RW/RT sesuai role
-        if ($user->isAdminRw()) {
-            $rws = Rw::where('id', $user->rw_id)->get();
-            $rts = Rt::where('rw_id', $fasum->rw_id)->get();
-        } else {
-            $rws = Rw::all();
-            $rts = Rt::all();
+        if ($user->hasRole('admin_rw')) {
+            $rws = RW::where('id', $user->rw_id)->get();
+            $rts = RT::where('rw_id', $user->rw_id)->get();
+        } elseif ($user->hasRole('admin_rt')) {
+            $rws = RW::where('id', $user->rw_id)->get();
+            $rts = RT::where('id', $user->rt_id)->get();
         }
 
         // Decode detail spesifikasi jika ada

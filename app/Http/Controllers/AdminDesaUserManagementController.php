@@ -26,9 +26,8 @@ class AdminDesaUserManagementController extends Controller
         $user = Auth::user();
 
         $users = User::where('desa_id', $user->desa_id)
-            // ->whereIn('user_type', ['admin_rw', 'admin_rt', 'kader_posyandu'])
-            ->with('rw', 'rt') // Load relasi RW dan RT
-            ->get();
+            ->with('rw', 'rt')
+            ->paginate(20); 
 
         return view('admin_desa.user_management.index', compact('users'));
     }
@@ -42,21 +41,18 @@ class AdminDesaUserManagementController extends Controller
 
         $desa = Desa::findOrFail($user->desa_id);
 
-        // Hitung jumlah RW, RT, Kader yang sudah ada
         $currentRwCount = Rw::where('desa_id', $user->desa_id)->count();
         $currentRtCount = Rt::where('desa_id', $user->desa_id)->count();
         $currentKaderCount = User::where('desa_id', $user->desa_id)
             ->where('user_type', 'kader_posyandu')
             ->count();
 
-        // Ambil daftar RW yang belum memiliki Kader Posyandu
         $rwsWithoutKader = Rw::where('desa_id', $user->desa_id)
             ->whereDoesntHave('users', function ($query) {
                 $query->where('user_type', 'kader_posyandu');
             })
             ->get();
 
-        // Ambil daftar RW yang sudah memiliki Kader Posyandu
         $rwsWithKader = Rw::where('desa_id', $user->desa_id)
             ->whereHas('users', function ($query) {
                 $query->where('user_type', 'kader_posyandu');
@@ -91,8 +87,6 @@ class AdminDesaUserManagementController extends Controller
         ));
     }
 
-    // Di dalam class AdminDesaUserManagementController
-
     public function generatePerangkatDesa(Request $request, string $subdomain)
     {
         $user = Auth::user();
@@ -103,16 +97,24 @@ class AdminDesaUserManagementController extends Controller
             'role' => [
                 'required',
                 'string',
-                // Pastikan role yang dipilih adalah salah satu dari yang diizinkan
                 Rule::in(['operator_desa', 'bendahara_desa', 'admin_pelayanan', 'admin_kesra', 'kepala_desa', 'admin_umum']),
             ],
         ]);
 
         $roleName = $request->role;
+        $roleAliases = [
+            'operator_desa'   => 'operator',
+            'bendahara_desa'  => 'bendahara',
+            'admin_pelayanan' => 'pelayanan',
+            'admin_kesra'     => 'kesra',
+            'kepala_desa'     => 'kades',
+            'admin_umum'      => 'umum',
+        ];
+
+        $alias = $roleAliases[$roleName] ?? str_replace('_desa', '', $roleName);
         $desaSlug = str_replace('-', '', Str::slug($desa->nama_desa));
-        
-        // Buat email otomatis: bendahara.namadesa@datacerdas.com
-        $email = str_replace('_desa', '', $roleName) . ".{$desaSlug}@datacerdas.com";
+
+        $email = "{$alias}.{$desaSlug}@datacerdas.com";
 
         // Cek jika email sudah ada
         if (User::where('email', $email)->exists()) {
@@ -162,20 +164,18 @@ class AdminDesaUserManagementController extends Controller
         $desaSlug = str_replace('-', '', Str::slug($desa->nama_desa));
 
         for ($i = 1; $i <= $jumlahRw; $i++) {
-            $nomorRw = str_pad($i, 2, '0', STR_PAD_LEFT); // Format 01, 02
+            $nomorRw = str_pad($i, 2, '0', STR_PAD_LEFT); 
 
-            // Cek apakah RW dengan nomor ini sudah ada untuk desa ini
             $rw = RW::firstOrCreate(
                 ['desa_id' => $desa->id, 'nomor_rw' => $nomorRw],
                 ['nama_ketua' => null]
             );
 
-            // Buat atau update akun Admin RW
-            $adminRwEmail = "rw{$nomorRw}.{$desaSlug}@datacerdas.com"; // Format email RW
+            $adminRwEmail = "rw{$nomorRw}.{$desaSlug}@datacerdas.com";
             $adminRw = User::firstOrCreate(
                 ['email' => $adminRwEmail],
                 [
-                    'name' => "Admin RW {$nomorRw} {$desa->nama_desa}",
+                    'name' => "Ketua RW {$nomorRw}",
                     'password' => Hash::make('password123'),
                     'user_type' => 'admin_rw',
                     'desa_id' => $desa->id,
@@ -224,12 +224,11 @@ class AdminDesaUserManagementController extends Controller
                 ['nama_ketua' => null]
             );
 
-            // Format email RT: [nomor_rw_padded][nomor_rt_padded]_slugdesa@tatadesa.id
             $adminRtEmail = "rt{$nomorRt}{$nomorRwPadded}.{$desaSlug}@datacerdas.com";
             $adminRt = User::firstOrCreate(
                 ['email' => $adminRtEmail],
                 [
-                    'name' => "Admin RT {$nomorRt} RW {$nomorRwPadded} {$rw->desa->nama_desa}",
+                    'name' => "Ketua RT {$nomorRt} RW {$nomorRwPadded} {$rw->desa->nama_desa}",
                     'password' => Hash::make('password123'),
                     'user_type' => 'admin_rt',
                     'desa_id' => $rw->desa_id,
@@ -260,9 +259,8 @@ class AdminDesaUserManagementController extends Controller
 
         $desa = Desa::findOrFail($user->desa_id);
 
-        // PENYESUAIAN 1: Validasi sekarang berdasarkan posyandu_id
         $request->validate([
-            'posyandu_id' => [ // Nama input di form harus 'posyandu_id'
+            'posyandu_id' => [ 
                 'required',
                 'exists:posyandu,id',
                 Rule::unique('users', 'posyandu_id')->where(function ($query) use ($desa) {
@@ -271,35 +269,32 @@ class AdminDesaUserManagementController extends Controller
                 }),
             ],
         ], [
-            // Pesan error juga disesuaikan
             'posyandu_id.unique' => 'Posyandu ini sudah memiliki akun Kader. Satu Posyandu hanya boleh memiliki satu akun Kader.',
         ]);
 
-        // PENYESUAIAN 2: Kita cari data Posyandu, bukan lagi RW
         $posyandu = Posyandu::with('rws')->where('desa_id', $desa->id)->findOrFail($request->posyandu_id);
 
-        // PENYESUAIAN 3: Membuat email dan nama user yang lebih deskriptif
         $desaSlug = str_replace('-', '', Str::slug($desa->nama_desa));
-        $posyanduSlug = str_replace('-', '', Str::slug($posyandu->nama_posyandu));
+        $namaPosyandu = preg_replace('/^Posyandu\s+/i', '', $posyandu->nama_posyandu); 
+        $posyanduSlug = str_replace('-', '', Str::slug($namaPosyandu));        
         $kaderEmail = "{$posyanduSlug}.{$desaSlug}@datacerdas.com";
         DB::beginTransaction();
         try {
             $kader = User::firstOrCreate(
                 ['email' => $kaderEmail],
                 [
-                    'name' => "Kader {$posyandu->nama_posyandu}",
+                    'name' => "Admin {$posyandu->nama_posyandu}",
                     'password' => Hash::make('password123'),
                     'user_type' => 'kader_posyandu',
                     'desa_id' => $desa->id,
-                    'posyandu_id' => $posyandu->id, // <- DATA UTAMA BARU
-                    'rw_id' => $posyandu->rw_id,   // <- Ini kita simpan sebagai data pendukung
+                    'posyandu_id' => $posyandu->id,
+                    'rw_id' => $posyandu->rw_id,  
                     'rt_id' => null,
                 ]
             );
 
-            // PENYESUAIAN 4: Menampilkan info yang relevan di hasil generate
             $generatedAccounts[] = [
-                'tipe' => 'Kader Posyandu',
+                'tipe' => 'Admin Posyandu',
                 'nomor' => "{$posyandu->nama_posyandu}-RW{$posyandu->rws->nomor_rw}",
                 'email' => $kader->email,
                 'password' => 'password123',
@@ -318,7 +313,6 @@ class AdminDesaUserManagementController extends Controller
         }
     }
 
-    // Metode edit, update, destroy tetap sama seperti sebelumnya
     public function edit(string $subdomain,User $user)
     {
         $loggedInUser = Auth::user();
@@ -326,7 +320,7 @@ class AdminDesaUserManagementController extends Controller
             abort(403, 'Anda tidak memiliki akses untuk mengedit pengguna ini.');
         }
 
-        $userTypes = ['admin_rw', 'admin_rt', 'kader_posyandu'];
+        $userTypes = ['admin_rw', 'admin_rt', 'kader_posyandu', 'operator_desa', 'bendahara_desa', 'admin_pelayanan', 'admin_kesra', 'kepala_desa', 'admin_umum'];
         $rws = RW::where('desa_id', $loggedInUser->desa_id)->get();
         $rts = RT::where('desa_id', $loggedInUser->desa_id)->get();
 
@@ -344,7 +338,7 @@ class AdminDesaUserManagementController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'user_type' => 'required|in:admin_rw,admin_rt,kader_posyandu',
+            'user_type' => 'required|in:admin_rw,admin_rt,kader_posyandu,operator_desa,bendahara_desa,admin_pelayanan,admin_kesra,kepala_desa,admin_umum',
             'rw_id' => 'nullable|exists:rws,id',
             'rt_id' => 'nullable|exists:rts,id',
         ]);

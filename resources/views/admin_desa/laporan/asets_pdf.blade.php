@@ -19,8 +19,8 @@
 <body>
     <div class="header">
         <h3>BUKU INVENTARIS ASET DESA</h3>
-        <p>DESA [NAMA DESA] KECAMATAN [NAMA KECAMATAN]</p>
-        <p>KABUPATEN [NAMA KABUPATEN] PROVINSI [NAMA PROVINSI]</p>
+        <p>DESA {{ strtoupper ($desa->nama_desa) }} KECAMATAN {{ strtoupper ($desa->kecamatan) }}</p>
+        <p>{{ strtoupper($desa->kota) }} PROVINSI {{ strtoupper($desa->provinsi) }}</p>
     </div>
     
     <table class="table">
@@ -64,7 +64,7 @@
             <td>KAUR UMUM/KAUR KEUANGAN</td>
         </tr>
         <tr>
-            <td><p class="signature-name">(........................................)</p></td>
+            <td><p class="signature-name">({{ strtoupper ($desa->nama_kades) }})</p></td>
             <td><p class="signature-name">(........................................)</p></td>
         </tr>
     </table>

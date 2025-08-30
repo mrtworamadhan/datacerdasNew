@@ -22,7 +22,7 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <table class="table table-striped table-valign-middle">
+            <table class="table table-striped table-valign-middle table-responsive">
                 <thead>
                     <tr>
                         <th>Nama kelompok</th>

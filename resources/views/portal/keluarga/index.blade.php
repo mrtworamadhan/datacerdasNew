@@ -21,7 +21,7 @@
                 <select id="kk_search" class="form-control" style="width: 100%;"></select>
             </div>
             <div id="edit-form-container">
-                {{-- Form edit akan dimuat di sini via AJAX --}}
+                {{-- Form edit akan dimuat via AJAX --}}
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
-                        return { q: params.term }; // kirim keyword ke backend
+                        return { q: params.term }; 
                     },
                     processResults: function (data) {
                         return { results: data.results };
@@ -57,13 +57,9 @@
             }).on('select2:select', function (e) {
             var kkId = e.params.data.id; 
             
-            // ======================================================
-            // === PERBAIKAN UTAMA: Ganti 'KartuKeluarga' menjadi 'keluarga' ===
-            // ======================================================
             var url = "{{ route('portal.kartuKeluarga.edit', ['subdomain' => app('tenant')->subdomain, 'kartuKeluarga' => 'KARTU_ID']) }}"
                 .replace('KARTU_ID', kkId);
-            // ======================================================
-
+            
             $('#edit-form-container').html('<p class="text-center">Memuat...</p>')
                 .load(url);
             });

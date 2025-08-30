@@ -6,9 +6,9 @@
 <div class="card card-primary card-tabs">
     <div class="card-header p-0 pt-1">
         <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tab-proposal-tab" data-toggle="pill"
-                    href="#tab-proposal" role="tab">Detail Proposal</a></li>
-            <li class="nav-item"><a class="nav-link" id="tab-keuangan-tab" data-toggle="pill" href="#tab-keuangan"
+            <li class="nav-item"><a class="nav-link" id="tab-proposal-tab" data-toggle="pill" href="#tab-proposal" 
+                    role="tab">Detail Proposal</a></li>
+            <li class="nav-item"><a class="nav-link active" id="tab-keuangan-tab" data-toggle="pill" href="#tab-keuangan"
                     role="tab">Laporan Keuangan</a></li>
             <li class="nav-item"><a class="nav-link" id="tab-lpj-tab" data-toggle="pill" href="#tab-lpj"
                     role="tab">LPJ</a></li>
@@ -16,9 +16,7 @@
     </div>
     <div class="card-body">
         <div class="tab-content" id="custom-tabs-one-tabContent">
-            {{-- TAB 1: ISI PROPOSAL --}}
-            <div class="tab-pane fade show active" id="tab-proposal" role="tabpanel">
-                {{-- Tampilkan semua detail proposal di sini --}}
+            <div class="tab-pane fade" id="tab-proposal" role="tabpanel">
                 <h4>{{ $kegiatan->nama_kegiatan }}</h4>
                 <p><strong>Penyelenggara:</strong>
                     {{ $kegiatan->kegiatanable->nama_lembaga ?? $kegiatan->kegiatanable->nama_kelompok }}</p>
@@ -42,17 +40,13 @@
                 <hr>
                 <strong>Penutup:</strong>
                 <p>{!! nl2br(e($kegiatan->penutup)) !!}</p>
-                {{-- ... tampilkan data proposal lainnya ... --}}
             </div>
 
-            {{-- TAB 2: LAPORAN KEUANGAN --}}
-            <div class="tab-pane fade" id="tab-keuangan" role="tabpanel">
+            <div class="tab-pane fade show active" id="tab-keuangan" role="tabpanel">
                 <button type="button" class="btn btn-success mb-3" data-toggle="modal"
                     data-target="#tambahPengeluaranModal">
                     <i class="fas fa-plus"></i> Tambah Catatan Pengeluaran
                 </button>
-
-                {{-- Tabel untuk menampilkan riwayat pengeluaran --}}
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -89,13 +83,10 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        {{-- Tombol Edit --}}
                                         <button type="button" class="btn btn-xs btn-warning edit-pengeluaran-btn" 
                                                 data-url="{{ route('pengeluarans.edit', $pengeluaran->id) }}">
                                             <i class="fas fa-edit"></i> Edit
                                         </button>
-
-                                        {{-- Tombol Hapus --}}
                                         <form action="{{ route('pengeluarans.destroy', $pengeluaran->id) }}" method="POST"
                                             style="margin: 0;">
                                             @csrf
@@ -107,8 +98,6 @@
                                         </form>
                                     </div>
                                 </td>
-
-
                             </tr>
                         @empty
                             <tr>
@@ -122,18 +111,16 @@
             {{-- TAB 3: LPJ --}}
             <div class="tab-pane fade" id="tab-lpj" role="tabpanel">
                 @if($kegiatan->lpj)
-                    {{-- TAMPILAN JIKA LPJ SUDAH DIBUAT --}}
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="mb-0">Laporan Pertanggungjawaban (LPJ)</h5>
                         <div>
                             <a href="{{ route('lpjs.edit', $kegiatan->lpj->id) }}" class="btn btn-warning"><i
                                     class="fas fa-edit"></i> Edit LPJ</a>
                             <a href="{{ route('lpj.generate', $kegiatan->id) }}" class="btn btn-danger" target="_blank"><i
-                                    class="fas fa-file-pdf"></i> Cetak Ulang LPJ</a>
+                                    class="fas fa-file-pdf"></i> Cetak LPJ</a>
                         </div>
                     </div>
                     <hr>
-                    {{-- Tampilkan ringkasan dari LPJ --}}
                     <strong>Hasil Kegiatan:</strong>
                     <div class="p-2 bg-light border rounded mb-3" style="white-space: pre-wrap;">
                         {{ $kegiatan->lpj->hasil_kegiatan }}</div>
@@ -142,7 +129,6 @@
                     <div class="p-2 bg-light border rounded" style="white-space: pre-wrap;">
                         {{ $kegiatan->lpj->evaluasi_kendala }}</div>
                 @else
-                    {{-- TAMPILAN JIKA LPJ BELUM DIBUAT --}}
                     <div class="text-center p-4">
                         <p>Laporan Pertanggungjawaban (LPJ) untuk kegiatan ini belum dibuat. Silakan lengkapi laporan
                             keuangan terlebih dahulu.</p>
@@ -156,7 +142,6 @@
     </div>
 </div>
 
-{{-- MODAL UNTUK TAMBAH PENGELUARAN --}}
 <div class="modal fade" id="tambahPengeluaranModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -167,9 +152,7 @@
                     <h5 class="modal-title">Tambah Catatan Pengeluaran</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                {{-- Di dalam modal #tambahPengeluaranModal --}}
                 <div class="modal-body">
-                    {{-- Field Umum --}}
                     <div class="form-group">
                         <label>Tipe Pengeluaran</label>
                         <select name="tipe_pengeluaran" id="tipe_pengeluaran" class="form-control" required>
@@ -193,8 +176,6 @@
                         <input type="number" name="jumlah" id="jumlah_total" class="form-control" required>
                     </div>
                     <hr>
-
-                    {{-- Field Khusus untuk Pembelian Pesanan (Awalnya Tersembunyi) --}}
                     <div id="form-pembelian-pesanan" style="display: none;">
                         <h5>Detail Pembelian Pesanan</h5>
                         <div class="form-group">
@@ -219,7 +200,6 @@
                         {{-- BAGIAN BARU UNTUK RINCIAN BARANG --}}
                         <h6>Rincian Barang/Jasa yang Dipesan</h6>
                         <div id="rincian-barang-wrapper">
-                            {{-- Baris pertama untuk rincian --}}
                             <div class="row rincian-barang-item mb-2 align-items-center">
                                 <div class="col-4"><input type="text" name="detail_barang[0][nama_barang]"
                                         class="form-control form-control-sm" placeholder="Nama Barang"></div>
@@ -237,8 +217,6 @@
                         <button type="button" id="tambah-rincian-btn" class="btn btn-sm btn-secondary mt-2">+ Tambah
                             Baris</button>
                     </div>
-
-                    {{-- Field Khusus untuk Upah Kerja (Awalnya Tersembunyi) --}}
                     <div id="form-upah-kerja" style="display: none;">
                         <h5>Detail Upah Kerja</h5>
                         <div class="form-group">
@@ -250,8 +228,6 @@
                             <input type="file" name="tanda_tangan_path" class="form-control">
                         </div>
                     </div>
-
-                    {{-- Field Keterangan (Umum) --}}
                     <div class="form-group">
                         <label for="keterangan">Keterangan (Opsional)</label>
                         <textarea name="keterangan" class="form-control" rows="2"></textarea>
@@ -280,11 +256,9 @@
             function toggleFormFields() {
                 var selectedType = $('#tipe_pengeluaran').val();
 
-                // Sembunyikan semua form khusus dulu
                 $('#form-pembelian-pesanan').hide();
                 $('#form-upah-kerja').hide();
 
-                // Tampilkan form yang sesuai dengan pilihan
                 if (selectedType === 'Pembelian Pesanan') {
                     $('#form-pembelian-pesanan').show();
                 } else if (selectedType === 'Upah Kerja') {
@@ -292,19 +266,16 @@
                 }
             }
 
-            // Panggil fungsi saat dropdown berubah
             $('#tipe_pengeluaran').on('change', function () {
                 toggleFormFields();
             });
 
-            // Panggil juga saat modal pertama kali dibuka (jika ada nilai default)
             $('#tambahPengeluaranModal').on('shown.bs.modal', function () {
                 toggleFormFields();
             });
 
-            let rincianIndex = 1; // Mulai dari indeks 1 untuk baris baru
+            let rincianIndex = 1; 
 
-            // Event listener untuk tombol "+ Tambah Baris"
             $('#tambah-rincian-btn').on('click', function () {
                 const newRow = `
                                     <div class="row rincian-barang-item mb-2 align-items-center">
@@ -319,7 +290,6 @@
                 rincianIndex++;
             });
 
-            // Event listener untuk tombol hapus baris (delegasi event)
             $('#rincian-barang-wrapper').on('click', '.remove-rincian-btn', function () {
                 $(this).closest('.rincian-barang-item').remove();
             });
@@ -329,7 +299,6 @@
 
             function calculateTotal() {
                 let grandTotal = 0;
-                // Loop setiap baris rincian yang ada
                 $('.rincian-barang-item').each(function () {
                     const row = $(this);
                     const volume = parseFloat(row.find('input[name*="[volume]"]').val()) || 0;
@@ -337,44 +306,33 @@
                     const subTotal = volume * hargaSatuan;
                     grandTotal += subTotal;
                 });
-                // Update nilai di input Jumlah Total
                 totalInput.val(grandTotal);
             }
 
-            // Panggil fungsi calculateTotal() setiap kali ada input di kolom volume atau harga
-            // Kita gunakan event delegation agar berfungsi juga untuk baris yang baru ditambahkan
             rincianWrapper.on('input', 'input[name*="[volume]"], input[name*="[harga_satuan]"]', function () {
                 calculateTotal();
             });
 
-            // Panggil juga saat baris baru ditambahkan atau dihapus
             $('#tambah-rincian-btn').on('click', function () {
-                // Biarkan script tambah baris yang lama tetap ada
-                // Kita hanya perlu memastikan kalkulasi dipanggil setelahnya jika perlu
             });
 
             rincianWrapper.on('click', '.remove-rincian-btn', function () {
-                // Setelah baris dihapus, hitung ulang totalnya
-                setTimeout(calculateTotal, 100); // Beri jeda sedikit agar proses remove selesai
+                setTimeout(calculateTotal, 100); 
             });
 
-            // Panggil pertama kali saat modal dibuka untuk menghitung nilai awal
             $('#tambahPengeluaranModal').on('shown.bs.modal', function () {
                 calculateTotal();
             });
 
             $('.edit-pengeluaran-btn').on('click', function () {
                 var url = $(this).data('url');
-                var modal = $('#editPengeluaranModal'); // Targetkan modal edit yang baru
+                var modal = $('#editPengeluaranModal'); 
                 var modalContent = modal.find('.modal-content');
 
-                // Tampilkan pesan loading
                 modalContent.html('<div class="modal-body text-center"><p>Memuat data...</p></div>');
                 modal.modal('show');
 
-                // Ambil konten form dari server via AJAX
                 $.get(url, function (data) {
-                    // Masukkan konten form yang diterima ke dalam modal
                     modalContent.html(data);
                 }).fail(function() {
                     modalContent.html('<div class="modal-body text-center"><p class="text-danger">Gagal memuat data.</p></div>');

@@ -23,14 +23,12 @@ class LpjController extends Controller
      */
     public function create(string $subdomain, Kegiatan $kegiatan)
     {
-        // Cek apakah kegiatan ini sudah punya LPJ, jika sudah, arahkan ke halaman edit.
         if ($kegiatan->lpj) {
             return redirect()->route('lpjs.edit', $kegiatan->lpj->id);
         }
 
         $penyelenggara = $kegiatan->kegiatanable;
         $lokasiKegiatan = $kegiatan->lokasi_kegiatan;
-        // 2. Mengambil nama penyelenggara (dengan pengecekan)
         $namaPenyelenggara = '';
         if ($penyelenggara instanceof \App\Models\Lembaga) {
             $namaPenyelenggara = $penyelenggara->nama_lembaga;
@@ -38,14 +36,10 @@ class LpjController extends Controller
             $namaPenyelenggara = $penyelenggara->nama_kelompok;
         }
 
-        // 3. Mengambil objek desa dari penyelenggara
-        // Ini bisa dilakukan karena baik Lembaga maupun Kelompok punya relasi ke Desa
         $desa = $penyelenggara->desa;
 
-        // 4. Mengambil nama desa
         $namaDesa = $desa->nama_desa;
 
-        // Kirim data kegiatan ke view form
         return view('admin_desa.lpj.create', compact('kegiatan', 'lokasiKegiatan','namaPenyelenggara', 'namaDesa'));
     }
 
@@ -68,10 +62,8 @@ class LpjController extends Controller
             'penutup_lpj' => 'nullable|string',
         ]);
 
-        // Hitung total realisasi anggaran dari data pengeluaran yang ada
         $totalRealisasi = $kegiatan->pengeluarans()->sum('jumlah');
 
-        // Buat record LPJ baru
         $kegiatan->lpj()->create([
             'hasil_kegiatan' => $validated['hasil_kegiatan'],
             'evaluasi_kendala' => $validated['evaluasi_kendala'],
@@ -79,17 +71,14 @@ class LpjController extends Controller
             'tanggal_pelaporan' => $validated['tanggal_pelaporan'],
             'realisasi_anggaran' => $totalRealisasi,
             
-            // Simpan data narasi baru
             'latar_belakang_lpj' => $validated['latar_belakang_lpj'],
             'tujuan_lpj' => $validated['tujuan_lpj'] ?? '',
             'deskripsi_lpj' => $validated['deskripsi_lpj']?? '',
             'penutup_lpj' => $validated['penutup_lpj']?? '',
         ]);
 
-        // Update status kegiatan induknya menjadi "Selesai" atau "LPJ Dibuat"
         $kegiatan->update(['status' => 'LPJ Dibuat']);
 
-        // Arahkan ke halaman detail kegiatan agar bisa langsung dicetak
         return redirect()->route('kegiatans.show', $kegiatan->id)
                          ->with('success', 'Laporan Pertanggungjawaban (LPJ) berhasil disiapkan!');
     }
@@ -107,7 +96,6 @@ class LpjController extends Controller
      */
     public function edit(string $subdomain, Lpj $lpj)
     {
-        // gunakan $lpj->kegiatan untuk mengirim data kegiatan induknya
         return view('admin_desa.lpj.edit', [
             'lpj' => $lpj,
             'kegiatan' => $lpj->kegiatan 

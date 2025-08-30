@@ -266,17 +266,28 @@
                             </li>
                             <a href="{{ route('portal.laporan.demografi', ['subdomain' => $subdomain, 'jenis' => 'lahir']) }}"
                                 class="col text-decoration-none">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">Kelahiran
-                                    Bulan
-                                    Ini <span class="badge bg-info rounded-pill">{{ $warga_lahir_bulan_ini ?? 0 }}</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Kelahiran Bulan Ini <span class="badge bg-info rounded-pill">{{ $warga_lahir_bulan_ini ?? 0 }}</span>
                                 </li>
                             </a>
                             <a href="{{ route('portal.laporan.demografi', ['subdomain' => $subdomain, 'jenis' => 'meninggal']) }}"
                                 class="col text-decoration-none">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">Kematian Bulan
-                                    Ini
-                                    <span
-                                        class="badge bg-secondary rounded-pill">{{ $warga_meninggal_bulan_ini ?? 0 }}</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Kematian Bulan Ini
+                                    <span class="badge bg-secondary rounded-pill">{{ $warga_meninggal_bulan_ini ?? 0 }}</span>
+                                </li>
+                            </a>
+                            <a href="{{ route('portal.laporan.demografi', ['subdomain' => $subdomain, 'jenis' => 'sementara']) }}"
+                                class="col text-decoration-none">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Warga Pindah Datang <span class="badge bg-info rounded-pill">{{ $warga_datang_bulan_ini ?? 0 }}</span>
+                                </li>
+                            </a>
+                            <a href="{{ route('portal.laporan.demografi', ['subdomain' => $subdomain, 'jenis' => 'pindah']) }}"
+                                class="col text-decoration-none">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Warga Pindah Keluar
+                                    <span class="badge bg-secondary rounded-pill">{{ $warga_meninggal_bulan_ini ?? 0 }}</span>
                                 </li>
                             </a>
                             <a href="{{ route('portal.laporan.demografi', ['subdomain' => $subdomain, 'jenis' => 'janda']) }}"
@@ -361,7 +372,7 @@
                         <hr>
                         <h6 class="card-subtitle mb-2 text-muted">Pengajuan Bantuan Dibuka:</h6>
                         @forelse($bantuanDibuka as $bantuan)
-                            <span class="badge bg-info me-1">{{ $bantuan->nama_kaetgori }}</span>
+                            <span class="badge bg-info me-1">{{ $bantuan->nama_kategori }}</span>
                         @empty
                             <p class="card-text">Tidak ada pengajuan bantuan yang sedang dibuka.</p>
                         @endforelse
